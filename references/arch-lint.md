@@ -27,6 +27,18 @@ node scripts/arch-connect.mjs boxes.excalidraw edges.json --out final.excalidraw
 
 > **铁律:agent 画架构图绝不手写边的 `points` 数组。** 节点摆放(需品味,人/arch-layout)与连线路由(纯几何,arch-connect)解耦——这是消灭边 bug 的结构性办法,不靠自觉。
 
+**⚠️ arch-connect 的边界(诚实说明)**:它做"两框之间正交连 + 面向边 + 端口分布 + 互不交叉",但**不做避障**——源与目标之间隔着别的大框时,它的肘形线会**直接穿过**那个框(经典坑:`SKILL → references` 中间隔着 `Expert Roles` 大框,线压过去)。所以它救不了"中间塞满内容块"的稠密海报。两条出路:
+> 1. **首选——做减法(见 anti-slop「过度连线」)**:海报型图里 embody/reads/uses 这类**结构关系本就不该画箭头**,靠位置/分组表达。把废箭头删掉,剩下的真 flow 自然不穿框。
+> 2. 真需要绕障的复杂布线 → 上 elkjs 的 `org.eclipse.elk.layered` 带 routing(即走 `arch-layout` 全自动),或预留通道让源/目标相邻。
+
+### 海报型架构图:箭头做减法(最重要的一条)
+
+**一张架构海报糟糕的头号原因是箭头太多。** "SKILL 读 references""SKILL 用 assets""embody 三个角色"——这些**用布局就说清了**(SKILL 在顶、资产区在下排、角色作侧栏),画成箭头只会满页面条 + 压内容框。
+
+- **箭头只留给真实 flow**:数据流 / 控制流 / 管线顺序(如 `render → frames-to-video → add-music` 左→右)、`user → SKILL`。
+- **结构关系(含/读/用/属于)→ 不画箭头**,用**位置(上下层级)、相邻、容器套、对齐**表达。
+- 自检:删掉一条箭头,关系还看得懂吗?看得懂 → 删。一张好架构海报常常**只有 2-3 条箭头**(甚至 0 条,全靠布局)。
+
 ## 选工具:按图的性质,不是默认自动
 
 | 图的性质 | 怎么做 |
