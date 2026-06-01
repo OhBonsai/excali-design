@@ -93,6 +93,7 @@ excali-design/
 │   ├── animation-best-practices.md  # 动画节奏/easing/叙事
 │   ├── layout-system.md / color-system.md / anti-slop.md
 │   ├── workflow.md / verification.md / critique-guide.md
+│   ├── arch-lint.md              # 布局美学=物理规则(生成+lint 两层)
 │   └── audio-design-rules.md / sfx-library.md   # 复用自 huashu-design
 ├── assets/
 │   ├── readme/                   # 文档引用的展示媒体(架构图 / NBA demo)
@@ -104,7 +105,8 @@ excali-design/
 │   ├── render-frames.mjs          # 帧 JSON → PNG 序列(✅ 实测)
 │   ├── frames-to-video.mjs         # PNG → MP4/GIF(ffmpeg,✅ 实测)
 │   ├── add-music.mjs / mix-voiceover.mjs   # 音频(复用自 huashu-design)
-│   └── verify.mjs                  # 帧/图结构校验
+│   ├── verify.mjs                  # 帧/图结构校验
+│   └── arch-lint.mjs               # 布局美学 lint(重叠/对齐/箭头/配色,确定性)
 ├── demos/                         # 示例输出
 └── test-prompts.json              # 6 条评测用例
 ```

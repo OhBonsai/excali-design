@@ -149,7 +149,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
 6. **(可选)动画**:按帧模型生成 frames,走路径 A(视图刷新)或 B(导出)。
-7. **验证**:检查元素无重叠 bug、箭头 binding 正确、对齐到网格、配色 ≤ 4 色(见 `references/verification.md`)。🛑 **检查点4**:交付前自己过一遍。
+7. **验证**:跑 `node scripts/arch-lint.mjs <图.excalidraw>`——把"无重叠 / 箭头 binding / 对齐网格 / 配色 ≤4"拆成确定性几何规则机器检查(**0 error 是交付硬门槛**,不靠肉眼)。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 过 + 交付前自己再过一眼。
 8. **总结**:极简,只说 caveats 和 next steps。
 
 **检查点原则**:碰到 🛑 停下,告诉用户「我做了 X,下一步打算 Y,你确认吗?」然后真的**等**。
@@ -194,7 +194,8 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | **导出单图为 PNG/SVG**(贴 README/文档/PPT) | `scripts/excalidraw-to-image.mjs`(`.excalidraw → PNG @Nx / SVG 矢量`,Excalidraw 官方导出内核) |
 | 动画节奏/easing/叙事 | `references/animation-best-practices.md` |
 | 动画加 BGM/SFX | `references/audio-design-rules.md` + `assets/sfx/` + `assets/bgm-*.mp3` |
-| 输出后验证 | `references/verification.md` |
+| 输出后验证 | `references/verification.md` + `scripts/verify.mjs` |
+| **架构图布局美学 lint(重叠/对齐/箭头/配色,不靠肉眼)** | `references/arch-lint.md` + `scripts/arch-lint.mjs` |
 | 设计评审/打分(可选) | `references/critique-guide.md` |
 
 ## 跨 Agent 环境适配
