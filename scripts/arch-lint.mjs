@@ -226,6 +226,24 @@ function lint(els, opt) {
     }
   }
 
+  // W crossings(连线交叉;成对线相交 = 可读性下降。多数由"端口顺序反了"导致,可消除)
+  const segInt = (a, b, c, d) => {
+    const ccw = (p, q, r) => (r[1] - p[1]) * (q[0] - p[0]) - (q[1] - p[1]) * (r[0] - p[0]);
+    const d1 = ccw(c, d, a), d2 = ccw(c, d, b), d3 = ccw(a, b, c), d4 = ccw(a, b, d);
+    return ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0));
+  };
+  const edgeSegs = arrows.map(ar => ({ id: ar.id, pts: (ar.points || []).map(p => [ar.x + p[0], ar.y + p[1]]) })).filter(e => e.pts.length >= 2);
+  let crossN = 0;
+  for (let i = 0; i < edgeSegs.length; i++)
+    for (let j = i + 1; j < edgeSegs.length; j++) {
+      let hit = false;
+      for (let s = 0; s + 1 < edgeSegs[i].pts.length && !hit; s++)
+        for (let t = 0; t + 1 < edgeSegs[j].pts.length && !hit; t++)
+          if (segInt(edgeSegs[i].pts[s], edgeSegs[i].pts[s + 1], edgeSegs[j].pts[t], edgeSegs[j].pts[t + 1])) hit = true;
+      if (hit) { crossN++; if (crossN <= 8) add('warn', 'crossings', `连线 ${idOf({ id: edgeSegs[i].id })} 与 ${idOf({ id: edgeSegs[j].id })} 交叉(多为端口顺序反:让连接点顺序跟源顺序一致即可消除)`); }
+    }
+  if (crossN > 8) add('warn', 'crossings', `…另有 ${crossN - 8} 处交叉未列出`);
+
   // W1 off-grid
   const g = opt.grid;
   if (g > 0) {
