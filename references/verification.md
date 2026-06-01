@@ -29,7 +29,7 @@
 - **MCP 不可用**:产出 `.excalidraw` 文件,导入 excalidraw.com 检查
 - **导出动画**:抽 3-5 个关键帧 PNG 肉眼过,再看合成视频
 - **程序化·结构**:`scripts/verify.mjs` 对帧 JSON 做结构检查(id 唯一、binding 双向、跨帧 seed 锁定)
-- **程序化·布局美学(硬门槛)**:`node scripts/arch-lint.mjs <图.excalidraw>`——确定性几何规则查重叠/对齐/箭头穿框/配色超限,**0 error 才算过**,机器版"肉眼过一遍"且不会漏。详见 `references/arch-lint.md`
+- **程序化·辅助扫描(非门槛)**:`node scripts/arch-lint.mjs <图.excalidraw>`——只抓肉眼易漏的「明显重叠/脱节」机械错误。**不是质量门槛、不是优化目标**:测不了图好不好、讲清楚没;别为 lint 全绿去改图(Goodhart)。报警 ≠ 图差,全绿 ≠ 图好。仍以肉眼为准。详见 `references/arch-lint.md`
 
 ## 检查点
 

@@ -15,10 +15,10 @@
 > 整套架构——SKILL.md 主干 + references 路由 + scripts 工具链 + assets 资产、以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学、动画导出流水线、音频资产——都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素,并新增「绘图刷新」逐帧动画机制。没有 huashu-design 就没有这个 skill,在此致谢。
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/OhBonsai/excali-design/all/assets/readme/architecture.png" alt="Excali-Design 技能架构图" width="640">
+  <img src="assets/readme/architecture-v2.png" alt="Excali-Design 技能架构图 v2" width="720">
 </p>
 
-<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 制作(<a href="https://github.com/OhBonsai/excali-design/blob/all/excali-design%20架构图.excalidraw">源文件</a> · <a href="https://raw.githubusercontent.com/OhBonsai/excali-design/all/assets/readme/architecture.svg">SVG</a>,在 <code>all</code> 分支)——语义配色、单向数据流、复用 drawlib,严格遵守它自己的反 slop 规则。</sub></p>
+<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 自动生成。声明组件树(<code>spec.json</code>)→ <code>arch-layout.mjs</code>(elkjs 布局)+ <code>excalidraw-to-image.mjs</code>(PNG 导出),全程无手摆。(<a href="excali-design%20架构图%20v2.excalidraw">源文件</a>)</sub></p>
 
 ## 如何使用
 
