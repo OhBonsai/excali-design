@@ -58,7 +58,11 @@ function main() {
   for (const e of edges) {
     const S = bb.get(e.from), T = bb.get(e.to);
     if (!S || !T) { console.error(`跳过:找不到 ${e.from} 或 ${e.to}`); continue; }
-    const sSide = facing(S, T), tSide = opp[sSide];   // 源出"面向目标"边,目标入对面(即面向源)
+    // 默认按相对位置选"面向边";可用 fromSide/toSide 强制(fan-in 让多条线进目标同一边)
+    let sSide = e.fromSide || null, tSide = e.toSide || null;
+    if (!sSide && !tSide) { sSide = facing(S, T); tSide = opp[sSide]; }
+    else if (tSide && !sSide) sSide = opp[tSide];
+    else if (sSide && !tSide) tSide = opp[sSide];
     routed.push({ e, S, T, sSide, tSide });
   }
 
