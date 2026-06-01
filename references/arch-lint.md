@@ -9,6 +9,24 @@
 > **把图往「lint 全绿」上优化 = Goodhart**——会牺牲真正重要的信息密度 / 视觉层级 / 语义分区。
 > lint 全绿只代表「没有机械错误」,不代表「这是张好图」。好不好,仍是人的判断(huashu-design 的「品味」)。
 
+## 两个手工易错点已程序化(别手做)
+
+画架构图有两件事手做必出错,都已变成确定性工具——**agent 不要手做这两件事**:
+
+| 手工易错点 | 症状 | 程序化工具 |
+|---|---|---|
+| **手摆节点坐标** | 重叠、错位 | `arch-layout.mjs`(拓扑密集图,连节点都自动摆)|
+| **手估连线 `points` 坐标** | 斜线、绕背面(流向反)、交叉、端口挤一起 | `arch-connect.mjs`(**任何图**:你摆好框,它把线连对)|
+
+**`arch-connect` 是关键**:把"连线路由"从肉眼估坐标变成计算——给框 + 声明逻辑连接(A→B),它算出**正交 + 面向边出入 + 端口均匀分布 + 按对端顺序排(自动消交叉)+ binding** 的线。这把前面 lint 抓的那一整类边 bug(`diagonal` / `wrong-attach-side` / `crossings` / `port-*`)**从源头消掉**——海报型图也适用(节点你手摆,边交给它)。
+
+```bash
+node scripts/arch-connect.mjs boxes.excalidraw edges.json --out final.excalidraw
+# edges.json: [{"from":"mcp","to":"out","label":"...","dashed":false}]
+```
+
+> **铁律:agent 画架构图绝不手写边的 `points` 数组。** 节点摆放(需品味,人/arch-layout)与连线路由(纯几何,arch-connect)解耦——这是消灭边 bug 的结构性办法,不靠自觉。
+
 ## 选工具:按图的性质,不是默认自动
 
 | 图的性质 | 怎么做 |
