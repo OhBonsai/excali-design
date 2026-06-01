@@ -28,7 +28,7 @@
 - **MCP 可用**:create_view 渲染后肉眼过一遍,或截图
 - **MCP 不可用**:产出 `.excalidraw` 文件,导入 excalidraw.com 检查
 - **导出动画**:抽 3-5 个关键帧 PNG 肉眼过,再看合成视频
-- **程序化**(可选):`scripts/verify.py` 对帧 JSON 做结构检查(id 唯一、binding 双向、坐标在画布内)
+- **程序化**(可选):`scripts/verify.mjs` 对帧 JSON 做结构检查(id 唯一、binding 双向、坐标在画布内)
 
 ## 检查点
 

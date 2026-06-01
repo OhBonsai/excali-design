@@ -4,14 +4,21 @@
 
 用 **Excalidraw** 做高保真**产品原型图 / 软件架构图 / 信息流程图**的 agent-agnostic skill,并能通过「**绘图刷新**」把图做成逐帧 draw-on 动画(可导出 MP4/GIF)。
 
+> 🪶 **你在 `master`(精简分支):指令(`*.md`)+ 脚本 + `drawlib` 组件库,克隆轻量,开箱即用。**
+> 仅**音频(6 BGM + 37 SFX)+ demo 源文件**在 [`all`](https://github.com/OhBonsai/excali-design/tree/all) 分支。做带音频的动画导出前按需取:
+> ```bash
+> git checkout all -- assets/sfx assets/bgm-*.mp3   # 拉音频到本地
+> ```
+> 或直接克隆全量:`git clone -b all https://github.com/OhBonsai/excali-design.git`
+
 > 🙏 **本 skill 重度参考 [`huashu-design`](../huashu-design)(花叔 Design)设计。**
 > 整套架构——SKILL.md 主干 + references 路由 + scripts 工具链 + assets 资产、以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学、动画导出流水线、音频资产——都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素,并新增「绘图刷新」逐帧动画机制。没有 huashu-design 就没有这个 skill,在此致谢。
 
 <p align="center">
-  <img src="assets/readme/architecture.png" alt="Excali-Design 技能架构图" width="640">
+  <img src="https://raw.githubusercontent.com/OhBonsai/excali-design/all/assets/readme/architecture.png" alt="Excali-Design 技能架构图" width="640">
 </p>
 
-<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 制作(<a href="excali-design%20架构图.excalidraw">源文件</a> · <a href="assets/readme/architecture.svg">SVG</a>)——语义配色、单向数据流、复用 drawlib,严格遵守它自己的反 slop 规则。</sub></p>
+<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 制作(<a href="https://github.com/OhBonsai/excali-design/blob/all/excali-design%20架构图.excalidraw">源文件</a> · <a href="https://raw.githubusercontent.com/OhBonsai/excali-design/all/assets/readme/architecture.svg">SVG</a>,在 <code>all</code> 分支)——语义配色、单向数据流、复用 drawlib,严格遵守它自己的反 slop 规则。</sub></p>
 
 ## 如何使用
 
@@ -35,7 +42,7 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 ## 作品示例 · 绘图刷新动画
 
 <p align="center">
-  <img src="assets/readme/nba-bracket.gif" alt="2026 NBA 季后赛东西部晋级之路" width="760">
+  <img src="https://raw.githubusercontent.com/OhBonsai/excali-design/all/assets/readme/nba-bracket.gif" alt="2026 NBA 季后赛东西部晋级之路" width="760">
 </p>
 
 <p align="center"><sub>▲ <b>2026 NBA 季后赛 · 东西部晋级之路</b>——一句话用本技能做出的逐帧动画。8 帧累加 reveal:16 队入场 → 各轮真实比分 → 双分区冠军会师总决赛。球队 logo 为真实素材,赛果全部 WebSearch 核实(原则 #0),配色语义化、严守反 slop。(MP4 带 BGM 版本地用 <code>render-frames → frames-to-video → add-music</code> 生成)</sub></p>
@@ -52,7 +59,7 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 ```
 animation = frames: Element[][]            // 一串帧,每帧是一组完整元素
 路径 A 视图内:  for f in frames: create_view(f)         // 靠 draw-on + 帧间停顿
-路径 B 导出:    render-frames.mjs → PNG → frames-to-video.sh → MP4/GIF → add-music.sh
+路径 B 导出:    render-frames.mjs → PNG → frames-to-video.mjs → MP4/GIF → add-music.mjs
 ```
 
 三种帧生成:累加式 reveal(图一块块长出来)/ 替换式(高亮、状态切换)/ 插值式 tween(导出顺滑运动)。详见 [`references/animation-pipeline.md`](references/animation-pipeline.md)。
@@ -95,9 +102,9 @@ excali-design/
 ├── scripts/
 │   ├── excalidraw-to-image.mjs    # 单图 → PNG/SVG(✅ 实测)
 │   ├── render-frames.mjs          # 帧 JSON → PNG 序列(✅ 实测)
-│   ├── frames-to-video.sh         # PNG → MP4/GIF(ffmpeg,✅ 实测)
-│   ├── add-music.sh / mix-voiceover.sh   # 音频(复用自 huashu-design)
-│   └── verify.py                  # 帧/图结构校验
+│   ├── frames-to-video.mjs         # PNG → MP4/GIF(ffmpeg,✅ 实测)
+│   ├── add-music.mjs / mix-voiceover.mjs   # 音频(复用自 huashu-design)
+│   └── verify.mjs                  # 帧/图结构校验
 ├── demos/                         # 示例输出
 └── test-prompts.json              # 6 条评测用例
 ```
@@ -109,14 +116,14 @@ excali-design/
   ```bash
   npm install playwright && npx playwright install chromium   # 一次性
   ```
-- **动画音频**:BGM(6 首)+ SFX(37 个)随仓库一起提供,`add-music.sh` 直接可用,无需额外下载。
+- **动画音频**:BGM(6 首)+ SFX(37 个)随仓库一起提供,`add-music.mjs` 直接可用,无需额外下载。
 
 ## 状态
 
 **框架已搭建并打通导出链路(v0.1)**。已就位且**实测通过**:
 - SKILL.md 主干、15 篇 references、drawlib 目录、音频资产(37 SFX + 6 BGM)
 - 元素格式 L2 验证(在 excalidraw.com 渲染正确)
-- **导出链路 B 跑通**:`render-frames.mjs`(帧 JSON → PNG,Excalidraw 官方导出)→ `frames-to-video.sh`(→ MP4/GIF)。实测 3 帧累加 reveal → 2.7s MP4,无抖动。
+- **导出链路 B 跑通**:`render-frames.mjs`(帧 JSON → PNG,Excalidraw 官方导出)→ `frames-to-video.mjs`(→ MP4/GIF)。实测 3 帧累加 reveal → 2.7s MP4,无抖动。
 - **图片导出跑通**:`excalidraw-to-image.mjs`(.excalidraw → PNG/SVG)。README 那张架构图即用它导出。
 
 待补:

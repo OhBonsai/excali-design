@@ -121,7 +121,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 路径 | 怎么播 | 何时用 |
 |---|---|---|
 | **A. 视图内刷新播放(默认 / 轻量)** | 按顺序对每帧调 `create_view`,靠 create_view 的 draw-on + 帧间停顿做出逐帧动画。无需 ffmpeg。 | 现场讲解、快速预览、给用户看流程 |
-| **B. 导出 MP4/GIF(可分发)** | `scripts/render-frames.mjs` 把帧序列逐帧渲染成 PNG → `scripts/frames-to-video.sh` 用 ffmpeg 合成 → 可选 `add-music.sh` 加 BGM + SFX | 发公众号/X/B站、做产品演示视频 |
+| **B. 导出 MP4/GIF(可分发)** | `scripts/render-frames.mjs` 把帧序列逐帧渲染成 PNG → `scripts/frames-to-video.mjs` 用 ffmpeg 合成 → 可选 `add-music.mjs` 加 BGM + SFX | 发公众号/X/B站、做产品演示视频 |
 
 ### 设计动画前先答 3 问(铁律)
 
@@ -190,7 +190,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
 | 配色纪律 | `references/color-system.md` |
 | 反手绘 AI slop | `references/anti-slop.md` |
-| **绘图刷新动画(帧模型/reveal/导出)** | `references/animation-pipeline.md` + `scripts/render-frames.mjs` + `scripts/frames-to-video.sh` |
+| **绘图刷新动画(帧模型/reveal/导出)** | `references/animation-pipeline.md` + `scripts/render-frames.mjs` + `scripts/frames-to-video.mjs` |
 | **导出单图为 PNG/SVG**(贴 README/文档/PPT) | `scripts/excalidraw-to-image.mjs`(`.excalidraw → PNG @Nx / SVG 矢量`,Excalidraw 官方导出内核) |
 | 动画节奏/easing/叙事 | `references/animation-best-practices.md` |
 | 动画加 BGM/SFX | `references/audio-design-rules.md` + `assets/sfx/` + `assets/bgm-*.mp3` |
@@ -203,8 +203,9 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 
 - **没有 Excalidraw MCP** → 不用 create_view,改为直接 Write 一个 `.excalidraw` JSON 文件(`{type:"excalidraw", version:2, elements:[...], appState:{}}`),用户导入 excalidraw.com 查看。动画降级为「多个 .excalidraw 文件 / 帧序列 PNG」。
 - **没有 subagent 并行** → variations 串行渲染。
-- **导出依赖**:`render-frames.mjs` 需 Node + Playwright + `@excalidraw/excalidraw`;`frames-to-video.sh` 需 ffmpeg。缺则只走「视图内刷新播放」路径 A。
+- **导出依赖**:`render-frames.mjs` 需 Node + Playwright + `@excalidraw/excalidraw`;`frames-to-video.mjs` 需 ffmpeg。缺则只走「视图内刷新播放」路径 A。
 - 所有路径引用均**相对本 skill 根目录**(`references/xxx.md`、`drawlib/xxx.excalidrawlib`、`scripts/xxx`),不依赖绝对路径。
+- **精简分支(master)缺音频时**:`master` 分支含指令 + 脚本 + `drawlib` 组件库(开箱即用);仅音频不在。若 `assets/sfx`、`assets/bgm-*.mp3` 不存在,做带音频导出前先取:`git checkout all -- assets/sfx assets/bgm-*.mp3`(音频在 `all` 分支)。取不到则导出无声动画。
 
 ## 产出要求
 

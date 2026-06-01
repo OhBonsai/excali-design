@@ -100,20 +100,20 @@ frame-k+2: 恢复 #1e1e1e + text 移除
 1. 生成帧序列 _frames/<name>/frame-*.json (+ meta.json)
 2. node scripts/render-frames.mjs --frames _frames/<name> --out _frames/<name>/png
        → 每帧用无头 Excalidraw 渲染成 PNG(frame-001.png ...)
-3. bash scripts/frames-to-video.sh _frames/<name>/png --fps 30 --out order-flow.mp4
+3. node scripts/frames-to-video.mjs _frames/<name>/png --fps 30 --out order-flow.mp4
        → ffmpeg 合成 MP4(+ 可选 palette 优化 GIF)
-4. (可选) bash scripts/add-music.sh order-flow.mp4 --mood=educational
+4. (可选) node scripts/add-music.mjs order-flow.mp4 --mood=educational
        → 加 BGM;SFX 按 meta.sfx 的 cue 表混入(见 audio-design-rules.md)
 ```
 
 适合:发公众号/X/B站、产品演示视频。
 依赖:Node + Playwright + chromium(render-frames 从 CDN import excalidraw,无需 npm 装 excalidraw);ffmpeg(frames-to-video / add-music)。缺依赖就只走路径 A。
 
-#### ✅ 已实测要点(render-frames.mjs / frames-to-video.sh 已跑通)
+#### ✅ 已实测要点(render-frames.mjs / frames-to-video.mjs 已跑通)
 
 - **esm.sh 导出在 `.default` 上**:`@excalidraw/excalidraw` 经 esm.sh 包装后,`exportToBlob` 等挂在 `(await import(cdn)).default`,不是具名导出。render-frames 已处理。
 - **anchor 固定尺寸(防抖关键)**:每帧注入一个 `0,0,w,h` 的透明矩形,让 bbox 跨帧恒定 → 所有 PNG 同尺寸、坐标系一致。**实测:Client 框在第 1 帧和第 3 帧位置完全相同,无抖动。** 这是导出动画不跳的根本。
-- **`--hold` = 每帧停留秒数**(不是帧数)。`frames-to-video.sh --hold 0.9` → 每帧 0.9s。实测 3 帧 ×0.9s = 2.7s ✓。
+- **`--hold` = 每帧停留秒数**(不是帧数)。`frames-to-video.mjs --hold 0.9` → 每帧 0.9s。实测 3 帧 ×0.9s = 2.7s ✓。
 - **字体坑(待补)**:默认渲染用浏览器衬线 fallback,**不是 Excalidraw 手绘体 Virgil**。文字会偏「正式」而非「手绘」。要真手绘体,需在 render-frames 的 page HTML 里 `@font-face` 加载 Virgil(fontFamily:1)/ Cascadia(3)。非手绘场景(正式架构图)可接受 fallback。
 - **沙箱/CI**:可用 `playwright-core` + 设 `EXCALI_CHROMIUM=<chrome 路径>` 跑;`EXCALI_CDN` 可换 CDN/版本。
 
