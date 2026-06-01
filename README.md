@@ -4,10 +4,10 @@
 
 用 **Excalidraw** 做高保真**产品原型图 / 软件架构图 / 信息流程图**的 agent-agnostic skill,并能通过「**绘图刷新**」把图做成逐帧 draw-on 动画(可导出 MP4/GIF)。
 
-> 🪶 **你在 `master`(精简分支):只含指令(`*.md`)+ 脚本,克隆最快,够日常使用。**
-> 完整资产——**drawlib 7 个组件库 + 音频(6 BGM + 37 SFX)+ demo 源文件**——在 [`all`](https://github.com/OhBonsai/excali-design/tree/all) 分支。需要时按需取:
+> 🪶 **你在 `master`(精简分支):指令(`*.md`)+ 脚本 + `drawlib` 组件库,克隆轻量,开箱即用。**
+> 仅**音频(6 BGM + 37 SFX)+ demo 源文件**在 [`all`](https://github.com/OhBonsai/excali-design/tree/all) 分支。做带音频的动画导出前按需取:
 > ```bash
-> git checkout all -- drawlib assets/sfx assets/bgm-*.mp3   # 拉组件库 + 音频到本地
+> git checkout all -- assets/sfx assets/bgm-*.mp3   # 拉音频到本地
 > ```
 > 或直接克隆全量:`git clone -b all https://github.com/OhBonsai/excali-design.git`
 

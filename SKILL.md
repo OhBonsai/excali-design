@@ -205,7 +205,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 - **没有 subagent 并行** → variations 串行渲染。
 - **导出依赖**:`render-frames.mjs` 需 Node + Playwright + `@excalidraw/excalidraw`;`frames-to-video.sh` 需 ffmpeg。缺则只走「视图内刷新播放」路径 A。
 - 所有路径引用均**相对本 skill 根目录**(`references/xxx.md`、`drawlib/xxx.excalidrawlib`、`scripts/xxx`),不依赖绝对路径。
-- **精简分支(master)缺资产时**:本 skill 的 `master` 分支只含指令 + 脚本;若 `drawlib/` 或 `assets/sfx`、`assets/bgm-*.mp3` 不存在,说明在精简分支。需要组件库复用或动画音频时,先取:`git checkout all -- drawlib assets/sfx assets/bgm-*.mp3`(完整资产在 `all` 分支)。取不到则:drawlib 缺 → 用基础元素手绘(遵守 anti-slop);音频缺 → 导出无声动画。
+- **精简分支(master)缺音频时**:`master` 分支含指令 + 脚本 + `drawlib` 组件库(开箱即用);仅音频不在。若 `assets/sfx`、`assets/bgm-*.mp3` 不存在,做带音频导出前先取:`git checkout all -- assets/sfx assets/bgm-*.mp3`(音频在 `all` 分支)。取不到则导出无声动画。
 
 ## 产出要求
 
