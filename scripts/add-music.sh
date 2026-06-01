@@ -42,12 +42,16 @@ CUSTOM_MUSIC=""
 OUTPUT=""
 POSITIONAL=()
 
-for arg in "$@"; do
-  case "$arg" in
-    --mood=*)  MOOD="${arg#*=}" ;;
-    --music=*) CUSTOM_MUSIC="${arg#*=}" ;;
-    --out=*)   OUTPUT="${arg#*=}" ;;
-    *)         POSITIONAL+=("$arg") ;;
+# 同时支持 --flag=value 与 --flag value 两种写法(与 frames-to-video.sh 一致)
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --mood=*)  MOOD="${1#*=}"; shift ;;
+    --mood)    MOOD="$2"; shift 2 ;;
+    --music=*) CUSTOM_MUSIC="${1#*=}"; shift ;;
+    --music)   CUSTOM_MUSIC="$2"; shift 2 ;;
+    --out=*)   OUTPUT="${1#*=}"; shift ;;
+    --out)     OUTPUT="$2"; shift 2 ;;
+    *)         POSITIONAL+=("$1"); shift ;;
   esac
 done
 
