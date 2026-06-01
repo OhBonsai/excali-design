@@ -29,8 +29,33 @@
 **铁律**:分层架构默认走 **layered**,不要用 force(force 是无向拓扑的解,不是架构图的解)。
 坐标一旦由引擎算出,**节点间最小间距、同层对齐、容器内边距都是布局参数,不是事后调**。
 
-> 现状:本 skill 暂未内置布局引擎,架构图仍可能手摆 → **必须跑第二层 lint 兜底**。
-> (规划:`arch-layout.mjs`——声明 `{nodes,edges}` → 内置极简 layered 算法 → 输出无重叠 Excalidraw。)
+### 实现:`arch-layout.mjs`(复用 elkjs)
+
+已内置。声明组件树,ELK(纯 JS 的 Eclipse Layout Kernel)算 layered + 正交路由 + 复合嵌套,输出 `.excalidraw`:
+
+```bash
+node scripts/arch-layout.mjs spec.json --out 架构图.excalidraw --direction RIGHT
+node scripts/arch-lint.mjs 架构图.excalidraw          # 兜底,通常 0 error
+```
+
+`spec.json`:
+```json
+{
+  "direction": "RIGHT",
+  "groups": [{"id":"data","label":"数据层"}],
+  "nodes": [
+    {"id":"client","label":"Client"},
+    {"id":"pg","label":"Postgres","group":"data","color":"#2f9e44","bg":"#b2f2bb"}
+  ],
+  "edges": [{"from":"client","to":"gw","label":"HTTPS","dashed":false}]
+}
+```
+
+ELK 负责:同层对齐 / 层间等距 / **零重叠** / 最小交叉 / 正交绕线;`group` → 分层背景容器(自动套子节点);边自动 binding 到节点。**实测**:上面的 7 节点示例生成后 `arch-lint` 0 error。
+
+依赖:`npm install elkjs`(纯 JS,无 native)。仅自动布局时需要。
+
+> **架构图优先走这条**:声明 spec → 生成 → lint。手摆只在小图/微调时用,且必须 lint 兜底。
 
 ## 第二层 · 检测:arch-lint.mjs
 

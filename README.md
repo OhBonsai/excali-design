@@ -106,6 +106,7 @@ excali-design/
 │   ├── frames-to-video.mjs         # PNG → MP4/GIF(ffmpeg,✅ 实测)
 │   ├── add-music.mjs / mix-voiceover.mjs   # 音频(复用自 huashu-design)
 │   ├── verify.mjs                  # 帧/图结构校验
+│   ├── arch-layout.mjs             # 声明组件树 → elkjs 自动布局 → Excalidraw(零重叠)
 │   └── arch-lint.mjs               # 布局美学 lint(重叠/对齐/箭头/配色,确定性)
 ├── demos/                         # 示例输出
 └── test-prompts.json              # 6 条评测用例
@@ -119,6 +120,10 @@ excali-design/
   npm install playwright && npx playwright install chromium   # 一次性
   ```
 - **动画音频**:BGM(6 首)+ SFX(37 个)随仓库一起提供,`add-music.mjs` 直接可用,无需额外下载。
+- **架构图自动布局**(可选):`arch-layout.mjs` 依赖 `elkjs`(纯 JS 布局引擎,无 native):
+  ```bash
+  npm install elkjs
+  ```
 
 ## 状态
 
