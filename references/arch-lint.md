@@ -71,13 +71,19 @@ node scripts/arch-lint.mjs <file.excalidraw> [--grid 4] [--colors 4] [--width W 
 
 ### 规则集(两个 error = 语义错误,其余 warn = 提示)
 
-> error 不是"丑",是"画错了":`overlap` = 框撞一起;`wrong-attach-side` = **流向画反**(箭头绕到背面)。两者都误导读者,**比斜线/不对齐这些"丑"严重得多**。
+> **error vs warn 的分界 = 会不会改变图的含义**:
+> - **error(功能错误,改含义)**:`overlap` 框撞一起;`wrong-attach-side` 箭头绕到背面 → **流向画反**。读者会读错系统,必解。
+> - **warn(可读性,不改含义)**:`crossings` 交叉、`port-uneven` 挤一起、`diagonal` 斜线……连接本身是对的(binding 没错),只是难读。该改但不致命。
+>
+> 判断一个箭头问题是不是必解 error:**问"它有没有把连接/方向画成另一个意思"**。画反/连错 = error;只是绕/挤/斜 = warn。
+> ⚠️ 注:可读性 warn 里,**"可消除的"**(如端口顺序反导致的 crossings)仍应修;真正"不可避免的"(密集图的少量交叉)可放过。
 
 | 规则 | 级别 | 检测什么 | 物理判据 |
 |---|---|---|---|
 | **overlap** | error | 节点-节点**部分重叠**(互不包含却相交)= 摆放 bug | 两 bbox 相交面积 > 0 且 `!contains(A,B) && !contains(B,A)` |
 | **wrong-attach-side** | **error** | 连线接到「**背向对端**」的那条边 = 绕到节点背面,**把数据流方向画反**(正交化最容易引入,比斜线严重)| 实际接入边 = `opposite(面向对端的边)` |
 | **edge-overshoot** | warn | 连线路径越过目标框远侧再绕回(过冲)| 路径有点超过目标 bbox 远侧 > 8px |
+| **crossings** | warn | 两条连线交叉(可读性↓;多为"端口顺序反",可消除)| 线段对真相交 |
 | **arrow-thru** | warn | 箭头穿过它没绑定的节点(线压过框)| 线段 × 节点矩形相交(Liang–Barsky);排除容器 |
 | **arrow-unbound** | warn | 箭头端点未 binding(浮空,改布局会脱节)| `!startBinding && !endBinding` |
 | **offgrid** | warn | x/y 没吸附网格 | `x % grid || y % grid` |
