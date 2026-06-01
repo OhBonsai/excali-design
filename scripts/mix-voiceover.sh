@@ -41,17 +41,24 @@ VOICE_VOLUME="1.0"
 DUCKING="1"
 OUTPUT=""
 
-for arg in "$@"; do
-  case "$arg" in
-    --voiceover=*)    VOICEOVER="${arg#*=}" ;;
-    --bgm=*)          BGM="${arg#*=}" ;;
-    --bgm-mood=*)     BGM_MOOD="${arg#*=}" ;;
-    --bgm-volume=*)   BGM_VOLUME="${arg#*=}" ;;
-    --voice-volume=*) VOICE_VOLUME="${arg#*=}" ;;
-    --no-ducking)     DUCKING="0" ;;
-    --out=*)          OUTPUT="${arg#*=}" ;;
-    -*)               echo "未知参数：$arg" >&2; exit 1 ;;
-    *)                INPUT="$arg" ;;
+# 同时支持 --flag=value 与 --flag value 两种写法
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --voiceover=*)    VOICEOVER="${1#*=}"; shift ;;
+    --voiceover)      VOICEOVER="$2"; shift 2 ;;
+    --bgm=*)          BGM="${1#*=}"; shift ;;
+    --bgm)            BGM="$2"; shift 2 ;;
+    --bgm-mood=*)     BGM_MOOD="${1#*=}"; shift ;;
+    --bgm-mood)       BGM_MOOD="$2"; shift 2 ;;
+    --bgm-volume=*)   BGM_VOLUME="${1#*=}"; shift ;;
+    --bgm-volume)     BGM_VOLUME="$2"; shift 2 ;;
+    --voice-volume=*) VOICE_VOLUME="${1#*=}"; shift ;;
+    --voice-volume)   VOICE_VOLUME="$2"; shift 2 ;;
+    --no-ducking)     DUCKING="0"; shift ;;
+    --out=*)          OUTPUT="${1#*=}"; shift ;;
+    --out)            OUTPUT="$2"; shift 2 ;;
+    -*)               echo "未知参数：$1" >&2; exit 1 ;;
+    *)                INPUT="$1"; shift ;;
   esac
 done
 

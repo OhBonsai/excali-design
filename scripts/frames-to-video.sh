@@ -33,13 +33,18 @@ MAKE_GIF=0
 GIF_WIDTH=960
 HOLD=1.0   # 每帧停留秒数
 
+# 同时支持 --flag value 与 --flag=value 两种写法(与 add-music.sh 一致)
 while [ $# -gt 0 ]; do
   case "$1" in
-    --fps) FPS="$2"; shift 2 ;;
-    --out) OUT="$2"; shift 2 ;;
-    --gif) MAKE_GIF=1; shift ;;
-    --gif-width) GIF_WIDTH="$2"; shift 2 ;;
-    --hold) HOLD="$2"; shift 2 ;;
+    --fps=*)       FPS="${1#*=}"; shift ;;
+    --fps)         FPS="$2"; shift 2 ;;
+    --out=*)       OUT="${1#*=}"; shift ;;
+    --out)         OUT="$2"; shift 2 ;;
+    --gif)         MAKE_GIF=1; shift ;;
+    --gif-width=*) GIF_WIDTH="${1#*=}"; shift ;;
+    --gif-width)   GIF_WIDTH="$2"; shift 2 ;;
+    --hold=*)      HOLD="${1#*=}"; shift ;;
+    --hold)        HOLD="$2"; shift 2 ;;
     --*) echo "未知参数: $1" >&2; exit 1 ;;
     *) if [ -z "$PNG_DIR" ]; then PNG_DIR="$1"; fi; shift ;;
   esac
