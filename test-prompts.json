@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "帮我画一个电商 App 的登录 + 注册流程原型,给我看一下",
+    "expected": "问 lo-fi/mid-fi + overview/flow;复用 drawlib 库1 的 Text field/Filled button 等控件 + 库2 webpage-frame;多屏 flow 用 binding 箭头串联标注触发动作;对齐 20px 网格;配色 ≤3 色;不手绘已有控件",
+    "tests": "原型 workflow + drawlib 复用协议 + overview/flow 路由 + 对齐 + 反 slop"
+  },
+  {
+    "id": 2,
+    "prompt": "读一下我这个仓库,画出它的服务架构图",
+    "expected": "先触发原则#0:读 docker-compose/k8s/模块目录抽真实结构写 system-facts.md;Container 级;分层背景+单向数据流;dev_ops 库配类型图标;箭头 binding;语义配色;对照事实核对",
+    "tests": "事实验证#0 + 架构 workflow + 抽象层级 + 单向数据流 + 语义配色"
+  },
+  {
+    "id": 3,
+    "prompt": "把这个架构图做成一段动画,讲清楚一个请求是怎么穿过系统的",
+    "expected": "先答动画3问(hero=请求路径/演进=焦点移动/帧间可感);累加式或替换式 reveal 沿数据流逐节点点亮;跨帧锁 id/seed;reveal 顺序=叙事顺序;问要视图内播放还是导出 MP4;导出走 render-frames→frames-to-video",
+    "tests": "绘图刷新帧模型 + 动画3问 + reveal 叙事顺序 + 锁 seed + 两条播放路径"
+  },
+  {
+    "id": 4,
+    "prompt": "画个数据看板的原型,要有几个图表",
+    "expected": "Dashboard 高密度型每屏≥3处真实信息;data-viz 库取 Bar/Line/Donut 当图表占位不手绘;指标卡等宽对齐;真实数据缺则诚实 placeholder 不编数字;克制配色",
+    "tests": "Dashboard 骨架 + data-viz 库复用 + 高密度型 + 诚实 placeholder"
+  },
+  {
+    "id": 5,
+    "prompt": "随便画个好看的架构图",
+    "expected": "需求模糊→不凭直觉硬画,列方向二选一(容器级/部署拓扑/数据流);拒答则 best judgment 出1主+1变体并标注 assumption",
+    "tests": "模糊需求 fallback + 给方向不硬做 + assumption 标注"
+  },
+  {
+    "id": 6,
+    "prompt": "画一个用户下单的时序图",
+    "expected": "actor(stick-figures 库)+服务横排顶部各拉垂直 lifeline;消息横向 arrow 按时间从上往下;标消息名;手绘度统一;阅读方向清晰",
+    "tests": "时序图特例 + stick-figures 复用 + lifeline 布局 + 时间顺序"
+  }
+]
