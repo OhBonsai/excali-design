@@ -107,6 +107,7 @@ excali-design/
 │   ├── add-music.mjs / mix-voiceover.mjs   # 音频(复用自 huashu-design)
 │   ├── verify.mjs                  # 帧/图结构校验
 │   ├── arch-layout.mjs             # 声明组件树 → elkjs 自动布局 → Excalidraw(零重叠)
+│   ├── arch-connect.mjs            # 人摆框,程序连线(正交+面向边+均匀分布+消交叉)
 │   └── arch-lint.mjs               # 布局美学 lint(重叠/对齐/箭头/配色,确定性)
 ├── demos/                         # 示例输出
 └── test-prompts.json              # 6 条评测用例

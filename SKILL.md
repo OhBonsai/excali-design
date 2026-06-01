@@ -148,7 +148,9 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - 🛑 **检查点3**:四问答案 + 布局骨架口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
-   - 🏗️ **架构图按性质选做法**(别默认自动):**拓扑密集图**(服务网格、几十节点数据流,人手摆必出错)→ `node scripts/arch-layout.mjs spec.json`(elkjs 算 layered+正交+嵌套,引擎保证不重叠)。**海报型 / 注释重的图**(框少、字多、刻意分区、框内有清单——如本 skill 自身架构图)→ **人工构图**,自动布局会把海报压成光秃秃的树、丢掉信息密度和层级。详见 `references/arch-lint.md`。
+   - 🏗️ **架构图:两个手工易错点都已程序化,别手做**(详见 `references/arch-lint.md`):
+     - **节点摆放**:拓扑密集图(服务网格、几十节点)→ `node scripts/arch-layout.mjs spec.json`(elkjs 自动摆,保证不重叠);海报型/注释重的图(框少字多、刻意分区,如本 skill 自身架构图)→ **人工摆框**(自动布局会把海报压成光秃秃的树,丢密度/层级)。
+     - **连线路由(铁律)**:⛔ **绝不手写/手估边的 `points` 坐标**——必出斜线/绕背面(流向反)/交叉/端口挤。摆好框后,声明逻辑连接(A→B)交给 `node scripts/arch-connect.mjs boxes.excalidraw edges.json`,它算出正交+面向边+均匀分布+按序排(消交叉)+binding 的线。海报型图也用它连边。
 6. **(可选)动画**:按帧模型生成 frames,走路径 A(视图刷新)或 B(导出)。
 7. **验证**:交付前跑 `node scripts/arch-lint.mjs <图.excalidraw>`——**最后一道辅助扫描**,只抓肉眼容易漏的「明显重叠 / 箭头脱节」这类机械错误。⚠️ **lint 不是质量门槛、不是优化目标**:它测不了图讲清楚没、层级密度好不好;**别为了 lint 全绿去改图**(那是 Goodhart,会牺牲表达力)。lint 报警 ≠ 图差,全绿 ≠ 图好。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 扫一遍 + **自己肉眼过一遍(这个才是判断好坏的)**。
 8. **总结**:极简,只说 caveats 和 next steps。
@@ -196,7 +198,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 动画节奏/easing/叙事 | `references/animation-best-practices.md` |
 | 动画加 BGM/SFX | `references/audio-design-rules.md` + `assets/sfx/` + `assets/bgm-*.mp3` |
 | 输出后验证 | `references/verification.md` + `scripts/verify.mjs` |
-| **架构图布局**(拓扑密集→生成;海报型→人工;lint 只当最后辅助提示) | `references/arch-lint.md` + `scripts/arch-layout.mjs`(elkjs,拓扑密集图)+ `scripts/arch-lint.mjs`(辅助扫描) |
+| **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,任何图,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |
 | 设计评审/打分(可选) | `references/critique-guide.md` |
 
 ## 跨 Agent 环境适配
