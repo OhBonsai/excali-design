@@ -3,7 +3,7 @@
  * render-frames.mjs · 帧序列 → PNG 序列(绘图刷新动画 · 导出路径 B 第 1 步)
  *
  * 把 _frames/<name>/frame-*.json(每帧一组 Excalidraw 元素)逐帧渲染成等尺寸 PNG,
- * 供 frames-to-video.sh 用 ffmpeg 合成 MP4/GIF。
+ * 供 frames-to-video.mjs 用 ffmpeg 合成 MP4/GIF。
  *
  * 用法:
  *   node scripts/render-frames.mjs --frames _frames/order-flow --out _frames/order-flow/png \
@@ -136,7 +136,7 @@ async function main() {
   process.stdout.write('\n');
   await browser.close();
   console.log(`✓ 输出 ${frames.length} 张 PNG 到 ${args.out}`);
-  console.log(`  下一步: bash scripts/frames-to-video.sh ${args.out} --fps 30 --hold 30 --gif`);
+  console.log(`  下一步: node scripts/frames-to-video.mjs ${args.out} --fps 30 --hold 30 --gif`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
