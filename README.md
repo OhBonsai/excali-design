@@ -15,10 +15,10 @@
 > 整套架构——SKILL.md 主干 + references 路由 + scripts 工具链 + assets 资产、以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学、动画导出流水线、音频资产——都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素,并新增「绘图刷新」逐帧动画机制。没有 huashu-design 就没有这个 skill,在此致谢。
 
 <p align="center">
-  <img src="assets/readme/architecture-v8.png" alt="Excali-Design 技能架构图 v8" width="720">
+  <img src="assets/readme/architecture-v9.png" alt="Excali-Design 技能架构图 v9" width="720">
 </p>
 
-<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 生成。v8 贯彻**箭头极简主义**:结构关系(角色/资源)靠布局表达,只保留真实 flow 的 3 条箭头。<code>arch-lint.mjs</code> 扫描得 **0 error · 1 warn**(color-budget,语义着色合理)。<a href="excali-design%20架构图%20v8.excalidraw">源文件</a></sub></p>
+<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 生成。v9 新增 <code>arch-connect.mjs</code> 的 <code>fromSide</code>/<code>toSide</code> 端口锁定 + 贯彻**箭头极简主义**:结构关系(角色/资源)靠布局表达,只保留真实 flow 的 3 条箭头。<code>arch-lint.mjs</code> 扫描得 **0 error · 1 warn**(color-budget,语义着色合理)。<a href="excali-design%20架构图%20v9.excalidraw">源文件</a></sub></p>
 
 ## 如何使用
 
