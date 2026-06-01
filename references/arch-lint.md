@@ -88,6 +88,7 @@ node scripts/arch-lint.mjs <file.excalidraw> [--grid 4] [--colors 4] [--width W 
 | **port-uneven** | warn | 同侧多个连接点分布不均(应等距)| 端口间隙 max/min > 3.5 |
 | **port-offcenter** | warn | 某侧仅一条边却不接在中点 | 偏离中点 > max(18, 边长·20%) |
 | **port-corner** | warn | 连接点贴在框角(应留边距)| 距角 < 8px |
+| **container-padding** | warn | 容器内子模块**贴边**(缺内边距,常见"无底部 padding")| `容器边 − 子模块包围盒边 < minPad`(默认 12) |
 | **color-budget** | warn | 去重描边+填充色 > 阈值 | `distinctColors > N`(默认 4,反 slop) |
 | **oob** | warn | 元素超出画布 | bbox 越过 0..W / 0..H |
 
@@ -102,6 +103,14 @@ node scripts/arch-lint.mjs <file.excalidraw> [--grid 4] [--colors 4] [--width W 
   - **均匀分布**:同条边接多条线 → 沿边**等距铺开**,别挤中间、别堆一点、别贴角。均匀 = 质量平衡,框不"倾斜"。→ `port-stacked` / `port-uneven` / `port-corner`
   - **质心(barycenter)**:父节点应水平居中于其所有子节点的中心(Sugiyama/Reingold-Tilford 的"父在子重心"规则)。这条目前靠布局引擎保证,lint 暂不强测。
 - 这些都是 **warn 级提示**:大多数情况该听,但海报型图偶有故意破例,人判断。
+
+### 间距:padding & margin 都是坐标差(可检测)
+
+**margin/padding 不是抽象审美,就是绝对坐标的减法**,所以 lint 能直接算:
+
+- **内边距 padding = 容器边 − 子模块包围盒边**:`下padding = 容器.y2 − max(子.y2)`。子模块贴容器边(如常见的"有顶部留标题、却无底部 padding")→ `container-padding`。判据 `padding < minPad`。报错会列出**四边数值**(如 `上40/右20/下2/左20`),一眼看出头重脚轻。
+- **外边距 margin = 相邻兄弟框的间隙**:`gap = 右框.x − 左框.x2`。同组兄弟 gap 应一致(规划中的 `uneven-gap`)。
+- **经验值**:容器内边距 ≥ 12–16px(留标题的那条边可更大);同层兄弟 gap 取一个固定节奏值(如 40)。这些都是布局参数,生成时设好;手工图靠 lint 兜底。
 
 ### 关键设计
 

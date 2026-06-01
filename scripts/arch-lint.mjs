@@ -36,6 +36,7 @@ function parseArgs(argv) {
     const next = () => (v !== null ? v : it[++i]);
     if (t === '--grid') a.grid = parseFloat(next());
     else if (t === '--colors') a.colors = parseInt(next());
+    else if (t === '--pad') a.pad = parseFloat(next());
     else if (t === '--width') a.width = parseFloat(next());
     else if (t === '--height') a.height = parseFloat(next());
     else if (t === '--json') a.json = true;
@@ -94,6 +95,27 @@ function lint(els, opt) {
       const frac = (ia / Math.min(area(A), area(B)) * 100).toFixed(0);
       add('error', 'overlap', `节点 ${idOf(nodes[i])}(${nodes[i].type}) 与 ${idOf(nodes[j])}(${nodes[j].type}) 部分重叠 ~${frac}% @(${A.x|0},${A.y|0})`);
     }
+
+  // W: container-padding(容器内子模块的内边距;贴边 = 缺 padding)
+  const minPad = opt.pad ?? 12;
+  const rnd = v => Math.round(v);
+  for (const C of nodes) {
+    if (!isContainer.get(C)) continue;
+    const cb = bb.get(C);
+    const inside = nodes.filter(n => n !== C && contains(cb, bb.get(n)));
+    // 直接子节点:不再嵌进 C 内部的更小容器里
+    const kids = inside.filter(n => !inside.some(m => m !== n && isContainer.get(m) && contains(bb.get(m), bb.get(n))));
+    if (!kids.length) continue;
+    const cs = kids.map(n => bb.get(n));
+    const padTop = Math.min(...cs.map(b => b.y)) - cb.y;
+    const padBottom = cb.y2 - Math.max(...cs.map(b => b.y2));
+    const padLeft = Math.min(...cs.map(b => b.x)) - cb.x;
+    const padRight = cb.x2 - Math.max(...cs.map(b => b.x2));
+    const sides = { 上: padTop, 右: padRight, 下: padBottom, 左: padLeft };
+    const bad = Object.entries(sides).filter(([, v]) => v < minPad).map(([s]) => s);
+    if (bad.length)
+      add('warn', 'container-padding', `容器 ${idOf(C)} 内边距 上${rnd(padTop)}/右${rnd(padRight)}/下${rnd(padBottom)}/左${rnd(padLeft)} → 「${bad.join('、')}」贴边(<${minPad}px),扩容器或挪子模块`);
+  }
 
   // E2 箭头穿过未绑定节点 / W4 浮空箭头
   const arrows = els.filter(e => e.type === 'arrow');
