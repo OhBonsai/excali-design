@@ -164,6 +164,46 @@ function lint(els, opt) {
     }
   }
 
+  // E3 wrong-attach-side(连线接到「背向源」的那条边 = 绕到背面,把流向画反 → error,比斜线更严重)
+  //    W11 edge-overshoot(路径越过目标框远侧再绕回)
+  const opp = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+  const centerOf = b => [(b.x + b.x2) / 2, (b.y + b.y2) / 2];
+  const findAttach = pt => {
+    let best = null, bd = 9;
+    for (const n of nodes) {
+      if (isContainer.get(n)) continue;
+      const b = bb.get(n), s = sideOf(pt, b);
+      if (s) { const d = Math.min(Math.abs(pt[1] - b.y), Math.abs(pt[1] - b.y2), Math.abs(pt[0] - b.x), Math.abs(pt[0] - b.x2)); if (d < bd) { bd = d; best = { n, b, side: s }; } }
+    }
+    return best;
+  };
+  const expSide = (tb, src) => { const [cx, cy] = centerOf(tb); const dx = src[0] - cx, dy = src[1] - cy; return Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'bottom' : 'top'); };
+  const nearestSide = (pt, b) => { const d = { top: Math.abs(pt[1] - b.y), bottom: Math.abs(pt[1] - b.y2), left: Math.abs(pt[0] - b.x), right: Math.abs(pt[0] - b.x2) }; return Object.keys(d).reduce((a, k) => (d[k] < d[a] ? k : a)); };
+  for (const ar of arrows) {
+    const pts = (ar.points || []).map(p => [ar.x + p[0], ar.y + p[1]]); if (pts.length < 2) continue;
+    // 有 binding 直接认目标(不靠端点贴边);否则按端点就近找
+    for (const [pt, other, boundId] of [[pts[pts.length - 1], pts[0], ar.endBinding?.elementId], [pts[0], pts[pts.length - 1], ar.startBinding?.elementId]]) {
+      let at = null;
+      const bn = boundId && nodeById(boundId);
+      if (bn && !isContainer.get(bn)) { const b = bb.get(bn); at = { n: bn, b, side: nearestSide(pt, b) }; }
+      else at = findAttach(pt);
+      if (!at) continue;
+      const exp = expSide(at.b, other);
+      if (at.side === opp[exp]) {
+        add('error', 'wrong-attach-side', `连线 ${idOf(ar)} 接到 ${idOf(at.n)} 的「${at.side}」边,但对端在其「${exp}」侧 → 绕到了背面(流向被画反)。改:从「${exp}」边进入,正交直连别绕`);
+      } else {
+        let over = false;
+        for (const p of pts) {
+          if (exp === 'top' && p[1] > at.b.y2 + 8) over = true;
+          if (exp === 'bottom' && p[1] < at.b.y - 8) over = true;
+          if (exp === 'left' && p[0] > at.b.x2 + 8) over = true;
+          if (exp === 'right' && p[0] < at.b.x - 8) over = true;
+        }
+        if (over) add('warn', 'edge-overshoot', `连线 ${idOf(ar)} 路径越过 ${idOf(at.n)} 远侧再绕回(应直连,不过冲)`);
+      }
+    }
+  }
+
   // W1 off-grid
   const g = opt.grid;
   if (g > 0) {
