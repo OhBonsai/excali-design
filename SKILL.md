@@ -148,6 +148,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - 🛑 **检查点3**:四问答案 + 布局骨架口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
+   - 🏗️ **架构图优先「声明生成」而非手摆**:写 `spec.json`(节点/边/分组)→ `node scripts/arch-layout.mjs spec.json`(elkjs 出 layered+正交+嵌套,数学保证零重叠)→ 直接得合规 `.excalidraw`。手摆只在小图/微调用。详见 `references/arch-lint.md`。
 6. **(可选)动画**:按帧模型生成 frames,走路径 A(视图刷新)或 B(导出)。
 7. **验证**:跑 `node scripts/arch-lint.mjs <图.excalidraw>`——把"无重叠 / 箭头 binding / 对齐网格 / 配色 ≤4"拆成确定性几何规则机器检查(**0 error 是交付硬门槛**,不靠肉眼)。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 过 + 交付前自己再过一眼。
 8. **总结**:极简,只说 caveats 和 next steps。
@@ -195,7 +196,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 动画节奏/easing/叙事 | `references/animation-best-practices.md` |
 | 动画加 BGM/SFX | `references/audio-design-rules.md` + `assets/sfx/` + `assets/bgm-*.mp3` |
 | 输出后验证 | `references/verification.md` + `scripts/verify.mjs` |
-| **架构图布局美学 lint(重叠/对齐/箭头/配色,不靠肉眼)** | `references/arch-lint.md` + `scripts/arch-lint.mjs` |
+| **架构图布局:声明生成(不手摆)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(elkjs 生成)+ `scripts/arch-lint.mjs`(校验) |
 | 设计评审/打分(可选) | `references/critique-guide.md` |
 
 ## 跨 Agent 环境适配

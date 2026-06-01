@@ -1,0 +1,21 @@
+{
+  "direction": "RIGHT",
+  "groups": [{"id":"data","label":"数据层"}],
+  "nodes": [
+    {"id":"client","label":"Client","color":"#1e1e1e"},
+    {"id":"gw","label":"API Gateway","color":"#1971c2","bg":"#a5d8ff"},
+    {"id":"auth","label":"Auth Service","color":"#1971c2"},
+    {"id":"order","label":"Order Service","color":"#1971c2"},
+    {"id":"pg","label":"Postgres","group":"data","color":"#2f9e44","bg":"#b2f2bb"},
+    {"id":"redis","label":"Redis","group":"data","color":"#2f9e44","bg":"#b2f2bb"},
+    {"id":"mq","label":"Kafka","color":"#f08c00","bg":"#ffec99"}
+  ],
+  "edges": [
+    {"from":"client","to":"gw","label":"HTTPS"},
+    {"from":"gw","to":"auth","label":"gRPC"},
+    {"from":"gw","to":"order","label":"gRPC"},
+    {"from":"auth","to":"redis","dashed":true},
+    {"from":"order","to":"pg"},
+    {"from":"order","to":"mq","label":"events","dashed":true}
+  ]
+}
