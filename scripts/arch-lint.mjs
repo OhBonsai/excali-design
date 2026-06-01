@@ -113,6 +113,57 @@ function lint(els, opt) {
       }
   }
 
+  // W7 diagonal:架构图连线应正交(横平竖直 + 直角拐弯),不用斜线
+  const orthoTol = 2;
+  const connectors = els.filter(e => e.type === 'arrow' || e.type === 'line');
+  for (const c of connectors) {
+    const pts = (c.points || []).map(p => [c.x + p[0], c.y + p[1]]);
+    let diag = false;
+    for (let s = 0; s + 1 < pts.length; s++) {
+      const dx = Math.abs(pts[s + 1][0] - pts[s][0]), dy = Math.abs(pts[s + 1][1] - pts[s][1]);
+      if (dx > orthoTol && dy > orthoTol) diag = true;
+    }
+    if (diag) add('warn', 'diagonal', `连线 ${idOf(c)} 含斜线段(架构图应横平竖直 + 直角拐弯,不用斜线)`);
+  }
+
+  // W8/W9/W10 端口分布(连接点的"质量分布":朝向/居中/均匀/不贴角)
+  const nodeById = id => nodes.find(n => n.id === id);
+  const ports = new Map();  // nodeId -> [{side, along, b}]
+  const sideOf = (pt, b) => {
+    const d = { top: Math.abs(pt[1] - b.y), bottom: Math.abs(pt[1] - b.y2), left: Math.abs(pt[0] - b.x), right: Math.abs(pt[0] - b.x2) };
+    const side = Object.keys(d).reduce((a, k) => (d[k] < d[a] ? k : a));
+    return d[side] > 8 ? null : side;  // 端点不在框边上 → 跳过
+  };
+  for (const ar of arrows) {
+    const pts = (ar.points || []).map(p => [ar.x + p[0], ar.y + p[1]]);
+    if (pts.length < 2) continue;
+    for (const [nid, pt] of [[ar.startBinding?.elementId, pts[0]], [ar.endBinding?.elementId, pts[pts.length - 1]]]) {
+      const n = nid && nodeById(nid); if (!n) continue;
+      const b = bb.get(n), side = sideOf(pt, b); if (!side) continue;
+      const along = (side === 'top' || side === 'bottom') ? pt[0] : pt[1];
+      (ports.get(nid) ?? ports.set(nid, []).get(nid)).push({ side, along, b });
+    }
+  }
+  for (const [nid, list] of ports) {
+    const bySide = {};
+    for (const p of list) (bySide[p.side] ??= []).push(p);
+    for (const side of Object.keys(bySide)) {
+      const ps = bySide[side].sort((a, b) => a.along - b.along), b = ps[0].b;
+      const horiz = side === 'top' || side === 'bottom';
+      const lo = horiz ? b.x : b.y, hi = horiz ? b.x2 : b.y2, center = (lo + hi) / 2, len = hi - lo;
+      for (const p of ps) if (p.along - lo < 8 || hi - p.along < 8) { add('warn', 'port-corner', `${idOf({ id: nid })} 的连接点贴${side}边角(应留边距)`); break; }
+      if (ps.length === 1) {
+        const dev = Math.abs(ps[0].along - center);
+        if (dev > Math.max(18, len * 0.2)) add('warn', 'port-offcenter', `${idOf({ id: nid })} ${side} 仅一条边却不居中(偏 ${dev | 0}px)`);
+      } else {
+        for (let i = 0; i + 1 < ps.length; i++) if (ps[i + 1].along - ps[i].along < 6) { add('warn', 'port-stacked', `${idOf({ id: nid })} ${side} 有 ${ps.length} 条边挤在同一点(应沿边均匀分布)`); break; }
+        const gaps = []; let prev = lo; for (const p of ps) { gaps.push(p.along - prev); prev = p.along; } gaps.push(hi - prev);
+        const mx = Math.max(...gaps), mn = Math.min(...gaps);
+        if (mn > 0 && mx / mn > 3.5) add('warn', 'port-uneven', `${idOf({ id: nid })} ${side} 的 ${ps.length} 个连接点分布不均(质量不平衡,应等距)`);
+      }
+    }
+  }
+
   // W1 off-grid
   const g = opt.grid;
   if (g > 0) {

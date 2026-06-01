@@ -15,10 +15,10 @@
 > 整套架构——SKILL.md 主干 + references 路由 + scripts 工具链 + assets 资产、以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学、动画导出流水线、音频资产——都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素,并新增「绘图刷新」逐帧动画机制。没有 huashu-design 就没有这个 skill,在此致谢。
 
 <p align="center">
-  <img src="assets/readme/architecture-v2.png" alt="Excali-Design 技能架构图 v2" width="720">
+  <img src="assets/readme/architecture-v3.png" alt="Excali-Design 技能架构图 v3" width="720">
 </p>
 
-<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 自动生成。声明组件树(<code>spec.json</code>)→ <code>arch-layout.mjs</code>(elkjs 布局)+ <code>excalidraw-to-image.mjs</code>(PNG 导出),全程无手摆。(<a href="excali-design%20架构图%20v2.excalidraw">源文件</a>)</sub></p>
+<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能 + Qwen3.7-Max + OpenCode</b> 人工构图。本 skill 自身架构属「海报型 / 注释重」,按技能的工作流第 5 步判定走**人工手绘**(非 elkjs)。<code>arch-lint.mjs</code> 仅作最后辅助扫描(0 error)。<a href="excali-design%20架构图%20v3.excalidraw">源文件</a></sub></p>
 
 ## 如何使用
 
