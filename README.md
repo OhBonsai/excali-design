@@ -139,8 +139,16 @@ excali-design/
 
 ## 依赖
 
-- **Excalidraw MCP**(`create_view` / `read_me`)——视图内渲染。未接入时降级为直接产 `.excalidraw` 文件(用户导入 excalidraw.com)。
-- **架构图自动布局**(可选):`arch-layout.mjs` 依赖 `elkjs`(纯 JS,无 native)→ `npm install elkjs`。
-- **导出 SVG · 轻量**(可选):`svg-export.mjs` 依赖 `roughjs`(纯 JS,无 native、**无 chromium**)→ `npm install roughjs`;要 PNG 再加 `@resvg/resvg-js`(预编译,非浏览器)→ `npm install @resvg/resvg-js`。
-- **导出 PNG/SVG · 最高保真**(可选):`excalidraw-to-image.mjs` 需 Node + Playwright + chromium → `npm install playwright && npx playwright install chromium`。
-- 核心画图(写 `.excalidraw` / create_view / lint)零依赖,纯 Node。
+**默认 `npm install`(无 chromium,纯 JS + 预编译小二进制)** —— 装 `elkjs` + `roughjs` + `@resvg/resvg-js`。开箱即用:
+
+- 写 `.excalidraw` / create_view / `arch-connect` / `arch-lint` / `verify` —— 零依赖,纯 Node。
+- `arch-layout.mjs` 拓扑/架构自动布局(elkjs)。
+- `mermaid-to-excalidraw.mjs` 的 Tier2(elkjs);Tier1 官方库另需 `@excalidraw/mermaid-to-excalidraw`。
+- `svg-export.mjs` 导出**手绘 SVG**(roughjs,headless)+ **PNG**(resvg)——**眯眼回归、贴图日常用这个**。
+
+**需 chromium 的 opt-in** —— `npm install playwright && npx playwright install chromium`:
+
+- `html-to-excalidraw.mjs` —— HTML 布局路径(原型 / 看板 / dashboard / 海报)。**CSS 布局引擎只能靠浏览器算位置**,这条输入路径绕不开 chromium。
+- `excalidraw-to-image.mjs` —— 像素级和 excalidraw.com 一致的导出(字体/换行 100% 对齐)。
+
+> 速记:**拓扑/架构(elkjs)+ mermaid + 轻量导出 = 无 chromium 开箱即用;HTML 布局原型 + 像素级导出 = 装 playwright。** Excalidraw MCP 接入时 `create_view` 直接渲染;未接入则产 `.excalidraw` 文件导入 excalidraw.com。
