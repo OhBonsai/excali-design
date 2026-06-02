@@ -39,7 +39,13 @@
 ```
 
 和 arch-layout 同一原则:**声明结构 / 引擎算位置 / 不手摆**。图论类用 elkjs,网格类用浏览器 CSS。
-> 实现:`scripts/html-to-excalidraw.mjs`(规划中)。在此之前,这条流程也可手工执行——心里按 HTML 网格摆,但**优先做引擎而非手算**。
+
+**已实现**:`scripts/html-to-excalidraw.mjs`。
+```bash
+node scripts/html-to-excalidraw.mjs 图.html --out 图.excalidraw
+```
+给要连线的框加 `data-id="xxx"`(保留为 Excalidraw 元素 id)→ 转完用 `arch-connect` + edges.json 连边。
+浏览器算布局 + 自动套手绘风(roughness)+ 降级 CSS(渐变/阴影丢、字体降 Virgil/Normal/Code、任意 hex 吸附调色板、border-radius:50% → 椭圆)。CSS 里直接用颜色角色的 hex,吸附即恒等。
 
 ## 三、CSS token → Excalidraw 降级 / 替换映射(核心)
 

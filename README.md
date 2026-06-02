@@ -7,12 +7,6 @@
 > 🙏 **本 skill 重度参考 [`huashu-design`](../huashu-design)(花叔 Design)设计。**
 > SKILL.md 主干 + references 路由 + scripts 工具链,以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学,都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素、聚焦静态图。没有 huashu-design 就没有这个 skill,在此致谢。
 
-<p align="center">
-  <img src="assets/readme/architecture-v9.png" alt="Excali-Design 技能架构图" width="720">
-</p>
-
-<p align="center"><sub>▲ 这张架构图由 <b>Excali-Design 技能</b>自己画的(Excalidraw 手绘风、语义配色、`arch-connect` 正交路由、`arch-lint` 几何扫描)。<a href="excali-design%20架构图%20v9.excalidraw">源文件</a></sub></p>
-
 ## 如何使用
 
 **安装 = 对着你的 AI agent 说一句话。** 这是一个 markdown-based 的 agent-agnostic skill(Claude Code / Cursor / Codex / Cowork 等都能用),没有 npm 包要装、没有配置要填——把这个目录放进 agent 能读到的地方,然后直接说:
@@ -101,6 +95,7 @@ excali-design/
 │   ├── arch-layout.mjs           # 声明组件树 → elkjs 自动布局(零重叠)
 │   ├── arch-connect.mjs          # 人摆框,程序连线(正交+面向边+消交叉)
 │   ├── arch-lint.mjs             # 几何 lint(重叠/流向/斜线/交叉/留白/配色)
+│   ├── html-to-excalidraw.mjs    # 语义 HTML(flex/grid)→ Excalidraw 手绘风(网格/卡片/海报类布局)
 │   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG
 │   └── verify.mjs                # .excalidraw 结构校验(id/binding)
