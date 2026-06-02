@@ -1,6 +1,6 @@
 ---
 name: excali-design
-description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(7 库 ~185 组件,不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
+description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(7 库 ~185 组件,不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、**Mermaid → Excalidraw 手绘风(流程/时序/类/状态/ER 等)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
 ---
 
 # Excali-Design · 画板设计师
@@ -117,6 +117,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - **抽象层级**:粗(C4 容器级)/ 细(组件级)/ 部署级?(决定信息密度)
    - **阅读方向**:左→右数据流 / 上→下层级 / 中心放射?(决定布局骨架)
    - 🛑 **检查点3**:三问答案 + 布局骨架口头说出来等用户点头,再渲染。
+   - 🧜 **Mermaid 捷径**:目标图属于 Mermaid 支持的类型且结构清晰(流程图/时序图/类图/状态机/ER 等)→ **优先让 agent 写 Mermaid → `node scripts/mermaid-to-excalidraw.mjs 图.mmd` 转手绘风**(比手摆元素快且不易错)。flowchart/sequence 走官方原生;state/er/c4/mindmap 走 getData→arch-layout。详见 `references/mermaid.md`。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
    - 🏗️ **架构图:两个手工易错点都已程序化,别手做**(详见 `references/arch-lint.md`):
@@ -165,6 +166,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 配色纪律 | `references/color-system.md` |
 | 反手绘 AI slop | `references/anti-slop.md` |
 | **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |
+| **Mermaid → Excalidraw 手绘风**(流程/时序/类/状态/ER 等) | `references/mermaid.md` + `scripts/mermaid-to-excalidraw.mjs` |
 | **导出单图为 PNG/SVG**(贴 README/文档/PPT) | `scripts/excalidraw-to-image.mjs`(`.excalidraw → PNG @Nx / SVG 矢量`,Excalidraw 官方导出内核) |
 | 输出后验证 | `references/verification.md` + `scripts/verify.mjs` |
 | 设计评审/打分(可选) | `references/critique-guide.md` |
@@ -177,7 +179,6 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 - **没有 subagent 并行** → variations 串行渲染。
 - **可选依赖**:`arch-layout.mjs` 需 `elkjs`(纯 JS);`excalidraw-to-image.mjs` 需 Node + Playwright + chromium(从 CDN import excalidraw)。缺则相应能力不可用,核心画图(写 .excalidraw / create_view)不受影响。
 - 所有路径引用均**相对本 skill 根目录**(`references/xxx.md`、`drawlib/xxx.excalidrawlib`、`scripts/xxx`),不依赖绝对路径。
-- **精简分支(master)缺音频时**:`master` 分支含指令 + 脚本 + `drawlib` 组件库(开箱即用);仅音频不在。若 `assets/sfx`、`assets/bgm-*.mp3` 不存在,做带音频导出前先取:`git checkout all -- assets/sfx assets/bgm-*.mp3`(音频在 `all` 分支)。取不到则导出无声动画。
 
 ## 产出要求
 
