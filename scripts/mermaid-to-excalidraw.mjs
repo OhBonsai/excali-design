@@ -52,6 +52,8 @@ function detectType(src) {
   if (kw.startsWith('erdiagram')) return 'er';
   if (kw.startsWith('c4')) return 'c4';
   if (kw.startsWith('mindmap')) return 'mindmap';
+  if (kw.startsWith('gantt')) return 'gantt';
+  if (kw.startsWith('pie')) return 'pie';
   return 'other';
 }
 
@@ -204,6 +206,72 @@ async function tier2Class(src, out) {
   return true;
 }
 
+// gantt:getTasks() → 任务行 + 时间条 + 日期轴(手绘原生)
+async function tier2Gantt(src, out) {
+  const chromium = await getChromium();
+  if (!chromium) { console.error('🚧 需要 playwright + chromium'); process.exit(3); }
+  const launchOpts = process.env.EXCALI_CHROMIUM ? { executablePath: process.env.EXCALI_CHROMIUM } : {};
+  const browser = await chromium.launch(launchOpts);
+  const page = await browser.newPage();
+  page.on('pageerror', e => console.error('[page]', e.message));
+  const HTML = `<!doctype html><meta charset=utf8><body><script type="module">
+    const mermaid = (await import('${MERMAID_CDN}')).default; mermaid.initialize({ startOnLoad:false });
+    window.__gantt = async (src) => {
+      await mermaid.parse(src);
+      const d = await mermaid.mermaidAPI.getDiagramFromText(src);
+      const db = d.db || (d.getDiagram && d.getDiagram().db);
+      const tasks = (db.getTasks() || []).map(t => ({ name: (t.task||'').trim(), section: t.section||'', start: t.startTime, end: t.endTime }));
+      let title = ''; try { title = db.getDiagramTitle ? db.getDiagramTitle() : ''; } catch {}
+      return JSON.stringify({ tasks, title });
+    };
+    window.__ready = true;
+  </script></body>`;
+  await page.setContent(HTML, { waitUntil: 'networkidle' });
+  await page.waitForFunction('window.__ready === true', { timeout: 60000 });
+  const { tasks, title } = JSON.parse(await page.evaluate(s => window.__gantt(s), src));
+  await browser.close();
+  if (!tasks.length) return false;
+
+  const T = tasks.map(t => ({ ...t, s: new Date(t.start).getTime(), e: new Date(t.end).getTime() })).filter(t => t.s && t.e);
+  const minD = Math.min(...T.map(t => t.s)), maxD = Math.max(...T.map(t => t.e)), span = Math.max(1, maxD - minD);
+  const LEFT = 220, CHART = 920, ROW = 42, TOP = title ? 96 : 64, PADX = 40;
+  const x0 = PADX + LEFT, chartW = CHART;
+  const X = ms => x0 + (ms - minD) / span * chartW;
+
+  let seedN = 1; const seed = () => (seedN = (seedN * 1103515245 + 12345) & 0x7fffffff);
+  const els = []; const R = Math.round;
+  const txt = (t, x, y, size, align, w, color = '#1e1e1e') => els.push({ type: 'text', id: 't_' + seed(), x: R(x), y: R(y), width: w, height: size + 4, angle: 0, text: t, fontSize: size, fontFamily: 2, textAlign: align, verticalAlign: 'top', strokeColor: color, backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+  const vline = (x, y, h, color, dashed) => els.push({ type: 'line', id: 'l_' + seed(), x: R(x), y: R(y), width: 0, height: R(h), angle: 0, points: [[0, 0], [0, R(h)]], strokeColor: color, backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 1, strokeStyle: dashed ? 'dashed' : 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1 });
+  const bar = (x, y, w, color, bg) => els.push({ type: 'rectangle', id: 'b_' + seed(), x: R(x), y: R(y), width: R(Math.max(8, w)), height: 24, angle: 0, strokeColor: color, backgroundColor: bg, fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: { type: 3 }, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+
+  const chartH = TOP + T.length * ROW + 16;
+  if (title) txt(title, PADX, 28, 26, 'left', CHART);
+  // 日期轴:按跨度选刻度间隔
+  const DAY = 86400000, days = span / DAY;
+  const step = days <= 16 ? DAY : days <= 70 ? 7 * DAY : 30 * DAY;
+  const fmt = ms => { const d = new Date(ms); return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`; };
+  for (let t = minD; t <= maxD + 1; t += step) {
+    const x = X(t);
+    vline(x, TOP - 8, T.length * ROW + 8, '#e9ecef', false);
+    txt(fmt(t), x - 22, TOP - 30, 13, 'center', 44, '#868e96');
+  }
+  // section 配色
+  const sections = [...new Set(T.map(t => t.section).filter(Boolean))];
+  const SC = ['#1971c2', '#2f9e44', '#f08c00', '#7048e8', '#e03131'];
+  const bgOf = i => ['#a5d8ff', '#b2f2bb', '#ffec99', '#d0bfff', '#ffc9c9'][i % 5];
+  let curSection = null;
+  T.forEach((t, i) => {
+    const y = TOP + i * ROW;
+    if (t.section && t.section !== curSection) { curSection = t.section; txt(t.section, PADX, y + 4, 13, 'left', LEFT, '#868e96'); }
+    txt(t.name, PADX + 8, y + 16, 15, 'left', LEFT - 12);
+    const si = Math.max(0, sections.indexOf(t.section));
+    bar(X(t.s), y + 8, X(t.e) - X(t.s), SC[si % SC.length], bgOf(si));
+  });
+
+  fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
+  return true;
+}
+
 async function main() {
   const a = parseArgs(process.argv);
   const src = a.text || (a._[0] && fs.readFileSync(a._[0], 'utf8'));
@@ -219,6 +287,11 @@ async function main() {
     const ok = await tier2Class(src, out);
     if (ok) { console.log(`✓ → ${out}`); console.log(`  建议:node scripts/arch-lint.mjs "${out}"`); }
     else { const { elements, files } = await tier1(src); fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements, appState: { viewBackgroundColor: '#fafaf6' }, files: files || {} }, null, 1)); console.log(`✓(兜底)→ ${out}`); }
+  } else if (type === 'gantt') {
+    console.log('类型:gantt(getTasks → 任务行+时间条+日期轴,手绘原生)');
+    const ok = await tier2Gantt(src, out);
+    if (ok) console.log(`✓ → ${out}`);
+    else { console.error('gantt 渲染失败'); process.exit(2); }
   } else if (TIER1.has(type)) {
     console.log(`类型:${type}(Tier 1 官方原生手绘)`);
     const { elements, files } = await tier1(src);

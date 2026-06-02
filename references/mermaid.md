@@ -22,7 +22,7 @@ node scripts/mermaid-to-excalidraw.mjs --text "flowchart TD; A-->B{ok?}; B-->|ye
 | **stateDiagram** | Tier 2:mermaid `getData()` → arch-layout | ✅ 原生手绘元素 |
 | **erDiagram** | Tier 2:同上 | ✅(getData 驱动) |
 | **C4 / mindmap** | Tier 2:尝试 getData → arch-layout,失败兜底图片 | ✅/兜底 |
-| **gantt** | (规划)`getTasks()` → 自定义任务行 + 时间条 | 🚧 数据已通,渲染器待建 |
+| **gantt** | `getTasks()` → 任务行 + 时间条 + 日期轴 | ✅ 原生手绘(section 配色、时间缩放) |
 | **pie** | (规划)slices → 自定义扇区/条 | 🚧 mermaid db 较拧,待建 |
 | 其它(timeline/gitGraph/xychart/...) | 官方库退化为 **SVG 图片**嵌入 | ❌ 非手绘原生 |
 
