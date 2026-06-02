@@ -27,11 +27,22 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 
 > 不确定怎么开口?直接说「**读一下 excali-design 技能,然后问我几个问题**」——它会按 Junior Designer 流程先和你对齐需求,再动手。
 
+## 示例(全部本 skill 生成)
+
+都走「语义 HTML 布局 → 浏览器算位置 → 转 Excalidraw 手绘风」流水线:组件用 `data-lib` 直接拉 drawlib,图表用 `data-chart` 按真实数值生成,连线交 `arch-connect`,转完渲 PNG 眯眼回归。
+
+| 产品原型 · 多屏 flow | 数据看板 · data-chart |
+|---|---|
+| ![登录注册流程](assets/readme/login-flow.png) | ![数据看板](assets/readme/dashboard.png) |
+| **看板 · data-lib 卡片** | **软件架构 · arch-connect** |
+| ![项目看板](assets/readme/kanban.png) | ![服务架构](assets/readme/architecture.png) |
+
 ## 它能做什么
 
 - **软件架构图**:从代码库/文档抽真实结构(原则 #0 先验证),按 C4 抽象层级画单向数据流拓扑,语义配色。拓扑密集图用 `arch-layout`(elkjs)自动摆节点,连线用 `arch-connect` 正交路由。
-- **产品原型 / 线框图**:复用 `drawlib/` 里 ~185 个现成 UI 控件,快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
-- **设计图 / 信息图 / 流程图**:决策流、状态机、时序图、泳道图、概念示意。
+- **产品原型 / 线框图**:复用 `drawlib/` 里 ~185 个现成 UI 控件(HTML 里 `data-lib="库名:序号"` 直接嵌),快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
+- **数据看板 / 图表**:`data-chart="pie|donut|bar|line"` 按真实数值生成手绘图表;或 `data-lib` 取 data-viz 现成图占位。
+- **设计图 / 信息图 / 流程图**:决策流、状态机、泳道图、概念示意。
 
 ## 画架构图的三板斧(节点摆放 / 连线 / 校验都别手做)
 
