@@ -1,6 +1,6 @@
 ---
 name: excali-design
-description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(7 库 ~185 组件,不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、**Mermaid → Excalidraw 手绘风(流程/时序/类/状态/ER 等)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
+description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(10 库 ~218 组件,不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、**Mermaid → Excalidraw 手绘风(流程/时序/类/状态/ER 等)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
 ---
 
 # Excali-Design · 画板设计师
@@ -57,13 +57,13 @@ description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件�
 
 ### 2. drawlib 组件库复用协议(强制)
 
-> **这是本 skill 区别于「裸画 Excalidraw」的核心约束。** `drawlib/` 里有 ~185 个做工精良的现成组件,**能复用的绝不手绘**。手绘一个 toggle / 下拉框 / 服务器图标,99% 不如库里的,还慢。
+> **这是本 skill 区别于「裸画 Excalidraw」的核心约束。** `drawlib/` 里有 ~218 个做工精良的现成组件,**能复用的绝不手绘**。手绘一个 toggle / 下拉框 / 服务器图标,99% 不如库里的,还慢。
 
 **硬流程**:
 1. 开工前先读 `references/drawlib-catalog.md`,确认这次要画的东西库里有没有现成件
 2. 有 → 从对应 `.excalidrawlib` 取出该 item 的 `elements`,平移到目标坐标,复用
 3. 没有 → 才自己用基础元素(rectangle/ellipse/diamond/arrow/line/text)拼,且遵循 `references/anti-slop.md`
-4. 7 个库速记:UX 控件(69)、数据图表(32)、DevOps 图标(29)、表单控件(26)、信息架构(17)、火柴人(9)、网页框(3)
+4. 10 个库速记:UX 控件(69)、数据图表(32)、DevOps 图标(29)、表单控件(26)、幻灯片模板(16)、信息架构(17)、数学符号(15)、火柴人(9)、网页框(3)、商业画布(2)
 
 详见 `references/drawlib-catalog.md`(每个库的清单 + 取用方法)。
 
@@ -128,7 +128,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
    - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**
    - 🧩 **HTML 里默认嵌组件,别手抄 elements、别手画已有控件**(原则 #2 在 HTML 路径的落地):
-     - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。7 库 ~185 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
+     - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。10 库 ~218 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
      - **要真实数值的图** → `<div data-chart="pie|donut|bar|line" data-values="A:40,B:30">`(确定性生成,反映数据)。
      - **两者都没有** 才用基础元素手拼(守 `anti-slop.md`)。
      - 🔒 **代码约束(硬)**:`data-lib` 引用无效(库不存在 / 序号越界)→ `html-to-excalidraw.mjs` **默认 strict 退出码 2,构建直接失败**,逼你回查接触表;`--loose` 才降级为 warn。末尾会打印「复用 N data-lib + M data-chart」统计。
@@ -172,7 +172,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 |---|---|
 | 开工前问问题、定方向 | `references/workflow.md` |
 | Excalidraw 元素格式(schema/调色板/binding) | `references/element-format.md`(离线版 read_me) |
-| 复用 drawlib 组件库(7 库 ~185 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md` + `scripts/drawlib-sheet.mjs`(渲接触表核对序号) |
+| 复用 drawlib 组件库(10 库 ~218 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md` + `scripts/drawlib-sheet.mjs`(渲接触表核对序号) |
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
