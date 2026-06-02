@@ -70,6 +70,11 @@ const WALK = `() => {
       out.push({ kind: 'lib', ref: el.dataset.lib, x: r.x, y: r.y, w: r.width, h: r.height });
       return;
     }
+    // 组件:data-icon="square|circle|diamond" → 手绘纯色小形状(替代 unicode 图标,反 slop)
+    if (el.dataset && el.dataset.icon) {
+      out.push({ kind: 'icon', shape: el.dataset.icon, color: el.dataset.color || '', x: r.x, y: r.y, w: r.width, h: r.height });
+      return;
+    }
     // 组件:data-chart(pie/donut/bar/line)→ 数据驱动确定性渲染,不当普通框
     if (el.dataset && el.dataset.chart) {
       out.push({ kind: 'chart', ctype: el.dataset.chart, values: el.dataset.values || '', title: el.dataset.title || '', x: r.x, y: r.y, w: r.width, h: r.height });
@@ -197,6 +202,28 @@ async function main() {
       if (ne.containerId) ne.containerId = idmap.get(ne.containerId) || ne.containerId;
       els.push(ne);
     }
+  }
+  // data-icon:手绘纯色小形状(替代 unicode 图标,反 slop)。无图标集时用它,别够 unicode 字符。
+  const ICONCOLOR = { ink: '#1e1e1e', gray: '#868e96', blue: '#1971c2', green: '#2f9e44', red: '#e03131', orange: '#f08c00', purple: '#7048e8' };
+  for (const n of nodes.filter(n => n.kind === 'icon')) {
+    const sz = Math.min(n.w, n.h), cx = n.x + dx + n.w / 2, cy = n.y + dy + n.h / 2, r = sz / 2 - 1;
+    const fill = ICONCOLOR[n.color] || (n.color && snap(n.color) !== 'transparent' ? snap(n.color) : '#1971c2');
+    const base = { angle: 0, strokeColor: '#1e1e1e', backgroundColor: fill, fillStyle: 'solid', strokeWidth: 1.5, strokeStyle: 'solid', roughness: a.roughness, opacity: 100, seed: seed(), groupIds: [], boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 };
+    const shape = (n.shape || 'square').toLowerCase();
+    if (shape === 'circle' || shape === 'dot') {
+      els.push({ type: 'ellipse', id: 'ic_' + seed(), x: R(cx - r), y: R(cy - r), width: R(r * 2), height: R(r * 2), roundness: null, ...base });
+    } else if (shape === 'diamond') {
+      els.push({ type: 'diamond', id: 'ic_' + seed(), x: R(cx - r), y: R(cy - r), width: R(r * 2), height: R(r * 2), roundness: null, ...base });
+    } else { // square(默认)
+      els.push({ type: 'rectangle', id: 'ic_' + seed(), x: R(cx - r), y: R(cy - r), width: R(r * 2), height: R(r * 2), roundness: { type: 3 }, ...base });
+    }
+  }
+  // 反 slop 警告:文字里用 unicode 字符冒充图标(箭头/几何/符号/dingbats/emoji)
+  const ICONGLYPH = /[←-⇿■-◿☀-⛿✀-➿⬀-⯿]|[\u{1F000}-\u{1FAFF}]/u;
+  const iconText = nodes.filter(n => n.kind === 'text' && ICONGLYPH.test(n.text));
+  if (iconText.length) {
+    console.error(`⚠ 反 slop:检测到 ${iconText.length} 处文字含「Unicode 图标字符」:${iconText.slice(0, 6).map(n => JSON.stringify(n.text)).join(' ')}`);
+    console.error(`   一定别拿 unicode 当图标 → 有图标集/drawlib 用 data-lib;没有用 data-icon="square|circle|diamond"(手绘纯色小形状)替代。`);
   }
   // 代码约束:无效 data-lib 引用 → 默认 strict 直接失败(逼你回去查接触表);--loose 降级为 warn
   if (libErrors.length) {
