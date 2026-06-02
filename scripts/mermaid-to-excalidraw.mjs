@@ -132,6 +132,78 @@ async function tier2(src, type, out) {
   return r.status === 0;
 }
 
+// class:getData() 给 classBox(label+members+methods)→ elkjs 布局 + 自定义类框渲染(手绘原生)
+async function tier2Class(src, out) {
+  const chromium = await getChromium();
+  if (!chromium) { console.error('🚧 需要 playwright + chromium'); process.exit(3); }
+  const launchOpts = process.env.EXCALI_CHROMIUM ? { executablePath: process.env.EXCALI_CHROMIUM } : {};
+  const browser = await chromium.launch(launchOpts);
+  const page = await browser.newPage();
+  page.on('pageerror', e => console.error('[page]', e.message));
+  const HTML = `<!doctype html><meta charset=utf8><body><script type="module">
+    const mermaid = (await import('${MERMAID_CDN}')).default; mermaid.initialize({ startOnLoad:false });
+    window.__class = async (src) => {
+      await mermaid.parse(src);
+      const d = await mermaid.mermaidAPI.getDiagramFromText(src);
+      const db = d.db || (d.getDiagram && d.getDiagram().db);
+      const data = db.getData();
+      const str = m => (m && (m.id || m.text || m.label)) || (typeof m === 'string' ? m : '');
+      const nodes = (data.nodes || []).filter(n => n.shape === 'classBox').map(n => ({
+        id: n.id, name: n.label || n.id,
+        members: (n.members || []).map(str).filter(Boolean),
+        methods: (n.methods || []).map(str).filter(Boolean),
+      }));
+      const edges = (data.edges || []).map(e => ({ from: e.start, to: e.end, label: e.label || '' }));
+      return JSON.stringify({ nodes, edges });
+    };
+    window.__ready = true;
+  </script></body>`;
+  await page.setContent(HTML, { waitUntil: 'networkidle' });
+  await page.waitForFunction('window.__ready === true', { timeout: 60000 });
+  const { nodes, edges } = JSON.parse(await page.evaluate(s => window.__class(s), src));
+  await browser.close();
+  if (!nodes.length) return false;
+
+  let ELK; try { ELK = (await import('elkjs/lib/elk.bundled.js')).default; } catch { console.error('需要 elkjs'); return false; }
+  const LINE = 22, HEAD = 34, PAD = 10, CW = 8.2;
+  const sized = nodes.map(n => {
+    const lines = [n.name, ...n.members, ...n.methods];
+    const w = Math.max(140, Math.round(Math.max(...lines.map(s => s.length)) * CW + 28));
+    const h = HEAD + (n.members.length ? n.members.length * LINE + 8 : 0) + (n.methods.length ? n.methods.length * LINE + 8 : 0) + PAD;
+    return { ...n, w, h };
+  });
+  const graph = {
+    id: 'root', layoutOptions: { 'elk.algorithm': 'layered', 'elk.direction': 'DOWN', 'elk.edgeRouting': 'ORTHOGONAL', 'elk.spacing.nodeNode': '50', 'elk.layered.spacing.nodeNodeBetweenLayers': '70' },
+    children: sized.map(n => ({ id: n.id, width: n.w, height: n.h })),
+    edges: edges.map((e, i) => ({ id: 'e' + i, sources: [e.from], targets: [e.to] })),
+  };
+  const res = await new ELK().layout(graph);
+  const pos = new Map(res.children.map(c => [c.id, c]));
+
+  let seedN = 1; const seed = () => (seedN = (seedN * 1103515245 + 12345) & 0x7fffffff);
+  const els = []; const R = Math.round;
+  const txt = (t, x, y, size, align, w, bold) => els.push({ type: 'text', id: 't_' + seed(), x: R(x), y: R(y), width: w, height: size + 4, angle: 0, text: t, fontSize: size, fontFamily: bold ? 2 : 3, textAlign: align, verticalAlign: 'top', strokeColor: '#1e1e1e', backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+  const hline = (x, y, w) => els.push({ type: 'line', id: 'l_' + seed(), x: R(x), y: R(y), width: R(w), height: 0, angle: 0, points: [[0, 0], [R(w), 0]], strokeColor: '#1e1e1e', backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1 });
+  const bound = {};
+  for (const n of sized) {
+    const c = pos.get(n.id); if (!c) continue;
+    bound[n.id] = [];
+    els.push({ type: 'rectangle', id: n.id, x: R(c.x), y: R(c.y), width: R(c.width), height: R(c.height), angle: 0, strokeColor: '#1e1e1e', backgroundColor: '#fff', fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: { type: 3 }, boundElements: bound[n.id], isDeleted: false, versionNonce: seed(), updated: 1 });
+    txt(n.name, c.x, c.y + 8, 18, 'center', c.width, true);
+    let yy = c.y + HEAD;
+    if (n.members.length) { hline(c.x, yy, c.width); yy += 6; for (const m of n.members) { txt(m, c.x + 12, yy, 14, 'left', c.width - 24); yy += LINE; } yy += 2; }
+    if (n.methods.length) { hline(c.x, yy, c.width); yy += 6; for (const m of n.methods) { txt(m, c.x + 12, yy, 14, 'left', c.width - 24); yy += LINE; } }
+  }
+  (res.edges || []).forEach(e => {
+    const s = e.sections?.[0]; if (!s) return;
+    const pts = [s.startPoint, ...(s.bendPoints || []), s.endPoint]; const ox = pts[0].x, oy = pts[0].y;
+    els.push({ type: 'arrow', id: e.id, x: R(ox), y: R(oy), width: R(Math.max(...pts.map(p => p.x)) - Math.min(...pts.map(p => p.x))), height: R(Math.max(...pts.map(p => p.y)) - Math.min(...pts.map(p => p.y))), angle: 0, points: pts.map(p => [R(p.x - ox), R(p.y - oy)]), strokeColor: '#1e1e1e', backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, startBinding: { elementId: e.sources[0], focus: 0, gap: 4 }, endBinding: { elementId: e.targets[0], focus: 0, gap: 4 }, lastCommittedPoint: null, startArrowhead: null, endArrowhead: 'arrow', versionNonce: seed(), updated: 1 });
+    bound[e.sources[0]]?.push({ type: 'arrow', id: e.id }); bound[e.targets[0]]?.push({ type: 'arrow', id: e.id });
+  });
+  fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
+  return true;
+}
+
 async function main() {
   const a = parseArgs(process.argv);
   const src = a.text || (a._[0] && fs.readFileSync(a._[0], 'utf8'));
@@ -139,10 +211,15 @@ async function main() {
   const type = detectType(src);
   const out = a.out || (a._[0] ? a._[0].replace(/\.(mmd|mermaid|txt)$/i, '') + '.excalidraw' : 'diagram.excalidraw');
 
-  const TIER1 = new Set(['flowchart', 'sequence', 'class']);  // 官方库原生(class 视版本可能退化图片)
+  const TIER1 = new Set(['flowchart', 'sequence']);          // 官方库原生手绘
   const TIER2 = new Set(['state', 'er', 'c4', 'mindmap']);    // mermaid getData() → arch-layout 手绘风(失败自动兜底图片)
 
-  if (TIER1.has(type)) {
+  if (type === 'class') {
+    console.log('类型:class(getData → 类框渲染器,手绘原生)');
+    const ok = await tier2Class(src, out);
+    if (ok) { console.log(`✓ → ${out}`); console.log(`  建议:node scripts/arch-lint.mjs "${out}"`); }
+    else { const { elements, files } = await tier1(src); fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements, appState: { viewBackgroundColor: '#fafaf6' }, files: files || {} }, null, 1)); console.log(`✓(兜底)→ ${out}`); }
+  } else if (TIER1.has(type)) {
     console.log(`类型:${type}(Tier 1 官方原生手绘)`);
     const { elements, files } = await tier1(src);
     const doc = { type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements, appState: { viewBackgroundColor: '#fafaf6', gridSize: null }, files: files || {} };

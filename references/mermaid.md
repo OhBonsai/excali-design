@@ -18,11 +18,13 @@ node scripts/mermaid-to-excalidraw.mjs --text "flowchart TD; A-->B{ok?}; B-->|ye
 |---|---|---|
 | **flowchart / graph** | Tier 1:官方 `@excalidraw/mermaid-to-excalidraw` | ✅ 原生手绘元素 |
 | **sequenceDiagram** | Tier 1:官方库 | ✅ 原生手绘元素 |
-| **classDiagram** | Tier 1:官方库 | ⚠️ 视库版本,可能退化为 SVG 图片 |
+| **classDiagram** | getData()(label+members+methods)→ 类框渲染器 + elkjs | ✅ 原生手绘(头部+分隔线+属性+方法) |
 | **stateDiagram** | Tier 2:mermaid `getData()` → arch-layout | ✅ 原生手绘元素 |
 | **erDiagram** | Tier 2:同上 | ✅(getData 驱动) |
 | **C4 / mindmap** | Tier 2:尝试 getData → arch-layout,失败兜底图片 | ✅/兜底 |
-| 其它(gantt/pie/timeline/gitGraph/...) | 官方库退化为 **SVG 图片**嵌入 | ❌ 非手绘原生 |
+| **gantt** | (规划)`getTasks()` → 自定义任务行 + 时间条 | 🚧 数据已通,渲染器待建 |
+| **pie** | (规划)slices → 自定义扇区/条 | 🚧 mermaid db 较拧,待建 |
+| 其它(timeline/gitGraph/xychart/...) | 官方库退化为 **SVG 图片**嵌入 | ❌ 非手绘原生 |
 
 ## 两条转换路径
 
@@ -34,7 +36,8 @@ node scripts/mermaid-to-excalidraw.mjs --text "flowchart TD; A-->B{ok?}; B-->|ye
 
 ## 局限(诚实说明)
 
-- **class 在当前库版本可能退化为图片**(非手绘原生);其它非 Tier1/Tier2 类型(gantt/pie/timeline/gitGraph 等)也是 SVG 图片兜底——能用但不可编辑、非手绘。要这些手绘原生,得自定义画(drawlib 的 data-viz 可兜底图表类)。
+- **图表类(gantt/pie/timeline/gitGraph/xychart 等)不是图论结构**,getData→arch-layout 不适用,每种要**专属渲染器**:从该类型的 mermaid db 抽数据(各类型 API 不一致:gantt 的 `getTasks()` 顺、pie 的 `getSections()` 拧)→ 自定义画(行/条/扇区)。这是逐类型的渐进开发,**不是缺素材**——drawlib 的 data-viz 占位是静态的、不吃数据,帮不上。
+- 还没建专属渲染器的图表类型,暂时官方库退化为 SVG 图片(能用、不可编辑、非手绘)。
 - 图片兜底的 `.excalidraw` 含 `image` 元素 + `files`(dataURL);导出 PNG/SVG 用 `excalidraw-to-image.mjs`(已支持传 files)。
 - Tier 2 的连线由 elkjs/arch-layout 正交路由;平行边(如状态机 A⇄B)的标签可能略挤,人工微调即可。
 
