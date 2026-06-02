@@ -82,7 +82,8 @@ function main() {
     const g = op < 1 ? `<g opacity="${op}">` : '';
     let s = g;
     for (const p of gen.toPaths(drawable)) {
-      s += `<path d="${p.d}"${p.stroke && p.stroke !== 'none' ? ` stroke="${p.stroke}"` : ' stroke="none"'}${p.strokeWidth ? ` stroke-width="${p.strokeWidth}"` : ''}${p.fill && p.fill !== 'none' ? ` fill="${p.fill}"` : ' fill="none"'} fill-rule="evenodd"/>`;
+      // 用默认 nonzero 填充规则:roughjs 的实心椭圆填充是多段重叠子路径,evenodd 会互相抵消成空心
+      s += `<path d="${p.d}"${p.stroke && p.stroke !== 'none' ? ` stroke="${p.stroke}"` : ' stroke="none"'}${p.strokeWidth ? ` stroke-width="${p.strokeWidth}"` : ''}${p.fill && p.fill !== 'none' ? ` fill="${p.fill}"` : ' fill="none"'} stroke-linecap="round" stroke-linejoin="round"/>`;
     }
     return s + (g ? '</g>' : '');
   };

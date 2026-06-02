@@ -92,7 +92,14 @@ CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、�
 
 都套颜色角色轮转 + 浅填充 + roughness 手绘。**有真实数值→ B;只要"这里有个图"→ A(更好看)。**
 
-边永远不在 HTML 画 → `arch-connect`;图元才用组件。三者同一原则:"声明结构,引擎出形"。
+**C. `data-icon="square|circle|diamond"`(+ `data-color`)—— 图标占位,🛑 绝不用 Unicode 字符当图标**:
+
+```html
+<div data-icon="circle" data-color="green" style="width:20px;height:20px"></div>
+```
+转成**手绘风纯色小方块/圆/菱**(`data-color` 取 ink/gray/blue/green/red/orange/purple 或任意 hex,吸附调色板)。**铁律(见 `anti-slop.md`):一定不要用 ✓✗★●■▲→↑↓⚙🔍 这类 Unicode/emoji 冒充图标**——气质打架、跨字体渲染不一,是最显眼的 slop。有图标集/drawlib 用 `data-lib`;没有就用 `data-icon`。转换器检测到文字里含图标字符会**警告**。
+
+边永远不在 HTML 画 → `arch-connect`;图元/图标才用组件。同一原则:"声明结构,引擎出形"。
 
 ## 五、转换后必做:模型眯眼回归(LLM-in-the-loop,非可选)
 
