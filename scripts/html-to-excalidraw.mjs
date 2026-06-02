@@ -24,7 +24,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function parseArgs(argv) {
-  const a = { width: 1200, roughness: 1 };
+  const a = { width: 1200, roughness: 1, strict: true };
   const it = argv.slice(2);
   for (let i = 0; i < it.length; i++) {
     let t = it[i], v = null; const eq = t.indexOf('=');
@@ -33,6 +33,7 @@ function parseArgs(argv) {
     if (t === '--out') a.out = next();
     else if (t === '--width') a.width = parseInt(next());
     else if (t === '--roughness') a.roughness = parseFloat(next());
+    else if (t === '--loose') a.strict = false;   // 把无效 data-lib 从 error 降级为 warn
     else if (!t.startsWith('--')) a.input = t;
   }
   return a;
@@ -171,12 +172,15 @@ async function main() {
   }
   // data-lib:把任意 drawlib 现成组件实例化到 HTML 框(缩放贴合 + 居中 + 重生成 id)
   const libCache = {};
+  const libErrors = []; let libUsed = 0;
+  const listLibs = () => { try { return fs.readdirSync(path.join(__dirname, '..', 'drawlib')).filter(f => f.endsWith('.excalidrawlib')).map(f => f.replace('.excalidrawlib', '')).join(', '); } catch { return ''; } };
   const loadLib = name => { if (!(name in libCache)) { try { const j = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'drawlib', name + '.excalidrawlib'), 'utf8')); libCache[name] = j.library || j.libraryItems || null; } catch { libCache[name] = null; } } return libCache[name]; };
   for (const n of nodes.filter(n => n.kind === 'lib')) {
     const [lname, idxs] = n.ref.split(':'); const idx = parseInt(idxs);
     const items = loadLib((lname || '').trim());
-    if (!items) { console.error(`⚠ 找不到库 ${lname}.excalidrawlib`); continue; }
-    const raw = items[idx]; if (!raw) { console.error(`⚠ ${n.ref} 越界(库有 ${items.length} 项)`); continue; }
+    if (!items) { libErrors.push(`data-lib="${n.ref}":找不到库「${lname}」。可用库:${listLibs()}`); continue; }
+    const raw = items[idx]; if (!raw) { libErrors.push(`data-lib="${n.ref}":序号越界(${lname} 共 ${items.length} 项,合法 0–${items.length - 1})。核对:node scripts/drawlib-sheet.mjs ${lname}`); continue; }
+    libUsed++;
     const src = (Array.isArray(raw) ? raw : raw.elements).filter(e => !e.isDeleted);
     let mnx = 1e9, mny = 1e9, mxx = -1e9, mxy = -1e9;
     for (const e of src) { mnx = Math.min(mnx, e.x); mny = Math.min(mny, e.y); mxx = Math.max(mxx, e.x + (e.width || 0)); mxy = Math.max(mxy, e.y + (e.height || 0)); }
@@ -197,9 +201,16 @@ async function main() {
       els.push(ne);
     }
   }
+  // 代码约束:无效 data-lib 引用 → 默认 strict 直接失败(逼你回去查接触表);--loose 降级为 warn
+  if (libErrors.length) {
+    const tag = a.strict ? '✗ data-lib 引用无效(strict,构建失败)' : '⚠ data-lib 引用无效(loose)';
+    console.error(tag); for (const e of libErrors) console.error('   · ' + e);
+    if (a.strict) { console.error('   修正引用,或加 --loose 跳过(不推荐)。'); process.exit(2); }
+  }
   const out = a.out || a.input.replace(/\.html?$/i, '') + '.excalidraw';
   fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/html', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
-  console.log(`✓ ${els.length} 元素(${nodes.filter(n => n.kind === 'rect').length} 框 + ${nodes.filter(n => n.kind === 'text').length} 文字)→ ${out}`);
+  const nChart = nodes.filter(n => n.kind === 'chart').length;
+  console.log(`✓ ${els.length} 元素(${nodes.filter(n => n.kind === 'rect').length} 框 + ${nodes.filter(n => n.kind === 'text').length} 文字 + 复用 ${libUsed} data-lib + ${nChart} data-chart)→ ${out}`);
   console.log(`  有 data-id 的框可用 arch-connect 连边;建议:node scripts/arch-lint.mjs "${out}"`);
 }
 
