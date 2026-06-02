@@ -99,8 +99,8 @@ CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、�
 **html→excalidraw 不是纯逻辑就够。** 转换器忠实翻译 HTML,但翻译不出"该不该是饼图""箭头是不是乱""焦点对不对"——这些只有**把渲染图给模型看**才知道。所以有了 `.excalidraw` 之后,**必须**:
 
 ```
-1. node scripts/excalidraw-to-image.mjs 图.excalidraw --png
-2. 模型读这张 PNG(眯眼看),逐条核:
+1. node scripts/svg-export.mjs 图.excalidraw --png   # 默认眯眼渲染器:headless,无 chromium(没 resvg 就看 .svg)
+2. 模型读这张 PNG/SVG(眯眼看),逐条核:
    - 焦点/分组/层级:模糊看,主角和分区仍认得出?
    - 文字:有没有贴边/不居中/溢出?(→ Range 没量准 / 容器太小)
    - 连线:正交干净不交叉?有没有侧边乱窜?(→ 改 fromSide/toSide 重连)
