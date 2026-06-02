@@ -86,17 +86,24 @@ node scripts/mermaid-to-excalidraw.mjs 图.mmd --out 图.excalidraw
 
 ## 导出图片(PNG / SVG)
 
-任意 `.excalidraw` 文件可一键导出成图片(贴 README / 文档 / PPT),用 Excalidraw 官方导出内核,和 excalidraw.com 同款渲染:
+两条路,按是否要装 chromium 选:
+
+**轻量 · 无 chromium(推荐日常用)** —— `svg-export.mjs` 用 Rough.js 的 `RoughGenerator` **headless** 生成手绘 SVG(seed+roughness 一致,和官方几乎一样),只依赖 `roughjs`(纯 JS):
 
 ```bash
-# 同时出 PNG(@2x 高清)+ SVG(矢量,可缩放/可编辑)
-node scripts/excalidraw-to-image.mjs "架构图.excalidraw" --png --svg --scale 2
+node scripts/svg-export.mjs 图.excalidraw --out 图.svg            # → 手绘 SVG
+node scripts/svg-export.mjs 图.excalidraw --png                   # 若装了 @resvg/resvg-js 顺带出 PNG
+node scripts/svg-export.mjs 图.excalidraw --svg --transparent
+```
+字体走 `font-family` 回退不嵌入(Virgil→手写体回退 / Normal→sans / Code→mono)→ SVG 小、零字体依赖。PNG 用 `@resvg/resvg-js`(预编译,非浏览器)栅格化。
 
-# 只要透明背景 PNG
-node scripts/excalidraw-to-image.mjs 图.excalidraw --png --transparent --scale 3
+**最高保真 · Playwright** —— `excalidraw-to-image.mjs` 走 Excalidraw 官方导出内核,和 excalidraw.com 同款渲染(字体/换行 100% 一致),代价是 chromium:
+
+```bash
+node scripts/excalidraw-to-image.mjs 图.excalidraw --png --svg --scale 2
 ```
 
-上面那张架构图就是这么导出的。依赖 Playwright + chromium(见「依赖」)。
+> 速记:**日常贴图用 headless svg-export;要像素级和官方对齐用 playwright。**
 
 ## 项目结构
 
@@ -123,7 +130,8 @@ excali-design/
 │   ├── html-to-excalidraw.mjs    # 语义 HTML(flex/grid)→ Excalidraw 手绘风;data-chart 图表 + data-lib 复用组件
 │   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── drawlib-sheet.mjs         # 把一个库所有 item 排成接触表(配 data-lib 序号核对)
-│   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG
+│   ├── svg-export.mjs            # .excalidraw → 手绘 SVG(headless roughjs,无 chromium;可选 resvg 出 PNG)
+│   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG(playwright,最高保真)
 │   └── verify.mjs                # .excalidraw 结构校验(id/binding)
 ├── demos/                        # 示例 spec
 └── test-prompts.json             # 评测用例
@@ -133,5 +141,6 @@ excali-design/
 
 - **Excalidraw MCP**(`create_view` / `read_me`)——视图内渲染。未接入时降级为直接产 `.excalidraw` 文件(用户导入 excalidraw.com)。
 - **架构图自动布局**(可选):`arch-layout.mjs` 依赖 `elkjs`(纯 JS,无 native)→ `npm install elkjs`。
-- **导出 PNG/SVG**(可选):`excalidraw-to-image.mjs` 需 Node + Playwright + chromium(从 CDN import excalidraw,无需 npm 装 excalidraw)→ `npm install playwright && npx playwright install chromium`。
+- **导出 SVG · 轻量**(可选):`svg-export.mjs` 依赖 `roughjs`(纯 JS,无 native、**无 chromium**)→ `npm install roughjs`;要 PNG 再加 `@resvg/resvg-js`(预编译,非浏览器)→ `npm install @resvg/resvg-js`。
+- **导出 PNG/SVG · 最高保真**(可选):`excalidraw-to-image.mjs` 需 Node + Playwright + chromium → `npm install playwright && npx playwright install chromium`。
 - 核心画图(写 `.excalidraw` / create_view / lint)零依赖,纯 Node。
