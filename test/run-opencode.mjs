@@ -50,9 +50,11 @@ function parseArgs(argv) {
     else if (t === '--timeout') a.timeout = parseInt(next());
     else if (t === '--out') a.out = next();
     else if (t === '--no-eval') a.eval = false;
+    else if (t === '--no-render') a.render = false;
     else if (t === '--install') a.install = true;
     else if (t === '--seed') a.seed = next();
   }
+  if (a.render === undefined) a.render = true;
   return a;
 }
 
@@ -87,6 +89,12 @@ function runEval(file) {
   const lintOut = (r2.stdout || '') + (r2.stderr || '');
   const m = lintOut.match(/合计:(\d+)\s*error.*?(\d+)\s*warn/);
   return { verify: r1.status === 0 ? 'pass' : 'FAIL', errors: m ? +m[1] : (lintOut.includes('全部通过') ? 0 : '?'), warns: m ? +m[2] : 0 };
+}
+
+// 眯眼回归默认渲染器:headless svg-export(无 chromium)。出 SVG;装了 resvg 则连 PNG。
+function renderImg(file) {
+  const r = spawnSync('node', [path.join(ROOT, 'scripts', 'svg-export.mjs'), file, '--png'], { encoding: 'utf8' });
+  return (r.stdout || '').includes('✓ PNG') ? 'svg+png' : (r.status === 0 ? 'svg' : 'fail');
 }
 
 function main() {
@@ -124,15 +132,18 @@ function main() {
     const exc = files.filter(f => f.endsWith('.excalidraw'));
     let evals = [];
     if (a.eval) for (const f of exc) evals.push(runEval(f));
+    let rendered = '-';
+    if (a.render) { const rs = exc.map(renderImg); rendered = rs.length ? rs.join(',') : '-'; }
     const errs = evals.reduce((s, e) => s + (typeof e.errors === 'number' ? e.errors : 0), 0);
     rows.push({ id: p.id, secs, files: files.length, exc: exc.length, errs, tests: p.tests });
-    console.log(`   产出 ${files.length} 文件(${exc.length} excalidraw)· ${secs}s · lint errors=${a.eval ? errs : '-'}`);
+    console.log(`   产出 ${files.length} 文件(${exc.length} excalidraw)· ${secs}s · lint errors=${a.eval ? errs : '-'} · 渲染=${rendered}`);
   }
 
   console.log('\n══════ 汇总 ══════');
   console.log('id  时长  文件  excalidraw  lint-err  覆盖点');
   for (const r of rows) console.log(`${String(r.id).padEnd(3)} ${(r.secs + 's').padEnd(5)} ${String(r.files).padEnd(4)} ${String(r.exc).padEnd(10)} ${String(r.errs).padEnd(8)} ${r.tests}`);
-  console.log(`\n产物在 ${a.out}/<id>/。⚠ lint 只查机械错误,不判好坏——好不好仍需肉眼过(打开 .excalidraw 或 PNG)。`);
+  console.log(`\n产物在 ${a.out}/<id>/(每个 .excalidraw 旁已生成同名 .svg/.png,headless 渲染无需 chromium)。`);
+  console.log(`⚠ lint 只查机械错误,不判好坏——好不好仍需**眯眼过**(看 .png/.svg:焦点/分组/文字/连线/图元/手绘风)。`);
 }
 
 main();
