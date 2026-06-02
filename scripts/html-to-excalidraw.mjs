@@ -20,6 +20,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function parseArgs(argv) {
   const a = { width: 1200, roughness: 1 };
@@ -64,7 +66,12 @@ const WALK = `() => {
     if (cs.display === 'none' || cs.visibility === 'hidden') return;
     const r = el.getBoundingClientRect();
     if (r.width < 0.5 && r.height < 0.5) return;
-    // 组件:data-chart(pie/bar/donut)→ 交给确定性渲染器,不当普通框
+    // 组件:data-lib="库名:序号" → 直接实例化 drawlib 现成组件到本框
+    if (el.dataset && el.dataset.lib) {
+      out.push({ kind: 'lib', ref: el.dataset.lib, x: r.x, y: r.y, w: r.width, h: r.height });
+      return;
+    }
+    // 组件:data-chart(pie/donut/bar/line)→ 数据驱动确定性渲染,不当普通框
     if (el.dataset && el.dataset.chart) {
       out.push({ kind: 'chart', ctype: el.dataset.chart, values: el.dataset.values || '', title: el.dataset.title || '', x: r.x, y: r.y, w: r.width, h: r.height });
       return;
@@ -125,27 +132,70 @@ async function main() {
       fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [],
       roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
   }
-  // 图表组件:data-chart="pie" → 真扇形(圆心+弧采点+回圆心的闭合折线,借 data-viz 技法)
+  // 颜色角色轮转(图表多系列时用)
   const ROLE = ['#1971c2', '#2f9e44', '#f08c00', '#7048e8', '#e03131', '#0c8599', '#e8590c', '#ae3ec9'];
   const ROLELT = ['#a5d8ff', '#b2f2bb', '#ffec99', '#d0bfff', '#ffc9c9', '#99e9f2', '#ffd8a8', '#eebefa'];
-  for (const n of nodes.filter(n => n.kind === 'chart' && n.ctype === 'pie')) {
-    const slices = n.values.split(',').map(s => { const [l, v] = s.split(':'); return { label: (l || '').trim(), value: parseFloat(v) || 0 }; }).filter(s => s.value > 0);
-    if (!slices.length) continue;
-    const total = slices.reduce((a, s) => a + s.value, 0);
-    const cx = n.x + dx + n.w / 2, cy = n.y + dy + n.h / 2, r = Math.min(n.w, n.h) / 2 - 2;
-    let ang = -Math.PI / 2;
-    slices.forEach((s, i) => {
-      const sweep = s.value / total * Math.PI * 2;
-      const pts = [[0, 0]]; const steps = Math.max(2, Math.ceil(sweep / (Math.PI / 18)));
-      for (let k = 0; k <= steps; k++) { const aa = ang + sweep * k / steps; pts.push([Math.cos(aa) * r, Math.sin(aa) * r]); }
-      pts.push([0, 0]);
+  const parseVals = v => v.split(',').map(s => { const [l, x] = s.split(':'); return { label: (l || '').trim(), value: parseFloat(x) || 0 }; }).filter(s => isFinite(s.value));
+  const pushEl = (o) => els.push({ angle: 0, fillStyle: 'solid', strokeStyle: 'solid', roughness: a.roughness, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1, ...o });
+  // 数据驱动图表组件
+  for (const n of nodes.filter(n => n.kind === 'chart')) {
+    const data = parseVals(n.values).filter(s => n.ctype === 'line' || s.value > 0);
+    if (!data.length) continue;
+    const bx = n.x + dx, by = n.y + dy;
+    if (n.ctype === 'pie' || n.ctype === 'donut') {
+      const total = data.reduce((a, s) => a + s.value, 0) || 1;
+      const cx = bx + n.w / 2, cy = by + n.h / 2, r = Math.min(n.w, n.h) / 2 - 2;
+      const hole = n.ctype === 'donut' ? r * 0.55 : 0;
+      let ang = -Math.PI / 2;
+      data.forEach((s, i) => {
+        const sweep = s.value / total * Math.PI * 2; const steps = Math.max(2, Math.ceil(sweep / (Math.PI / 18)));
+        const pts = [];
+        if (hole) { for (let k = 0; k <= steps; k++) { const aa = ang + sweep * k / steps; pts.push([Math.cos(aa) * hole, Math.sin(aa) * hole]); } for (let k = steps; k >= 0; k--) { const aa = ang + sweep * k / steps; pts.push([Math.cos(aa) * r, Math.sin(aa) * r]); } pts.push(pts[0]); }
+        else { pts.push([0, 0]); for (let k = 0; k <= steps; k++) { const aa = ang + sweep * k / steps; pts.push([Math.cos(aa) * r, Math.sin(aa) * r]); } pts.push([0, 0]); }
+        const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+        pushEl({ type: 'line', id: 'pie_' + seed(), x: R(cx + Math.min(...xs)), y: R(cy + Math.min(...ys)), width: R(Math.max(...xs) - Math.min(...xs)), height: R(Math.max(...ys) - Math.min(...ys)), points: pts.map(p => [R(p[0] - Math.min(...xs)), R(p[1] - Math.min(...ys))]), strokeColor: ROLE[i % 8], backgroundColor: ROLELT[i % 8], strokeWidth: 2 });
+        ang += sweep;
+      });
+    } else if (n.ctype === 'bar') {
+      const max = Math.max(...data.map(s => s.value)) || 1; const pad = 6, n0 = data.length;
+      const gap = 10, bw = Math.max(6, (n.w - pad * 2 - gap * (n0 - 1)) / n0), base = by + n.h - pad;
+      data.forEach((s, i) => { const h = (s.value / max) * (n.h - pad * 2); const x = bx + pad + i * (bw + gap);
+        pushEl({ type: 'rectangle', id: 'bar_' + seed(), x: R(x), y: R(base - h), width: R(bw), height: R(h), strokeColor: ROLE[0], backgroundColor: ROLELT[0], strokeWidth: 1.5, roundness: { type: 3 } }); });
+    } else if (n.ctype === 'line') {
+      const vals = data.map(s => s.value); const max = Math.max(...vals), min = Math.min(...vals), rng = (max - min) || 1, pad = 6;
+      const stepX = (n.w - pad * 2) / Math.max(1, vals.length - 1);
+      const pts = vals.map((v, i) => [pad + i * stepX, (n.h - pad) - ((v - min) / rng) * (n.h - pad * 2)]);
       const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-      els.push({ type: 'line', id: 'pie_' + seed(), x: R(cx), y: R(cy), width: R(Math.max(...xs) - Math.min(...xs)), height: R(Math.max(...ys) - Math.min(...ys)), angle: 0,
-        points: pts.map(p => [R(p[0]), R(p[1])]), strokeColor: ROLE[i % 8], backgroundColor: ROLELT[i % 8], fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid',
-        roughness: a.roughness, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false,
-        startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1 });
-      ang += sweep;
-    });
+      pushEl({ type: 'line', id: 'line_' + seed(), x: R(bx + Math.min(...xs)), y: R(by + Math.min(...ys)), width: R(Math.max(...xs) - Math.min(...xs)), height: R(Math.max(...ys) - Math.min(...ys)), points: pts.map(p => [R(p[0] - Math.min(...xs)), R(p[1] - Math.min(...ys))]), strokeColor: ROLE[0], backgroundColor: 'transparent', strokeWidth: 2 });
+    }
+  }
+  // data-lib:把任意 drawlib 现成组件实例化到 HTML 框(缩放贴合 + 居中 + 重生成 id)
+  const libCache = {};
+  const loadLib = name => { if (!(name in libCache)) { try { libCache[name] = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'drawlib', name + '.excalidrawlib'), 'utf8')).library; } catch { libCache[name] = null; } } return libCache[name]; };
+  for (const n of nodes.filter(n => n.kind === 'lib')) {
+    const [lname, idxs] = n.ref.split(':'); const idx = parseInt(idxs);
+    const items = loadLib((lname || '').trim());
+    if (!items) { console.error(`⚠ 找不到库 ${lname}.excalidrawlib`); continue; }
+    const raw = items[idx]; if (!raw) { console.error(`⚠ ${n.ref} 越界(库有 ${items.length} 项)`); continue; }
+    const src = (Array.isArray(raw) ? raw : raw.elements).filter(e => !e.isDeleted);
+    let mnx = 1e9, mny = 1e9, mxx = -1e9, mxy = -1e9;
+    for (const e of src) { mnx = Math.min(mnx, e.x); mny = Math.min(mny, e.y); mxx = Math.max(mxx, e.x + (e.width || 0)); mxy = Math.max(mxy, e.y + (e.height || 0)); }
+    const s = Math.min(n.w / (mxx - mnx || 1), n.h / (mxy - mny || 1));
+    const ox = n.x + dx + (n.w - (mxx - mnx) * s) / 2, oy = n.y + dy + (n.h - (mxy - mny) * s) / 2;
+    const idmap = new Map(); for (const e of src) idmap.set(e.id, 'L' + seed());
+    for (const e of src) {
+      const ne = JSON.parse(JSON.stringify(e)); ne.id = idmap.get(e.id);
+      ne.x = R(ox + (e.x - mnx) * s); ne.y = R(oy + (e.y - mny) * s);
+      if (ne.width) ne.width = R(ne.width * s); if (ne.height) ne.height = R(ne.height * s);
+      if (ne.points) ne.points = ne.points.map(p => [R(p[0] * s), R(p[1] * s)]);
+      if (ne.fontSize) ne.fontSize = Math.max(6, R(ne.fontSize * s));
+      ne.seed = seed(); ne.versionNonce = seed();
+      if (ne.boundElements) ne.boundElements = ne.boundElements.map(b => ({ ...b, id: idmap.get(b.id) })).filter(b => b.id);
+      if (ne.startBinding?.elementId) ne.startBinding = { ...ne.startBinding, elementId: idmap.get(ne.startBinding.elementId) || ne.startBinding.elementId };
+      if (ne.endBinding?.elementId) ne.endBinding = { ...ne.endBinding, elementId: idmap.get(ne.endBinding.elementId) || ne.endBinding.elementId };
+      if (ne.containerId) ne.containerId = idmap.get(ne.containerId) || ne.containerId;
+      els.push(ne);
+    }
   }
   const out = a.out || a.input.replace(/\.html?$/i, '') + '.excalidraw';
   fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/html', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));

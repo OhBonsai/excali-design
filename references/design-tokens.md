@@ -71,12 +71,28 @@ node scripts/html-to-excalidraw.mjs 图.html --out 图.excalidraw
 
 CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、迷你折线…)。这些不靠大模型手摆坐标,而是沉淀成**确定性组件**:HTML 里写一个声明式占位 `<div data-chart="...">`,转换器用固定算法生成手绘元素。**确定性 token + 确定性 component = 把质量下限抬高,模型只负责"放哪、放不放",不负责"画得准不准"。**
 
-| 组件 | HTML 声明 | 生成 |
-|---|---|---|
-| 饼图 | `<div data-chart="pie" data-values="数码:40,服饰:30,食品:18">` | 真扇形(圆心采弧闭合折线),颜色角色轮转、浅填充、roughness 手绘 |
-| (待补)条形 / 迷你折线 / 徽章 | `data-chart="bar"` … | 同理:声明数据 → 固定算法 |
+**两条路,优先复用 drawlib(你的库有 ~185 个现成件,别从零画):**
 
-边永远不在 HTML 画 → `arch-connect`;饼图这类"图元"才用组件。两者都是"声明结构,引擎出形"。
+**A. `data-lib="库名:序号"` —— 直接实例化 drawlib 现成组件**(精致手绘成品,占位用)。任意库任意组件,转换器自动缩放贴框 + 居中 + 重生成 id:
+```html
+<div data-lib="data-viz:0"></div>       <!-- Bar 图占位 -->
+<div data-lib="data-viz:31"></div>      <!-- Radar -->
+<div data-lib="basic-ux-wireframing-elements:3"></div>  <!-- 任意 UI 控件 -->
+```
+序号见 `drawlib-catalog.md`(data-viz:28=Pie、29=Donut、8=Line…)。**把 drawlib 当 HTML 组件标签用。**
+
+**B. `data-chart="..." data-values="..."` —— 数据驱动确定性生成**(要反映真实数值时用):
+
+| ctype | HTML 声明 | 生成 |
+|---|---|---|
+| `pie` | `data-chart="pie" data-values="数码:40,服饰:30,食品:18"` | 真扇形(圆心采弧闭合折线) |
+| `donut` | `data-chart="donut" data-values="…"` | 带孔环形扇区(annulus) |
+| `bar` | `data-chart="bar" data-values="App:130,小程序:90,H5:60"` | 等比竖柱,height ∝ value |
+| `line` | `data-chart="line" data-values="1:30,2:45,…"` | 迷你折线(value→y) |
+
+都套颜色角色轮转 + 浅填充 + roughness 手绘。**有真实数值→ B;只要"这里有个图"→ A(更好看)。**
+
+边永远不在 HTML 画 → `arch-connect`;图元才用组件。三者同一原则:"声明结构,引擎出形"。
 
 ## 五、转换后必做:模型眯眼回归(LLM-in-the-loop,非可选)
 

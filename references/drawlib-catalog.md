@@ -71,11 +71,26 @@ UI 控件全家桶,画线框/原型时**首选**。含名字,按名取用。
 
 ## 6. data-viz(32 个)· 图表占位 · Dashboard 原型用
 
-32 种图表的手绘版,做 dashboard 原型/数据页时当图表 placeholder:
+32 种图表的手绘版,做 dashboard 原型/数据页时当图表 placeholder。**无 name,按序号取**(序号经接触表核对):
 
-Bar / Stacked bar / 100% stacked bar / Grouped bar / Column(同 4 变体)/ Line / Area / Stacked area / ThemeRiver / Scatter / Bubble / Cartesian heatmap / Calendar heatmap / Tree Map / Waterfall / Dot strip plot(+ multi-strip / jitter)/ Column Histogram / Population pyramid / Density plot / Box & Whisker / Violin / Pie / Donut / Polar Area(Nightingale)
+| # | 图 | # | 图 | # | 图 | # | 图 |
+|---|---|---|---|---|---|---|---|
+| 0 | Bar(横条) | 8 | Line(多线) | 16 | Bubble | 24 | Population pyramid |
+| 1 | Stacked bar | 9 | Line+markers | 17 | Calendar heatmap | 25 | Density plot |
+| 2 | 100% stacked bar | 10 | Area | 18 | Cartesian heatmap | 26 | Box & Whisker |
+| 3 | Grouped bar | 11 | Stacked area | 19 | Tree Map | 27 | Violin |
+| 4 | Column(竖柱) | 12 | Stacked area 2 | 20 | Waterfall | 28 | **Pie** |
+| 5 | Stacked column | 13 | Area 2 | 21 | Dot strip | 29 | **Donut** |
+| 6 | 100% stacked column | 14 | ThemeRiver | 22 | Dot strip multi | 30 | Polar/Nightingale |
+| 7 | Grouped column | 15 | Scatter | 23 | Column histogram | 31 | Radar(spider) |
 
-> 原型里要表达「这里有个柱状图」→ 取 data-viz 的 Bar,而不是手画。
+> 接触表自查:`test/_opus/_dataviz-sheet.png`(序号变了就重渲染核对)。
+
+**两种用法**(都不手画):
+- **要真实数据** → 用 `data-chart`(转换器按数值生成):`<div data-chart="bar|line|pie|donut" data-values="App:130,小程序:90,H5:60">`。
+- **只要「这里有个图」占位**(更精致的手绘成品)→ 用 `data-lib` 直接实例化本库:`<div data-lib="data-viz:0">`(Bar)、`data-viz:8`(Line)、`data-viz:31`(Radar)。转换器自动缩放贴合框、居中、重生成 id。
+
+`data-lib` 不止图表——**任意库任意组件**都能这么调:`data-lib="basic-ux-wireframing-elements:3"`、`data-lib="dev_ops:12"`。把 drawlib 当 HTML 里的"组件标签"用。
 
 ## 7. stick-figures(9 个)· 人物/角色
 
