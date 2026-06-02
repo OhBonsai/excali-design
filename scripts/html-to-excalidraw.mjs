@@ -55,9 +55,7 @@ function snap(s) {
 }
 function fontFamily(fam) { return /mono|code|consol|menlo/i.test(fam || '') ? 3 : 2; }
 
-async function getChromium() {
-  let mod; try { mod = await import('playwright'); } catch { try { mod = await import('playwright-core'); } catch { return null; } } return mod.chromium;
-}
+import { launchChromium, NO_BROWSER_HINT } from './_browser.mjs';
 
 const WALK = `() => {
   const out = [];
@@ -102,10 +100,9 @@ async function main() {
   const a = parseArgs(process.argv);
   if (!a.input) { console.error('用法: node html-to-excalidraw.mjs 图.html [--out x.excalidraw] [--width 1200]'); process.exit(1); }
   const html = fs.readFileSync(a.input, 'utf8');
-  const chromium = await getChromium();
-  if (!chromium) { console.error('🚧 需要 playwright + chromium'); process.exit(3); }
-  const launchOpts = process.env.EXCALI_CHROMIUM ? { executablePath: process.env.EXCALI_CHROMIUM } : {};
-  const browser = await chromium.launch(launchOpts);
+  const { browser, used, error, detail } = await launchChromium();
+  if (error) { console.error(NO_BROWSER_HINT + (detail ? `\n   (${detail})` : '')); process.exit(3); }
+  console.error(`· CSS 布局内核:${used}`);
   const page = await browser.newPage({ viewport: { width: a.width, height: 800 } });
   await page.setContent(html, { waitUntil: 'networkidle' });
   const nodes = await page.evaluate(`(${WALK})()`);

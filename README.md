@@ -146,9 +146,11 @@ excali-design/
 - `mermaid-to-excalidraw.mjs` 的 Tier2(elkjs);Tier1 官方库另需 `@excalidraw/mermaid-to-excalidraw`。
 - `svg-export.mjs` 导出**手绘 SVG**(roughjs,headless)+ **PNG**(resvg)——**眯眼回归、贴图日常用这个**。
 
-**需 chromium 的 opt-in** —— `npm install playwright && npx playwright install chromium`:
+**需浏览器内核的两个脚本**(`npm install` 默认带 `playwright`):
 
-- `html-to-excalidraw.mjs` —— HTML 布局路径(原型 / 看板 / dashboard / 海报)。**CSS 布局引擎只能靠浏览器算位置**,这条输入路径绕不开 chromium。
-- `excalidraw-to-image.mjs` —— 像素级和 excalidraw.com 一致的导出(字体/换行 100% 对齐)。
+- `html-to-excalidraw.mjs` —— HTML 布局路径(原型 / 看板 / dashboard / 海报)。**CSS 布局引擎只能靠浏览器算位置**。
+- `excalidraw-to-image.mjs` —— 像素级和 excalidraw.com 一致的导出。
 
-> 速记:**拓扑/架构(elkjs)+ mermaid + 轻量导出 = 无 chromium 开箱即用;HTML 布局原型 + 像素级导出 = 装 playwright。** Excalidraw MCP 接入时 `create_view` 直接渲染;未接入则产 `.excalidraw` 文件导入 excalidraw.com。
+**省去 chromium 下载**:这俩脚本会先**自动找系统已装的 Chrome / Edge / Chromium / Brave**(`scripts/_browser.mjs`,Mac/Linux/Win 常见路径)——找到就用、免下载;找不到才用 playwright 自带的(`npx playwright install chromium`)。也可显式指定:`EXCALI_CHROMIUM=<可执行文件路径>`。
+
+> 速记:**拓扑/架构(elkjs)+ mermaid + 轻量导出(svg-export)= 纯无浏览器;HTML 布局原型 + 像素级导出 = 用浏览器(优先系统已装的,没有才下 chromium)。** Excalidraw MCP 接入时 `create_view` 直接渲染;未接入则产 `.excalidraw` 文件导入 excalidraw.com。
