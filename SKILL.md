@@ -103,7 +103,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 
 **判断边界**:颜色/手绘度服务于**信息**就保留,纯装饰就删。完整清单见 `references/anti-slop.md`。
 
-## 工作流程(用 TaskCreate 追踪)
+## 工作流程(用 TaskCreate/Todo Write 追踪)
 
 1. **理解需求**
    - 🔍 **0. 事实验证**:画真实系统/产品时先读代码/搜文档,写 `system-facts.md`(见原则 #0)。

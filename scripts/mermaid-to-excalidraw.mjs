@@ -272,6 +272,51 @@ async function tier2Gantt(src, out) {
   return true;
 }
 
+// pie:语法极简,node 直接正则解析(无需浏览器)→ 扇形=闭合折线逼近弧(借 drawlib data-viz Pie 技法)
+function tier2Pie(src, out) {
+  const lines = src.split('\n').map(s => s.trim());
+  let title = '';
+  const tm = (lines.find(l => /^pie\s/i.test(l)) || '').match(/title\s+(.+)$/i) || (lines.find(l => /^title\s/i.test(l)) || '').match(/^title\s+(.+)$/i);
+  if (tm) title = tm[1].trim();
+  const slices = [];
+  for (const l of lines) {
+    const m = l.match(/^"([^"]+)"\s*:\s*([\d.]+)/) || l.match(/^([^:"]+?)\s*:\s*([\d.]+)$/);
+    if (m && !/^pie/i.test(l)) slices.push({ label: m[1].trim(), value: parseFloat(m[2]) });
+  }
+  if (!slices.length) return false;
+  const total = slices.reduce((a, s) => a + s.value, 0);
+
+  const PAL = [['#1971c2', '#a5d8ff'], ['#2f9e44', '#b2f2bb'], ['#f08c00', '#ffec99'], ['#7048e8', '#d0bfff'], ['#e03131', '#ffc9c9'], ['#0c8599', '#99e9f2'], ['#e8590c', '#ffd8a8'], ['#ae3ec9', '#eebefa']];
+  const cx = 240, cy = title ? 260 : 220, r = 160;
+  let seedN = 1; const seed = () => (seedN = (seedN * 1103515245 + 12345) & 0x7fffffff);
+  const els = []; const R = Math.round;
+  const txt = (t, x, y, size, align, w, color = '#1e1e1e') => els.push({ type: 'text', id: 't_' + seed(), x: R(x), y: R(y), width: w, height: size + 4, angle: 0, text: t, fontSize: size, fontFamily: 2, textAlign: align, verticalAlign: 'top', strokeColor: color, backgroundColor: 'transparent', fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+
+  if (title) txt(title, 60, 36, 24, 'left', 600);
+  let ang = -Math.PI / 2;  // 从顶部开始,顺时针
+  slices.forEach((s, i) => {
+    const sweep = s.value / total * Math.PI * 2;
+    const [stroke, bg] = PAL[i % PAL.length];
+    const pts = [[0, 0]];
+    const steps = Math.max(2, Math.ceil(sweep / (Math.PI / 18)));  // ~10°/段
+    for (let k = 0; k <= steps; k++) { const a = ang + sweep * k / steps; pts.push([Math.cos(a) * r, Math.sin(a) * r]); }
+    pts.push([0, 0]);
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    els.push({ type: 'line', id: 'sl_' + seed(), x: cx, y: cy, width: R(Math.max(...xs) - Math.min(...xs)), height: R(Math.max(...ys) - Math.min(...ys)), angle: 0, points: pts.map(p => [R(p[0]), R(p[1])]), strokeColor: stroke, backgroundColor: bg, fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1 });
+    ang += sweep;
+  });
+  // 图例
+  const lx = cx + r + 80, ly0 = cy - r + 10;
+  slices.forEach((s, i) => {
+    const [stroke, bg] = PAL[i % PAL.length]; const ly = ly0 + i * 34;
+    els.push({ type: 'rectangle', id: 'lg_' + seed(), x: lx, y: ly, width: 22, height: 22, angle: 0, strokeColor: stroke, backgroundColor: bg, fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid', roughness: 1, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+    const pct = (s.value / total * 100).toFixed(s.value / total * 100 % 1 ? 1 : 0);
+    txt(`${s.label}  ${s.value}  (${pct}%)`, lx + 32, ly + 2, 16, 'left', 360);
+  });
+  fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/mermaid', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
+  return true;
+}
+
 async function main() {
   const a = parseArgs(process.argv);
   const src = a.text || (a._[0] && fs.readFileSync(a._[0], 'utf8'));
@@ -292,6 +337,11 @@ async function main() {
     const ok = await tier2Gantt(src, out);
     if (ok) console.log(`✓ → ${out}`);
     else { console.error('gantt 渲染失败'); process.exit(2); }
+  } else if (type === 'pie') {
+    console.log('类型:pie(node 解析 → 扇形闭合折线,手绘原生)');
+    const ok = tier2Pie(src, out);
+    if (ok) console.log(`✓ → ${out}`);
+    else { console.error('pie 解析失败'); process.exit(2); }
   } else if (TIER1.has(type)) {
     console.log(`类型:${type}(Tier 1 官方原生手绘)`);
     const { elements, files } = await tier1(src);
