@@ -63,12 +63,7 @@ function loadScene(input) {
   return { elements: data.elements || [], appState: data.appState || {}, files: data.files || {} };
 }
 
-async function getChromium() {
-  let mod;
-  try { mod = await import('playwright'); }
-  catch { try { mod = await import('playwright-core'); } catch { return null; } }
-  return mod.chromium;
-}
+import { launchChromium, NO_BROWSER_HINT } from './_browser.mjs';
 
 const PAGE_HTML = (cdn) => `<!doctype html><meta charset=utf8><body><script type="module">
   const Ex = (await import('${cdn}')).default;
@@ -102,14 +97,9 @@ async function main() {
   };
   const base = args.out || args.input.replace(/\.excalidraw$/i, '').replace(/\.json$/i, '');
 
-  const chromium = await getChromium();
-  if (!chromium) {
-    console.error('🚧 未找到 playwright/playwright-core。装:npm i playwright && npx playwright install chromium');
-    process.exit(3);
-  }
-
-  const launchOpts = process.env.EXCALI_CHROMIUM ? { executablePath: process.env.EXCALI_CHROMIUM } : {};
-  const browser = await chromium.launch(launchOpts);
+  const { browser, used, error, detail } = await launchChromium();
+  if (error) { console.error(NO_BROWSER_HINT + (detail ? `\n   (${detail})` : '')); process.exit(3); }
+  console.error(`· 渲染内核:${used}`);
   const page = await browser.newPage();
   page.on('pageerror', (e) => console.error('[page error]', e.message));
   await page.setContent(PAGE_HTML(EXCALIDRAW_CDN), { waitUntil: 'networkidle' });

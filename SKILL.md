@@ -126,7 +126,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - 🛑 **检查点3**:以上口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
-   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**(⚠️ 此路径靠浏览器算 CSS 布局,需 `playwright`+chromium;没装时脚本会提示,可改走 elkjs/mermaid 或直接手摆海报型框。)
+   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**(⚠️ 此路径靠浏览器算 CSS 布局,需浏览器内核;脚本会**先找系统已装的 Chrome/Edge/Chromium**,有就用、免下载,没有才用 playwright 自带的。都没有时会提示,可改走 elkjs/mermaid 或手摆海报型框。)
    - 🧩 **HTML 里默认嵌组件,别手抄 elements、别手画已有控件**(原则 #2 在 HTML 路径的落地):
      - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。10 库 ~218 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
      - **要真实数值的图** → `<div data-chart="pie|donut|bar|line" data-values="A:40,B:30">`(确定性生成,反映数据)。
