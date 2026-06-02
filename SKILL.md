@@ -170,7 +170,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
-| **设计令牌 + HTML→Excalidraw 降级映射**(网格/卡片/海报类走 HTML 布局) | `references/design-tokens.md` |
+| **设计令牌 + HTML→Excalidraw 降级映射**(网格/卡片/海报类走 HTML 布局) | `references/design-tokens.md` + `scripts/html-to-excalidraw.mjs`(写语义 HTML → 浏览器布局 → 手绘风) |
 | 配色纪律 | `references/color-system.md` |
 | 反手绘 AI slop | `references/anti-slop.md` |
 | **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |

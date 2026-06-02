@@ -95,6 +95,7 @@ excali-design/
 │   ├── arch-layout.mjs           # 声明组件树 → elkjs 自动布局(零重叠)
 │   ├── arch-connect.mjs          # 人摆框,程序连线(正交+面向边+消交叉)
 │   ├── arch-lint.mjs             # 几何 lint(重叠/流向/斜线/交叉/留白/配色)
+│   ├── html-to-excalidraw.mjs    # 语义 HTML(flex/grid)→ Excalidraw 手绘风(网格/卡片/海报类布局)
 │   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG
 │   └── verify.mjs                # .excalidraw 结构校验(id/binding)
