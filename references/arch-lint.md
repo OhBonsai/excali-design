@@ -93,7 +93,7 @@ ELK 负责:同层对齐 / 层间等距 / **零重叠** / 最小交叉 / 正交�
 
 ## lint:最后一步的辅助提示(不是门槛)
 
-任何 `.excalidraw` 或帧 JSON,交付**前**跑一遍,**只为抓肉眼容易漏的机械错误**:
+任何 `.excalidraw`,交付**前**跑一遍,**只为抓肉眼容易漏的机械错误**:
 
 ```bash
 node scripts/arch-lint.mjs <file.excalidraw> [--grid 4] [--colors 4] [--width W --height H] [--json]

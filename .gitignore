@@ -7,31 +7,21 @@ Thumbs.db
 *.swo
 *~
 
-# 工作目录 / 临时产物(tmp)
-# _frames = 动画帧工作目录(帧 JSON / files.json / 渲染 PNG)
-# pw-browsers = Playwright 浏览器缓存
+# 临时工作目录
 _temp/
-_frames/
 pw-browsers/
 
 # 运行时事实文件(含项目内部信息,不随 skill 分发)
 system-facts.md
 product-facts.md
-nba-facts.md
 
-# 生成媒体:默认全忽略,只保留文档引用到的(让别人拉取更轻)
+# 生成图片:默认忽略,只保留文档引用到的(让别人拉取更轻)
 *.png
-*.gif
-*.mp4
-*.webm
 
 # 例外:README/文档引用的展示媒体
 !assets/readme/
 !assets/readme/**
 
-# 音频资产(BGM + SFX)完整保留在 git(assets/*.mp3、assets/sfx/**)
-
-# 音频打包 zip / zip 临时残留不入库
-excali-design-audio.zip
+# zip 残留
 *.zip
 zi??????

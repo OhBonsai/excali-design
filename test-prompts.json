@@ -13,9 +13,9 @@
   },
   {
     "id": 3,
-    "prompt": "把这个架构图做成一段动画,讲清楚一个请求是怎么穿过系统的",
-    "expected": "先答动画3问(hero=请求路径/演进=焦点移动/帧间可感);累加式或替换式 reveal 沿数据流逐节点点亮;跨帧锁 id/seed;reveal 顺序=叙事顺序;问要视图内播放还是导出 MP4;导出走 render-frames→frames-to-video",
-    "tests": "绘图刷新帧模型 + 动画3问 + reveal 叙事顺序 + 锁 seed + 两条播放路径"
+    "prompt": "把这个有几十个节点的微服务调用关系画成架构图",
+    "expected": "拓扑密集→走 arch-layout(声明 spec.json 节点+边)elkjs 自动摆,保证不重叠+最小交叉;⛔不手估边 points,连线由 arch-connect/elkjs 路由正交;交付前 arch-lint 扫一遍",
+    "tests": "拓扑密集→arch-layout 自动布局 + 连线不手估 + 正交路由 + lint 辅助扫描"
   },
   {
     "id": 4,
