@@ -126,8 +126,13 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - 🛑 **检查点3**:以上口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
-   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。** CSS 画不出的图元(饼图等)用**确定性组件** `<div data-chart="pie" data-values="A:40,B:30">`,别拿色块硬凑。
-   - 🔁 **html→excalidraw 不是纯逻辑就完**:转完**必须**渲染成 PNG,自己**眯眼回归**看一遍(文字居中?箭头乱不乱?饼图是不是饼图?),有问题改 HTML/edges/组件再生成。机械 lint 判不了好坏,这一环是模型补的(`design-tokens.md` 五、六节)。
+   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**
+   - 🧩 **HTML 里默认嵌组件,别手抄 elements、别手画已有控件**(原则 #2 在 HTML 路径的落地):
+     - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。7 库 ~185 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
+     - **要真实数值的图** → `<div data-chart="pie|donut|bar|line" data-values="A:40,B:30">`(确定性生成,反映数据)。
+     - **两者都没有** 才用基础元素手拼(守 `anti-slop.md`)。
+     - 🔒 **代码约束(硬)**:`data-lib` 引用无效(库不存在 / 序号越界)→ `html-to-excalidraw.mjs` **默认 strict 退出码 2,构建直接失败**,逼你回查接触表;`--loose` 才降级为 warn。末尾会打印「复用 N data-lib + M data-chart」统计。
+   - 🔁 **html→excalidraw 不是纯逻辑就完**:转完**必须**渲染成 PNG,自己**眯眼回归**看一遍(文字居中?箭头乱不乱?饼图是不是饼图?组件该复用的复用了没?),有问题改 HTML/edges/组件再生成。机械 lint 判不了好坏,这一环是模型补的(`design-tokens.md` 五、六节)。
    - 🏗️ **架构图:两个手工易错点都已程序化,别手做**(详见 `references/arch-lint.md`):
      - **节点摆放**:拓扑密集图(服务网格、几十节点)→ `node scripts/arch-layout.mjs spec.json`(elkjs 自动摆,保证不重叠);海报型/注释重的图(框少字多、刻意分区)→ **人工摆框**(自动布局会把海报压成光秃秃的树,丢密度/层级)。
      - **连线路由(铁律)**:⛔ **绝不手写/手估边的 `points` 坐标**——必出斜线/绕背面(流向反)/交叉/端口挤。摆好框后,声明逻辑连接(A→B)交给 `node scripts/arch-connect.mjs boxes.excalidraw edges.json`,它算出正交+面向边+均匀分布+按序排(消交叉)+binding 的线。海报型图也用它连边。多条线汇聚到一个目标(fan-in)用 `toSide` 锁定进同一边。
@@ -167,11 +172,11 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 |---|---|
 | 开工前问问题、定方向 | `references/workflow.md` |
 | Excalidraw 元素格式(schema/调色板/binding) | `references/element-format.md`(离线版 read_me) |
-| 复用 drawlib 组件库 | `references/drawlib-catalog.md` |
+| 复用 drawlib 组件库(7 库 ~185 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md` + `scripts/drawlib-sheet.mjs`(渲接触表核对序号) |
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
-| **设计令牌 + HTML→Excalidraw 降级映射**(网格/卡片/海报类走 HTML 布局) | `references/design-tokens.md` + `scripts/html-to-excalidraw.mjs`(写语义 HTML → 浏览器布局 → 手绘风) |
+| **设计令牌 + HTML→Excalidraw 降级映射**(网格/卡片/海报类走 HTML 布局;`data-lib` 嵌组件 + `data-chart` 嵌图表) | `references/design-tokens.md` + `scripts/html-to-excalidraw.mjs`(写语义 HTML → 浏览器布局 → 手绘风;无效 data-lib strict 失败) |
 | 配色纪律 | `references/color-system.md` |
 | 反手绘 AI slop | `references/anti-slop.md` |
 | **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |
