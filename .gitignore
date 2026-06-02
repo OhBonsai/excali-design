@@ -25,3 +25,6 @@ product-facts.md
 # zip 残留
 *.zip
 zi??????
+
+# 测试产物
+test/_out/
