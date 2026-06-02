@@ -2,9 +2,9 @@
   "name": "excali-design-runtime",
   "private": true,
   "type": "module",
+  "comment": "默认 npm install 全是纯 JS / 预编译小二进制,无 chromium。要像素级保真再手动:npm install playwright && npx playwright install chromium",
   "dependencies": {
     "elkjs": "^0.11.1",
-    "playwright": "^1.49.0",
     "roughjs": "^4.6.6"
   },
   "optionalDependencies": {
