@@ -64,13 +64,44 @@ node scripts/html-to-excalidraw.mjs 图.html --out 图.excalidraw
 | `<img>` / `<svg>` | `image` 元素(+ `files` dataURL) | 真图直译;别用 CSS 画图形 |
 | `hover` / `transition` / `animation` / `:active` | **全丢**(静态图) | 本 skill 只做静态 |
 | 框 → 框的连线 | **不在 HTML 画**,交 `arch-connect` | 节点 HTML 摆,**边永远 arch-connect** |
-| `text-align` / `line-height` | `textAlign` / 由布局体现 | — |
+| `text-align` / `line-height` | 文字用 **Range 量实际渲染框**(含 padding / 垂直居中),不是元素框顶 | 否则带 padding 的输入框文字会贴顶,不居中 |
+| `<div data-chart="pie" data-values="A:40,B:30">` | **组件**:转成真扇形(闭合折线),不当普通框 | CSS 画不出真饼图(conic-gradient 不可译)→ 用确定性组件补 |
 
-## 四、转换后自检(守住手绘风)
+## 四、确定性组件(component)——HTML 表达不了的,用组件补
+
+CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、迷你折线…)。这些不靠大模型手摆坐标,而是沉淀成**确定性组件**:HTML 里写一个声明式占位 `<div data-chart="...">`,转换器用固定算法生成手绘元素。**确定性 token + 确定性 component = 把质量下限抬高,模型只负责"放哪、放不放",不负责"画得准不准"。**
+
+| 组件 | HTML 声明 | 生成 |
+|---|---|---|
+| 饼图 | `<div data-chart="pie" data-values="数码:40,服饰:30,食品:18">` | 真扇形(圆心采弧闭合折线),颜色角色轮转、浅填充、roughness 手绘 |
+| (待补)条形 / 迷你折线 / 徽章 | `data-chart="bar"` … | 同理:声明数据 → 固定算法 |
+
+边永远不在 HTML 画 → `arch-connect`;饼图这类"图元"才用组件。两者都是"声明结构,引擎出形"。
+
+## 五、转换后必做:模型眯眼回归(LLM-in-the-loop,非可选)
+
+**html→excalidraw 不是纯逻辑就够。** 转换器忠实翻译 HTML,但翻译不出"该不该是饼图""箭头是不是乱""焦点对不对"——这些只有**把渲染图给模型看**才知道。所以有了 `.excalidraw` 之后,**必须**:
+
+```
+1. node scripts/excalidraw-to-image.mjs 图.excalidraw --png
+2. 模型读这张 PNG(眯眼看),逐条核:
+   - 焦点/分组/层级:模糊看,主角和分区仍认得出?
+   - 文字:有没有贴边/不居中/溢出?(→ Range 没量准 / 容器太小)
+   - 连线:正交干净不交叉?有没有侧边乱窜?(→ 改 fromSide/toSide 重连)
+   - 图元:饼图是饼图、条形是条形,不是"线方块"?(→ 该上组件)
+   - 手绘风:没渐变/阴影,字体只 Virgil/Normal/Code,≤4 色?
+3. 有问题 → 改 HTML / edges / 组件 → 重新生成 → 再看。迭代到过。
+```
+
+机械 lint(arch-lint)只查几何错误,**判不了好坏**;眯眼回归是大模型补的那一环,不能省。
+
+## 六、转换后自检清单(眯眼时逐条过)
 
 - [ ] 没有渐变 / 阴影 / 玻璃拟态(全降级掉了)
 - [ ] 字体只用了 Virgil/Normal/Code,没保留 Inter/SF
 - [ ] 全图 ≤ 4 色,都来自颜色角色
 - [ ] roughness 1(或正式图 0),元素吸附网格
-- [ ] 框间是 arch-connect 路由的正交线,不是手画/HTML 伪连线
+- [ ] 文字垂直/水平都在它该在的位置(Range 量的,不贴框顶)
+- [ ] 框间是 arch-connect 路由的正交线,不是手画/HTML 伪连线;无侧边乱窜
+- [ ] 图表是真图元(饼/条),不是色块凑
 - [ ] **眯眼测试**:模糊看,焦点和分组仍认得出;读起来是手绘图不是 web 截图
