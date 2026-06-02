@@ -59,8 +59,8 @@ function usage() {
 
 function loadScene(input) {
   const data = JSON.parse(fs.readFileSync(input, 'utf8'));
-  if (Array.isArray(data)) return { elements: data, appState: {} };
-  return { elements: data.elements || [], appState: data.appState || {} };
+  if (Array.isArray(data)) return { elements: data, appState: {}, files: {} };
+  return { elements: data.elements || [], appState: data.appState || {}, files: data.files || {} };
 }
 
 async function getChromium() {
@@ -72,16 +72,16 @@ async function getChromium() {
 
 const PAGE_HTML = (cdn) => `<!doctype html><meta charset=utf8><body><script type="module">
   const Ex = (await import('${cdn}')).default;
-  window.__png = async (elements, appState, scale, padding) => {
+  window.__png = async (elements, appState, scale, padding, files) => {
     const blob = await Ex.exportToBlob({
-      elements, appState, files:null, mimeType:'image/png',
+      elements, appState, files: files || null, mimeType:'image/png',
       exportPadding: padding,
       getDimensions: (w,h) => ({ width:w*scale, height:h*scale, scale }),
     });
     return Array.from(new Uint8Array(await blob.arrayBuffer()));
   };
-  window.__svg = async (elements, appState, padding) => {
-    const svg = await Ex.exportToSvg({ elements, appState, files:null, exportPadding: padding });
+  window.__svg = async (elements, appState, padding, files) => {
+    const svg = await Ex.exportToSvg({ elements, appState, files: files || null, exportPadding: padding });
     return new XMLSerializer().serializeToString(svg);
   };
   window.__ready = true;
@@ -91,7 +91,7 @@ async function main() {
   const args = parseArgs(process.argv);
   if (args.help || !args.input) usage();
 
-  const { elements, appState } = loadScene(args.input);
+  const { elements, appState, files } = loadScene(args.input);
   if (elements.length === 0) { console.error('文件无元素'); process.exit(1); }
 
   const bg = args.transparent ? 'transparent' : (args.bg || appState.viewBackgroundColor || '#fafaf6');
@@ -117,13 +117,13 @@ async function main() {
 
   const outs = [];
   if (args.png) {
-    const bytes = await page.evaluate(([e, s, sc, p]) => window.__png(e, s, sc, p), [elements, exportAppState, args.scale, args.padding]);
+    const bytes = await page.evaluate(([e, s, sc, p, f]) => window.__png(e, s, sc, p, f), [elements, exportAppState, args.scale, args.padding, files]);
     const out = `${base}.png`;
     fs.writeFileSync(out, Buffer.from(bytes));
     outs.push(out);
   }
   if (args.svg) {
-    const svg = await page.evaluate(([e, s, p]) => window.__svg(e, s, p), [elements, exportAppState, args.padding]);
+    const svg = await page.evaluate(([e, s, p, f]) => window.__svg(e, s, p, f), [elements, exportAppState, args.padding, files]);
     const out = `${base}.svg`;
     fs.writeFileSync(out, svg, 'utf8');
     outs.push(out);

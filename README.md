@@ -51,6 +51,20 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 
 详见 [`references/arch-lint.md`](references/arch-lint.md)。
 
+## Mermaid → Excalidraw 手绘风
+
+会写 Mermaid?直接转成手绘风:
+
+```bash
+node scripts/mermaid-to-excalidraw.mjs 图.mmd --out 图.excalidraw
+```
+
+- **flowchart / sequenceDiagram** → 官方 `@excalidraw/mermaid-to-excalidraw`,原生手绘元素(可编辑)。
+- **stateDiagram / erDiagram / C4 / mindmap** → mermaid `getData()` 抽结构 → `arch-layout`(elkjs)→ 手绘风(官方库对这些只贴 SVG 图,我们做成原生手绘)。
+- 其它类型(gantt/pie/...)→ SVG 图片兜底。
+
+详见 [`references/mermaid.md`](references/mermaid.md)。
+
 ## 导出图片(PNG / SVG)
 
 任意 `.excalidraw` 文件可一键导出成图片(贴 README / 文档 / PPT),用 Excalidraw 官方导出内核,和 excalidraw.com 同款渲染:
@@ -87,6 +101,7 @@ excali-design/
 │   ├── arch-layout.mjs           # 声明组件树 → elkjs 自动布局(零重叠)
 │   ├── arch-connect.mjs          # 人摆框,程序连线(正交+面向边+消交叉)
 │   ├── arch-lint.mjs             # 几何 lint(重叠/流向/斜线/交叉/留白/配色)
+│   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG
 │   └── verify.mjs                # .excalidraw 结构校验(id/binding)
 ├── demos/                        # 示例 spec
