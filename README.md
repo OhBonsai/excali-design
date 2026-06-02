@@ -7,9 +7,23 @@
 > 🙏 **本 skill 重度参考 [`huashu-design`](../huashu-design)(花叔 Design)设计。**
 > SKILL.md 主干 + references 路由 + scripts 工具链,以及「反 AI slop / Junior Designer / 资产优先 / 事实验证」四大哲学,都直接继承自 huashu-design,只是把媒介从 HTML 换成了 Excalidraw 元素、聚焦静态图。没有 huashu-design 就没有这个 skill,在此致谢。
 
+## 安装
+
+**方式 A · `npx skills`(推荐,一键装到所有 agent)** —— 用 [vercel-labs/skills](https://github.com/vercel-labs/skills) CLI,GitHub 当注册表,自动探测你的 agent(opencode / Claude Code / Cursor / Codex 等):
+
+```bash
+npx skills add OhBonsai/excali-design -g          # 全局安装(~/.config/<agent>/skills 等)
+npx skills add OhBonsai/excali-design             # 仅当前项目(./<agent>/skills/)
+npx skills add OhBonsai/excali-design -a opencode -y   # 只装 opencode,非交互
+```
+
+**方式 B · 手动** —— 从 [Releases](../../releases) 下载 zip 解压到 agent 的 skills 目录,或直接 clone 本仓库到 agent 能读到的地方。
+
+> 拉的是仓库**默认分支**(`master`,精简版)。
+
 ## 如何使用
 
-**安装 = 对着你的 AI agent 说一句话。** 这是一个 markdown-based 的 agent-agnostic skill(Claude Code / Cursor / Codex / Cowork 等都能用),没有 npm 包要装、没有配置要填——把这个目录放进 agent 能读到的地方,然后直接说:
+**最省事 = 对着你的 AI agent 说一句话。** 这是一个 markdown-based 的 agent-agnostic skill(Claude Code / Cursor / Codex / Cowork 等都能用),装好(或把目录放进 agent 能读到的地方)后直接说:
 
 ```
 安装并使用 excali-design 这个技能,帮我画一张订单服务的架构图

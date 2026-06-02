@@ -1,0 +1,70 @@
+name: release
+
+# 打 tag(vX.Y.Z)即发布;也可在 Actions 页手动触发
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write          # 建 Release 需要写权限
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # 让 git archive 拿到完整 tag
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 校验 1:SKILL.md 必须有 name + description frontmatter,否则 npx skills 装不了
+      - name: Validate SKILL.md frontmatter
+        run: |
+          node -e '
+            const fs = require("fs");
+            const t = fs.readFileSync("SKILL.md", "utf8");
+            const m = t.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+            if (!m) { console.error("✗ SKILL.md 缺 YAML frontmatter"); process.exit(1); }
+            const fm = m[1];
+            const has = k => new RegExp("^" + k + "\\s*:", "m").test(fm);
+            if (!has("name") || !has("description")) { console.error("✗ frontmatter 缺 name 或 description"); process.exit(1); }
+            console.log("✓ SKILL.md frontmatter OK(npx skills 可安装)");
+          '
+
+      # 校验 2:所有 Node 脚本语法可通过(防手滑提交坏脚本)
+      - name: Syntax-check scripts
+        run: |
+          for f in $(git ls-files 'scripts/*.mjs'); do
+            node --check "$f" && echo "  ✓ $f"
+          done
+
+      # 打包:git archive 只含已跟踪文件(= 精简版,不含 .git / 被忽略的 png)
+      - name: Package skill (git archive)
+        run: |
+          VERSION="${GITHUB_REF_NAME:-manual}"
+          ZIP="excali-design-${VERSION}.zip"
+          git archive --format=zip --prefix=excali-design/ -o "$ZIP" HEAD
+          echo "ZIP=$ZIP" >> "$GITHUB_ENV"
+          echo "打包内容:"; unzip -l "$ZIP" | tail -5
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            Excali-Design · Excalidraw 手绘风软件架构图 / 设计图 / 原型图 skill。
+
+            **安装(任选一)**
+            ```bash
+            npx skills add OhBonsai/excali-design -g        # 经 skills CLI 装到全局
+            ```
+            或下载下方 zip 解压到 agent 的 skills 目录;或直接对 agent 说「安装并使用 excali-design 技能」。
+          files: ${{ env.ZIP }}
