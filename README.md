@@ -54,7 +54,7 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 ## 它能做什么
 
 - **软件架构图**:从代码库/文档抽真实结构(原则 #0 先验证),按 C4 抽象层级画单向数据流拓扑,语义配色。拓扑密集图用 `arch-layout`(elkjs)自动摆节点,连线用 `arch-connect` 正交路由。
-- **产品原型 / 线框图**:复用 `drawlib/` 里 ~185 个现成 UI 控件(HTML 里 `data-lib="库名:序号"` 直接嵌),快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
+- **产品原型 / 线框图**:复用 `drawlib/` 里 ~218 个现成组件(HTML 里 `data-lib="库名:序号"` 直接嵌),快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
 - **数据看板 / 图表**:`data-chart="pie|donut|bar|line"` 按真实数值生成手绘图表;或 `data-lib` 取 data-viz 现成图占位。
 - **设计图 / 信息图 / 流程图**:决策流、状态机、泳道图、概念示意。
 
@@ -103,10 +103,10 @@ node scripts/excalidraw-to-image.mjs 图.excalidraw --png --transparent --scale 
 ```
 excali-design/
 ├── SKILL.md                      # 主干:人格 + 哲学 + 工作流 + references 路由表
-├── drawlib/                      # 7 个 .excalidrawlib 组件库(~185 个现成组件)
+├── drawlib/                      # 10 个 .excalidrawlib 组件库(~218 个现成组件)
 ├── references/                   # 深度手册(按任务路由)
 │   ├── element-format.md         # Excalidraw 元素 schema(离线 read_me)
-│   ├── drawlib-catalog.md        # 7 库清单 + 取用方法
+│   ├── drawlib-catalog.md        # 10 库清单 + 取用方法
 │   ├── architecture-workflow.md  # 软件架构图
 │   ├── prototype-workflow.md     # 产品原型
 │   ├── arch-lint.md              # 架构图:摆节点 / 连线 / lint 的方法论

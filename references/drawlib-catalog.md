@@ -1,6 +1,6 @@
 # drawlib 组件库目录
 
-> `drawlib/` 下有 7 个 `.excalidrawlib`,共 ~185 个现成组件。**能复用的绝不手绘**(SKILL.md 原则 #2)。
+> `drawlib/` 下有 10 个 `.excalidrawlib`,共 ~218 个现成组件。**能复用的绝不手绘**(SKILL.md 原则 #2)。
 > 本文件是清单 + 取用方法;具体每个 item 的 elements 在对应 `.excalidrawlib` 里。
 
 ## 取用方法(3 步)
@@ -35,7 +35,7 @@ els = item['elements']                 # 这就是该组件的 Excalidraw 元素
 
 **序号会随库更新变** → 用前先渲接触表核对:`node scripts/drawlib-sheet.mjs <库名>`(或 `all`)→ 渲 PNG。已存:`test/_sheets/_sheet-*.png`。
 
-### 七个库一句话用途(都能 data-lib)
+### 十个库一句话用途(都能 data-lib)
 
 | 库 | 数量 | 序号根键 | 主要用途 | 接触表 |
 |---|---|---|---|---|
@@ -44,8 +44,11 @@ els = item['elements']                 # 这就是该组件的 Excalidraw 元素
 | forms | 26 | library | 表单/设置页:Button/ComboBox(2)/Date picker(3)/Number spinner(4)/checkbox 全状态(13-18)/radio 全状态(19-24)/分段控件(1)/富文本工具条(25) | `_sheet-forms.png` |
 | dev_ops | 29 | libraryItems | 架构图技术图标(Docker/K8s/VSCode/Teams/GitLab/HashiCorp 等)+ 建筑/抽象图标——给节点标技术栈 | `_sheet-dev_ops.png` |
 | information-architecture | 17 | libraryItems | 流程图/IA 图元:page(0)/file(1)/决策菱形(6)/分支三角(7)/梯形选择(8)/area 容器(12-16)/page stack(3)/cluster(5) | `_sheet-information-architecture.png` |
+| awesome-slides | 16 | library | **整页幻灯片模板**:标题(0)/时间线(1,7)/章节分隔(3)/路线图(4)/Flow(5)/引用(6)/KPI 图表(8,9)/大数字(10)/要点(12)/Emoji 卡(13)/团队(14)/空白(15)——做 PPT 风格 deck | `_sheet-awesome-slides.png` |
+| mathematical-symbols | 15 | libraryItems | 数学符号:ℂ(0)/∞(1)/⟹(2)/→(3)/∀(4)/∃(5)/∈(6)/ℕ(7)/ℤ(8)/ℝ(9)/≥(10)/≤(11)/∂(12)/∫(13)/∑(14)——公式/算法/理论示意 | `_sheet-mathematical-symbols.png` |
 | stick-figures | 9 | libraryItems | 角色/actor:Stick man(0)/Moustache man/Girl/Guy/Grandma/Child/Shrug/Happy(7)/Sad(8)——用户旅程、时序图小人 | `_sheet-stick-figures.png` |
 | webpage-frames | 3 | libraryItems | 浏览器外框:loading(0)/viewable(1)/interactive(2)——网页原型外壳/截图占位 | `_sheet-webpage-frames.png` |
+| canvases | 2 | library | 商业框架画布:商业模式画布(0,9 格)/价值主张画布(1)——战略/商业设计 | `_sheet-canvases.png` |
 
 > 选型:**真实数值的图** → `data-chart`;**现成精致组件/图标/外框/小人** → `data-lib`;**这俩都没有** 才用基础元素手拼(守 anti-slop)。
 
@@ -128,6 +131,40 @@ UI 控件全家桶,画线框/原型时**首选**。含名字,按名取用。
 
 > 画用户旅程、角色、actor(时序图/用例图的小人)时用。比手画火柴人强。
 
+## 8. awesome-slides(16 个)· 整页幻灯片模板 · Deck 用
+
+每个 item 是一**整页幻灯片版式**(不是单个控件),做 PPT 风格的 deck / 汇报页时整页取用:
+
+| # | 版式 | # | 版式 |
+|---|---|---|---|
+| 0 | 标题页 | 8 | KPI 图表页(柱+折线) |
+| 1 | 时间线 | 9 | KPI Drilldown |
+| 2 | 两栏(图文+手机) | 10 | 大数字(250,000) |
+| 3 | 章节分隔(深色) | 11 | 文字 + 多屏 |
+| 4 | 路线图(甘特) | 12 | 要点列表(Bullets) |
+| 5 | Main Flow(多屏串联) | 13 | Emoji 卡片 |
+| 6 | 引用页(Quote) | 14 | 团队页(火柴人) |
+| 7 | 时间线(卡片) | 15 | 空白页 |
+
+> 要做整套汇报 deck → 取这些整页模板;只要一个图表/控件别用这个,用 data-viz / basic-ux。
+
+## 9. mathematical-symbols(15 个)· 数学符号
+
+手绘数学符号,画公式/算法/理论/集合论示意时用:
+
+`ℂ(0)`、`∞(1)`、`⟹ 蕴含(2)`、`→ 趋近(3)`、`∀ 全称(4)`、`∃ 存在(5)`、`∈ 属于(6)`、`ℕ(7)`、`ℤ(8)`、`ℝ(9)`、`≥(10)`、`≤(11)`、`∂ 偏导(12)`、`∫ 积分(13)`、`∑ 求和(14)`
+
+> 画 ML/算法/数学概念图时点缀符号用;别堆砌(anti-slop)。
+
+## 10. canvases(2 个)· 商业框架画布
+
+整页商业战略画布,做商业设计 / 精益创业 / 战略梳理时整张取用:
+
+- `0` **商业模式画布**(Business Model Canvas,9 格:Key Partners/Activities/Resources/Value Propositions/Customer Relationships/Channels/Customer Segments/Cost Structure/Revenue Streams)
+- `1` **价值主张画布**(Value Proposition Canvas:价值地图 Gains/Pains/Jobs + 客户画像 Gain Creators/Pain Relievers/Products & Services)
+
+> 画商业模式 / 价值主张时整张取用,再往格子里填文字。
+
 ---
 
 ## 速查:画什么 → 用哪个库
@@ -140,3 +177,6 @@ UI 控件全家桶,画线框/原型时**首选**。含名字,按名取用。
 | 软件架构/部署拓扑 | 5 dev_ops(图标)+ 基础元素(框) |
 | Dashboard/数据页原型 | 6 data-viz + 1 UX 控件 |
 | actor/用户/角色 | 7 stick-figures |
+| PPT 风格 deck / 汇报页 | 8 awesome-slides(整页模板) |
+| 公式/算法/数学示意 | 9 mathematical-symbols |
+| 商业模式/价值主张/战略 | 10 canvases |
