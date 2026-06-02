@@ -15,9 +15,39 @@ els = item['elements']                 # 这就是该组件的 Excalidraw 元素
 ```
 
 注意:
-- 老格式库(data-viz / dev_ops / forms)的 `libraryItems` 元素可能是**裸 element 数组**(无 name),按**序号**取用;下方给了每号的语义。
-- 复用时**重新生成 id**(避免和画布其他元素撞 id),保持组内相对坐标不变,整体平移。
+- 库根键不统一:`data-viz` / `forms` 用 `library`,其余用 `libraryItems`——读的时候 `j.library || j.libraryItems`。
+- 部分库 item 是**裸 element 数组**(无 name),按**序号**取用;下方给了每号语义。
+- 复用时**重新生成 id**(避免撞 id),保持组内相对坐标不变,整体平移。
 - 复用后仍要遵循 `anti-slop.md`(别因为库里有就全堆上去)。
+
+## ⭐ 首选取法:`data-lib`(HTML 布局时直接当组件标签)
+
+走 HTML 布局(`html-to-excalidraw.mjs`)时,**不用手抄 elements**——在框上写 `data-lib="库名:序号"`,转换器自动取该 item、缩放贴框、居中、重生成 id:
+
+```html
+<div data-lib="basic-ux-wireframing-elements:59"></div>  <!-- Filled button -->
+<div data-lib="forms:2"></div>                            <!-- ComboBox -->
+<div data-lib="information-architecture:6"></div>         <!-- 决策菱形 -->
+<div data-lib="dev_ops:2"></div>                          <!-- 技术图标 -->
+<div data-lib="stick-figures:0"></div>                    <!-- actor 小人 -->
+<div data-lib="webpage-frames:1"></div>                   <!-- 浏览器外框 -->
+```
+
+**序号会随库更新变** → 用前先渲接触表核对:`node scripts/drawlib-sheet.mjs <库名>`(或 `all`)→ 渲 PNG。已存:`test/_sheets/_sheet-*.png`。
+
+### 七个库一句话用途(都能 data-lib)
+
+| 库 | 数量 | 序号根键 | 主要用途 | 接触表 |
+|---|---|---|---|---|
+| basic-ux-wireframing-elements | 69 | libraryItems | 产品原型主力:按钮/toggle/checkbox/radio/dropdown/slider/搜索/modal/tooltip/help/汉堡菜单/视频播放器/图片占位/文本框/头像/箭头 | `_sheet-basic-ux-...png` |
+| data-viz | 32 | library | 图表占位(0=Bar 4=Column 8=Line 10=Area 28=Pie 29=Donut 31=Radar…) | `_sheet-data-viz.png` |
+| forms | 26 | library | 表单/设置页:Button/ComboBox(2)/Date picker(3)/Number spinner(4)/checkbox 全状态(13-18)/radio 全状态(19-24)/分段控件(1)/富文本工具条(25) | `_sheet-forms.png` |
+| dev_ops | 29 | libraryItems | 架构图技术图标(Docker/K8s/VSCode/Teams/GitLab/HashiCorp 等)+ 建筑/抽象图标——给节点标技术栈 | `_sheet-dev_ops.png` |
+| information-architecture | 17 | libraryItems | 流程图/IA 图元:page(0)/file(1)/决策菱形(6)/分支三角(7)/梯形选择(8)/area 容器(12-16)/page stack(3)/cluster(5) | `_sheet-information-architecture.png` |
+| stick-figures | 9 | libraryItems | 角色/actor:Stick man(0)/Moustache man/Girl/Guy/Grandma/Child/Shrug/Happy(7)/Sad(8)——用户旅程、时序图小人 | `_sheet-stick-figures.png` |
+| webpage-frames | 3 | libraryItems | 浏览器外框:loading(0)/viewable(1)/interactive(2)——网页原型外壳/截图占位 | `_sheet-webpage-frames.png` |
+
+> 选型:**真实数值的图** → `data-chart`;**现成精致组件/图标/外框/小人** → `data-lib`;**这俩都没有** 才用基础元素手拼(守 anti-slop)。
 
 ---
 

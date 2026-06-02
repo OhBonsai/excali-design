@@ -171,7 +171,7 @@ async function main() {
   }
   // data-lib:把任意 drawlib 现成组件实例化到 HTML 框(缩放贴合 + 居中 + 重生成 id)
   const libCache = {};
-  const loadLib = name => { if (!(name in libCache)) { try { libCache[name] = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'drawlib', name + '.excalidrawlib'), 'utf8')).library; } catch { libCache[name] = null; } } return libCache[name]; };
+  const loadLib = name => { if (!(name in libCache)) { try { const j = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'drawlib', name + '.excalidrawlib'), 'utf8')); libCache[name] = j.library || j.libraryItems || null; } catch { libCache[name] = null; } } return libCache[name]; };
   for (const n of nodes.filter(n => n.kind === 'lib')) {
     const [lname, idxs] = n.ref.split(':'); const idx = parseInt(idxs);
     const items = loadLib((lname || '').trim());
