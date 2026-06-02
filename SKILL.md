@@ -137,7 +137,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
      - **节点摆放**:拓扑密集图(服务网格、几十节点)→ `node scripts/arch-layout.mjs spec.json`(elkjs 自动摆,保证不重叠);海报型/注释重的图(框少字多、刻意分区)→ **人工摆框**(自动布局会把海报压成光秃秃的树,丢密度/层级)。
      - **连线路由(铁律)**:⛔ **绝不手写/手估边的 `points` 坐标**——必出斜线/绕背面(流向反)/交叉/端口挤。摆好框后,声明逻辑连接(A→B)交给 `node scripts/arch-connect.mjs boxes.excalidraw edges.json`,它算出正交+面向边+均匀分布+按序排(消交叉)+binding 的线。海报型图也用它连边。多条线汇聚到一个目标(fan-in)用 `toSide` 锁定进同一边。
 6. **验证**:交付前跑 `node scripts/arch-lint.mjs <图.excalidraw>`——**最后一道辅助扫描**,只抓肉眼容易漏的「明显重叠 / 箭头脱节 / 流向反」这类机械错误。⚠️ **lint 不是质量门槛、不是优化目标**:它测不了图讲清楚没、层级密度好不好;**别为了 lint 全绿去改图**(那是 Goodhart,会牺牲表达力)。lint 报警 ≠ 图差,全绿 ≠ 图好。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 扫一遍 + **眯眼测试**(模糊看,焦点和分组还认得出吗?读起来是手绘图不是 web 截图?)+ 自己肉眼过一遍(这个才是判断好坏的);需要打分用 `references/critique-guide.md` 的 5 维度。
-7. **(可选)导出**:`node scripts/excalidraw-to-image.mjs <图.excalidraw> --png --svg` 导出 PNG(高清)/ SVG(矢量),贴 README/文档/PPT。
+7. **(可选)导出**:轻量用 `node scripts/svg-export.mjs <图.excalidraw> --svg`(headless roughjs,**无 chromium**,字体回退;加 `--png` 经 resvg 出 PNG);要和 excalidraw.com 像素级一致用 `node scripts/excalidraw-to-image.mjs <图.excalidraw> --png --svg`(playwright)。眯眼回归也优先用前者(快、无浏览器)。
 8. **总结**:极简,只说 caveats 和 next steps。
 
 **检查点原则**:碰到 🛑 停下,告诉用户「我做了 X,下一步打算 Y,你确认吗?」然后真的**等**。
@@ -181,7 +181,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 反手绘 AI slop | `references/anti-slop.md` |
 | **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |
 | **Mermaid → Excalidraw 手绘风**(流程/时序/类/状态/ER 等) | `references/mermaid.md` + `scripts/mermaid-to-excalidraw.mjs` |
-| **导出单图为 PNG/SVG**(贴 README/文档/PPT) | `scripts/excalidraw-to-image.mjs`(`.excalidraw → PNG @Nx / SVG 矢量`,Excalidraw 官方导出内核) |
+| **导出单图为 PNG/SVG**(贴 README/文档/PPT) | 轻量无 chromium:`scripts/svg-export.mjs`(headless roughjs → 手绘 SVG,可选 resvg → PNG);最高保真:`scripts/excalidraw-to-image.mjs`(playwright,官方内核) |
 | 输出后验证 | `references/verification.md` + `scripts/verify.mjs` |
 | 设计评审/打分(可选) | `references/critique-guide.md` |
 

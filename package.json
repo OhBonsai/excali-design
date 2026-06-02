@@ -4,6 +4,10 @@
   "type": "module",
   "dependencies": {
     "elkjs": "^0.11.1",
-    "playwright": "^1.49.0"
+    "playwright": "^1.49.0",
+    "roughjs": "^4.6.6"
+  },
+  "optionalDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }
