@@ -103,7 +103,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 
 **判断边界**:颜色/手绘度服务于**信息**就保留,纯装饰就删。完整清单见 `references/anti-slop.md`。
 
-## 工作流程(用 TaskCreate 追踪)
+## 工作流程(用 TaskCreate/Todo Write 追踪)
 
 1. **理解需求**
    - 🔍 **0. 事实验证**:画真实系统/产品时先读代码/搜文档,写 `system-facts.md`(见原则 #0)。
@@ -112,18 +112,25 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 2. **探索上下文 + 复用资产**
    - 读 design system / 代码库 / 截图 / 现有架构文档。
    - 🛑 **检查点2·资产自检**:确认 drawlib 里能复用的组件已盘点(读 `drawlib-catalog.md`);真实系统的结构已抽取。
-3. **先答布局三问,再定系统**(比任何细节都重要)
-   - **图的类型**:原型 / 架构 / 流程 / 信息?(决定用哪个库、哪种布局)
+3. **先答「设计前置」,再定系统**(比任何 CSS 细节都决定成败——好坏在动笔前就定了)
+   - **受众 + 目的 + 一句话 takeaway**:谁看?看完要做什么决定/动作?5 秒内记住哪一句?(决定信息密度和重点)
+   - **图的类型 → 分派路径**(三条路 + 边):
+     - **网格 / 卡片 / 流式**(原型、看板、海报、信息图)→ 写**语义 HTML 布局**(flex/grid/padding,用设计令牌)→ 浏览器算位置 → 转手绘。**见 `references/design-tokens.md`**(含 CSS→Excalidraw 降级映射)。
+     - **拓扑 / 图论**(架构、数据流、流程、状态)→ `node scripts/arch-layout.mjs spec.json`(elkjs 摆节点);海报型注释重的架构图人工摆框。
+     - **Mermaid 支持的类型**(flowchart/sequence/class/state/ER/gantt/pie…)→ `node scripts/mermaid-to-excalidraw.mjs 图.mmd`,见 `references/mermaid.md`。
+     - **边永远交给 `arch-connect`**,不手估 `points`。
    - **抽象层级**:粗(C4 容器级)/ 细(组件级)/ 部署级?(决定信息密度)
-   - **阅读方向**:左→右数据流 / 上→下层级 / 中心放射?(决定布局骨架)
-   - 🛑 **检查点3**:三问答案 + 布局骨架口头说出来等用户点头,再渲染。
-   - 🧜 **Mermaid 捷径**:目标图属于 Mermaid 支持的类型且结构清晰(流程图/时序图/类图/状态机/ER 等)→ **优先让 agent 写 Mermaid → `node scripts/mermaid-to-excalidraw.mjs 图.mmd` 转手绘风**(比手摆元素快且不易错)。flowchart/sequence 走官方原生;state/er/c4/mindmap 走 getData→arch-layout。详见 `references/mermaid.md`。
+   - **视觉层级 + 焦点**:谁是 hero(最大/最重/居中或左上)?次级、三级是谁?(用字阶 + 位置编码,见令牌)
+   - **阅读路径**:左→右 / 上→下 / Z 型 / 中心放射?
+   - **设计令牌**:间距 / 字阶 / 颜色角色定一次(`design-tokens.md`),全图复用——一致性靠结构。
+   - 🛑 **检查点3**:以上口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
+   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**
    - 🏗️ **架构图:两个手工易错点都已程序化,别手做**(详见 `references/arch-lint.md`):
      - **节点摆放**:拓扑密集图(服务网格、几十节点)→ `node scripts/arch-layout.mjs spec.json`(elkjs 自动摆,保证不重叠);海报型/注释重的图(框少字多、刻意分区)→ **人工摆框**(自动布局会把海报压成光秃秃的树,丢密度/层级)。
      - **连线路由(铁律)**:⛔ **绝不手写/手估边的 `points` 坐标**——必出斜线/绕背面(流向反)/交叉/端口挤。摆好框后,声明逻辑连接(A→B)交给 `node scripts/arch-connect.mjs boxes.excalidraw edges.json`,它算出正交+面向边+均匀分布+按序排(消交叉)+binding 的线。海报型图也用它连边。多条线汇聚到一个目标(fan-in)用 `toSide` 锁定进同一边。
-6. **验证**:交付前跑 `node scripts/arch-lint.mjs <图.excalidraw>`——**最后一道辅助扫描**,只抓肉眼容易漏的「明显重叠 / 箭头脱节 / 流向反」这类机械错误。⚠️ **lint 不是质量门槛、不是优化目标**:它测不了图讲清楚没、层级密度好不好;**别为了 lint 全绿去改图**(那是 Goodhart,会牺牲表达力)。lint 报警 ≠ 图差,全绿 ≠ 图好。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 扫一遍 + **自己肉眼过一遍(这个才是判断好坏的)**。
+6. **验证**:交付前跑 `node scripts/arch-lint.mjs <图.excalidraw>`——**最后一道辅助扫描**,只抓肉眼容易漏的「明显重叠 / 箭头脱节 / 流向反」这类机械错误。⚠️ **lint 不是质量门槛、不是优化目标**:它测不了图讲清楚没、层级密度好不好;**别为了 lint 全绿去改图**(那是 Goodhart,会牺牲表达力)。lint 报警 ≠ 图差,全绿 ≠ 图好。详见 `references/arch-lint.md`。🛑 **检查点4**:lint 扫一遍 + **眯眼测试**(模糊看,焦点和分组还认得出吗?读起来是手绘图不是 web 截图?)+ 自己肉眼过一遍(这个才是判断好坏的);需要打分用 `references/critique-guide.md` 的 5 维度。
 7. **(可选)导出**:`node scripts/excalidraw-to-image.mjs <图.excalidraw> --png --svg` 导出 PNG(高清)/ SVG(矢量),贴 README/文档/PPT。
 8. **总结**:极简,只说 caveats 和 next steps。
 
@@ -163,6 +170,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
+| **设计令牌 + HTML→Excalidraw 降级映射**(网格/卡片/海报类走 HTML 布局) | `references/design-tokens.md` |
 | 配色纪律 | `references/color-system.md` |
 | 反手绘 AI slop | `references/anti-slop.md` |
 | **架构图:节点摆放 + 连线路由(都别手做)+ lint** | `references/arch-lint.md` + `scripts/arch-layout.mjs`(节点自动摆,拓扑密集)+ `scripts/arch-connect.mjs`(连线路由,⛔不手估 points)+ `scripts/arch-lint.mjs`(辅助扫描) |
