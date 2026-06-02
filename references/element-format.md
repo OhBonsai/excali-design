@@ -39,7 +39,7 @@
 | `roundness` | 圆角 | `{"type":3}` 圆角 / `null` 直角 |
 | `opacity` | 不透明度 | 0–100 |
 | `strokeSharpness` | 旧版圆角字段 | `sharp` / `round`(老格式) |
-| `seed` | 手绘随机种子 | 任意整数,决定抖动形状(同 seed = 同形状,做动画稳定关键) |
+| `seed` | 手绘随机种子 | 任意整数,决定抖动形状(同 seed = 同形状;重画/复用时固定它形状才稳定) |
 | `groupIds` | 分组 id 数组 | 同组元素一起移动 |
 | `boundElements` | 绑定的子元素(如框上的文字、连到框的箭头) | `[{"type":"text","id":"..."},{"type":"arrow","id":"..."}]` |
 

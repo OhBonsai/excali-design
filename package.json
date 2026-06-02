@@ -1,0 +1,9 @@
+{
+  "name": "excali-design-runtime",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "elkjs": "^0.11.1",
+    "playwright": "^1.49.0"
+  }
+}

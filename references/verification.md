@@ -13,22 +13,11 @@
 - [ ] 架构图:对照 `system-facts.md` 逐条核对(服务全/方向对/无漏边)
 - [ ] 抽象层级单一(没混下钻细节)
 
-## 动画自检清单
-
-- [ ] 跨帧共享元素的 id/x/y/seed 不变(无闪烁/鬼畜)
-- [ ] reveal 顺序 = 叙事顺序
-- [ ] 关键帧前 hold 足够(≥300ms 体感)
-- [ ] 节奏有起伏(非匀速)
-- [ ] 导出帧锁了 seed
-- [ ] 结尾 hold,不淡出
-- [ ] (导出)`ffprobe` 确认有视频流;加了音频则有 audio stream
-
 ## 怎么验证
 
 - **MCP 可用**:create_view 渲染后肉眼过一遍,或截图
-- **MCP 不可用**:产出 `.excalidraw` 文件,导入 excalidraw.com 检查
-- **导出动画**:抽 3-5 个关键帧 PNG 肉眼过,再看合成视频
-- **程序化·结构**:`scripts/verify.mjs` 对帧 JSON 做结构检查(id 唯一、binding 双向、跨帧 seed 锁定)
+- **MCP 不可用**:产出 `.excalidraw` 文件,导入 excalidraw.com 检查;或 `node scripts/excalidraw-to-image.mjs 图.excalidraw --png` 导出 PNG 肉眼过
+- **程序化·结构**:`scripts/verify.mjs` 对 `.excalidraw` 做结构检查(id 唯一、binding 双向)
 - **程序化·辅助扫描(非门槛)**:`node scripts/arch-lint.mjs <图.excalidraw>`——只抓肉眼易漏的「明显重叠/脱节」机械错误。**不是质量门槛、不是优化目标**:测不了图好不好、讲清楚没;别为 lint 全绿去改图(Goodhart)。报警 ≠ 图差,全绿 ≠ 图好。仍以肉眼为准。详见 `references/arch-lint.md`
 
 ## 检查点
