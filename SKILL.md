@@ -126,7 +126,8 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
    - 🛑 **检查点3**:以上口头说出来等用户点头,再渲染。
 4. **Junior pass**:用 create_view 渲染骨架(主框 + label + placeholder),🛑 尽早 show。
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
-   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**
+   - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。** CSS 画不出的图元(饼图等)用**确定性组件** `<div data-chart="pie" data-values="A:40,B:30">`,别拿色块硬凑。
+   - 🔁 **html→excalidraw 不是纯逻辑就完**:转完**必须**渲染成 PNG,自己**眯眼回归**看一遍(文字居中?箭头乱不乱?饼图是不是饼图?),有问题改 HTML/edges/组件再生成。机械 lint 判不了好坏,这一环是模型补的(`design-tokens.md` 五、六节)。
    - 🏗️ **架构图:两个手工易错点都已程序化,别手做**(详见 `references/arch-lint.md`):
      - **节点摆放**:拓扑密集图(服务网格、几十节点)→ `node scripts/arch-layout.mjs spec.json`(elkjs 自动摆,保证不重叠);海报型/注释重的图(框少字多、刻意分区)→ **人工摆框**(自动布局会把海报压成光秃秃的树,丢密度/层级)。
      - **连线路由(铁律)**:⛔ **绝不手写/手估边的 `points` 坐标**——必出斜线/绕背面(流向反)/交叉/端口挤。摆好框后,声明逻辑连接(A→B)交给 `node scripts/arch-connect.mjs boxes.excalidraw edges.json`,它算出正交+面向边+均匀分布+按序排(消交叉)+binding 的线。海报型图也用它连边。多条线汇聚到一个目标(fan-in)用 `toSide` 锁定进同一边。

@@ -64,6 +64,11 @@ const WALK = `() => {
     if (cs.display === 'none' || cs.visibility === 'hidden') return;
     const r = el.getBoundingClientRect();
     if (r.width < 0.5 && r.height < 0.5) return;
+    // 组件:data-chart(pie/bar/donut)→ 交给确定性渲染器,不当普通框
+    if (el.dataset && el.dataset.chart) {
+      out.push({ kind: 'chart', ctype: el.dataset.chart, values: el.dataset.values || '', title: el.dataset.title || '', x: r.x, y: r.y, w: r.width, h: r.height });
+      return;
+    }
     const bw = parseFloat(cs.borderTopWidth) || 0;
     const hasBox = bw > 0 || isBg(cs.backgroundColor);
     if (hasBox) out.push({ kind: 'rect', x: r.x, y: r.y, w: r.width, h: r.height,
@@ -72,8 +77,13 @@ const WALK = `() => {
       dashed: cs.borderTopStyle === 'dashed', id: el.getAttribute('data-id') });
     const kids = [...el.children];
     const direct = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent.replace(/\\s+/g, ' ').trim()).join(' ').trim();
-    if (direct && kids.length === 0) out.push({ kind: 'text', x: r.x, y: r.y, w: r.width, h: r.height,
-      text: direct, size: parseFloat(cs.fontSize), family: cs.fontFamily, align: cs.textAlign, color: cs.color, weight: cs.fontWeight });
+    if (direct && kids.length === 0) {
+      // 用 Range 量文字**实际渲染位置**(含 padding / 垂直居中),不是框顶
+      const rng = document.createRange(); rng.selectNodeContents(el);
+      const tr = rng.getBoundingClientRect();
+      out.push({ kind: 'text', x: tr.x, y: tr.y, w: tr.width || r.width, h: tr.height,
+        text: direct, size: parseFloat(cs.fontSize), family: cs.fontFamily, color: cs.color, weight: cs.fontWeight });
+    }
     for (const k of kids) walk(k);
   }
   walk(document.body);
@@ -110,10 +120,32 @@ async function main() {
   for (const n of nodes.filter(n => n.kind === 'text')) {
     const size = R(n.size || 15);
     els.push({ type: 'text', id: 't_' + seed(), x: R(n.x + dx), y: R(n.y + dy), width: R(n.w), height: size + 4, angle: 0,
-      text: n.text, fontSize: size, fontFamily: fontFamily(n.family), textAlign: ['left', 'center', 'right'].includes(n.align) ? n.align : 'left',
+      text: n.text, fontSize: size, fontFamily: fontFamily(n.family), textAlign: 'left',
       verticalAlign: 'top', strokeColor: snap(n.color) === 'transparent' ? '#1e1e1e' : snap(n.color), backgroundColor: 'transparent',
       fillStyle: 'solid', strokeWidth: 1, strokeStyle: 'solid', roughness: 0, opacity: 100, seed: seed(), groupIds: [],
       roundness: null, boundElements: [], isDeleted: false, versionNonce: seed(), updated: 1 });
+  }
+  // 图表组件:data-chart="pie" → 真扇形(圆心+弧采点+回圆心的闭合折线,借 data-viz 技法)
+  const ROLE = ['#1971c2', '#2f9e44', '#f08c00', '#7048e8', '#e03131', '#0c8599', '#e8590c', '#ae3ec9'];
+  const ROLELT = ['#a5d8ff', '#b2f2bb', '#ffec99', '#d0bfff', '#ffc9c9', '#99e9f2', '#ffd8a8', '#eebefa'];
+  for (const n of nodes.filter(n => n.kind === 'chart' && n.ctype === 'pie')) {
+    const slices = n.values.split(',').map(s => { const [l, v] = s.split(':'); return { label: (l || '').trim(), value: parseFloat(v) || 0 }; }).filter(s => s.value > 0);
+    if (!slices.length) continue;
+    const total = slices.reduce((a, s) => a + s.value, 0);
+    const cx = n.x + dx + n.w / 2, cy = n.y + dy + n.h / 2, r = Math.min(n.w, n.h) / 2 - 2;
+    let ang = -Math.PI / 2;
+    slices.forEach((s, i) => {
+      const sweep = s.value / total * Math.PI * 2;
+      const pts = [[0, 0]]; const steps = Math.max(2, Math.ceil(sweep / (Math.PI / 18)));
+      for (let k = 0; k <= steps; k++) { const aa = ang + sweep * k / steps; pts.push([Math.cos(aa) * r, Math.sin(aa) * r]); }
+      pts.push([0, 0]);
+      const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+      els.push({ type: 'line', id: 'pie_' + seed(), x: R(cx), y: R(cy), width: R(Math.max(...xs) - Math.min(...xs)), height: R(Math.max(...ys) - Math.min(...ys)), angle: 0,
+        points: pts.map(p => [R(p[0]), R(p[1])]), strokeColor: ROLE[i % 8], backgroundColor: ROLELT[i % 8], fillStyle: 'solid', strokeWidth: 2, strokeStyle: 'solid',
+        roughness: a.roughness, opacity: 100, seed: seed(), groupIds: [], roundness: null, boundElements: [], isDeleted: false,
+        startBinding: null, endBinding: null, lastCommittedPoint: null, startArrowhead: null, endArrowhead: null, versionNonce: seed(), updated: 1 });
+      ang += sweep;
+    });
   }
   const out = a.out || a.input.replace(/\.html?$/i, '') + '.excalidraw';
   fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/html', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
