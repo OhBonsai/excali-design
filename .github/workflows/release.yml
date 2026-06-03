@@ -45,6 +45,10 @@ jobs:
             node --check "$f" && echo "  ✓ $f"
           done
 
+      # 校验 3:drawlib 索引与库一致(11 库 / 序号没漂),防发了张过期索引
+      - name: Check drawlib index
+        run: node scripts/build-drawlib-index.mjs --check
+
       # 打包:git archive 只含已跟踪文件(= 精简版,不含 .git / 被忽略的 png)
       - name: Package skill (git archive)
         run: |
