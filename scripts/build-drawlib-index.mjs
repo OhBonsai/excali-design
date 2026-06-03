@@ -30,6 +30,17 @@ const LIBMETA = {
   'awesome-slides': { category: 'slide-template', domain: 'deck', tags: ['slide', 'deck', 'template'] },
   'mathematical-symbols': { category: 'math-symbol', domain: 'math', tags: ['math', 'symbol', 'formula'] },
   'canvases': { category: 'business-canvas', domain: 'strategy', tags: ['business', 'canvas', 'strategy'] },
+  // 自建精选库(pick 流程产出,按分类重组)
+  'excali-net': { category: 'net-device', domain: 'architecture', tags: ['network', 'device', 'security', 'infra'] },
+  'excali-cloud': { category: 'cloud-icon', domain: 'architecture', tags: ['cloud', 'aws', 'azure', 'gcp', 'icon'] },
+  'excali-tech': { category: 'tech-icon', domain: 'architecture', tags: ['tech', 'logo', 'stack', 'icon'] },
+  'excali-ui': { category: 'ui-control', domain: 'prototype', tags: ['ui', 'control', 'wireframe'] },
+  'excali-frame': { category: 'frame', domain: 'prototype', tags: ['frame', 'device', 'shell'] },
+  'excali-chart': { category: 'chart', domain: 'dashboard', tags: ['chart', 'dataviz'] },
+  'excali-shape': { category: 'flowchart-shape', domain: 'diagram', tags: ['shape', 'uml', 'er', 'structure'] },
+  'excali-person': { category: 'person', domain: 'people', tags: ['person', 'actor', 'bubble'] },
+  'excali-template': { category: 'template', domain: 'deck', tags: ['template', 'canvas', 'board'] },
+  'excali-symbol': { category: 'math-symbol', domain: 'math', tags: ['math', 'symbol', 'ml'] },
 };
 
 // 裸数组库(无 name)的序号→名 覆盖表(经接触表核对)

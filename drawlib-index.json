@@ -1,13 +1,14 @@
 {
  "generated": "2026-06-03",
- "libs": 10,
- "items": 218,
+ "libs": 11,
+ "items": 234,
  "categories": [
   "slide-template",
   "ui-control",
   "business-canvas",
   "chart",
   "tech-icon",
+  "net-device",
   "form-control",
   "flowchart-shape",
   "math-symbol",
@@ -2679,6 +2680,319 @@
     "line"
    ],
    "elements": 2
+  },
+  {
+   "id": "excali-net:0",
+   "lib": "excali-net",
+   "index": 0,
+   "name": "Router",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-net:1",
+   "lib": "excali-net",
+   "index": 1,
+   "name": "Switch",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-net:2",
+   "lib": "excali-net",
+   "index": 2,
+   "name": "Hub",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-net:3",
+   "lib": "excali-net",
+   "index": 3,
+   "name": "Firewall",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-net:4",
+   "lib": "excali-net",
+   "index": 4,
+   "name": "VPN",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-net:5",
+   "lib": "excali-net",
+   "index": 5,
+   "name": "Server",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 16
+  },
+  {
+   "id": "excali-net:6",
+   "lib": "excali-net",
+   "index": 6,
+   "name": "Client",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-net:7",
+   "lib": "excali-net",
+   "index": 7,
+   "name": "Computer",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-net:8",
+   "lib": "excali-net",
+   "index": 8,
+   "name": "Load Balancer",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-net:9",
+   "lib": "excali-net",
+   "index": 9,
+   "name": "Corporate Office",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 37
+  },
+  {
+   "id": "excali-net:10",
+   "lib": "excali-net",
+   "index": 10,
+   "name": "Office",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "text",
+    "rectangle"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-net:11",
+   "lib": "excali-net",
+   "index": 11,
+   "name": "City",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle",
+    "diamond",
+    "line",
+    "text"
+   ],
+   "elements": 97
+  },
+  {
+   "id": "excali-net:12",
+   "lib": "excali-net",
+   "index": 12,
+   "name": "House",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "diamond",
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-net:13",
+   "lib": "excali-net",
+   "index": 13,
+   "name": "Datacenter",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 182
+  },
+  {
+   "id": "excali-net:14",
+   "lib": "excali-net",
+   "index": 14,
+   "name": "Rack 8U",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text"
+   ],
+   "elements": 18
+  },
+  {
+   "id": "excali-net:15",
+   "lib": "excali-net",
+   "index": 15,
+   "name": "Rack 16U",
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
+   "types": [
+    "line",
+    "text",
+    "rectangle"
+   ],
+   "elements": 34
   },
   {
    "id": "forms:0",
