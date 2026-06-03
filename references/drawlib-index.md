@@ -1,6 +1,6 @@
 # drawlib 分类与索引
 
-> `drawlib/` 共 **10 库 / 218 件**。本文件是**分类(taxonomy)+ 检索入口**;每个 item 的清单/序号见 `drawlib-catalog.md`,机器索引见根目录 `drawlib-index.json`。
+> `drawlib/` 共 **19 库 / 402 件** = 10 基础库 + **9 自建精选库**(`excali-*`,从社区图像识别精挑合并,见下「自建精选库」)。本文件是**分类(taxonomy)+ 检索入口**;每个 item 的清单/序号见 `drawlib-catalog.md`,机器索引见根目录 `drawlib-index.json`。
 > 资产优先(原则 #2):画之前**先 find,有就 data-lib 复用,别手画**。
 
 ## 三种查法
@@ -28,6 +28,24 @@ node scripts/drawlib-find.mjs --cats         # 看所有分类 + 计数
 | `person` | stick-figures | 9 | actor/角色/用户旅程小人 | 人物 |
 | `frame` | webpage-frames | 3 | 浏览器外壳 | 原型 |
 | `business-canvas` | canvases | 2 | 商业模式/价值主张画布 | 战略 |
+
+## 自建精选库(`excali-*`,从社区图像识别精挑合并,MIT)
+
+需求驱动 pick(见 `asset-taxonomy.md`)→ 渲接触表 → 模型图像识别逐件挑 → `assemble-lib.mjs` 合并。出处见 `manifests/<库>.json`。
+
+| 库 | 件 | 分类 | 收了什么 | 出处(MIT) |
+|---|---|---|---|---|
+| `excali-cloud` | 56 | cloud-icon | 抽象原语 + AWS + Azure + GCP 架构图标 | youritjang / slobodan / 7demonsrising / mguidoti |
+| `excali-tech` | 22 | tech-icon | Docker/K8s/Kafka/React/Vue/Python/Postgres/Redis/Nginx… | pclainchard / drwnio / maeddes |
+| `excali-net` | 16 | net-device | Router/Switch/Firewall/VPN/LB/Server + 位置/机柜 | dwelle / samu_x86 / jgodoy |
+| `excali-shape` | 27 | flowchart-shape | UML 实体/接口 + BPMN + 数据结构 + 图论 | BjoernKW / fraoustin / intradeus / jakubpawlina |
+| `excali-template` | 19 | template | Wardley + Team Topologies + 便签 + Scrum | simalexan / nikordaris / ferminrp / danimaniarqsoft |
+| `excali-ml` | 16 | ml | CNN/RNN/Transformer 等概念 + pandas/TF/Jupyter logo | yuelfei / farisology |
+| `excali-ui` | 16 | ui-control | Card/Table/Tabs/Sidebar/Alert/Tag/Badge + 媒体 | spfr / g-script |
+| `excali-person` | 8 | person | 对话/思考气泡 + 机器人 | ocapraro / kaligule |
+| `excali-frame` | 4 | frame | 手机/平板/手表/笔记本 | morgemoensch |
+
+> 这 9 个是**精挑后的合并库**(非整库搬)。基础 10 库暂保留(`excali-ui/frame/person` 是对 basic-ux/forms/stick-figures 的补充,不是替换)。
 
 ## 按「要画什么」反查
 

@@ -1,19 +1,22 @@
 {
  "generated": "2026-06-03",
- "libs": 11,
- "items": 234,
+ "libs": 19,
+ "items": 402,
  "categories": [
   "slide-template",
   "ui-control",
   "business-canvas",
   "chart",
   "tech-icon",
+  "cloud-icon",
+  "frame",
+  "ml",
   "net-device",
-  "form-control",
-  "flowchart-shape",
-  "math-symbol",
   "person",
-  "frame"
+  "flowchart-shape",
+  "template",
+  "form-control",
+  "math-symbol"
  ],
  "entries": [
   {
@@ -2682,6 +2685,1556 @@
    "elements": 2
   },
   {
+   "id": "excali-cloud:0",
+   "lib": "excali-cloud",
+   "index": 0,
+   "name": "Microservice",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-cloud:1",
+   "lib": "excali-cloud",
+   "index": 1,
+   "name": "Database",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-cloud:2",
+   "lib": "excali-cloud",
+   "index": 2,
+   "name": "Cache",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-cloud:3",
+   "lib": "excali-cloud",
+   "index": 3,
+   "name": "Event Bus",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-cloud:4",
+   "lib": "excali-cloud",
+   "index": 4,
+   "name": "Documents",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "draw"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-cloud:5",
+   "lib": "excali-cloud",
+   "index": 5,
+   "name": "Browser",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse",
+    "draw"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:6",
+   "lib": "excali-cloud",
+   "index": 6,
+   "name": "Mobile",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-cloud:7",
+   "lib": "excali-cloud",
+   "index": 7,
+   "name": "AWS Lambda",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-cloud:8",
+   "lib": "excali-cloud",
+   "index": 8,
+   "name": "AWS API Gateway",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-cloud:9",
+   "lib": "excali-cloud",
+   "index": 9,
+   "name": "AWS EventBridge",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-cloud:10",
+   "lib": "excali-cloud",
+   "index": 10,
+   "name": "AWS DynamoDB",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-cloud:11",
+   "lib": "excali-cloud",
+   "index": 11,
+   "name": "AWS Cognito",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 10
+  },
+  {
+   "id": "excali-cloud:12",
+   "lib": "excali-cloud",
+   "index": 12,
+   "name": "AWS S3",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-cloud:13",
+   "lib": "excali-cloud",
+   "index": 13,
+   "name": "AWS Kinesis",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-cloud:14",
+   "lib": "excali-cloud",
+   "index": 14,
+   "name": "AWS SQS",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:15",
+   "lib": "excali-cloud",
+   "index": 15,
+   "name": "AWS SNS",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 13
+  },
+  {
+   "id": "excali-cloud:16",
+   "lib": "excali-cloud",
+   "index": 16,
+   "name": "AWS CloudWatch",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-cloud:17",
+   "lib": "excali-cloud",
+   "index": 17,
+   "name": "AWS Step Functions",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 15
+  },
+  {
+   "id": "excali-cloud:18",
+   "lib": "excali-cloud",
+   "index": 18,
+   "name": "AWS Amplify",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-cloud:19",
+   "lib": "excali-cloud",
+   "index": 19,
+   "name": "Azure Virtual Machines",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "freedraw",
+    "rectangle",
+    "diamond",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-cloud:20",
+   "lib": "excali-cloud",
+   "index": 20,
+   "name": "Azure Kubernetes Service",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 30
+  },
+  {
+   "id": "excali-cloud:21",
+   "lib": "excali-cloud",
+   "index": 21,
+   "name": "Azure Function App",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:22",
+   "lib": "excali-cloud",
+   "index": 22,
+   "name": "Azure Container Apps",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:23",
+   "lib": "excali-cloud",
+   "index": 23,
+   "name": "Azure App Services",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-cloud:24",
+   "lib": "excali-cloud",
+   "index": 24,
+   "name": "Azure Firewall",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "freedraw",
+    "rectangle",
+    "text"
+   ],
+   "elements": 16
+  },
+  {
+   "id": "excali-cloud:25",
+   "lib": "excali-cloud",
+   "index": 25,
+   "name": "Azure Application Gateway",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-cloud:26",
+   "lib": "excali-cloud",
+   "index": 26,
+   "name": "Azure Load Balancer",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "ellipse",
+    "line",
+    "rectangle",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:27",
+   "lib": "excali-cloud",
+   "index": 27,
+   "name": "Azure Virtual Network",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-cloud:28",
+   "lib": "excali-cloud",
+   "index": 28,
+   "name": "Azure DNS Zones",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-cloud:29",
+   "lib": "excali-cloud",
+   "index": 29,
+   "name": "Azure NAT Gateway",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-cloud:30",
+   "lib": "excali-cloud",
+   "index": 30,
+   "name": "Azure Storage Accounts",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:31",
+   "lib": "excali-cloud",
+   "index": 31,
+   "name": "Azure",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-cloud:32",
+   "lib": "excali-cloud",
+   "index": 32,
+   "name": "Azure Resource Group",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:33",
+   "lib": "excali-cloud",
+   "index": 33,
+   "name": "Azure Subscriptions",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:34",
+   "lib": "excali-cloud",
+   "index": 34,
+   "name": "GCP Compute Engine",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 19
+  },
+  {
+   "id": "excali-cloud:35",
+   "lib": "excali-cloud",
+   "index": 35,
+   "name": "GCP Cloud Storage",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text"
+   ],
+   "elements": 13
+  },
+  {
+   "id": "excali-cloud:36",
+   "lib": "excali-cloud",
+   "index": 36,
+   "name": "GCP BigQuery",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-cloud:37",
+   "lib": "excali-cloud",
+   "index": 37,
+   "name": "GCP Cloud SQL",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-cloud:38",
+   "lib": "excali-cloud",
+   "index": 38,
+   "name": "GCP GKE",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-cloud:39",
+   "lib": "excali-cloud",
+   "index": 39,
+   "name": "GCP Cloud Functions",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse",
+    "text"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-cloud:40",
+   "lib": "excali-cloud",
+   "index": 40,
+   "name": "GCP Cloud Run",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-cloud:41",
+   "lib": "excali-cloud",
+   "index": 41,
+   "name": "GCP Pub/Sub",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:42",
+   "lib": "excali-cloud",
+   "index": 42,
+   "name": "GCP Cloud Load Balancing",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:43",
+   "lib": "excali-cloud",
+   "index": 43,
+   "name": "GCP Virtual Private Cloud",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-cloud:44",
+   "lib": "excali-cloud",
+   "index": 44,
+   "name": "GCP Cloud CDN",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-cloud:45",
+   "lib": "excali-cloud",
+   "index": 45,
+   "name": "GCP Cloud Firestore",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:46",
+   "lib": "excali-cloud",
+   "index": 46,
+   "name": "GCP Cloud Spanner",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-cloud:47",
+   "lib": "excali-cloud",
+   "index": 47,
+   "name": "GCP Cloud Bigtable",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-cloud:48",
+   "lib": "excali-cloud",
+   "index": 48,
+   "name": "GCP Cloud Memorystore",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-cloud:49",
+   "lib": "excali-cloud",
+   "index": 49,
+   "name": "GCP Cloud Build",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:50",
+   "lib": "excali-cloud",
+   "index": 50,
+   "name": "GCP API Gateway",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-cloud:51",
+   "lib": "excali-cloud",
+   "index": 51,
+   "name": "GCP Cloud DNS",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 10
+  },
+  {
+   "id": "excali-cloud:52",
+   "lib": "excali-cloud",
+   "index": 52,
+   "name": "GCP Vertex AI",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "text",
+    "line",
+    "ellipse"
+   ],
+   "elements": 26
+  },
+  {
+   "id": "excali-cloud:53",
+   "lib": "excali-cloud",
+   "index": 53,
+   "name": "GCP App Engine",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-cloud:54",
+   "lib": "excali-cloud",
+   "index": 54,
+   "name": "GCP Cloud IAM",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-cloud:55",
+   "lib": "excali-cloud",
+   "index": 55,
+   "name": "GCP Cloud KMS",
+   "category": "cloud-icon",
+   "domain": "architecture",
+   "tags": [
+    "cloud",
+    "aws",
+    "azure",
+    "gcp",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-frame:0",
+   "lib": "excali-frame",
+   "index": 0,
+   "name": "Smartphone",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-frame:1",
+   "lib": "excali-frame",
+   "index": 1,
+   "name": "Smartwatch",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-frame:2",
+   "lib": "excali-frame",
+   "index": 2,
+   "name": "Tablet",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-frame:3",
+   "lib": "excali-frame",
+   "index": 3,
+   "name": "Laptop",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-ml:0",
+   "lib": "excali-ml",
+   "index": 0,
+   "name": "CNN",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse",
+    "arrow",
+    "text",
+    "freedraw"
+   ],
+   "elements": 84
+  },
+  {
+   "id": "excali-ml:1",
+   "lib": "excali-ml",
+   "index": 1,
+   "name": "RNN",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text",
+    "arrow"
+   ],
+   "elements": 59
+  },
+  {
+   "id": "excali-ml:2",
+   "lib": "excali-ml",
+   "index": 2,
+   "name": "MLP",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "ellipse",
+    "arrow",
+    "line",
+    "text"
+   ],
+   "elements": 35
+  },
+  {
+   "id": "excali-ml:3",
+   "lib": "excali-ml",
+   "index": 3,
+   "name": "LSTM",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "line",
+    "ellipse",
+    "freedraw",
+    "text",
+    "rectangle",
+    "arrow"
+   ],
+   "elements": 48
+  },
+  {
+   "id": "excali-ml:4",
+   "lib": "excali-ml",
+   "index": 4,
+   "name": "GNN",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text",
+    "rectangle",
+    "arrow"
+   ],
+   "elements": 84
+  },
+  {
+   "id": "excali-ml:5",
+   "lib": "excali-ml",
+   "index": 5,
+   "name": "Attention",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "arrow",
+    "line",
+    "freedraw"
+   ],
+   "elements": 28
+  },
+  {
+   "id": "excali-ml:6",
+   "lib": "excali-ml",
+   "index": 6,
+   "name": "Encoder-Decoder",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "arrow",
+    "ellipse"
+   ],
+   "elements": 33
+  },
+  {
+   "id": "excali-ml:7",
+   "lib": "excali-ml",
+   "index": 7,
+   "name": "QKV",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "text",
+    "freedraw",
+    "line",
+    "rectangle"
+   ],
+   "elements": 40
+  },
+  {
+   "id": "excali-ml:8",
+   "lib": "excali-ml",
+   "index": 8,
+   "name": "Transformer",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "arrow",
+    "ellipse",
+    "freedraw",
+    "line"
+   ],
+   "elements": 87
+  },
+  {
+   "id": "excali-ml:9",
+   "lib": "excali-ml",
+   "index": 9,
+   "name": "pandas",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-ml:10",
+   "lib": "excali-ml",
+   "index": 10,
+   "name": "Airflow",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-ml:11",
+   "lib": "excali-ml",
+   "index": 11,
+   "name": "scikit-learn",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ml:12",
+   "lib": "excali-ml",
+   "index": 12,
+   "name": "TensorFlow",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ml:13",
+   "lib": "excali-ml",
+   "index": 13,
+   "name": "Keras",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ml:14",
+   "lib": "excali-ml",
+   "index": 14,
+   "name": "Jupyter",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-ml:15",
+   "lib": "excali-ml",
+   "index": 15,
+   "name": "NumPy",
+   "category": "ml",
+   "domain": "ml",
+   "tags": [
+    "ml",
+    "dl",
+    "neural",
+    "datascience"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "text"
+   ],
+   "elements": 10
+  },
+  {
    "id": "excali-net:0",
    "lib": "excali-net",
    "index": 0,
@@ -2993,6 +4546,1705 @@
     "rectangle"
    ],
    "elements": 34
+  },
+  {
+   "id": "excali-person:0",
+   "lib": "excali-person",
+   "index": 0,
+   "name": "Speech Bubble (left)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-person:1",
+   "lib": "excali-person",
+   "index": 1,
+   "name": "Speech Bubble (right)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-person:2",
+   "lib": "excali-person",
+   "index": 2,
+   "name": "Thought Bubble (left)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-person:3",
+   "lib": "excali-person",
+   "index": 3,
+   "name": "Thought Bubble (right)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-person:4",
+   "lib": "excali-person",
+   "index": 4,
+   "name": "Robot",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-person:5",
+   "lib": "excali-person",
+   "index": 5,
+   "name": "Robot (active)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "line",
+    "ellipse",
+    "rectangle"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-person:6",
+   "lib": "excali-person",
+   "index": 6,
+   "name": "Robot (angry)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-person:7",
+   "lib": "excali-person",
+   "index": 7,
+   "name": "Robot (error)",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-shape:0",
+   "lib": "excali-shape",
+   "index": 0,
+   "name": "Entity",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:1",
+   "lib": "excali-shape",
+   "index": 1,
+   "name": "Entity (attributes)",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:2",
+   "lib": "excali-shape",
+   "index": 2,
+   "name": "Provided Interface",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:3",
+   "lib": "excali-shape",
+   "index": 3,
+   "name": "Required Interface",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:4",
+   "lib": "excali-shape",
+   "index": 4,
+   "name": "BPMN Task",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:5",
+   "lib": "excali-shape",
+   "index": 5,
+   "name": "BPMN Start Event",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:6",
+   "lib": "excali-shape",
+   "index": 6,
+   "name": "BPMN End Event",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:7",
+   "lib": "excali-shape",
+   "index": 7,
+   "name": "BPMN Error End Event",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:8",
+   "lib": "excali-shape",
+   "index": 8,
+   "name": "BPMN Parallel Gateway",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-shape:9",
+   "lib": "excali-shape",
+   "index": 9,
+   "name": "BPMN Exclusive Gateway",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-shape:10",
+   "lib": "excali-shape",
+   "index": 10,
+   "name": "BPMN Inclusive Gateway",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:11",
+   "lib": "excali-shape",
+   "index": 11,
+   "name": "BPMN Event Gateway",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:12",
+   "lib": "excali-shape",
+   "index": 12,
+   "name": "BPMN Message Start",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:13",
+   "lib": "excali-shape",
+   "index": 13,
+   "name": "BPMN Timer Start",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-shape:14",
+   "lib": "excali-shape",
+   "index": 14,
+   "name": "BPMN Data Object",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:15",
+   "lib": "excali-shape",
+   "index": 15,
+   "name": "BPMN Data Store",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-shape:16",
+   "lib": "excali-shape",
+   "index": 16,
+   "name": "Array",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 10
+  },
+  {
+   "id": "excali-shape:17",
+   "lib": "excali-shape",
+   "index": 17,
+   "name": "Array (indexed)",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-shape:18",
+   "lib": "excali-shape",
+   "index": 18,
+   "name": "Hash Table",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-shape:19",
+   "lib": "excali-shape",
+   "index": 19,
+   "name": "Linked List",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "arrow"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-shape:20",
+   "lib": "excali-shape",
+   "index": 20,
+   "name": "Tree",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "arrow"
+   ],
+   "elements": 61
+  },
+  {
+   "id": "excali-shape:21",
+   "lib": "excali-shape",
+   "index": 21,
+   "name": "Matrix 5x5",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 35
+  },
+  {
+   "id": "excali-shape:22",
+   "lib": "excali-shape",
+   "index": 22,
+   "name": "Tree graph",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 43
+  },
+  {
+   "id": "excali-shape:23",
+   "lib": "excali-shape",
+   "index": 23,
+   "name": "Complete graph",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 15
+  },
+  {
+   "id": "excali-shape:24",
+   "lib": "excali-shape",
+   "index": 24,
+   "name": "Star graph",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-shape:25",
+   "lib": "excali-shape",
+   "index": 25,
+   "name": "DAG",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-shape:26",
+   "lib": "excali-shape",
+   "index": 26,
+   "name": "Binary tree",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 29
+  },
+  {
+   "id": "excali-tech:0",
+   "lib": "excali-tech",
+   "index": 0,
+   "name": "Docker",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 10
+  },
+  {
+   "id": "excali-tech:1",
+   "lib": "excali-tech",
+   "index": 1,
+   "name": "Kubernetes",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-tech:2",
+   "lib": "excali-tech",
+   "index": 2,
+   "name": "Kafka",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-tech:3",
+   "lib": "excali-tech",
+   "index": 3,
+   "name": "GitLab",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:4",
+   "lib": "excali-tech",
+   "index": 4,
+   "name": "Argo CD",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-tech:5",
+   "lib": "excali-tech",
+   "index": 5,
+   "name": "Flux CD",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-tech:6",
+   "lib": "excali-tech",
+   "index": 6,
+   "name": "Firebase",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:7",
+   "lib": "excali-tech",
+   "index": 7,
+   "name": "Python",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:8",
+   "lib": "excali-tech",
+   "index": 8,
+   "name": "React",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:9",
+   "lib": "excali-tech",
+   "index": 9,
+   "name": "Vue",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-tech:10",
+   "lib": "excali-tech",
+   "index": 10,
+   "name": "Angular",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:11",
+   "lib": "excali-tech",
+   "index": 11,
+   "name": "Svelte",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-tech:12",
+   "lib": "excali-tech",
+   "index": 12,
+   "name": "Next.js",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-tech:13",
+   "lib": "excali-tech",
+   "index": 13,
+   "name": "Vercel",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-tech:14",
+   "lib": "excali-tech",
+   "index": 14,
+   "name": "Micronaut",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 49
+  },
+  {
+   "id": "excali-tech:15",
+   "lib": "excali-tech",
+   "index": 15,
+   "name": "TensorFlow",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-tech:16",
+   "lib": "excali-tech",
+   "index": 16,
+   "name": "VSCode",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:17",
+   "lib": "excali-tech",
+   "index": 17,
+   "name": "PostgreSQL",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-tech:18",
+   "lib": "excali-tech",
+   "index": 18,
+   "name": "Redis",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "diamond",
+    "line",
+    "ellipse"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-tech:19",
+   "lib": "excali-tech",
+   "index": 19,
+   "name": "Nginx",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-tech:20",
+   "lib": "excali-tech",
+   "index": 20,
+   "name": "DNS",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-tech:21",
+   "lib": "excali-tech",
+   "index": 21,
+   "name": "Spring",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 16
+  },
+  {
+   "id": "excali-template:0",
+   "lib": "excali-template",
+   "index": 0,
+   "name": "Wardley Customer",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-template:1",
+   "lib": "excali-template",
+   "index": 1,
+   "name": "Wardley Component",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:2",
+   "lib": "excali-template",
+   "index": 2,
+   "name": "Wardley Evolution Axis",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line",
+    "text",
+    "arrow"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-template:3",
+   "lib": "excali-template",
+   "index": 3,
+   "name": "Wardley Area of Interest",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:4",
+   "lib": "excali-template",
+   "index": 4,
+   "name": "Wardley Build",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:5",
+   "lib": "excali-template",
+   "index": 5,
+   "name": "Wardley Buy",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:6",
+   "lib": "excali-template",
+   "index": 6,
+   "name": "Wardley Outsource",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:7",
+   "lib": "excali-template",
+   "index": 7,
+   "name": "Wardley Accelerator",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "text",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:8",
+   "lib": "excali-template",
+   "index": 8,
+   "name": "Complicated Subsystem Team",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:9",
+   "lib": "excali-template",
+   "index": 9,
+   "name": "Stream-aligned Team",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-template:10",
+   "lib": "excali-template",
+   "index": 10,
+   "name": "Platform Team",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-template:11",
+   "lib": "excali-template",
+   "index": 11,
+   "name": "Enabling Team",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-template:12",
+   "lib": "excali-template",
+   "index": 12,
+   "name": "Team Interaction",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:13",
+   "lib": "excali-template",
+   "index": 13,
+   "name": "Sticky (orange)",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:14",
+   "lib": "excali-template",
+   "index": 14,
+   "name": "Sticky (blue)",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:15",
+   "lib": "excali-template",
+   "index": 15,
+   "name": "Sticky (green)",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:16",
+   "lib": "excali-template",
+   "index": 16,
+   "name": "Sticky (pink)",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:17",
+   "lib": "excali-template",
+   "index": 17,
+   "name": "Sticky (gray)",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-template:18",
+   "lib": "excali-template",
+   "index": 18,
+   "name": "Scrum Board",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "text",
+    "ellipse",
+    "line",
+    "rectangle"
+   ],
+   "elements": 142
+  },
+  {
+   "id": "excali-ui:0",
+   "lib": "excali-ui",
+   "index": 0,
+   "name": "Alert",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "ellipse",
+    "line",
+    "draw"
+   ],
+   "elements": 19
+  },
+  {
+   "id": "excali-ui:1",
+   "lib": "excali-ui",
+   "index": 1,
+   "name": "Tag",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-ui:2",
+   "lib": "excali-ui",
+   "index": 2,
+   "name": "Badge",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "ellipse"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-ui:3",
+   "lib": "excali-ui",
+   "index": 3,
+   "name": "Breadcrumbs",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "text",
+    "rectangle"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-ui:4",
+   "lib": "excali-ui",
+   "index": 4,
+   "name": "Title Text",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:5",
+   "lib": "excali-ui",
+   "index": 5,
+   "name": "Placeholder Text",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-ui:6",
+   "lib": "excali-ui",
+   "index": 6,
+   "name": "Header",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-ui:7",
+   "lib": "excali-ui",
+   "index": 7,
+   "name": "Card",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-ui:8",
+   "lib": "excali-ui",
+   "index": 8,
+   "name": "Table",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text",
+    "rectangle"
+   ],
+   "elements": 19
+  },
+  {
+   "id": "excali-ui:9",
+   "lib": "excali-ui",
+   "index": 9,
+   "name": "Tabs",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "text",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-ui:10",
+   "lib": "excali-ui",
+   "index": 10,
+   "name": "Sidebar",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-ui:11",
+   "lib": "excali-ui",
+   "index": 11,
+   "name": "Hero",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "text"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-ui:12",
+   "lib": "excali-ui",
+   "index": 12,
+   "name": "Playback Controls",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-ui:13",
+   "lib": "excali-ui",
+   "index": 13,
+   "name": "Volume Slider",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-ui:14",
+   "lib": "excali-ui",
+   "index": 14,
+   "name": "Map",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 20
+  },
+  {
+   "id": "excali-ui:15",
+   "lib": "excali-ui",
+   "index": 15,
+   "name": "Video Player",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse",
+    "arrow"
+   ],
+   "elements": 26
   },
   {
    "id": "forms:0",
