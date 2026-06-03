@@ -130,6 +130,8 @@ excali-design/
 │   ├── html-to-excalidraw.mjs    # 语义 HTML(flex/grid)→ Excalidraw 手绘风;data-chart 图表 + data-lib 复用组件
 │   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── drawlib-sheet.mjs         # 把一个库所有 item 排成接触表(配 data-lib 序号核对)
+│   ├── build-drawlib-index.mjs   # 扫 10 库 → drawlib-index.json(机器索引;--check 防序号漂移)
+│   ├── drawlib-find.mjs          # 按关键词/分类查组件 → 给 data-lib 序号
 │   ├── svg-export.mjs            # .excalidraw → 手绘 SVG(headless roughjs,无 chromium;可选 resvg 出 PNG)
 │   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG(playwright,最高保真)
 │   └── verify.mjs                # .excalidraw 结构校验(id/binding)
