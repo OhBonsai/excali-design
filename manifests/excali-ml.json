@@ -1,0 +1,19 @@
+{ "target":"excali-ml","license":"MIT","note":"ML/DL 概念块 + 工具 logo。deep-learning(yuelfei)+ data-science(farisology)。",
+ "items":[
+  {"src":"deep-learning.excalidrawlib","index":1,"name":"CNN","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":2,"name":"RNN","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":3,"name":"MLP","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":4,"name":"LSTM","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":0,"name":"GNN","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":6,"name":"Attention","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":7,"name":"Encoder-Decoder","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":9,"name":"QKV","source":"yuelfei/deep-learning"},
+  {"src":"deep-learning.excalidrawlib","index":10,"name":"Transformer","source":"yuelfei/deep-learning"},
+  {"src":"data-science.excalidrawlib","index":0,"name":"pandas","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":1,"name":"Airflow","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":2,"name":"scikit-learn","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":3,"name":"TensorFlow","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":4,"name":"Keras","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":5,"name":"Jupyter","source":"farisology/data-science"},
+  {"src":"data-science.excalidrawlib","index":6,"name":"NumPy","source":"farisology/data-science"}
+ ]}

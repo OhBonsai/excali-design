@@ -1,0 +1,7 @@
+{ "target":"excali-frame","license":"MIT","note":"设备外壳。gadgets(morgemoensch)。浏览器框见现有 webpage-frames。",
+ "items":[
+  {"src":"gadgets.excalidrawlib","index":0,"name":"Smartphone","source":"morgemoensch/gadgets"},
+  {"src":"gadgets.excalidrawlib","index":2,"name":"Smartwatch","source":"morgemoensch/gadgets"},
+  {"src":"gadgets.excalidrawlib","index":3,"name":"Tablet","source":"morgemoensch/gadgets"},
+  {"src":"gadgets.excalidrawlib","index":4,"name":"Laptop","source":"morgemoensch/gadgets"}
+ ]}

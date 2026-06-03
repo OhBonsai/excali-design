@@ -41,6 +41,7 @@ const LIBMETA = {
   'excali-person': { category: 'person', domain: 'people', tags: ['person', 'actor', 'bubble'] },
   'excali-template': { category: 'template', domain: 'deck', tags: ['template', 'canvas', 'board'] },
   'excali-symbol': { category: 'math-symbol', domain: 'math', tags: ['math', 'symbol', 'ml'] },
+  'excali-ml': { category: 'ml', domain: 'ml', tags: ['ml', 'dl', 'neural', 'datascience'] },
 };
 
 // 裸数组库(无 name)的序号→名 覆盖表(经接触表核对)

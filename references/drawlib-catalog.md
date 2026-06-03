@@ -1,6 +1,6 @@
 # drawlib 组件库目录
 
-> `drawlib/` 下有 10 个 `.excalidrawlib`,共 ~218 个现成组件。**能复用的绝不手绘**(SKILL.md 原则 #2)。
+> `drawlib/` 下有 19 个 `.excalidrawlib`(10 基础 + 9 自建精选),共 ~402 个现成组件。**能复用的绝不手绘**(SKILL.md 原则 #2)。
 > 本文件是清单 + 取用方法;具体每个 item 的 elements 在对应 `.excalidrawlib` 里。
 
 ## 取用方法(3 步)

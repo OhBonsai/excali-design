@@ -54,7 +54,7 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入对应手册、复
 ## 它能做什么
 
 - **软件架构图**:从代码库/文档抽真实结构(原则 #0 先验证),按 C4 抽象层级画单向数据流拓扑,语义配色。拓扑密集图用 `arch-layout`(elkjs)自动摆节点,连线用 `arch-connect` 正交路由。
-- **产品原型 / 线框图**:复用 `drawlib/` 里 ~218 个现成组件(HTML 里 `data-lib="库名:序号"` 直接嵌),快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
+- **产品原型 / 线框图**:复用 `drawlib/` 里 ~402 个现成组件(含 9 自建精选库)(HTML 里 `data-lib="库名:序号"` 直接嵌),快速搭 lo-fi/mid-fi 原型,支持多屏 overview 平铺或 flow 串联。
 - **数据看板 / 图表**:`data-chart="pie|donut|bar|line"` 按真实数值生成手绘图表;或 `data-lib` 取 data-viz 现成图占位。
 - **设计图 / 信息图 / 流程图**:决策流、状态机、泳道图、概念示意。
 
@@ -110,10 +110,10 @@ node scripts/excalidraw-to-image.mjs 图.excalidraw --png --svg --scale 2
 ```
 excali-design/
 ├── SKILL.md                      # 主干:人格 + 哲学 + 工作流 + references 路由表
-├── drawlib/                      # 10 个 .excalidrawlib 组件库(~218 个现成组件)
+├── drawlib/                      # 19 个 .excalidrawlib(10 基础 + 9 自建精选,~402 件)
 ├── references/                   # 深度手册(按任务路由)
 │   ├── element-format.md         # Excalidraw 元素 schema(离线 read_me)
-│   ├── drawlib-catalog.md        # 10 库清单 + 取用方法
+│   ├── drawlib-catalog.md        # 19 库清单 + 取用方法
 │   ├── architecture-workflow.md  # 软件架构图
 │   ├── prototype-workflow.md     # 产品原型
 │   ├── arch-lint.md              # 架构图:摆节点 / 连线 / lint 的方法论
@@ -130,7 +130,7 @@ excali-design/
 │   ├── html-to-excalidraw.mjs    # 语义 HTML(flex/grid)→ Excalidraw 手绘风;data-chart 图表 + data-lib 复用组件
 │   ├── mermaid-to-excalidraw.mjs # Mermaid → Excalidraw 手绘风(Tier1 官方 + Tier2 arch-layout)
 │   ├── drawlib-sheet.mjs         # 把一个库所有 item 排成接触表(配 data-lib 序号核对)
-│   ├── build-drawlib-index.mjs   # 扫 10 库 → drawlib-index.json(机器索引;--check 防序号漂移)
+│   ├── build-drawlib-index.mjs   # 扫 19 库 → drawlib-index.json(机器索引;--check 防序号漂移)
 │   ├── drawlib-find.mjs          # 按关键词/分类查组件 → 给 data-lib 序号
 │   ├── svg-export.mjs            # .excalidraw → 手绘 SVG(headless roughjs,无 chromium;可选 resvg 出 PNG)
 │   ├── excalidraw-to-image.mjs   # .excalidraw → PNG/SVG(playwright,最高保真)
