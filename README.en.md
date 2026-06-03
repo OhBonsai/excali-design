@@ -32,15 +32,25 @@ Use excali-design to draw a login/registration prototype flow
 
 The agent reads `SKILL.md`, follows the references routing table, and searches + reuses `drawlib/` components. Not sure how to start? Say "**read the excali-design skill, then ask me a few questions**" — it aligns on requirements first.
 
-## Examples (all produced by this skill)
+## Example gallery (all produced by this skill)
 
-Pipeline: semantic HTML layout → browser computes positions → convert to hand-drawn Excalidraw. Components via `data-lib`, charts via `data-chart` (real values), edges via `arch-connect`, then a model **squint-review** of the render.
+The product intro below was itself drawn with excali-design — the thumbnails inside it are real outputs:
 
-| Prototype · multi-screen flow | Dashboard · data-chart |
+![Excali-Design intro](assets/readme/gallery-intro.svg)
+
+Five of the most common diagram types, each stressing a different capability path:
+
+| Software architecture · swimlanes + diagonal routing + drawlib icons + arrow subtraction | Tech explainer · Transformer structure + embedded LaTeX formula |
 |---|---|
-| ![login flow](assets/readme/login-flow.png) | ![dashboard](assets/readme/dashboard.png) |
-| **Kanban · data-lib cards** | **Architecture · arch-connect** |
-| ![kanban](assets/readme/kanban.png) | ![architecture](assets/readme/architecture.png) |
+| ![architecture](assets/readme/gallery-architecture.svg) | ![Transformer](assets/readme/gallery-transformer.svg) |
+| **Everyday explainer · infographic + decay curve** | **Product prototype · multi-screen flow + drawlib excali-ui controls** |
+| ![caffeine half-life](assets/readme/gallery-caffeine.svg) | ![SaaS multi-screen prototype](assets/readme/gallery-saas.svg) |
+
+> Shared discipline: restrained color (≤4), omit rather than overlap arrows, whitespace as design, formulas via LaTeX, and a mandatory **squint test** on every diagram.
+
+And here's **how it works inside** (this technical diagram was itself drawn by the skill — using drawlib stick figures `excali-person` + sticky notes `excali-template`):
+
+![Excali-Design internal pipeline](assets/readme/gallery-internals.svg)
 
 ## Capabilities at a glance
 
@@ -51,6 +61,7 @@ Pipeline: semantic HTML layout → browser computes positions → convert to han
 | **Anti-AI-slop (hard gate)** | Unicode/emoji as icons → build fails; use `data-icon` hand-drawn shapes instead | `_antislop.mjs` · `references/anti-slop.md` |
 | **Architecture trifecta** | auto node layout + auto edge routing + geometric lint — never by hand | `arch-layout` / `arch-connect` / `arch-lint` |
 | **Mermaid → hand-drawn** | flowchart/sequence/state/ER/class/gantt/pie | `mermaid-to-excalidraw.mjs` |
+| **Math formulas** | render LaTeX to SVG and embed (no hand-drawn blocks, stays crisp when scaled) | `render-formula.mjs` (MathJax, optional dep) |
 | **Export** | headless SVG (no chromium) / pixel-perfect PNG (playwright) | `svg-export.mjs` / `excalidraw-to-image.mjs` |
 | **Squint-review** | render and let the model eyeball it (focus/text/edges/primitives); mechanical lint can't judge quality | `references/design-tokens.md` |
 
@@ -122,12 +133,12 @@ excali-design/
 ├── scripts/                  # pure Node (+ optional elkjs/roughjs/resvg/playwright)
 │   ├── arch-layout / arch-connect / arch-lint
 │   ├── html-to-excalidraw    # semantic HTML → hand-drawn; data-lib + data-chart + data-icon
-│   ├── mermaid-to-excalidraw
+│   ├── mermaid-to-excalidraw / render-formula (LaTeX→SVG)
 │   ├── drawlib-find / drawlib-sheet / build-drawlib-index / assemble-lib / fetch-candidates
 │   ├── svg-export            # headless hand-drawn SVG (no chromium)
 │   └── excalidraw-to-image   # playwright, highest fidelity
 ├── .github/workflows/release.yml   # tag → validate + package + Release
-└── test/ · demos/ · test-prompts.json
+└── demos/                    # example inputs for arch-layout / arch-connect
 ```
 
 ## Dependencies

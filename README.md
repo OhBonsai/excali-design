@@ -32,15 +32,25 @@ npx skills add OhBonsai/excali-design -a opencode -y   # 只装 opencode,非交�
 
 agent 会自己读 `SKILL.md`、按 references 路由表深入手册、检索复用 `drawlib/` 组件。不确定怎么开口?说「**读一下 excali-design 技能,然后问我几个问题**」,它会先和你对齐需求再动手。
 
-## 示例(全部本 skill 生成)
+## 示例画廊(全部本 skill 生成)
 
-走「语义 HTML 布局 → 浏览器算位置 → 转 Excalidraw 手绘风」流水线:组件用 `data-lib` 拉现成库,图表用 `data-chart` 按真实数值生成,连线交 `arch-connect`,转完渲图**眯眼回归**。
+下面这张产品介绍图,本身也是用 excali-design 画的——里面的缩略图都是真实成品:
 
-| 产品原型 · 多屏 flow | 数据看板 · data-chart |
+![Excali-Design 产品介绍](assets/readme/gallery-intro.svg)
+
+涵盖五类最常见的图,每类压不同的能力路径:
+
+| 软件架构图 · 分层泳道 + 斜线混合路由 + drawlib 图标 + 箭头减法 | 技术科普 · Transformer 结构 + LaTeX 公式内嵌 |
 |---|---|
-| ![登录注册流程](assets/readme/login-flow.png) | ![数据看板](assets/readme/dashboard.png) |
-| **项目看板 · data-lib 卡片** | **软件架构 · arch-connect** |
-| ![项目看板](assets/readme/kanban.png) | ![服务架构](assets/readme/architecture.png) |
+| ![软件架构图](assets/readme/gallery-architecture.svg) | ![Transformer 架构](assets/readme/gallery-transformer.svg) |
+| **日常科普 · 信息图 + 衰减曲线** | **产品原型 · 多屏 flow + drawlib excali-ui 控件** |
+| ![咖啡因半衰期](assets/readme/gallery-caffeine.svg) | ![SaaS 多屏原型](assets/readme/gallery-saas.svg) |
+
+> 共同纪律:配色克制(≤4 色)、宁可省略也不叠加箭头、留白当设计、公式走 LaTeX、每张图**眯眼测试**必做。
+
+再看一眼它**内部怎么工作**(这张技术图本身也是它画的,用了 drawlib 小人 `excali-person` + 便签 `excali-template`):
+
+![Excali-Design 内部流水线](assets/readme/gallery-internals.svg)
 
 ## 核心能力一览
 
@@ -51,6 +61,7 @@ agent 会自己读 `SKILL.md`、按 references 路由表深入手册、检索复
 | **反 AI slop(代码硬门)** | Unicode/emoji 冒充图标 → 构建直接失败;改用 `data-icon` 手绘小形状 | `_antislop.mjs` · `references/anti-slop.md` |
 | **架构图三板斧** | 节点自动布局 + 连线自动路由 + 几何 lint,都别手做 | `arch-layout` / `arch-connect` / `arch-lint` |
 | **Mermaid → 手绘风** | flowchart/sequence/state/ER/class/gantt/pie | `mermaid-to-excalidraw.mjs` |
+| **数学公式** | LaTeX 渲染成 SVG 内嵌(不用手绘块拼,缩放不糊) | `render-formula.mjs`(MathJax,可选 dep) |
 | **导出** | headless SVG(无 chromium)/ 像素级 PNG(playwright) | `svg-export.mjs` / `excalidraw-to-image.mjs` |
 | **眯眼回归** | 转完渲图给模型看一遍(焦点/文字/连线/图元),机械 lint 判不了好坏 | `references/design-tokens.md` |
 
@@ -122,12 +133,12 @@ excali-design/
 ├── scripts/                  # 纯 Node(+ 可选 elkjs/roughjs/resvg/playwright)
 │   ├── arch-layout / arch-connect / arch-lint
 │   ├── html-to-excalidraw    # 语义 HTML → 手绘;data-lib 复用 + data-chart 图表 + data-icon
-│   ├── mermaid-to-excalidraw
+│   ├── mermaid-to-excalidraw / render-formula(LaTeX→SVG)
 │   ├── drawlib-find / drawlib-sheet / build-drawlib-index / assemble-lib / fetch-candidates
 │   ├── svg-export            # headless 手绘 SVG(无 chromium)
 │   └── excalidraw-to-image   # playwright 最高保真
 ├── .github/workflows/release.yml   # 打 tag → 校验 + 打包 + 建 Release
-└── test/ · demos/ · test-prompts.json
+└── demos/                    # arch-layout / arch-connect 的示例输入
 ```
 
 ## 依赖
