@@ -60,7 +60,7 @@ description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件�
 > **这是本 skill 区别于「裸画 Excalidraw」的核心约束。** `drawlib/` 里有 ~218 个做工精良的现成组件,**能复用的绝不手绘**。手绘一个 toggle / 下拉框 / 服务器图标,99% 不如库里的,还慢。
 
 **硬流程**:
-1. 开工前先读 `references/drawlib-catalog.md`,确认这次要画的东西库里有没有现成件
+1. 开工前先**检索**:`node scripts/drawlib-find.mjs <关键词>`(或 `--cat <类>`)查库里有没有现成件;分类全貌见 `references/drawlib-index.md`,清单见 `drawlib-catalog.md`。库里没有再看社区 `references/community-libraries.md`
 2. 有 → 从对应 `.excalidrawlib` 取出该 item 的 `elements`,平移到目标坐标,复用
 3. 没有 → 才自己用基础元素(rectangle/ellipse/diamond/arrow/line/text)拼,且遵循 `references/anti-slop.md`
 4. 10 个库速记:UX 控件(69)、数据图表(32)、DevOps 图标(29)、表单控件(26)、幻灯片模板(16)、信息架构(17)、数学符号(15)、火柴人(9)、网页框(3)、商业画布(2)
@@ -173,7 +173,8 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 |---|---|
 | 开工前问问题、定方向 | `references/workflow.md` |
 | Excalidraw 元素格式(schema/调色板/binding) | `references/element-format.md`(离线版 read_me) |
-| 复用 drawlib 组件库(10 库 ~218 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md` + `scripts/drawlib-sheet.mjs`(渲接触表核对序号) |
+| 复用 drawlib 组件库(10 库 ~218 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md`(清单)+ `references/drawlib-index.md`(分类/检索)+ `scripts/drawlib-find.mjs`(关键词→序号)+ `scripts/drawlib-sheet.mjs`(渲接触表核对) |
+| 社区资产精选(libraries.excalidraw.com + vendor 流程) | `references/community-libraries.md` |
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
