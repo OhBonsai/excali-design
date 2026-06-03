@@ -175,6 +175,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | Excalidraw 元素格式(schema/调色板/binding) | `references/element-format.md`(离线版 read_me) |
 | 复用 drawlib 组件库(10 库 ~218 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md`(清单)+ `references/drawlib-index.md`(分类/检索)+ `scripts/drawlib-find.mjs`(关键词→序号)+ `scripts/drawlib-sheet.mjs`(渲接触表核对) |
 | 社区资产精选(libraries.excalidraw.com + vendor 流程) | `references/community-libraries.md` |
+| 资产需求分类(需求→种类→确定分类 + 缺口/挑选流程) | `references/asset-taxonomy.md` |
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |
 | 画软件架构 / 数据流 / 时序 | `references/architecture-workflow.md` |
 | 布局/网格/对齐/泳道/分层 | `references/layout-system.md` |
