@@ -1,0 +1,23 @@
+{
+  "target": "excali-net",
+  "license": "MIT",
+  "note": "网络/设备/安全图标。精挑自社区库,核心设备用 dwelle 的 3D 套件保持风格统一;补 Load Balancer(samu_x86)、位置(jgodoy)、机柜(jgodoy)。",
+  "items": [
+    { "src": "network-topology-icons.excalidrawlib", "index": 8, "name": "Router", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 6, "name": "Switch", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 7, "name": "Hub", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 4, "name": "Firewall", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 3, "name": "VPN", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 5, "name": "Server", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 9, "name": "Client", "source": "dwelle/network-topology-icons" },
+    { "src": "network-topology-icons.excalidrawlib", "index": 1, "name": "Computer", "source": "dwelle/network-topology-icons" },
+    { "src": "network-elements.excalidrawlib", "index": 2, "name": "Load Balancer", "source": "samu_x86/network-elements" },
+    { "src": "network-locations.excalidrawlib", "index": 0, "name": "Corporate Office", "source": "jgodoy/network-locations" },
+    { "src": "network-locations.excalidrawlib", "index": 1, "name": "Office", "source": "jgodoy/network-locations" },
+    { "src": "network-locations.excalidrawlib", "index": 2, "name": "City", "source": "jgodoy/network-locations" },
+    { "src": "network-locations.excalidrawlib", "index": 3, "name": "House", "source": "jgodoy/network-locations" },
+    { "src": "network-locations.excalidrawlib", "index": 4, "name": "Datacenter", "source": "jgodoy/network-locations" },
+    { "src": "racks-and-servers-components.excalidrawlib", "index": 0, "name": "Rack 8U", "source": "jgodoy/racks-and-servers-components" },
+    { "src": "racks-and-servers-components.excalidrawlib", "index": 1, "name": "Rack 16U", "source": "jgodoy/racks-and-servers-components" }
+  ]
+}
