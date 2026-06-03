@@ -13,6 +13,7 @@
  * 检查项(error = 必修,warn = 应修):
  *   E1 overlap         节点-节点部分重叠(互不包含却相交)= 摆放 bug
  *   E2 arrow-thru      箭头穿过它没绑定的节点(线压过框)
+ *   E3 icon-glyph      文字里用 Unicode/emoji 冒充图标(✓✗★●■▲→↑↓⚙🔍)= 反 slop 硬禁
  *   W1 offgrid         x/y 未吸附到网格(默认 4)
  *   W2 near-align      两节点边/中线「几乎对齐但没对齐」(最丑的错位)
  *   W3 uneven-gap      同一行/列相邻节点间距不均
@@ -24,6 +25,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { scanIconText, FIX_HINT } from './_antislop.mjs';
 
 const NODE_TYPES = new Set(['rectangle', 'ellipse', 'diamond', 'image', 'frame']);
 
@@ -95,6 +97,11 @@ function lint(els, opt) {
       const frac = (ia / Math.min(area(A), area(B)) * 100).toFixed(0);
       add('error', 'overlap', `节点 ${idOf(nodes[i])}(${nodes[i].type}) 与 ${idOf(nodes[j])}(${nodes[j].type}) 部分重叠 ~${frac}% @(${A.x|0},${A.y|0})`);
     }
+
+  // E: 反 slop —— 文字里用 Unicode/emoji 冒充图标(模型最爱犯;这里当 error 拦,不靠肉眼)
+  for (const h of scanIconText(els.filter(e => e.type === 'text'))) {
+    add('error', 'icon-glyph', `文字 ${JSON.stringify(h.text.slice(0, 24))} 含 Unicode 图标字符 ${h.chars.join(' ')} —— ${FIX_HINT}`);
+  }
 
   // W: container-padding(容器内子模块的内边距;贴边 = 缺 padding)
   const minPad = opt.pad ?? 12;
