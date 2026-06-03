@@ -8,7 +8,7 @@
   "business-canvas",
   "chart",
   "tech-icon",
-  "misc",
+  "net-device",
   "form-control",
   "flowchart-shape",
   "math-symbol",
@@ -2686,9 +2686,14 @@
    "lib": "excali-net",
    "index": 0,
    "name": "Router",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "line",
     "ellipse"
@@ -2700,9 +2705,14 @@
    "lib": "excali-net",
    "index": 1,
    "name": "Switch",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "ellipse",
     "line"
@@ -2714,9 +2724,14 @@
    "lib": "excali-net",
    "index": 2,
    "name": "Hub",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "ellipse",
     "line"
@@ -2728,9 +2743,14 @@
    "lib": "excali-net",
    "index": 3,
    "name": "Firewall",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "line"
    ],
@@ -2741,9 +2761,14 @@
    "lib": "excali-net",
    "index": 4,
    "name": "VPN",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "line",
@@ -2757,9 +2782,14 @@
    "lib": "excali-net",
    "index": 5,
    "name": "Server",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "line"
@@ -2771,9 +2801,14 @@
    "lib": "excali-net",
    "index": 6,
    "name": "Client",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle"
    ],
@@ -2784,9 +2819,14 @@
    "lib": "excali-net",
    "index": 7,
    "name": "Computer",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "ellipse",
     "line"
@@ -2798,9 +2838,14 @@
    "lib": "excali-net",
    "index": 8,
    "name": "Load Balancer",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "ellipse",
     "line"
@@ -2812,9 +2857,14 @@
    "lib": "excali-net",
    "index": 9,
    "name": "Corporate Office",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "text"
@@ -2826,9 +2876,14 @@
    "lib": "excali-net",
    "index": 10,
    "name": "Office",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "text",
     "rectangle"
@@ -2840,9 +2895,14 @@
    "lib": "excali-net",
    "index": 11,
    "name": "City",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "ellipse",
     "rectangle",
@@ -2857,9 +2917,14 @@
    "lib": "excali-net",
    "index": 12,
    "name": "House",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "diamond",
@@ -2873,9 +2938,14 @@
    "lib": "excali-net",
    "index": 13,
    "name": "Datacenter",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "line",
@@ -2889,9 +2959,14 @@
    "lib": "excali-net",
    "index": 14,
    "name": "Rack 8U",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "rectangle",
     "line",
@@ -2904,9 +2979,14 @@
    "lib": "excali-net",
    "index": 15,
    "name": "Rack 16U",
-   "category": "misc",
-   "domain": "misc",
-   "tags": [],
+   "category": "net-device",
+   "domain": "architecture",
+   "tags": [
+    "network",
+    "device",
+    "security",
+    "infra"
+   ],
    "types": [
     "line",
     "text",
