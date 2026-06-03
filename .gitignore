@@ -28,3 +28,6 @@ zi??????
 
 # 测试产物
 test/_out/
+
+# 候选社区库(pick 临时区,不入库)
+_candidates/
