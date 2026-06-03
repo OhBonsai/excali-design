@@ -28,6 +28,7 @@ function parseArgs(argv) {
     if (t === '--cols') a.cols = parseInt(next());
     else if (t === '--cell') a.cell = parseInt(next());
     else if (t === '--out-dir') a.outDir = next();
+    else if (t === '--dir') a.dir = next();   // 从别处(如 _candidates/)读库,而非默认 drawlib/
     else if (!t.startsWith('--')) a.lib = t;
   }
   return a;
@@ -71,11 +72,12 @@ function main() {
   const a = parseArgs(process.argv);
   if (!a.lib) { console.error('用法: node scripts/drawlib-sheet.mjs <库名|all> [--cols 6] [--cell 240]'); process.exit(1); }
   fs.mkdirSync(a.outDir, { recursive: true });
+  const srcDir = a.dir ? path.resolve(a.dir) : LIBDIR;
   const libs = a.lib === 'all'
-    ? fs.readdirSync(LIBDIR).filter(f => f.endsWith('.excalidrawlib')).map(f => f.replace('.excalidrawlib', ''))
+    ? fs.readdirSync(srcDir).filter(f => f.endsWith('.excalidrawlib')).map(f => f.replace('.excalidrawlib', ''))
     : [a.lib];
   for (const name of libs) {
-    const p = path.join(LIBDIR, name + '.excalidrawlib');
+    const p = path.join(srcDir, name + '.excalidrawlib');
     if (!fs.existsSync(p)) { console.error(`✗ 找不到 ${p}`); continue; }
     const { elements, count } = sheet(p, a);
     const outPath = path.join(a.outDir, `_sheet-${name}.excalidraw`);
