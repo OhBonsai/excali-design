@@ -1,19 +1,107 @@
-{ "target":"excali-ui","license":"MIT","note":"UI 控件补充(导航/容器/反馈/媒体),补 basic-ux+forms 之缺。lo-fi(spfr)+ medias(g-script)。",
- "items":[
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":3,"name":"Alert","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":5,"name":"Tag","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":6,"name":"Badge","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":7,"name":"Breadcrumbs","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":11,"name":"Title Text","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":12,"name":"Placeholder Text","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":13,"name":"Header","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":14,"name":"Card","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":15,"name":"Table","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":16,"name":"Tabs","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":18,"name":"Sidebar","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"lo-fi-wireframing-kit.excalidrawlib","index":19,"name":"Hero","source":"spfr/lo-fi-wireframing-kit"},
-  {"src":"medias.excalidrawlib","index":0,"name":"Playback Controls","source":"g-script/medias"},
-  {"src":"medias.excalidrawlib","index":2,"name":"Volume Slider","source":"g-script/medias"},
-  {"src":"medias.excalidrawlib","index":3,"name":"Map","source":"g-script/medias"},
-  {"src":"medias.excalidrawlib","index":4,"name":"Video Player","source":"g-script/medias"}
- ]}
+{
+ "target": "excali-ui",
+ "license": "MIT",
+ "note": "UI 控件补充(导航/容器/反馈/媒体),补 basic-ux+forms 之缺。lo-fi(spfr)+ medias(g-script)。",
+ "items": [
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 3,
+   "name": "Alert",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 5,
+   "name": "Tag",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 6,
+   "name": "Badge",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 7,
+   "name": "Breadcrumbs",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 11,
+   "name": "Title Text",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 12,
+   "name": "Placeholder Text",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 13,
+   "name": "Header",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 14,
+   "name": "Card",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 15,
+   "name": "Table",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 16,
+   "name": "Tabs",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 18,
+   "name": "Sidebar",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "lo-fi-wireframing-kit.excalidrawlib",
+   "index": 19,
+   "name": "Hero",
+   "source": "spfr/lo-fi-wireframing-kit"
+  },
+  {
+   "src": "medias.excalidrawlib",
+   "index": 0,
+   "name": "Playback Controls",
+   "source": "g-script/medias"
+  },
+  {
+   "src": "medias.excalidrawlib",
+   "index": 2,
+   "name": "Volume Slider",
+   "source": "g-script/medias"
+  },
+  {
+   "src": "medias.excalidrawlib",
+   "index": 3,
+   "name": "Map",
+   "source": "g-script/medias"
+  },
+  {
+   "src": "medias.excalidrawlib",
+   "index": 4,
+   "name": "Video Player",
+   "source": "g-script/medias"
+  }
+ ],
+ "include": [
+  "basic-ux-wireframing-elements",
+  "forms"
+ ]
+}

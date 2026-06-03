@@ -48,7 +48,18 @@ function main() {
   const candDir = path.join(ROOT, '_candidates', m.target);
   const cache = {};
   const libraryItems = [];
-  m.items.forEach((it, i) => {
+  // include:把 drawlib/ 里现有整库并入(放前面以保住原序号);名字从当前 drawlib-index.json 取
+  let NAMEIDX = {};
+  try { for (const e of JSON.parse(fs.readFileSync(path.join(ROOT, 'drawlib-index.json'), 'utf8')).entries) NAMEIDX[e.id] = e.name; } catch {}
+  for (const lib of (m.include || [])) {
+    const items = loadItems(path.join(ROOT, 'drawlib', lib + '.excalidrawlib'));
+    items.forEach((raw, i) => {
+      const nm = (Array.isArray(raw) ? '' : (raw.name || '')) || NAMEIDX[`${lib}:${i}`] || `${lib} #${i}`;
+      libraryItems.push({ status: 'published', id: rid(), created: Date.now(), name: nm, elements: extract(raw) });
+    });
+    console.log(`  ↳ include ${lib}: ${items.length} 件`);
+  }
+  (m.items || []).forEach((it, i) => {
     const file = path.join(candDir, it.src);
     if (!(it.src in cache)) cache[it.src] = loadItems(file);
     const raw = cache[it.src][it.index];
@@ -58,7 +69,7 @@ function main() {
   const out = path.join(ROOT, 'drawlib', m.target + '.excalidrawlib');
   fs.writeFileSync(out, JSON.stringify({ type: 'excalidrawlib', version: 2, source: 'excali-design (curated, MIT)', libraryItems }, null, 1));
   console.log(`✓ ${m.target}: 合并 ${libraryItems.length} 件 → ${out}`);
-  console.log(`  出处(MIT):${[...new Set(m.items.map(i => i.source))].join(', ')}`);
+  console.log(`  出处(MIT):${[...new Set([...(m.include || []), ...((m.items || []).map(i => i.source))])].join(', ')}`);
   console.log(`  下一步:node scripts/build-drawlib-index.mjs && node scripts/drawlib-sheet.mjs ${m.target}`);
 }
 main();

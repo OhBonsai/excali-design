@@ -1,29 +1,142 @@
 {
-  "target": "excali-tech",
-  "license": "MIT",
-  "note": "技术栈 logo。语言/框架/工具取 it-logos(清晰品牌);数据/中间件(Postgres/Redis/Nginx/DNS)取 drwnio(手绘);Spring 取 technology-logos。dev_ops 原库保留另用。",
-  "items": [
-    { "src": "it-logos.excalidrawlib", "index": 4, "name": "Docker", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 12, "name": "Kubernetes", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 10, "name": "Kafka", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 9, "name": "GitLab", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 2, "name": "Argo CD", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 8, "name": "Flux CD", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 7, "name": "Firebase", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 18, "name": "Python", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 19, "name": "React", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 29, "name": "Vue", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 0, "name": "Angular", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 24, "name": "Svelte", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 16, "name": "Next.js", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 28, "name": "Vercel", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 15, "name": "Micronaut", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 25, "name": "TensorFlow", "source": "pclainchard/it-logos" },
-    { "src": "it-logos.excalidrawlib", "index": 27, "name": "VSCode", "source": "pclainchard/it-logos" },
-    { "src": "drwnio.excalidrawlib", "index": 12, "name": "PostgreSQL", "source": "drwnio/drwnio" },
-    { "src": "drwnio.excalidrawlib", "index": 5, "name": "Redis", "source": "drwnio/drwnio" },
-    { "src": "drwnio.excalidrawlib", "index": 6, "name": "Nginx", "source": "drwnio/drwnio" },
-    { "src": "drwnio.excalidrawlib", "index": 17, "name": "DNS", "source": "drwnio/drwnio" },
-    { "src": "technology-logos.excalidrawlib", "index": 16, "name": "Spring", "source": "maeddes/technology-logos" }
-  ]
+ "target": "excali-tech",
+ "license": "MIT",
+ "note": "技术栈 logo。语言/框架/工具取 it-logos(清晰品牌);数据/中间件(Postgres/Redis/Nginx/DNS)取 drwnio(手绘);Spring 取 technology-logos。dev_ops 整库 include 并入(原库已退役)。",
+ "items": [
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 4,
+   "name": "Docker",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 12,
+   "name": "Kubernetes",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 10,
+   "name": "Kafka",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 9,
+   "name": "GitLab",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 2,
+   "name": "Argo CD",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 8,
+   "name": "Flux CD",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 7,
+   "name": "Firebase",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 18,
+   "name": "Python",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 19,
+   "name": "React",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 29,
+   "name": "Vue",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 0,
+   "name": "Angular",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 24,
+   "name": "Svelte",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 16,
+   "name": "Next.js",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 28,
+   "name": "Vercel",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 15,
+   "name": "Micronaut",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 25,
+   "name": "TensorFlow",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "it-logos.excalidrawlib",
+   "index": 27,
+   "name": "VSCode",
+   "source": "pclainchard/it-logos"
+  },
+  {
+   "src": "drwnio.excalidrawlib",
+   "index": 12,
+   "name": "PostgreSQL",
+   "source": "drwnio/drwnio"
+  },
+  {
+   "src": "drwnio.excalidrawlib",
+   "index": 5,
+   "name": "Redis",
+   "source": "drwnio/drwnio"
+  },
+  {
+   "src": "drwnio.excalidrawlib",
+   "index": 6,
+   "name": "Nginx",
+   "source": "drwnio/drwnio"
+  },
+  {
+   "src": "drwnio.excalidrawlib",
+   "index": 17,
+   "name": "DNS",
+   "source": "drwnio/drwnio"
+  },
+  {
+   "src": "technology-logos.excalidrawlib",
+   "index": 16,
+   "name": "Spring",
+   "source": "maeddes/technology-logos"
+  }
+ ],
+ "include": [
+  "dev_ops"
+ ]
 }

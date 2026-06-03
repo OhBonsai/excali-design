@@ -75,11 +75,11 @@ CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、�
 
 **A. `data-lib="库名:序号"` —— 直接实例化 drawlib 现成组件**(精致手绘成品,占位用)。任意库任意组件,转换器自动缩放贴框 + 居中 + 重生成 id:
 ```html
-<div data-lib="data-viz:0"></div>       <!-- Bar 图占位 -->
-<div data-lib="data-viz:31"></div>      <!-- Radar -->
-<div data-lib="basic-ux-wireframing-elements:3"></div>  <!-- 任意 UI 控件 -->
+<div data-lib="excali-chart:0"></div>       <!-- Bar 图占位 -->
+<div data-lib="excali-chart:31"></div>      <!-- Radar -->
+<div data-lib="excali-ui:3"></div>  <!-- 任意 UI 控件 -->
 ```
-序号见 `drawlib-catalog.md`(data-viz:28=Pie、29=Donut、8=Line…)。**把 drawlib 当 HTML 组件标签用。**
+序号见 `drawlib-catalog.md`(excali-chart:28=Pie、29=Donut、8=Line…)。**把 drawlib 当 HTML 组件标签用。**
 
 **B. `data-chart="..." data-values="..."` —— 数据驱动确定性生成**(要反映真实数值时用):
 

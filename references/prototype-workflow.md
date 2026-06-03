@@ -39,7 +39,7 @@ Excalidraw 原型**不追求像素完美**——那是 huashu-design 的 HTML hi
 
 **详情页**:Hero(Image placeholder 大)→ 标题/元信息 → 正文占位 → 底部动作条(Confirm/Reject)。
 
-**Dashboard**:顶栏 → 指标卡行(2-4 个等宽框 + 大数字 placeholder)→ 图表区(data-viz 库取 Bar/Line/Donut)→ 表格占位。**高密度型**:每屏 ≥ 3 处真实信息(别只放一个图表)。
+**Dashboard**:顶栏 → 指标卡行(2-4 个等宽框 + 大数字 placeholder)→ 图表区(`excali-chart` 取 Bar/Line/Donut)→ 表格占位。**高密度型**:每屏 ≥ 3 处真实信息(别只放一个图表)。
 
 **引导/空状态**:居中 Bulb/Image placeholder + 一句话标题 + 主按钮。留白是设计,不填满。
 
@@ -54,11 +54,11 @@ Excalidraw 原型**不追求像素完美**——那是 huashu-design 的 HTML hi
 
 ## 5. 复用 drawlib(强制,见 drawlib-catalog.md)
 
-- 控件 9 成从 `basic-ux-wireframing-elements`(库1)取
-- 页面外壳从 `webpage-frames`(库2)
-- 控件态对比从 `forms`(库3)
-- 图表占位从 `data-viz`(库6)
-- 角色/actor 从 `stick-figures`(库7)
+- 控件 9 成从 `excali-ui`取
+- 页面外壳从 `excali-frame`
+- 控件态对比从 `excali-ui`(表单态已并入)
+- 图表占位从 `excali-chart`
+- 角色/actor 从 `excali-person`
 
 **手绘只发生在库里没有的东西**(特定布局容器、自定义组合)。
 
