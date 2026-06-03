@@ -56,6 +56,7 @@ function snap(s) {
 function fontFamily(fam) { return /mono|code|consol|menlo/i.test(fam || '') ? 3 : 2; }
 
 import { launchChromium, NO_BROWSER_HINT } from './_browser.mjs';
+import { scanIconText, FIX_HINT } from './_antislop.mjs';
 
 const WALK = `() => {
   const out = [];
@@ -218,19 +219,20 @@ async function main() {
       els.push({ type: 'rectangle', id: 'ic_' + seed(), x: R(cx - r), y: R(cy - r), width: R(r * 2), height: R(r * 2), roundness: { type: 3 }, ...base });
     }
   }
-  // 反 slop 警告:文字里用 unicode 字符冒充图标(箭头/几何/符号/dingbats/emoji)
-  const ICONGLYPH = /[←-⇿■-◿☀-⛿✀-➿⬀-⯿]|[\u{1F000}-\u{1FAFF}]/u;
-  const iconText = nodes.filter(n => n.kind === 'text' && ICONGLYPH.test(n.text));
-  if (iconText.length) {
-    console.error(`⚠ 反 slop:检测到 ${iconText.length} 处文字含「Unicode 图标字符」:${iconText.slice(0, 6).map(n => JSON.stringify(n.text)).join(' ')}`);
-    console.error(`   一定别拿 unicode 当图标 → 有图标集/drawlib 用 data-lib;没有用 data-icon="square|circle|diamond"(手绘纯色小形状)替代。`);
+  // 反 slop 硬门:文字里用 Unicode/emoji 冒充图标 → 默认 strict 直接失败(模型最爱犯,光警告挡不住)
+  const iconHits = scanIconText(nodes.filter(n => n.kind === 'text'));
+  if (iconHits.length) {
+    const tag = a.strict ? '✗ 反 slop(strict,构建失败):文字里有 Unicode/emoji 冒充图标' : '⚠ 反 slop(loose):文字里有 Unicode/emoji 冒充图标';
+    console.error(`${tag} —— ${iconHits.length} 处:`);
+    for (const h of iconHits.slice(0, 8)) console.error(`   · ${JSON.stringify(h.text)}  含 ${h.chars.join(' ')}`);
+    console.error('   ' + FIX_HINT);
   }
   // 代码约束:无效 data-lib 引用 → 默认 strict 直接失败(逼你回去查接触表);--loose 降级为 warn
   if (libErrors.length) {
     const tag = a.strict ? '✗ data-lib 引用无效(strict,构建失败)' : '⚠ data-lib 引用无效(loose)';
     console.error(tag); for (const e of libErrors) console.error('   · ' + e);
-    if (a.strict) { console.error('   修正引用,或加 --loose 跳过(不推荐)。'); process.exit(2); }
   }
+  if (a.strict && (libErrors.length || iconHits.length)) { console.error('   修正后重试,或加 --loose 跳过(不推荐)。'); process.exit(2); }
   const out = a.out || a.input.replace(/\.html?$/i, '') + '.excalidraw';
   fs.writeFileSync(out, JSON.stringify({ type: 'excalidraw', version: 2, source: 'excali-design/html', elements: els, appState: { viewBackgroundColor: '#fafaf6', gridSize: null } }, null, 1));
   const nChart = nodes.filter(n => n.kind === 'chart').length;
