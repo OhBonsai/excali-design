@@ -1,22 +1,125 @@
-{ "target":"excali-template","license":"MIT","note":"战略/协作板。Wardley(simalexan)+ Team Topologies(nikordaris)+ 便签(ferminrp)+ Scrum(danimaniarqsoft)。slide/画布见 awesome-slides/canvases。",
- "items":[
-  {"src":"wardley-maps-symbols.excalidrawlib","index":1,"name":"Wardley Customer","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":2,"name":"Wardley Component","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":3,"name":"Wardley Evolution Axis","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":5,"name":"Wardley Area of Interest","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":6,"name":"Wardley Build","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":7,"name":"Wardley Buy","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":8,"name":"Wardley Outsource","source":"simalexan/wardley-maps-symbols"},
-  {"src":"wardley-maps-symbols.excalidrawlib","index":9,"name":"Wardley Accelerator","source":"simalexan/wardley-maps-symbols"},
-  {"src":"team-topologies.excalidrawlib","index":0,"name":"Complicated Subsystem Team","source":"nikordaris/team-topologies"},
-  {"src":"team-topologies.excalidrawlib","index":1,"name":"Stream-aligned Team","source":"nikordaris/team-topologies"},
-  {"src":"team-topologies.excalidrawlib","index":2,"name":"Platform Team","source":"nikordaris/team-topologies"},
-  {"src":"team-topologies.excalidrawlib","index":3,"name":"Enabling Team","source":"nikordaris/team-topologies"},
-  {"src":"team-topologies.excalidrawlib","index":7,"name":"Team Interaction","source":"nikordaris/team-topologies"},
-  {"src":"post-it.excalidrawlib","index":11,"name":"Sticky (orange)","source":"ferminrp/post-it"},
-  {"src":"post-it.excalidrawlib","index":7,"name":"Sticky (blue)","source":"ferminrp/post-it"},
-  {"src":"post-it.excalidrawlib","index":9,"name":"Sticky (green)","source":"ferminrp/post-it"},
-  {"src":"post-it.excalidrawlib","index":3,"name":"Sticky (pink)","source":"ferminrp/post-it"},
-  {"src":"post-it.excalidrawlib","index":0,"name":"Sticky (gray)","source":"ferminrp/post-it"},
-  {"src":"scrum-board.excalidrawlib","index":0,"name":"Scrum Board","source":"danimaniarqsoft/scrum-board"}
- ]}
+{
+ "target": "excali-template",
+ "license": "MIT",
+ "note": "战略/协作板。Wardley(simalexan)+ Team Topologies(nikordaris)+ 便签(ferminrp)+ Scrum(danimaniarqsoft)。slide/画布见 awesome-slides/canvases。",
+ "items": [
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 1,
+   "name": "Wardley Customer",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 2,
+   "name": "Wardley Component",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 3,
+   "name": "Wardley Evolution Axis",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 5,
+   "name": "Wardley Area of Interest",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 6,
+   "name": "Wardley Build",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 7,
+   "name": "Wardley Buy",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 8,
+   "name": "Wardley Outsource",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "wardley-maps-symbols.excalidrawlib",
+   "index": 9,
+   "name": "Wardley Accelerator",
+   "source": "simalexan/wardley-maps-symbols"
+  },
+  {
+   "src": "team-topologies.excalidrawlib",
+   "index": 0,
+   "name": "Complicated Subsystem Team",
+   "source": "nikordaris/team-topologies"
+  },
+  {
+   "src": "team-topologies.excalidrawlib",
+   "index": 1,
+   "name": "Stream-aligned Team",
+   "source": "nikordaris/team-topologies"
+  },
+  {
+   "src": "team-topologies.excalidrawlib",
+   "index": 2,
+   "name": "Platform Team",
+   "source": "nikordaris/team-topologies"
+  },
+  {
+   "src": "team-topologies.excalidrawlib",
+   "index": 3,
+   "name": "Enabling Team",
+   "source": "nikordaris/team-topologies"
+  },
+  {
+   "src": "team-topologies.excalidrawlib",
+   "index": 7,
+   "name": "Team Interaction",
+   "source": "nikordaris/team-topologies"
+  },
+  {
+   "src": "post-it.excalidrawlib",
+   "index": 11,
+   "name": "Sticky (orange)",
+   "source": "ferminrp/post-it"
+  },
+  {
+   "src": "post-it.excalidrawlib",
+   "index": 7,
+   "name": "Sticky (blue)",
+   "source": "ferminrp/post-it"
+  },
+  {
+   "src": "post-it.excalidrawlib",
+   "index": 9,
+   "name": "Sticky (green)",
+   "source": "ferminrp/post-it"
+  },
+  {
+   "src": "post-it.excalidrawlib",
+   "index": 3,
+   "name": "Sticky (pink)",
+   "source": "ferminrp/post-it"
+  },
+  {
+   "src": "post-it.excalidrawlib",
+   "index": 0,
+   "name": "Sticky (gray)",
+   "source": "ferminrp/post-it"
+  },
+  {
+   "src": "scrum-board.excalidrawlib",
+   "index": 0,
+   "name": "Scrum Board",
+   "source": "danimaniarqsoft/scrum-board"
+  }
+ ],
+ "include": [
+  "awesome-slides",
+  "canvases"
+ ]
+}

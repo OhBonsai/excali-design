@@ -1,1625 +1,31 @@
 {
  "generated": "2026-06-03",
- "libs": 19,
+ "libs": 11,
  "items": 402,
  "categories": [
-  "slide-template",
-  "ui-control",
-  "business-canvas",
   "chart",
-  "tech-icon",
   "cloud-icon",
   "frame",
   "ml",
   "net-device",
   "person",
   "flowchart-shape",
+  "math-symbol",
+  "tech-icon",
   "template",
-  "form-control",
-  "math-symbol"
+  "ui-control"
  ],
  "entries": [
   {
-   "id": "awesome-slides:0",
-   "lib": "awesome-slides",
-   "index": 0,
-   "name": "标题页 Title",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "awesome-slides:1",
-   "lib": "awesome-slides",
-   "index": 1,
-   "name": "时间线 Timeline",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "ellipse"
-   ],
-   "elements": 16
-  },
-  {
-   "id": "awesome-slides:2",
-   "lib": "awesome-slides",
-   "index": 2,
-   "name": "两栏图文 Two-column",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 13
-  },
-  {
-   "id": "awesome-slides:3",
-   "lib": "awesome-slides",
-   "index": 3,
-   "name": "章节分隔 Section",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "awesome-slides:4",
-   "lib": "awesome-slides",
-   "index": 4,
-   "name": "路线图 Roadmap",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 70
-  },
-  {
-   "id": "awesome-slides:5",
-   "lib": "awesome-slides",
-   "index": 5,
-   "name": "Main Flow",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "arrow"
-   ],
-   "elements": 32
-  },
-  {
-   "id": "awesome-slides:6",
-   "lib": "awesome-slides",
-   "index": 6,
-   "name": "引用 Quote",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "awesome-slides:7",
-   "lib": "awesome-slides",
-   "index": 7,
-   "name": "时间线卡片 Timeline cards",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "ellipse"
-   ],
-   "elements": 21
-  },
-  {
-   "id": "awesome-slides:8",
-   "lib": "awesome-slides",
-   "index": 8,
-   "name": "KPI 图表",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "ellipse"
-   ],
-   "elements": 48
-  },
-  {
-   "id": "awesome-slides:9",
-   "lib": "awesome-slides",
-   "index": 9,
-   "name": "KPI Drilldown",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "arrow"
-   ],
-   "elements": 25
-  },
-  {
-   "id": "awesome-slides:10",
-   "lib": "awesome-slides",
-   "index": 10,
-   "name": "大数字 Big number",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "awesome-slides:11",
-   "lib": "awesome-slides",
-   "index": 11,
-   "name": "文字+多屏",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 15
-  },
-  {
-   "id": "awesome-slides:12",
-   "lib": "awesome-slides",
-   "index": 12,
-   "name": "要点 Bullets",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "ellipse"
-   ],
-   "elements": 15
-  },
-  {
-   "id": "awesome-slides:13",
-   "lib": "awesome-slides",
-   "index": 13,
-   "name": "Emoji 卡片",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 21
-  },
-  {
-   "id": "awesome-slides:14",
-   "lib": "awesome-slides",
-   "index": 14,
-   "name": "团队 The Team",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "ellipse",
-    "line"
-   ],
-   "elements": 65
-  },
-  {
-   "id": "awesome-slides:15",
-   "lib": "awesome-slides",
-   "index": 15,
-   "name": "空白 Blank",
-   "category": "slide-template",
-   "domain": "deck",
-   "tags": [
-    "slide",
-    "deck",
-    "template"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "basic-ux-wireframing-elements:0",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 0,
-   "name": "Bulb",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:1",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 1,
-   "name": "Dropdown with options",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "basic-ux-wireframing-elements:2",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 2,
-   "name": "Image placeholder (simple)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:3",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 3,
-   "name": "Profile photo",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:4",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 4,
-   "name": "Boxed toggle with text (ON)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:5",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 5,
-   "name": "Boxed toggle with text (OFF)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:6",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 6,
-   "name": "Boxed toggle (OFF)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:7",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 7,
-   "name": "Boxed toggle (ON)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:8",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 8,
-   "name": "Rounded toggle with text (ON)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:9",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 9,
-   "name": "Rounded toggle with text (OFF)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:10",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 10,
-   "name": "Rounded toggle (ON)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:11",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 11,
-   "name": "Rounded toggle (OFF)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:12",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 12,
-   "name": "Filled help (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:13",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 13,
-   "name": "Outlined help (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:14",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 14,
-   "name": "Filled help (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:15",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 15,
-   "name": "Outlined help (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:16",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 16,
-   "name": "Horizontal options",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:17",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 17,
-   "name": "Horizontal options in the circle",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:18",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 18,
-   "name": "Vertical options",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:19",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 19,
-   "name": "Vertical options in the circle",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:20",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 20,
-   "name": "Hamburger menu (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "text"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:21",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 21,
-   "name": "Boxed hamburger menu (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "text",
-    "line",
-    "rectangle"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "basic-ux-wireframing-elements:22",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 22,
-   "name": "Hamburger menu (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:23",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 23,
-   "name": "Boxed hamburger menu (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:24",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 24,
-   "name": "Check mark",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "basic-ux-wireframing-elements:25",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 25,
-   "name": "Reject button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:26",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 26,
-   "name": "Confirm button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:27",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 27,
-   "name": "Reject button (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:28",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 28,
-   "name": "Confirm button (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:29",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 29,
-   "name": "Boxed reject button (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:30",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 30,
-   "name": "Boxed confirm button (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:31",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 31,
-   "name": "Filled slider",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:32",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 32,
-   "name": "Outlined slider",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:33",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 33,
-   "name": "Go forward arrow",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:34",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 34,
-   "name": "Go back arrow",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:35",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 35,
-   "name": "Modal",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 9
-  },
-  {
-   "id": "basic-ux-wireframing-elements:36",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 36,
-   "name": "Tooltip (left)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:37",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 37,
-   "name": "Tooltip (right)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:38",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 38,
-   "name": "Tooltip (top)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:39",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 39,
-   "name": "Tooltip (bottom)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:40",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 40,
-   "name": "Cross",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:41",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 41,
-   "name": "Search",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:42",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 42,
-   "name": "Selected checkbox (icon only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:43",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 43,
-   "name": "Show more button (circle)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:44",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 44,
-   "name": "Show more button (boxed)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:45",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 45,
-   "name": "Upload image section",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:46",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 46,
-   "name": "Image placeholder",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "line",
-    "ellipse"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:47",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 47,
-   "name": "Disabled checkbox (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:48",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 48,
-   "name": "Selected disabled checkbox (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:49",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 49,
-   "name": "Selected checkbox (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:50",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 50,
-   "name": "Checkbox (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:51",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 51,
-   "name": "Selected disabled radio button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:52",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 52,
-   "name": "Disabled radio button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:53",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 53,
-   "name": "Selected radio button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:54",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 54,
-   "name": "Radio button (text+icon)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:55",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 55,
-   "name": "Videoplayer",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "ellipse",
-    "line"
-   ],
-   "elements": 13
-  },
-  {
-   "id": "basic-ux-wireframing-elements:56",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 56,
-   "name": "Disabled outlined button (text only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:57",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 57,
-   "name": "Outlined button (text only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:58",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 58,
-   "name": "Disabled filled button (text only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:59",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 59,
-   "name": "Filled button (text only)",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:60",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 60,
-   "name": "Text area",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "basic-ux-wireframing-elements:61",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 61,
-   "name": "Text area with placeholder",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:62",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 62,
-   "name": "Disabled dropdown menu",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:63",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 63,
-   "name": "Selected dropdown menu",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:64",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 64,
-   "name": "Dropdown menu",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:65",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 65,
-   "name": "Search field",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "rectangle",
-    "text"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "basic-ux-wireframing-elements:66",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 66,
-   "name": "Disabled text field with placeholder",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:67",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 67,
-   "name": "Text field with text",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "basic-ux-wireframing-elements:68",
-   "lib": "basic-ux-wireframing-elements",
-   "index": 68,
-   "name": "Text field with placeholder",
-   "category": "ui-control",
-   "domain": "prototype",
-   "tags": [
-    "ui",
-    "wireframe",
-    "control"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "canvases:0",
-   "lib": "canvases",
-   "index": 0,
-   "name": "商业模式画布 Business Model Canvas",
-   "category": "business-canvas",
-   "domain": "strategy",
-   "tags": [
-    "business",
-    "canvas",
-    "strategy"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "ellipse"
-   ],
-   "elements": 60
-  },
-  {
-   "id": "canvases:1",
-   "lib": "canvases",
-   "index": 1,
-   "name": "价值主张画布 Value Proposition Canvas",
-   "category": "business-canvas",
-   "domain": "strategy",
-   "tags": [
-    "business",
-    "canvas",
-    "strategy"
-   ],
-   "types": [
-    "ellipse",
-    "rectangle",
-    "line",
-    "arrow",
-    "text"
-   ],
-   "elements": 61
-  },
-  {
-   "id": "data-viz:0",
-   "lib": "data-viz",
+   "id": "excali-chart:0",
+   "lib": "excali-chart",
    "index": 0,
    "name": "Bar",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "bar"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -1629,8 +35,8 @@
    "elements": 15
   },
   {
-   "id": "data-viz:1",
-   "lib": "data-viz",
+   "id": "excali-chart:1",
+   "lib": "excali-chart",
    "index": 1,
    "name": "Stacked bar",
    "category": "chart",
@@ -1647,8 +53,8 @@
    "elements": 24
   },
   {
-   "id": "data-viz:2",
-   "lib": "data-viz",
+   "id": "excali-chart:2",
+   "lib": "excali-chart",
    "index": 2,
    "name": "100% stacked bar",
    "category": "chart",
@@ -1665,8 +71,8 @@
    "elements": 24
   },
   {
-   "id": "data-viz:3",
-   "lib": "data-viz",
+   "id": "excali-chart:3",
+   "lib": "excali-chart",
    "index": 3,
    "name": "Grouped bar",
    "category": "chart",
@@ -1683,16 +89,15 @@
    "elements": 12
   },
   {
-   "id": "data-viz:4",
-   "lib": "data-viz",
+   "id": "excali-chart:4",
+   "lib": "excali-chart",
    "index": 4,
    "name": "Column",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "column"
+    "dataviz"
    ],
    "types": [
     "text",
@@ -1702,8 +107,8 @@
    "elements": 8
   },
   {
-   "id": "data-viz:5",
-   "lib": "data-viz",
+   "id": "excali-chart:5",
+   "lib": "excali-chart",
    "index": 5,
    "name": "Stacked column",
    "category": "chart",
@@ -1720,8 +125,8 @@
    "elements": 21
   },
   {
-   "id": "data-viz:6",
-   "lib": "data-viz",
+   "id": "excali-chart:6",
+   "lib": "excali-chart",
    "index": 6,
    "name": "100% stacked column",
    "category": "chart",
@@ -1738,8 +143,8 @@
    "elements": 30
   },
   {
-   "id": "data-viz:7",
-   "lib": "data-viz",
+   "id": "excali-chart:7",
+   "lib": "excali-chart",
    "index": 7,
    "name": "Grouped column",
    "category": "chart",
@@ -1756,16 +161,15 @@
    "elements": 18
   },
   {
-   "id": "data-viz:8",
-   "lib": "data-viz",
+   "id": "excali-chart:8",
+   "lib": "excali-chart",
    "index": 8,
    "name": "Line",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "line"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -1774,8 +178,8 @@
    "elements": 9
   },
   {
-   "id": "data-viz:9",
-   "lib": "data-viz",
+   "id": "excali-chart:9",
+   "lib": "excali-chart",
    "index": 9,
    "name": "Line+markers",
    "category": "chart",
@@ -1792,16 +196,15 @@
    "elements": 19
   },
   {
-   "id": "data-viz:10",
-   "lib": "data-viz",
+   "id": "excali-chart:10",
+   "lib": "excali-chart",
    "index": 10,
    "name": "Area",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "area"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -1810,8 +213,8 @@
    "elements": 6
   },
   {
-   "id": "data-viz:11",
-   "lib": "data-viz",
+   "id": "excali-chart:11",
+   "lib": "excali-chart",
    "index": 11,
    "name": "Stacked area",
    "category": "chart",
@@ -1827,8 +230,8 @@
    "elements": 6
   },
   {
-   "id": "data-viz:12",
-   "lib": "data-viz",
+   "id": "excali-chart:12",
+   "lib": "excali-chart",
    "index": 12,
    "name": "Stacked area 2",
    "category": "chart",
@@ -1844,8 +247,8 @@
    "elements": 7
   },
   {
-   "id": "data-viz:13",
-   "lib": "data-viz",
+   "id": "excali-chart:13",
+   "lib": "excali-chart",
    "index": 13,
    "name": "Area 2",
    "category": "chart",
@@ -1861,8 +264,8 @@
    "elements": 7
   },
   {
-   "id": "data-viz:14",
-   "lib": "data-viz",
+   "id": "excali-chart:14",
+   "lib": "excali-chart",
    "index": 14,
    "name": "ThemeRiver",
    "category": "chart",
@@ -1879,16 +282,15 @@
    "elements": 31
   },
   {
-   "id": "data-viz:15",
-   "lib": "data-viz",
+   "id": "excali-chart:15",
+   "lib": "excali-chart",
    "index": 15,
    "name": "Scatter",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "scatter"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -1898,16 +300,15 @@
    "elements": 12
   },
   {
-   "id": "data-viz:16",
-   "lib": "data-viz",
+   "id": "excali-chart:16",
+   "lib": "excali-chart",
    "index": 16,
    "name": "Bubble",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "bubble"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -1917,8 +318,8 @@
    "elements": 410
   },
   {
-   "id": "data-viz:17",
-   "lib": "data-viz",
+   "id": "excali-chart:17",
+   "lib": "excali-chart",
    "index": 17,
    "name": "Calendar heatmap",
    "category": "chart",
@@ -1935,8 +336,8 @@
    "elements": 199
   },
   {
-   "id": "data-viz:18",
-   "lib": "data-viz",
+   "id": "excali-chart:18",
+   "lib": "excali-chart",
    "index": 18,
    "name": "Cartesian heatmap",
    "category": "chart",
@@ -1952,8 +353,8 @@
    "elements": 33
   },
   {
-   "id": "data-viz:19",
-   "lib": "data-viz",
+   "id": "excali-chart:19",
+   "lib": "excali-chart",
    "index": 19,
    "name": "Tree Map",
    "category": "chart",
@@ -1970,8 +371,8 @@
    "elements": 20
   },
   {
-   "id": "data-viz:20",
-   "lib": "data-viz",
+   "id": "excali-chart:20",
+   "lib": "excali-chart",
    "index": 20,
    "name": "Waterfall",
    "category": "chart",
@@ -1988,8 +389,8 @@
    "elements": 15
   },
   {
-   "id": "data-viz:21",
-   "lib": "data-viz",
+   "id": "excali-chart:21",
+   "lib": "excali-chart",
    "index": 21,
    "name": "Dot strip",
    "category": "chart",
@@ -2006,8 +407,8 @@
    "elements": 37
   },
   {
-   "id": "data-viz:22",
-   "lib": "data-viz",
+   "id": "excali-chart:22",
+   "lib": "excali-chart",
    "index": 22,
    "name": "Dot strip multi",
    "category": "chart",
@@ -2024,8 +425,8 @@
    "elements": 125
   },
   {
-   "id": "data-viz:23",
-   "lib": "data-viz",
+   "id": "excali-chart:23",
+   "lib": "excali-chart",
    "index": 23,
    "name": "Column histogram",
    "category": "chart",
@@ -2042,8 +443,8 @@
    "elements": 16
   },
   {
-   "id": "data-viz:24",
-   "lib": "data-viz",
+   "id": "excali-chart:24",
+   "lib": "excali-chart",
    "index": 24,
    "name": "Population pyramid",
    "category": "chart",
@@ -2060,8 +461,8 @@
    "elements": 29
   },
   {
-   "id": "data-viz:25",
-   "lib": "data-viz",
+   "id": "excali-chart:25",
+   "lib": "excali-chart",
    "index": 25,
    "name": "Density plot",
    "category": "chart",
@@ -2077,8 +478,8 @@
    "elements": 4
   },
   {
-   "id": "data-viz:26",
-   "lib": "data-viz",
+   "id": "excali-chart:26",
+   "lib": "excali-chart",
    "index": 26,
    "name": "Box & Whisker",
    "category": "chart",
@@ -2095,8 +496,8 @@
    "elements": 19
   },
   {
-   "id": "data-viz:27",
-   "lib": "data-viz",
+   "id": "excali-chart:27",
+   "lib": "excali-chart",
    "index": 27,
    "name": "Violin",
    "category": "chart",
@@ -2112,16 +513,15 @@
    "elements": 7
   },
   {
-   "id": "data-viz:28",
-   "lib": "data-viz",
+   "id": "excali-chart:28",
+   "lib": "excali-chart",
    "index": 28,
    "name": "Pie",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "pie"
+    "dataviz"
    ],
    "types": [
     "line",
@@ -2130,16 +530,15 @@
    "elements": 5
   },
   {
-   "id": "data-viz:29",
-   "lib": "data-viz",
+   "id": "excali-chart:29",
+   "lib": "excali-chart",
    "index": 29,
    "name": "Donut",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "donut"
+    "dataviz"
    ],
    "types": [
     "text",
@@ -2148,8 +547,8 @@
    "elements": 5
   },
   {
-   "id": "data-viz:30",
-   "lib": "data-viz",
+   "id": "excali-chart:30",
+   "lib": "excali-chart",
    "index": 30,
    "name": "Polar/Nightingale",
    "category": "chart",
@@ -2165,524 +564,21 @@
    "elements": 21
   },
   {
-   "id": "data-viz:31",
-   "lib": "data-viz",
+   "id": "excali-chart:31",
+   "lib": "excali-chart",
    "index": 31,
    "name": "Radar",
    "category": "chart",
    "domain": "dashboard",
    "tags": [
     "chart",
-    "dataviz",
-    "radar",
-    "spider"
+    "dataviz"
    ],
    "types": [
     "line",
     "text"
    ],
    "elements": 47
-  },
-  {
-   "id": "dev_ops:0",
-   "lib": "dev_ops",
-   "index": 0,
-   "name": "dev_ops #0",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 6
-  },
-  {
-   "id": "dev_ops:1",
-   "lib": "dev_ops",
-   "index": 1,
-   "name": "dev_ops #1",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 10
-  },
-  {
-   "id": "dev_ops:2",
-   "lib": "dev_ops",
-   "index": 2,
-   "name": "dev_ops #2",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 11
-  },
-  {
-   "id": "dev_ops:3",
-   "lib": "dev_ops",
-   "index": 3,
-   "name": "dev_ops #3",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 19
-  },
-  {
-   "id": "dev_ops:4",
-   "lib": "dev_ops",
-   "index": 4,
-   "name": "dev_ops #4",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 20
-  },
-  {
-   "id": "dev_ops:5",
-   "lib": "dev_ops",
-   "index": 5,
-   "name": "dev_ops #5",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "dev_ops:6",
-   "lib": "dev_ops",
-   "index": 6,
-   "name": "dev_ops #6",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "dev_ops:7",
-   "lib": "dev_ops",
-   "index": 7,
-   "name": "dev_ops #7",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 13
-  },
-  {
-   "id": "dev_ops:8",
-   "lib": "dev_ops",
-   "index": 8,
-   "name": "dev_ops #8",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 42
-  },
-  {
-   "id": "dev_ops:9",
-   "lib": "dev_ops",
-   "index": 9,
-   "name": "dev_ops #9",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 12
-  },
-  {
-   "id": "dev_ops:10",
-   "lib": "dev_ops",
-   "index": 10,
-   "name": "dev_ops #10",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "dev_ops:11",
-   "lib": "dev_ops",
-   "index": 11,
-   "name": "dev_ops #11",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 14
-  },
-  {
-   "id": "dev_ops:12",
-   "lib": "dev_ops",
-   "index": 12,
-   "name": "dev_ops #12",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "dev_ops:13",
-   "lib": "dev_ops",
-   "index": 13,
-   "name": "dev_ops #13",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line",
-    "rectangle",
-    "ellipse"
-   ],
-   "elements": 9
-  },
-  {
-   "id": "dev_ops:14",
-   "lib": "dev_ops",
-   "index": 14,
-   "name": "dev_ops #14",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "freedraw",
-    "line"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "dev_ops:15",
-   "lib": "dev_ops",
-   "index": 15,
-   "name": "dev_ops #15",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 17
-  },
-  {
-   "id": "dev_ops:16",
-   "lib": "dev_ops",
-   "index": 16,
-   "name": "dev_ops #16",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "dev_ops:17",
-   "lib": "dev_ops",
-   "index": 17,
-   "name": "dev_ops #17",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "dev_ops:18",
-   "lib": "dev_ops",
-   "index": 18,
-   "name": "dev_ops #18",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "dev_ops:19",
-   "lib": "dev_ops",
-   "index": 19,
-   "name": "dev_ops #19",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "dev_ops:20",
-   "lib": "dev_ops",
-   "index": 20,
-   "name": "dev_ops #20",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "dev_ops:21",
-   "lib": "dev_ops",
-   "index": 21,
-   "name": "dev_ops #21",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "dev_ops:22",
-   "lib": "dev_ops",
-   "index": 22,
-   "name": "dev_ops #22",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "dev_ops:23",
-   "lib": "dev_ops",
-   "index": 23,
-   "name": "dev_ops #23",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "dev_ops:24",
-   "lib": "dev_ops",
-   "index": 24,
-   "name": "dev_ops #24",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "dev_ops:25",
-   "lib": "dev_ops",
-   "index": 25,
-   "name": "dev_ops #25",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "dev_ops:26",
-   "lib": "dev_ops",
-   "index": 26,
-   "name": "dev_ops #26",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 11
-  },
-  {
-   "id": "dev_ops:27",
-   "lib": "dev_ops",
-   "index": 27,
-   "name": "dev_ops #27",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "dev_ops:28",
-   "lib": "dev_ops",
-   "index": 28,
-   "name": "dev_ops #28",
-   "category": "tech-icon",
-   "domain": "architecture",
-   "tags": [
-    "icon",
-    "devops",
-    "infra"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
   },
   {
    "id": "excali-cloud:0",
@@ -3836,6 +1732,69 @@
    "id": "excali-frame:0",
    "lib": "excali-frame",
    "index": 0,
+   "name": "loading webpage",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "freedraw",
+    "ellipse",
+    "text"
+   ],
+   "elements": 33
+  },
+  {
+   "id": "excali-frame:1",
+   "lib": "excali-frame",
+   "index": 1,
+   "name": "viewable webpage",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "freedraw",
+    "ellipse",
+    "text"
+   ],
+   "elements": 27
+  },
+  {
+   "id": "excali-frame:2",
+   "lib": "excali-frame",
+   "index": 2,
+   "name": "interactive webpage",
+   "category": "frame",
+   "domain": "prototype",
+   "tags": [
+    "frame",
+    "device",
+    "shell"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "freedraw",
+    "ellipse",
+    "text"
+   ],
+   "elements": 27
+  },
+  {
+   "id": "excali-frame:3",
+   "lib": "excali-frame",
+   "index": 3,
    "name": "Smartphone",
    "category": "frame",
    "domain": "prototype",
@@ -3850,9 +1809,9 @@
    "elements": 4
   },
   {
-   "id": "excali-frame:1",
+   "id": "excali-frame:4",
    "lib": "excali-frame",
-   "index": 1,
+   "index": 4,
    "name": "Smartwatch",
    "category": "frame",
    "domain": "prototype",
@@ -3869,9 +1828,9 @@
    "elements": 8
   },
   {
-   "id": "excali-frame:2",
+   "id": "excali-frame:5",
    "lib": "excali-frame",
-   "index": 2,
+   "index": 5,
    "name": "Tablet",
    "category": "frame",
    "domain": "prototype",
@@ -3886,9 +1845,9 @@
    "elements": 4
   },
   {
-   "id": "excali-frame:3",
+   "id": "excali-frame:6",
    "lib": "excali-frame",
-   "index": 3,
+   "index": 6,
    "name": "Laptop",
    "category": "frame",
    "domain": "prototype",
@@ -4551,6 +2510,173 @@
    "id": "excali-person:0",
    "lib": "excali-person",
    "index": 0,
+   "name": "Stick man",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-person:1",
+   "lib": "excali-person",
+   "index": 1,
+   "name": "Moustache man",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "rectangle"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-person:2",
+   "lib": "excali-person",
+   "index": 2,
+   "name": "Girl",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "rectangle"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-person:3",
+   "lib": "excali-person",
+   "index": 3,
+   "name": "Guy",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "rectangle"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-person:4",
+   "lib": "excali-person",
+   "index": 4,
+   "name": "Grandma",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-person:5",
+   "lib": "excali-person",
+   "index": 5,
+   "name": "Child",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-person:6",
+   "lib": "excali-person",
+   "index": 6,
+   "name": "Shrug",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-person:7",
+   "lib": "excali-person",
+   "index": 7,
+   "name": "Happy",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-person:8",
+   "lib": "excali-person",
+   "index": 8,
+   "name": "Sad",
+   "category": "person",
+   "domain": "people",
+   "tags": [
+    "person",
+    "actor",
+    "bubble"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "text"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-person:9",
+   "lib": "excali-person",
+   "index": 9,
    "name": "Speech Bubble (left)",
    "category": "person",
    "domain": "people",
@@ -4566,9 +2692,9 @@
    "elements": 3
   },
   {
-   "id": "excali-person:1",
+   "id": "excali-person:10",
    "lib": "excali-person",
-   "index": 1,
+   "index": 10,
    "name": "Speech Bubble (right)",
    "category": "person",
    "domain": "people",
@@ -4584,9 +2710,9 @@
    "elements": 3
   },
   {
-   "id": "excali-person:2",
+   "id": "excali-person:11",
    "lib": "excali-person",
-   "index": 2,
+   "index": 11,
    "name": "Thought Bubble (left)",
    "category": "person",
    "domain": "people",
@@ -4602,9 +2728,9 @@
    "elements": 20
   },
   {
-   "id": "excali-person:3",
+   "id": "excali-person:12",
    "lib": "excali-person",
-   "index": 3,
+   "index": 12,
    "name": "Thought Bubble (right)",
    "category": "person",
    "domain": "people",
@@ -4620,9 +2746,9 @@
    "elements": 20
   },
   {
-   "id": "excali-person:4",
+   "id": "excali-person:13",
    "lib": "excali-person",
-   "index": 4,
+   "index": 13,
    "name": "Robot",
    "category": "person",
    "domain": "people",
@@ -4638,9 +2764,9 @@
    "elements": 9
   },
   {
-   "id": "excali-person:5",
+   "id": "excali-person:14",
    "lib": "excali-person",
-   "index": 5,
+   "index": 14,
    "name": "Robot (active)",
    "category": "person",
    "domain": "people",
@@ -4657,9 +2783,9 @@
    "elements": 11
   },
   {
-   "id": "excali-person:6",
+   "id": "excali-person:15",
    "lib": "excali-person",
-   "index": 6,
+   "index": 15,
    "name": "Robot (angry)",
    "category": "person",
    "domain": "people",
@@ -4676,9 +2802,9 @@
    "elements": 9
   },
   {
-   "id": "excali-person:7",
+   "id": "excali-person:16",
    "lib": "excali-person",
-   "index": 7,
+   "index": 16,
    "name": "Robot (error)",
    "category": "person",
    "domain": "people",
@@ -4697,7 +2823,7 @@
    "id": "excali-shape:0",
    "lib": "excali-shape",
    "index": 0,
-   "name": "Entity",
+   "name": "page",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4707,16 +2833,15 @@
     "structure"
    ],
    "types": [
-    "rectangle",
-    "line"
+    "rectangle"
    ],
-   "elements": 2
+   "elements": 1
   },
   {
    "id": "excali-shape:1",
    "lib": "excali-shape",
    "index": 1,
-   "name": "Entity (attributes)",
+   "name": "file",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4726,16 +2851,16 @@
     "structure"
    ],
    "types": [
-    "rectangle",
-    "line"
+    "line",
+    "rectangle"
    ],
-   "elements": 2
+   "elements": 4
   },
   {
    "id": "excali-shape:2",
    "lib": "excali-shape",
    "index": 2,
-   "name": "Provided Interface",
+   "name": "flow reference",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4745,16 +2870,16 @@
     "structure"
    ],
    "types": [
-    "rectangle",
-    "line"
+    "line",
+    "rectangle"
    ],
-   "elements": 4
+   "elements": 2
   },
   {
    "id": "excali-shape:3",
    "lib": "excali-shape",
    "index": 3,
-   "name": "Required Interface",
+   "name": "page stack",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4764,8 +2889,7 @@
     "structure"
    ],
    "types": [
-    "rectangle",
-    "line"
+    "rectangle"
    ],
    "elements": 4
   },
@@ -4773,7 +2897,7 @@
    "id": "excali-shape:4",
    "lib": "excali-shape",
    "index": 4,
-   "name": "BPMN Task",
+   "name": "file stack",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4783,16 +2907,16 @@
     "structure"
    ],
    "types": [
-    "rectangle",
-    "text"
+    "line",
+    "rectangle"
    ],
-   "elements": 2
+   "elements": 10
   },
   {
    "id": "excali-shape:5",
    "lib": "excali-shape",
    "index": 5,
-   "name": "BPMN Start Event",
+   "name": "cluster",
    "category": "flowchart-shape",
    "domain": "diagram",
    "tags": [
@@ -4810,6 +2934,325 @@
    "id": "excali-shape:6",
    "lib": "excali-shape",
    "index": 6,
+   "name": "decision point",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:7",
+   "lib": "excali-shape",
+   "index": 7,
+   "name": "conditional branch",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:8",
+   "lib": "excali-shape",
+   "index": 8,
+   "name": "conditonal selector",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:9",
+   "lib": "excali-shape",
+   "index": 9,
+   "name": "concurrent set",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:10",
+   "lib": "excali-shape",
+   "index": 10,
+   "name": "continuation x",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-shape:11",
+   "lib": "excali-shape",
+   "index": 11,
+   "name": "continuation y",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-shape:12",
+   "lib": "excali-shape",
+   "index": 12,
+   "name": "area",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:13",
+   "lib": "excali-shape",
+   "index": 13,
+   "name": "iterative area",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:14",
+   "lib": "excali-shape",
+   "index": 14,
+   "name": "conditional area",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:15",
+   "lib": "excali-shape",
+   "index": 15,
+   "name": "flow area x",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:16",
+   "lib": "excali-shape",
+   "index": 16,
+   "name": "flow area y",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:17",
+   "lib": "excali-shape",
+   "index": 17,
+   "name": "Entity",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:18",
+   "lib": "excali-shape",
+   "index": 18,
+   "name": "Entity (attributes)",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:19",
+   "lib": "excali-shape",
+   "index": 19,
+   "name": "Provided Interface",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:20",
+   "lib": "excali-shape",
+   "index": 20,
+   "name": "Required Interface",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-shape:21",
+   "lib": "excali-shape",
+   "index": 21,
+   "name": "BPMN Task",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-shape:22",
+   "lib": "excali-shape",
+   "index": 22,
+   "name": "BPMN Start Event",
+   "category": "flowchart-shape",
+   "domain": "diagram",
+   "tags": [
+    "shape",
+    "uml",
+    "er",
+    "structure"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-shape:23",
+   "lib": "excali-shape",
+   "index": 23,
    "name": "BPMN End Event",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4825,9 +3268,9 @@
    "elements": 1
   },
   {
-   "id": "excali-shape:7",
+   "id": "excali-shape:24",
    "lib": "excali-shape",
-   "index": 7,
+   "index": 24,
    "name": "BPMN Error End Event",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4844,9 +3287,9 @@
    "elements": 2
   },
   {
-   "id": "excali-shape:8",
+   "id": "excali-shape:25",
    "lib": "excali-shape",
-   "index": 8,
+   "index": 25,
    "name": "BPMN Parallel Gateway",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4862,9 +3305,9 @@
    "elements": 3
   },
   {
-   "id": "excali-shape:9",
+   "id": "excali-shape:26",
    "lib": "excali-shape",
-   "index": 9,
+   "index": 26,
    "name": "BPMN Exclusive Gateway",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4880,9 +3323,9 @@
    "elements": 3
   },
   {
-   "id": "excali-shape:10",
+   "id": "excali-shape:27",
    "lib": "excali-shape",
-   "index": 10,
+   "index": 27,
    "name": "BPMN Inclusive Gateway",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4899,9 +3342,9 @@
    "elements": 2
   },
   {
-   "id": "excali-shape:11",
+   "id": "excali-shape:28",
    "lib": "excali-shape",
-   "index": 11,
+   "index": 28,
    "name": "BPMN Event Gateway",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4917,9 +3360,9 @@
    "elements": 2
   },
   {
-   "id": "excali-shape:12",
+   "id": "excali-shape:29",
    "lib": "excali-shape",
-   "index": 12,
+   "index": 29,
    "name": "BPMN Message Start",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4937,9 +3380,9 @@
    "elements": 4
   },
   {
-   "id": "excali-shape:13",
+   "id": "excali-shape:30",
    "lib": "excali-shape",
-   "index": 13,
+   "index": 30,
    "name": "BPMN Timer Start",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4956,9 +3399,9 @@
    "elements": 8
   },
   {
-   "id": "excali-shape:14",
+   "id": "excali-shape:31",
    "lib": "excali-shape",
-   "index": 14,
+   "index": 31,
    "name": "BPMN Data Object",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4974,9 +3417,9 @@
    "elements": 1
   },
   {
-   "id": "excali-shape:15",
+   "id": "excali-shape:32",
    "lib": "excali-shape",
-   "index": 15,
+   "index": 32,
    "name": "BPMN Data Store",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -4994,9 +3437,9 @@
    "elements": 7
   },
   {
-   "id": "excali-shape:16",
+   "id": "excali-shape:33",
    "lib": "excali-shape",
-   "index": 16,
+   "index": 33,
    "name": "Array",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5012,9 +3455,9 @@
    "elements": 10
   },
   {
-   "id": "excali-shape:17",
+   "id": "excali-shape:34",
    "lib": "excali-shape",
-   "index": 17,
+   "index": 34,
    "name": "Array (indexed)",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5031,9 +3474,9 @@
    "elements": 20
   },
   {
-   "id": "excali-shape:18",
+   "id": "excali-shape:35",
    "lib": "excali-shape",
-   "index": 18,
+   "index": 35,
    "name": "Hash Table",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5050,9 +3493,9 @@
    "elements": 17
   },
   {
-   "id": "excali-shape:19",
+   "id": "excali-shape:36",
    "lib": "excali-shape",
-   "index": 19,
+   "index": 36,
    "name": "Linked List",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5069,9 +3512,9 @@
    "elements": 14
   },
   {
-   "id": "excali-shape:20",
+   "id": "excali-shape:37",
    "lib": "excali-shape",
-   "index": 20,
+   "index": 37,
    "name": "Tree",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5088,9 +3531,9 @@
    "elements": 61
   },
   {
-   "id": "excali-shape:21",
+   "id": "excali-shape:38",
    "lib": "excali-shape",
-   "index": 21,
+   "index": 38,
    "name": "Matrix 5x5",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5107,9 +3550,9 @@
    "elements": 35
   },
   {
-   "id": "excali-shape:22",
+   "id": "excali-shape:39",
    "lib": "excali-shape",
-   "index": 22,
+   "index": 39,
    "name": "Tree graph",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5126,9 +3569,9 @@
    "elements": 43
   },
   {
-   "id": "excali-shape:23",
+   "id": "excali-shape:40",
    "lib": "excali-shape",
-   "index": 23,
+   "index": 40,
    "name": "Complete graph",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5145,9 +3588,9 @@
    "elements": 15
   },
   {
-   "id": "excali-shape:24",
+   "id": "excali-shape:41",
    "lib": "excali-shape",
-   "index": 24,
+   "index": 41,
    "name": "Star graph",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5164,9 +3607,9 @@
    "elements": 17
   },
   {
-   "id": "excali-shape:25",
+   "id": "excali-shape:42",
    "lib": "excali-shape",
-   "index": 25,
+   "index": 42,
    "name": "DAG",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5183,9 +3626,9 @@
    "elements": 17
   },
   {
-   "id": "excali-shape:26",
+   "id": "excali-shape:43",
    "lib": "excali-shape",
-   "index": 26,
+   "index": 43,
    "name": "Binary tree",
    "category": "flowchart-shape",
    "domain": "diagram",
@@ -5202,10 +3645,267 @@
    "elements": 29
   },
   {
+   "id": "excali-symbol:0",
+   "lib": "excali-symbol",
+   "index": 0,
+   "name": "Complex numbers",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:1",
+   "lib": "excali-symbol",
+   "index": 1,
+   "name": "Infinity",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:2",
+   "lib": "excali-symbol",
+   "index": 2,
+   "name": "Implication",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:3",
+   "lib": "excali-symbol",
+   "index": 3,
+   "name": "Approaches",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:4",
+   "lib": "excali-symbol",
+   "index": 4,
+   "name": "Universal quantification",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:5",
+   "lib": "excali-symbol",
+   "index": 5,
+   "name": "Existential quantification",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:6",
+   "lib": "excali-symbol",
+   "index": 6,
+   "name": "Element",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:7",
+   "lib": "excali-symbol",
+   "index": 7,
+   "name": "Natural numbers",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:8",
+   "lib": "excali-symbol",
+   "index": 8,
+   "name": "Integers",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:9",
+   "lib": "excali-symbol",
+   "index": 9,
+   "name": "Real numbers",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:10",
+   "lib": "excali-symbol",
+   "index": 10,
+   "name": "Greater than or equal to",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "text",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:11",
+   "lib": "excali-symbol",
+   "index": 11,
+   "name": "Less than or equal to",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "text",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-symbol:12",
+   "lib": "excali-symbol",
+   "index": 12,
+   "name": "Partial derivaive",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:13",
+   "lib": "excali-symbol",
+   "index": 13,
+   "name": "Integral",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-symbol:14",
+   "lib": "excali-symbol",
+   "index": 14,
+   "name": "Summation",
+   "category": "math-symbol",
+   "domain": "math",
+   "tags": [
+    "math",
+    "symbol",
+    "ml"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
    "id": "excali-tech:0",
    "lib": "excali-tech",
    "index": 0,
-   "name": "Docker",
+   "name": "dev_ops #0",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5215,16 +3915,15 @@
     "icon"
    ],
    "types": [
-    "line",
-    "rectangle"
+    "line"
    ],
-   "elements": 10
+   "elements": 6
   },
   {
    "id": "excali-tech:1",
    "lib": "excali-tech",
    "index": 1,
-   "name": "Kubernetes",
+   "name": "dev_ops #1",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5234,16 +3933,15 @@
     "icon"
    ],
    "types": [
-    "line",
-    "ellipse"
+    "line"
    ],
-   "elements": 17
+   "elements": 10
   },
   {
    "id": "excali-tech:2",
    "lib": "excali-tech",
    "index": 2,
-   "name": "Kafka",
+   "name": "dev_ops #2",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5253,16 +3951,15 @@
     "icon"
    ],
    "types": [
-    "ellipse",
     "line"
    ],
-   "elements": 14
+   "elements": 11
   },
   {
    "id": "excali-tech:3",
    "lib": "excali-tech",
    "index": 3,
-   "name": "GitLab",
+   "name": "dev_ops #3",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5274,13 +3971,13 @@
    "types": [
     "line"
    ],
-   "elements": 4
+   "elements": 19
   },
   {
    "id": "excali-tech:4",
    "lib": "excali-tech",
    "index": 4,
-   "name": "Argo CD",
+   "name": "dev_ops #4",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5293,13 +3990,13 @@
     "ellipse",
     "line"
    ],
-   "elements": 17
+   "elements": 20
   },
   {
    "id": "excali-tech:5",
    "lib": "excali-tech",
    "index": 5,
-   "name": "Flux CD",
+   "name": "dev_ops #5",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5311,13 +4008,13 @@
    "types": [
     "line"
    ],
-   "elements": 12
+   "elements": 3
   },
   {
    "id": "excali-tech:6",
    "lib": "excali-tech",
    "index": 6,
-   "name": "Firebase",
+   "name": "dev_ops #6",
    "category": "tech-icon",
    "domain": "architecture",
    "tags": [
@@ -5335,6 +4032,539 @@
    "id": "excali-tech:7",
    "lib": "excali-tech",
    "index": 7,
+   "name": "dev_ops #7",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 13
+  },
+  {
+   "id": "excali-tech:8",
+   "lib": "excali-tech",
+   "index": 8,
+   "name": "dev_ops #8",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 42
+  },
+  {
+   "id": "excali-tech:9",
+   "lib": "excali-tech",
+   "index": 9,
+   "name": "dev_ops #9",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-tech:10",
+   "lib": "excali-tech",
+   "index": 10,
+   "name": "dev_ops #10",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-tech:11",
+   "lib": "excali-tech",
+   "index": 11,
+   "name": "dev_ops #11",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-tech:12",
+   "lib": "excali-tech",
+   "index": 12,
+   "name": "dev_ops #12",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:13",
+   "lib": "excali-tech",
+   "index": 13,
+   "name": "dev_ops #13",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-tech:14",
+   "lib": "excali-tech",
+   "index": 14,
+   "name": "dev_ops #14",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "freedraw",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-tech:15",
+   "lib": "excali-tech",
+   "index": 15,
+   "name": "dev_ops #15",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-tech:16",
+   "lib": "excali-tech",
+   "index": 16,
+   "name": "dev_ops #16",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-tech:17",
+   "lib": "excali-tech",
+   "index": 17,
+   "name": "dev_ops #17",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-tech:18",
+   "lib": "excali-tech",
+   "index": 18,
+   "name": "dev_ops #18",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 7
+  },
+  {
+   "id": "excali-tech:19",
+   "lib": "excali-tech",
+   "index": 19,
+   "name": "dev_ops #19",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-tech:20",
+   "lib": "excali-tech",
+   "index": 20,
+   "name": "dev_ops #20",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-tech:21",
+   "lib": "excali-tech",
+   "index": 21,
+   "name": "dev_ops #21",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:22",
+   "lib": "excali-tech",
+   "index": 22,
+   "name": "dev_ops #22",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-tech:23",
+   "lib": "excali-tech",
+   "index": 23,
+   "name": "dev_ops #23",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-tech:24",
+   "lib": "excali-tech",
+   "index": 24,
+   "name": "dev_ops #24",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:25",
+   "lib": "excali-tech",
+   "index": 25,
+   "name": "dev_ops #25",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-tech:26",
+   "lib": "excali-tech",
+   "index": 26,
+   "name": "dev_ops #26",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 11
+  },
+  {
+   "id": "excali-tech:27",
+   "lib": "excali-tech",
+   "index": 27,
+   "name": "dev_ops #27",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:28",
+   "lib": "excali-tech",
+   "index": 28,
+   "name": "dev_ops #28",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-tech:29",
+   "lib": "excali-tech",
+   "index": 29,
+   "name": "Docker",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 10
+  },
+  {
+   "id": "excali-tech:30",
+   "lib": "excali-tech",
+   "index": 30,
+   "name": "Kubernetes",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-tech:31",
+   "lib": "excali-tech",
+   "index": 31,
+   "name": "Kafka",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 14
+  },
+  {
+   "id": "excali-tech:32",
+   "lib": "excali-tech",
+   "index": 32,
+   "name": "GitLab",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:33",
+   "lib": "excali-tech",
+   "index": 33,
+   "name": "Argo CD",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 17
+  },
+  {
+   "id": "excali-tech:34",
+   "lib": "excali-tech",
+   "index": 34,
+   "name": "Flux CD",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-tech:35",
+   "lib": "excali-tech",
+   "index": 35,
+   "name": "Firebase",
+   "category": "tech-icon",
+   "domain": "architecture",
+   "tags": [
+    "tech",
+    "logo",
+    "stack",
+    "icon"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-tech:36",
+   "lib": "excali-tech",
+   "index": 36,
    "name": "Python",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5351,9 +4581,9 @@
    "elements": 4
   },
   {
-   "id": "excali-tech:8",
+   "id": "excali-tech:37",
    "lib": "excali-tech",
-   "index": 8,
+   "index": 37,
    "name": "React",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5370,9 +4600,9 @@
    "elements": 4
   },
   {
-   "id": "excali-tech:9",
+   "id": "excali-tech:38",
    "lib": "excali-tech",
-   "index": 9,
+   "index": 38,
    "name": "Vue",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5388,9 +4618,9 @@
    "elements": 2
   },
   {
-   "id": "excali-tech:10",
+   "id": "excali-tech:39",
    "lib": "excali-tech",
-   "index": 10,
+   "index": 39,
    "name": "Angular",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5406,9 +4636,9 @@
    "elements": 4
   },
   {
-   "id": "excali-tech:11",
+   "id": "excali-tech:40",
    "lib": "excali-tech",
-   "index": 11,
+   "index": 40,
    "name": "Svelte",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5424,9 +4654,9 @@
    "elements": 2
   },
   {
-   "id": "excali-tech:12",
+   "id": "excali-tech:41",
    "lib": "excali-tech",
-   "index": 12,
+   "index": 41,
    "name": "Next.js",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5443,9 +4673,9 @@
    "elements": 3
   },
   {
-   "id": "excali-tech:13",
+   "id": "excali-tech:42",
    "lib": "excali-tech",
-   "index": 13,
+   "index": 42,
    "name": "Vercel",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5462,9 +4692,9 @@
    "elements": 2
   },
   {
-   "id": "excali-tech:14",
+   "id": "excali-tech:43",
    "lib": "excali-tech",
-   "index": 14,
+   "index": 43,
    "name": "Micronaut",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5481,9 +4711,9 @@
    "elements": 49
   },
   {
-   "id": "excali-tech:15",
+   "id": "excali-tech:44",
    "lib": "excali-tech",
-   "index": 15,
+   "index": 44,
    "name": "TensorFlow",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5499,9 +4729,9 @@
    "elements": 9
   },
   {
-   "id": "excali-tech:16",
+   "id": "excali-tech:45",
    "lib": "excali-tech",
-   "index": 16,
+   "index": 45,
    "name": "VSCode",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5517,9 +4747,9 @@
    "elements": 4
   },
   {
-   "id": "excali-tech:17",
+   "id": "excali-tech:46",
    "lib": "excali-tech",
-   "index": 17,
+   "index": 46,
    "name": "PostgreSQL",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5535,9 +4765,9 @@
    "elements": 7
   },
   {
-   "id": "excali-tech:18",
+   "id": "excali-tech:47",
    "lib": "excali-tech",
-   "index": 18,
+   "index": 47,
    "name": "Redis",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5555,9 +4785,9 @@
    "elements": 11
   },
   {
-   "id": "excali-tech:19",
+   "id": "excali-tech:48",
    "lib": "excali-tech",
-   "index": 19,
+   "index": 48,
    "name": "Nginx",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5573,9 +4803,9 @@
    "elements": 2
   },
   {
-   "id": "excali-tech:20",
+   "id": "excali-tech:49",
    "lib": "excali-tech",
-   "index": 20,
+   "index": 49,
    "name": "DNS",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5593,9 +4823,9 @@
    "elements": 12
   },
   {
-   "id": "excali-tech:21",
+   "id": "excali-tech:50",
    "lib": "excali-tech",
-   "index": 21,
+   "index": 50,
    "name": "Spring",
    "category": "tech-icon",
    "domain": "architecture",
@@ -5614,6 +4844,349 @@
    "id": "excali-template:0",
    "lib": "excali-template",
    "index": 0,
+   "name": "标题页 Title",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-template:1",
+   "lib": "excali-template",
+   "index": 1,
+   "name": "时间线 Timeline",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "ellipse"
+   ],
+   "elements": 16
+  },
+  {
+   "id": "excali-template:2",
+   "lib": "excali-template",
+   "index": 2,
+   "name": "两栏图文 Two-column",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 13
+  },
+  {
+   "id": "excali-template:3",
+   "lib": "excali-template",
+   "index": 3,
+   "name": "章节分隔 Section",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-template:4",
+   "lib": "excali-template",
+   "index": 4,
+   "name": "路线图 Roadmap",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 70
+  },
+  {
+   "id": "excali-template:5",
+   "lib": "excali-template",
+   "index": 5,
+   "name": "Main Flow",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "arrow"
+   ],
+   "elements": 32
+  },
+  {
+   "id": "excali-template:6",
+   "lib": "excali-template",
+   "index": 6,
+   "name": "引用 Quote",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-template:7",
+   "lib": "excali-template",
+   "index": 7,
+   "name": "时间线卡片 Timeline cards",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "ellipse"
+   ],
+   "elements": 21
+  },
+  {
+   "id": "excali-template:8",
+   "lib": "excali-template",
+   "index": 8,
+   "name": "KPI 图表",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "ellipse"
+   ],
+   "elements": 48
+  },
+  {
+   "id": "excali-template:9",
+   "lib": "excali-template",
+   "index": 9,
+   "name": "KPI Drilldown",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "arrow"
+   ],
+   "elements": 25
+  },
+  {
+   "id": "excali-template:10",
+   "lib": "excali-template",
+   "index": 10,
+   "name": "大数字 Big number",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-template:11",
+   "lib": "excali-template",
+   "index": 11,
+   "name": "文字+多屏",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 15
+  },
+  {
+   "id": "excali-template:12",
+   "lib": "excali-template",
+   "index": 12,
+   "name": "要点 Bullets",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "ellipse"
+   ],
+   "elements": 15
+  },
+  {
+   "id": "excali-template:13",
+   "lib": "excali-template",
+   "index": 13,
+   "name": "Emoji 卡片",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 21
+  },
+  {
+   "id": "excali-template:14",
+   "lib": "excali-template",
+   "index": 14,
+   "name": "团队 The Team",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "ellipse",
+    "line"
+   ],
+   "elements": 65
+  },
+  {
+   "id": "excali-template:15",
+   "lib": "excali-template",
+   "index": 15,
+   "name": "空白 Blank",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-template:16",
+   "lib": "excali-template",
+   "index": 16,
+   "name": "商业模式画布 Business Model Canvas",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "ellipse"
+   ],
+   "elements": 60
+  },
+  {
+   "id": "excali-template:17",
+   "lib": "excali-template",
+   "index": 17,
+   "name": "价值主张画布 Value Proposition Canvas",
+   "category": "template",
+   "domain": "deck",
+   "tags": [
+    "template",
+    "canvas",
+    "board"
+   ],
+   "types": [
+    "ellipse",
+    "rectangle",
+    "line",
+    "arrow",
+    "text"
+   ],
+   "elements": 61
+  },
+  {
+   "id": "excali-template:18",
+   "lib": "excali-template",
+   "index": 18,
    "name": "Wardley Customer",
    "category": "template",
    "domain": "deck",
@@ -5630,9 +5203,9 @@
    "elements": 3
   },
   {
-   "id": "excali-template:1",
+   "id": "excali-template:19",
    "lib": "excali-template",
-   "index": 1,
+   "index": 19,
    "name": "Wardley Component",
    "category": "template",
    "domain": "deck",
@@ -5648,9 +5221,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:2",
+   "id": "excali-template:20",
    "lib": "excali-template",
-   "index": 2,
+   "index": 20,
    "name": "Wardley Evolution Axis",
    "category": "template",
    "domain": "deck",
@@ -5667,9 +5240,9 @@
    "elements": 9
   },
   {
-   "id": "excali-template:3",
+   "id": "excali-template:21",
    "lib": "excali-template",
-   "index": 3,
+   "index": 21,
    "name": "Wardley Area of Interest",
    "category": "template",
    "domain": "deck",
@@ -5685,9 +5258,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:4",
+   "id": "excali-template:22",
    "lib": "excali-template",
-   "index": 4,
+   "index": 22,
    "name": "Wardley Build",
    "category": "template",
    "domain": "deck",
@@ -5703,9 +5276,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:5",
+   "id": "excali-template:23",
    "lib": "excali-template",
-   "index": 5,
+   "index": 23,
    "name": "Wardley Buy",
    "category": "template",
    "domain": "deck",
@@ -5721,9 +5294,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:6",
+   "id": "excali-template:24",
    "lib": "excali-template",
-   "index": 6,
+   "index": 24,
    "name": "Wardley Outsource",
    "category": "template",
    "domain": "deck",
@@ -5739,9 +5312,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:7",
+   "id": "excali-template:25",
    "lib": "excali-template",
-   "index": 7,
+   "index": 25,
    "name": "Wardley Accelerator",
    "category": "template",
    "domain": "deck",
@@ -5757,9 +5330,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:8",
+   "id": "excali-template:26",
    "lib": "excali-template",
-   "index": 8,
+   "index": 26,
    "name": "Complicated Subsystem Team",
    "category": "template",
    "domain": "deck",
@@ -5775,9 +5348,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:9",
+   "id": "excali-template:27",
    "lib": "excali-template",
-   "index": 9,
+   "index": 27,
    "name": "Stream-aligned Team",
    "category": "template",
    "domain": "deck",
@@ -5792,9 +5365,9 @@
    "elements": 1
   },
   {
-   "id": "excali-template:10",
+   "id": "excali-template:28",
    "lib": "excali-template",
-   "index": 10,
+   "index": 28,
    "name": "Platform Team",
    "category": "template",
    "domain": "deck",
@@ -5809,9 +5382,9 @@
    "elements": 1
   },
   {
-   "id": "excali-template:11",
+   "id": "excali-template:29",
    "lib": "excali-template",
-   "index": 11,
+   "index": 29,
    "name": "Enabling Team",
    "category": "template",
    "domain": "deck",
@@ -5826,9 +5399,9 @@
    "elements": 1
   },
   {
-   "id": "excali-template:12",
+   "id": "excali-template:30",
    "lib": "excali-template",
-   "index": 12,
+   "index": 30,
    "name": "Team Interaction",
    "category": "template",
    "domain": "deck",
@@ -5843,9 +5416,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:13",
+   "id": "excali-template:31",
    "lib": "excali-template",
-   "index": 13,
+   "index": 31,
    "name": "Sticky (orange)",
    "category": "template",
    "domain": "deck",
@@ -5860,9 +5433,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:14",
+   "id": "excali-template:32",
    "lib": "excali-template",
-   "index": 14,
+   "index": 32,
    "name": "Sticky (blue)",
    "category": "template",
    "domain": "deck",
@@ -5877,9 +5450,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:15",
+   "id": "excali-template:33",
    "lib": "excali-template",
-   "index": 15,
+   "index": 33,
    "name": "Sticky (green)",
    "category": "template",
    "domain": "deck",
@@ -5894,9 +5467,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:16",
+   "id": "excali-template:34",
    "lib": "excali-template",
-   "index": 16,
+   "index": 34,
    "name": "Sticky (pink)",
    "category": "template",
    "domain": "deck",
@@ -5911,9 +5484,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:17",
+   "id": "excali-template:35",
    "lib": "excali-template",
-   "index": 17,
+   "index": 35,
    "name": "Sticky (gray)",
    "category": "template",
    "domain": "deck",
@@ -5928,9 +5501,9 @@
    "elements": 2
   },
   {
-   "id": "excali-template:18",
+   "id": "excali-template:36",
    "lib": "excali-template",
-   "index": 18,
+   "index": 36,
    "name": "Scrum Board",
    "category": "template",
    "domain": "deck",
@@ -5951,6 +5524,1735 @@
    "id": "excali-ui:0",
    "lib": "excali-ui",
    "index": 0,
+   "name": "Bulb",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:1",
+   "lib": "excali-ui",
+   "index": 1,
+   "name": "Dropdown with options",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-ui:2",
+   "lib": "excali-ui",
+   "index": 2,
+   "name": "Image placeholder (simple)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:3",
+   "lib": "excali-ui",
+   "index": 3,
+   "name": "Profile photo",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:4",
+   "lib": "excali-ui",
+   "index": 4,
+   "name": "Boxed toggle with text (ON)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:5",
+   "lib": "excali-ui",
+   "index": 5,
+   "name": "Boxed toggle with text (OFF)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:6",
+   "lib": "excali-ui",
+   "index": 6,
+   "name": "Boxed toggle (OFF)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:7",
+   "lib": "excali-ui",
+   "index": 7,
+   "name": "Boxed toggle (ON)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:8",
+   "lib": "excali-ui",
+   "index": 8,
+   "name": "Rounded toggle with text (ON)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:9",
+   "lib": "excali-ui",
+   "index": 9,
+   "name": "Rounded toggle with text (OFF)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:10",
+   "lib": "excali-ui",
+   "index": 10,
+   "name": "Rounded toggle (ON)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:11",
+   "lib": "excali-ui",
+   "index": 11,
+   "name": "Rounded toggle (OFF)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:12",
+   "lib": "excali-ui",
+   "index": 12,
+   "name": "Filled help (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:13",
+   "lib": "excali-ui",
+   "index": 13,
+   "name": "Outlined help (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:14",
+   "lib": "excali-ui",
+   "index": 14,
+   "name": "Filled help (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:15",
+   "lib": "excali-ui",
+   "index": 15,
+   "name": "Outlined help (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:16",
+   "lib": "excali-ui",
+   "index": 16,
+   "name": "Horizontal options",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:17",
+   "lib": "excali-ui",
+   "index": 17,
+   "name": "Horizontal options in the circle",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:18",
+   "lib": "excali-ui",
+   "index": 18,
+   "name": "Vertical options",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:19",
+   "lib": "excali-ui",
+   "index": 19,
+   "name": "Vertical options in the circle",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:20",
+   "lib": "excali-ui",
+   "index": 20,
+   "name": "Hamburger menu (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:21",
+   "lib": "excali-ui",
+   "index": 21,
+   "name": "Boxed hamburger menu (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "text",
+    "line",
+    "rectangle"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-ui:22",
+   "lib": "excali-ui",
+   "index": 22,
+   "name": "Hamburger menu (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:23",
+   "lib": "excali-ui",
+   "index": 23,
+   "name": "Boxed hamburger menu (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:24",
+   "lib": "excali-ui",
+   "index": 24,
+   "name": "Check mark",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 1
+  },
+  {
+   "id": "excali-ui:25",
+   "lib": "excali-ui",
+   "index": 25,
+   "name": "Reject button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:26",
+   "lib": "excali-ui",
+   "index": 26,
+   "name": "Confirm button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:27",
+   "lib": "excali-ui",
+   "index": 27,
+   "name": "Reject button (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:28",
+   "lib": "excali-ui",
+   "index": 28,
+   "name": "Confirm button (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:29",
+   "lib": "excali-ui",
+   "index": 29,
+   "name": "Boxed reject button (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:30",
+   "lib": "excali-ui",
+   "index": 30,
+   "name": "Boxed confirm button (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:31",
+   "lib": "excali-ui",
+   "index": 31,
+   "name": "Filled slider",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:32",
+   "lib": "excali-ui",
+   "index": 32,
+   "name": "Outlined slider",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:33",
+   "lib": "excali-ui",
+   "index": 33,
+   "name": "Go forward arrow",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:34",
+   "lib": "excali-ui",
+   "index": 34,
+   "name": "Go back arrow",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:35",
+   "lib": "excali-ui",
+   "index": 35,
+   "name": "Modal",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 9
+  },
+  {
+   "id": "excali-ui:36",
+   "lib": "excali-ui",
+   "index": 36,
+   "name": "Tooltip (left)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:37",
+   "lib": "excali-ui",
+   "index": 37,
+   "name": "Tooltip (right)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:38",
+   "lib": "excali-ui",
+   "index": 38,
+   "name": "Tooltip (top)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:39",
+   "lib": "excali-ui",
+   "index": 39,
+   "name": "Tooltip (bottom)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:40",
+   "lib": "excali-ui",
+   "index": 40,
+   "name": "Cross",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:41",
+   "lib": "excali-ui",
+   "index": 41,
+   "name": "Search",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:42",
+   "lib": "excali-ui",
+   "index": 42,
+   "name": "Selected checkbox (icon only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:43",
+   "lib": "excali-ui",
+   "index": 43,
+   "name": "Show more button (circle)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:44",
+   "lib": "excali-ui",
+   "index": 44,
+   "name": "Show more button (boxed)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "rectangle"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:45",
+   "lib": "excali-ui",
+   "index": 45,
+   "name": "Upload image section",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:46",
+   "lib": "excali-ui",
+   "index": 46,
+   "name": "Image placeholder",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line",
+    "ellipse"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:47",
+   "lib": "excali-ui",
+   "index": 47,
+   "name": "Disabled checkbox (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:48",
+   "lib": "excali-ui",
+   "index": 48,
+   "name": "Selected disabled checkbox (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:49",
+   "lib": "excali-ui",
+   "index": 49,
+   "name": "Selected checkbox (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:50",
+   "lib": "excali-ui",
+   "index": 50,
+   "name": "Checkbox (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:51",
+   "lib": "excali-ui",
+   "index": 51,
+   "name": "Selected disabled radio button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:52",
+   "lib": "excali-ui",
+   "index": 52,
+   "name": "Disabled radio button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:53",
+   "lib": "excali-ui",
+   "index": 53,
+   "name": "Selected radio button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:54",
+   "lib": "excali-ui",
+   "index": 54,
+   "name": "Radio button (text+icon)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:55",
+   "lib": "excali-ui",
+   "index": 55,
+   "name": "Videoplayer",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "ellipse",
+    "line"
+   ],
+   "elements": 13
+  },
+  {
+   "id": "excali-ui:56",
+   "lib": "excali-ui",
+   "index": 56,
+   "name": "Disabled outlined button (text only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:57",
+   "lib": "excali-ui",
+   "index": 57,
+   "name": "Outlined button (text only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:58",
+   "lib": "excali-ui",
+   "index": 58,
+   "name": "Disabled filled button (text only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:59",
+   "lib": "excali-ui",
+   "index": 59,
+   "name": "Filled button (text only)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:60",
+   "lib": "excali-ui",
+   "index": 60,
+   "name": "Text area",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:61",
+   "lib": "excali-ui",
+   "index": 61,
+   "name": "Text area with placeholder",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:62",
+   "lib": "excali-ui",
+   "index": 62,
+   "name": "Disabled dropdown menu",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:63",
+   "lib": "excali-ui",
+   "index": 63,
+   "name": "Selected dropdown menu",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:64",
+   "lib": "excali-ui",
+   "index": 64,
+   "name": "Dropdown menu",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:65",
+   "lib": "excali-ui",
+   "index": 65,
+   "name": "Search field",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line",
+    "rectangle",
+    "text"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:66",
+   "lib": "excali-ui",
+   "index": 66,
+   "name": "Disabled text field with placeholder",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:67",
+   "lib": "excali-ui",
+   "index": 67,
+   "name": "Text field with text",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:68",
+   "lib": "excali-ui",
+   "index": 68,
+   "name": "Text field with placeholder",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:69",
+   "lib": "excali-ui",
+   "index": 69,
+   "name": "Button",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:70",
+   "lib": "excali-ui",
+   "index": 70,
+   "name": "分段控件 Segmented",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 6
+  },
+  {
+   "id": "excali-ui:71",
+   "lib": "excali-ui",
+   "index": 71,
+   "name": "ComboBox",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 4
+  },
+  {
+   "id": "excali-ui:72",
+   "lib": "excali-ui",
+   "index": 72,
+   "name": "Date picker",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 12
+  },
+  {
+   "id": "excali-ui:73",
+   "lib": "excali-ui",
+   "index": 73,
+   "name": "Number spinner",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 5
+  },
+  {
+   "id": "excali-ui:74",
+   "lib": "excali-ui",
+   "index": 74,
+   "name": "Toggle",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "line",
+    "ellipse"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:75",
+   "lib": "excali-ui",
+   "index": 75,
+   "name": "Button dropdown",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:76",
+   "lib": "excali-ui",
+   "index": 76,
+   "name": "Button next",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:77",
+   "lib": "excali-ui",
+   "index": 77,
+   "name": "Button back",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:78",
+   "lib": "excali-ui",
+   "index": 78,
+   "name": "Add (+)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:79",
+   "lib": "excali-ui",
+   "index": 79,
+   "name": "Marker",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "line"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:80",
+   "lib": "excali-ui",
+   "index": 80,
+   "name": "Help (?)",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:81",
+   "lib": "excali-ui",
+   "index": 81,
+   "name": "Media controls",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "line"
+   ],
+   "elements": 8
+  },
+  {
+   "id": "excali-ui:82",
+   "lib": "excali-ui",
+   "index": 82,
+   "name": "Checkbox",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:83",
+   "lib": "excali-ui",
+   "index": 83,
+   "name": "Checkbox selected",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:84",
+   "lib": "excali-ui",
+   "index": 84,
+   "name": "Checkbox indeterminate",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:85",
+   "lib": "excali-ui",
+   "index": 85,
+   "name": "Checkbox disabled",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:86",
+   "lib": "excali-ui",
+   "index": 86,
+   "name": "Checkbox disabled selected",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:87",
+   "lib": "excali-ui",
+   "index": 87,
+   "name": "Checkbox disabled indeterminate",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:88",
+   "lib": "excali-ui",
+   "index": 88,
+   "name": "Radio",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:89",
+   "lib": "excali-ui",
+   "index": 89,
+   "name": "Radio selected",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:90",
+   "lib": "excali-ui",
+   "index": 90,
+   "name": "Radio indeterminate",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:91",
+   "lib": "excali-ui",
+   "index": 91,
+   "name": "Radio disabled",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 2
+  },
+  {
+   "id": "excali-ui:92",
+   "lib": "excali-ui",
+   "index": 92,
+   "name": "Radio disabled selected",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:93",
+   "lib": "excali-ui",
+   "index": 93,
+   "name": "Radio disabled indeterminate",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "ellipse",
+    "text",
+    "line"
+   ],
+   "elements": 3
+  },
+  {
+   "id": "excali-ui:94",
+   "lib": "excali-ui",
+   "index": 94,
+   "name": "Rich text toolbar",
+   "category": "ui-control",
+   "domain": "prototype",
+   "tags": [
+    "ui",
+    "control",
+    "wireframe"
+   ],
+   "types": [
+    "rectangle",
+    "text",
+    "line",
+    "ellipse"
+   ],
+   "elements": 38
+  },
+  {
+   "id": "excali-ui:95",
+   "lib": "excali-ui",
+   "index": 95,
    "name": "Alert",
    "category": "ui-control",
    "domain": "prototype",
@@ -5969,9 +7271,9 @@
    "elements": 19
   },
   {
-   "id": "excali-ui:1",
+   "id": "excali-ui:96",
    "lib": "excali-ui",
-   "index": 1,
+   "index": 96,
    "name": "Tag",
    "category": "ui-control",
    "domain": "prototype",
@@ -5988,9 +7290,9 @@
    "elements": 9
   },
   {
-   "id": "excali-ui:2",
+   "id": "excali-ui:97",
    "lib": "excali-ui",
-   "index": 2,
+   "index": 97,
    "name": "Badge",
    "category": "ui-control",
    "domain": "prototype",
@@ -6007,9 +7309,9 @@
    "elements": 17
   },
   {
-   "id": "excali-ui:3",
+   "id": "excali-ui:98",
    "lib": "excali-ui",
-   "index": 3,
+   "index": 98,
    "name": "Breadcrumbs",
    "category": "ui-control",
    "domain": "prototype",
@@ -6025,9 +7327,9 @@
    "elements": 7
   },
   {
-   "id": "excali-ui:4",
+   "id": "excali-ui:99",
    "lib": "excali-ui",
-   "index": 4,
+   "index": 99,
    "name": "Title Text",
    "category": "ui-control",
    "domain": "prototype",
@@ -6042,9 +7344,9 @@
    "elements": 3
   },
   {
-   "id": "excali-ui:5",
+   "id": "excali-ui:100",
    "lib": "excali-ui",
-   "index": 5,
+   "index": 100,
    "name": "Placeholder Text",
    "category": "ui-control",
    "domain": "prototype",
@@ -6060,9 +7362,9 @@
    "elements": 8
   },
   {
-   "id": "excali-ui:6",
+   "id": "excali-ui:101",
    "lib": "excali-ui",
-   "index": 6,
+   "index": 101,
    "name": "Header",
    "category": "ui-control",
    "domain": "prototype",
@@ -6079,9 +7381,9 @@
    "elements": 9
   },
   {
-   "id": "excali-ui:7",
+   "id": "excali-ui:102",
    "lib": "excali-ui",
-   "index": 7,
+   "index": 102,
    "name": "Card",
    "category": "ui-control",
    "domain": "prototype",
@@ -6098,9 +7400,9 @@
    "elements": 11
   },
   {
-   "id": "excali-ui:8",
+   "id": "excali-ui:103",
    "lib": "excali-ui",
-   "index": 8,
+   "index": 103,
    "name": "Table",
    "category": "ui-control",
    "domain": "prototype",
@@ -6117,9 +7419,9 @@
    "elements": 19
   },
   {
-   "id": "excali-ui:9",
+   "id": "excali-ui:104",
    "lib": "excali-ui",
-   "index": 9,
+   "index": 104,
    "name": "Tabs",
    "category": "ui-control",
    "domain": "prototype",
@@ -6135,9 +7437,9 @@
    "elements": 7
   },
   {
-   "id": "excali-ui:10",
+   "id": "excali-ui:105",
    "lib": "excali-ui",
-   "index": 10,
+   "index": 105,
    "name": "Sidebar",
    "category": "ui-control",
    "domain": "prototype",
@@ -6154,9 +7456,9 @@
    "elements": 11
   },
   {
-   "id": "excali-ui:11",
+   "id": "excali-ui:106",
    "lib": "excali-ui",
-   "index": 11,
+   "index": 106,
    "name": "Hero",
    "category": "ui-control",
    "domain": "prototype",
@@ -6173,9 +7475,9 @@
    "elements": 8
   },
   {
-   "id": "excali-ui:12",
+   "id": "excali-ui:107",
    "lib": "excali-ui",
-   "index": 12,
+   "index": 107,
    "name": "Playback Controls",
    "category": "ui-control",
    "domain": "prototype",
@@ -6191,9 +7493,9 @@
    "elements": 8
   },
   {
-   "id": "excali-ui:13",
+   "id": "excali-ui:108",
    "lib": "excali-ui",
-   "index": 13,
+   "index": 108,
    "name": "Volume Slider",
    "category": "ui-control",
    "domain": "prototype",
@@ -6209,9 +7511,9 @@
    "elements": 7
   },
   {
-   "id": "excali-ui:14",
+   "id": "excali-ui:109",
    "lib": "excali-ui",
-   "index": 14,
+   "index": 109,
    "name": "Map",
    "category": "ui-control",
    "domain": "prototype",
@@ -6227,9 +7529,9 @@
    "elements": 20
   },
   {
-   "id": "excali-ui:15",
+   "id": "excali-ui:110",
    "lib": "excali-ui",
-   "index": 15,
+   "index": 110,
    "name": "Video Player",
    "category": "ui-control",
    "domain": "prototype",
@@ -6245,1283 +7547,6 @@
     "arrow"
    ],
    "elements": 26
-  },
-  {
-   "id": "forms:0",
-   "lib": "forms",
-   "index": 0,
-   "name": "Button",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:1",
-   "lib": "forms",
-   "index": 1,
-   "name": "分段控件 Segmented",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 6
-  },
-  {
-   "id": "forms:2",
-   "lib": "forms",
-   "index": 2,
-   "name": "ComboBox",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "forms:3",
-   "lib": "forms",
-   "index": 3,
-   "name": "Date picker",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 12
-  },
-  {
-   "id": "forms:4",
-   "lib": "forms",
-   "index": 4,
-   "name": "Number spinner",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 5
-  },
-  {
-   "id": "forms:5",
-   "lib": "forms",
-   "index": 5,
-   "name": "Toggle",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "line",
-    "ellipse"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:6",
-   "lib": "forms",
-   "index": 6,
-   "name": "Button dropdown",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:7",
-   "lib": "forms",
-   "index": 7,
-   "name": "Button next",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:8",
-   "lib": "forms",
-   "index": 8,
-   "name": "Button back",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:9",
-   "lib": "forms",
-   "index": 9,
-   "name": "Add (+)",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:10",
-   "lib": "forms",
-   "index": 10,
-   "name": "Marker",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:11",
-   "lib": "forms",
-   "index": 11,
-   "name": "Help (?)",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:12",
-   "lib": "forms",
-   "index": 12,
-   "name": "Media controls",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "forms:13",
-   "lib": "forms",
-   "index": 13,
-   "name": "Checkbox",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:14",
-   "lib": "forms",
-   "index": 14,
-   "name": "Checkbox selected",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:15",
-   "lib": "forms",
-   "index": 15,
-   "name": "Checkbox indeterminate",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:16",
-   "lib": "forms",
-   "index": 16,
-   "name": "Checkbox disabled",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:17",
-   "lib": "forms",
-   "index": 17,
-   "name": "Checkbox disabled selected",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:18",
-   "lib": "forms",
-   "index": 18,
-   "name": "Checkbox disabled indeterminate",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:19",
-   "lib": "forms",
-   "index": 19,
-   "name": "Radio",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:20",
-   "lib": "forms",
-   "index": 20,
-   "name": "Radio selected",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:21",
-   "lib": "forms",
-   "index": 21,
-   "name": "Radio indeterminate",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:22",
-   "lib": "forms",
-   "index": 22,
-   "name": "Radio disabled",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "forms:23",
-   "lib": "forms",
-   "index": 23,
-   "name": "Radio disabled selected",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:24",
-   "lib": "forms",
-   "index": 24,
-   "name": "Radio disabled indeterminate",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "ellipse",
-    "text",
-    "line"
-   ],
-   "elements": 3
-  },
-  {
-   "id": "forms:25",
-   "lib": "forms",
-   "index": 25,
-   "name": "Rich text toolbar",
-   "category": "form-control",
-   "domain": "prototype",
-   "tags": [
-    "form",
-    "control",
-    "state"
-   ],
-   "types": [
-    "rectangle",
-    "text",
-    "line",
-    "ellipse"
-   ],
-   "elements": 38
-  },
-  {
-   "id": "information-architecture:0",
-   "lib": "information-architecture",
-   "index": 0,
-   "name": "page",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "page"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "information-architecture:1",
-   "lib": "information-architecture",
-   "index": 1,
-   "name": "file",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "file"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "information-architecture:2",
-   "lib": "information-architecture",
-   "index": 2,
-   "name": "flow reference",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "information-architecture:3",
-   "lib": "information-architecture",
-   "index": 3,
-   "name": "page stack",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "information-architecture:4",
-   "lib": "information-architecture",
-   "index": 4,
-   "name": "file stack",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 10
-  },
-  {
-   "id": "information-architecture:5",
-   "lib": "information-architecture",
-   "index": 5,
-   "name": "cluster",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "cluster"
-   ],
-   "types": [
-    "ellipse"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "information-architecture:6",
-   "lib": "information-architecture",
-   "index": 6,
-   "name": "decision point",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "decision",
-    "diamond"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "information-architecture:7",
-   "lib": "information-architecture",
-   "index": 7,
-   "name": "conditional branch",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "branch"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "information-architecture:8",
-   "lib": "information-architecture",
-   "index": 8,
-   "name": "conditonal selector",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "information-architecture:9",
-   "lib": "information-architecture",
-   "index": 9,
-   "name": "concurrent set",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "information-architecture:10",
-   "lib": "information-architecture",
-   "index": 10,
-   "name": "continuation x",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "information-architecture:11",
-   "lib": "information-architecture",
-   "index": 11,
-   "name": "continuation y",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "rectangle",
-    "line"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "information-architecture:12",
-   "lib": "information-architecture",
-   "index": 12,
-   "name": "area",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape",
-    "area",
-    "container"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "information-architecture:13",
-   "lib": "information-architecture",
-   "index": 13,
-   "name": "iterative area",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 4
-  },
-  {
-   "id": "information-architecture:14",
-   "lib": "information-architecture",
-   "index": 14,
-   "name": "conditional area",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "rectangle"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "information-architecture:15",
-   "lib": "information-architecture",
-   "index": 15,
-   "name": "flow area x",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "information-architecture:16",
-   "lib": "information-architecture",
-   "index": 16,
-   "name": "flow area y",
-   "category": "flowchart-shape",
-   "domain": "diagram",
-   "tags": [
-    "flowchart",
-    "ia",
-    "shape"
-   ],
-   "types": [
-    "line",
-    "rectangle"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:0",
-   "lib": "mathematical-symbols",
-   "index": 0,
-   "name": "Complex numbers",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:1",
-   "lib": "mathematical-symbols",
-   "index": 1,
-   "name": "Infinity",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:2",
-   "lib": "mathematical-symbols",
-   "index": 2,
-   "name": "Implication",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:3",
-   "lib": "mathematical-symbols",
-   "index": 3,
-   "name": "Approaches",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:4",
-   "lib": "mathematical-symbols",
-   "index": 4,
-   "name": "Universal quantification",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:5",
-   "lib": "mathematical-symbols",
-   "index": 5,
-   "name": "Existential quantification",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:6",
-   "lib": "mathematical-symbols",
-   "index": 6,
-   "name": "Element",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:7",
-   "lib": "mathematical-symbols",
-   "index": 7,
-   "name": "Natural numbers",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:8",
-   "lib": "mathematical-symbols",
-   "index": 8,
-   "name": "Integers",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:9",
-   "lib": "mathematical-symbols",
-   "index": 9,
-   "name": "Real numbers",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:10",
-   "lib": "mathematical-symbols",
-   "index": 10,
-   "name": "Greater than or equal to",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "text",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:11",
-   "lib": "mathematical-symbols",
-   "index": 11,
-   "name": "Less than or equal to",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "text",
-    "line"
-   ],
-   "elements": 2
-  },
-  {
-   "id": "mathematical-symbols:12",
-   "lib": "mathematical-symbols",
-   "index": 12,
-   "name": "Partial derivaive",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:13",
-   "lib": "mathematical-symbols",
-   "index": 13,
-   "name": "Integral",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "mathematical-symbols:14",
-   "lib": "mathematical-symbols",
-   "index": 14,
-   "name": "Summation",
-   "category": "math-symbol",
-   "domain": "math",
-   "tags": [
-    "math",
-    "symbol",
-    "formula"
-   ],
-   "types": [
-    "line"
-   ],
-   "elements": 1
-  },
-  {
-   "id": "stick-figures:0",
-   "lib": "stick-figures",
-   "index": 0,
-   "name": "Stick man",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 6
-  },
-  {
-   "id": "stick-figures:1",
-   "lib": "stick-figures",
-   "index": 1,
-   "name": "Moustache man",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "rectangle"
-   ],
-   "elements": 12
-  },
-  {
-   "id": "stick-figures:2",
-   "lib": "stick-figures",
-   "index": 2,
-   "name": "Girl",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "rectangle"
-   ],
-   "elements": 9
-  },
-  {
-   "id": "stick-figures:3",
-   "lib": "stick-figures",
-   "index": 3,
-   "name": "Guy",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "rectangle"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "stick-figures:4",
-   "lib": "stick-figures",
-   "index": 4,
-   "name": "Grandma",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 17
-  },
-  {
-   "id": "stick-figures:5",
-   "lib": "stick-figures",
-   "index": 5,
-   "name": "Child",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 8
-  },
-  {
-   "id": "stick-figures:6",
-   "lib": "stick-figures",
-   "index": 6,
-   "name": "Shrug",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line"
-   ],
-   "elements": 6
-  },
-  {
-   "id": "stick-figures:7",
-   "lib": "stick-figures",
-   "index": 7,
-   "name": "Happy",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "text"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "stick-figures:8",
-   "lib": "stick-figures",
-   "index": 8,
-   "name": "Sad",
-   "category": "person",
-   "domain": "people",
-   "tags": [
-    "person",
-    "actor",
-    "xkcd"
-   ],
-   "types": [
-    "ellipse",
-    "line",
-    "text"
-   ],
-   "elements": 7
-  },
-  {
-   "id": "webpage-frames:0",
-   "lib": "webpage-frames",
-   "index": 0,
-   "name": "loading webpage",
-   "category": "frame",
-   "domain": "prototype",
-   "tags": [
-    "frame",
-    "browser",
-    "shell"
-   ],
-   "types": [
-    "rectangle",
-    "line",
-    "freedraw",
-    "ellipse",
-    "text"
-   ],
-   "elements": 33
-  },
-  {
-   "id": "webpage-frames:1",
-   "lib": "webpage-frames",
-   "index": 1,
-   "name": "viewable webpage",
-   "category": "frame",
-   "domain": "prototype",
-   "tags": [
-    "frame",
-    "browser",
-    "shell"
-   ],
-   "types": [
-    "rectangle",
-    "line",
-    "freedraw",
-    "ellipse",
-    "text"
-   ],
-   "elements": 27
-  },
-  {
-   "id": "webpage-frames:2",
-   "lib": "webpage-frames",
-   "index": 2,
-   "name": "interactive webpage",
-   "category": "frame",
-   "domain": "prototype",
-   "tags": [
-    "frame",
-    "browser",
-    "shell"
-   ],
-   "types": [
-    "rectangle",
-    "line",
-    "freedraw",
-    "ellipse",
-    "text"
-   ],
-   "elements": 27
   }
  ]
 }

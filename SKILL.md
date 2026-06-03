@@ -1,6 +1,6 @@
 ---
 name: excali-design
-description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(19 库 ~402 组件(10 基础 + 9 自建),不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、**Mermaid → Excalidraw 手绘风(流程/时序/类/状态/ER 等)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
+description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件架构图 / 设计图 / 产品原型图 / 信息流程图。根据任务 embody 对应专家(原型师/架构师/信息设计师),复用现成组件库,避免手绘 AI slop。触发词:画架构图、系统架构、软件架构、数据流图、时序图、部署图、流程图、信息架构、画原型、线框图、wireframe、UI mockup、产品原型图、设计图、做个示意图、Excalidraw、手绘风图、画板、白板图、画个图。**主干能力**:从已有上下文/代码库长出图(不凭空画)、drawlib 组件库复用协议(11 库 ~402 组件,一类一库,不手绘已有控件)、Junior Designer 工作流(先假设+placeholder 再迭代)、反手绘 slop 清单、布局系统(网格/对齐/泳道/分层)、配色纪律(克制手绘色板)、**架构图节点自动摆放(arch-layout/elkjs)+ 连线自动路由(arch-connect)+ 几何 lint(arch-lint)**、**Mermaid → Excalidraw 手绘风(流程/时序/类/状态/ER 等)**、导出 PNG/SVG。**可选**:5 维度评审。产出全部为静态图(.excalidraw / PNG / SVG),不做动画、视频、音频。adapted from huashu-design,agent-agnostic。
 ---
 
 # Excali-Design · 画板设计师
@@ -57,13 +57,13 @@ description: Excali-Design——用 Excalidraw 手绘风做**静态**的软件�
 
 ### 2. drawlib 组件库复用协议(强制)
 
-> **这是本 skill 区别于「裸画 Excalidraw」的核心约束。** `drawlib/` 里有 ~402 个做工精良的现成组件(含 9 个自建精选库),**能复用的绝不手绘**。手绘一个 toggle / 下拉框 / 服务器图标,99% 不如库里的,还慢。
+> **这是本 skill 区别于「裸画 Excalidraw」的核心约束。** `drawlib/` 里有 ~402 个做工精良的现成组件(11 个分类库),**能复用的绝不手绘**。手绘一个 toggle / 下拉框 / 服务器图标,99% 不如库里的,还慢。
 
 **硬流程**:
 1. 开工前先**检索**:`node scripts/drawlib-find.mjs <关键词>`(或 `--cat <类>`)查库里有没有现成件;分类全貌见 `references/drawlib-index.md`,清单见 `drawlib-catalog.md`。库里没有再看社区 `references/community-libraries.md`
 2. 有 → 从对应 `.excalidrawlib` 取出该 item 的 `elements`,平移到目标坐标,复用
 3. 没有 → 才自己用基础元素(rectangle/ellipse/diamond/arrow/line/text)拼,且遵循 `references/anti-slop.md`
-4. 10 个库速记:UX 控件(69)、数据图表(32)、DevOps 图标(29)、表单控件(26)、幻灯片模板(16)、信息架构(17)、数学符号(15)、火柴人(9)、网页框(3)、商业画布(2)
+4. 11 个分类库(一类一库)速记:`excali-ui`(111 控件)、`excali-cloud`(56 云图标)、`excali-tech`(51 技术 logo)、`excali-shape`(44 流程/UML/结构)、`excali-template`(37 deck/画布/板)、`excali-chart`(32 图表)、`excali-person`(17 角色/气泡)、`excali-ml`(16)、`excali-net`(16 网络设备)、`excali-symbol`(15 符号)、`excali-frame`(7 外壳)。先 `drawlib-find.mjs <词>` 检索
 
 详见 `references/drawlib-catalog.md`(每个库的清单 + 取用方法)。
 
@@ -97,7 +97,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 满屏彩虹色框 | 每个框一个颜色 = 没有信息,只有噪音 | 颜色**编码语义**(一类服务一个色),其余用黑灰;全图 ≤ 3-4 个色 |
 | 所有框都 `roughness: 2` 抖到飞起 | 过度手绘感 = 廉价、不专业 | 默认 `roughness: 1`,正式架构图可 `0`(近直线) |
 | 箭头满天飞、交叉成网 | 连线不规划 = 意大利面架构图 | 规划布局让数据流单向(左→右 / 上→下),减少交叉;连线交给 arch-connect 路由 |
-| 每个节点都配一个 emoji/图标 | iconography slop | 图标只给**需要区分类型**的节点(用 dev_ops 库),纯逻辑框不配 |
+| 每个节点都配一个 emoji/图标 | iconography slop | 图标只给**需要区分类型**的节点(用 excali-tech 库),纯逻辑框不配 |
 | **用 Unicode 字符冒充图标**(✓✗★●■▲→↑↓⚙🔍📁…) | **一定不要**:跟手绘风气质打架、跨字体渲染不一,最显眼的 slop。**模型最爱犯,所以是代码硬门**:html-to-excalidraw 默认 strict 失败、arch-lint 报 error | 有图标集/`data-lib` 就用;**没有就用 `data-icon`(手绘纯色方块/圆/菱)**,绝不够 unicode |
 | 居中乱摆、不对齐 | 不对齐 = 业余 | 上网格,元素吸附到 20px 网格,同层元素 y 对齐 |
 | 手绘字体配正式架构 | 气质打架 | 原型/概念图用手绘体(Virgil);严肃架构图可换 Normal/Code 字体 |
@@ -129,7 +129,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 5. **Full pass**:复用 drawlib 组件填充、连线、上色编码、对齐网格。做到一半再 show 一次。
    - 🎨 **网格/卡片/海报类:走 HTML 布局,别手算坐标**:把内容写成语义 HTML(div/text/色块 + flex/grid/padding,套设计令牌)→ 浏览器算精确位置 → 逐元素转 Excalidraw 并**套手绘风 + 降级 CSS**(渐变/阴影丢弃、字体降到 Virgil/Normal/Code、任意色吸附调色板)。详见 `references/design-tokens.md`。**HTML 只管布局,输出必须是手绘图不是 web 截图。**(⚠️ 此路径靠浏览器算 CSS 布局,需浏览器内核;脚本会**先找系统已装的 Chrome/Edge/Chromium**,有就用、免下载,没有才用 playwright 自带的。都没有时会提示,可改走 elkjs/mermaid 或手摆海报型框。)
    - 🧩 **HTML 里默认嵌组件,别手抄 elements、别手画已有控件**(原则 #2 在 HTML 路径的落地):
-     - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。19 库 ~402 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
+     - **现成组件 / 图标 / 控件 / 外框 / 小人** → `<div data-lib="库名:序号">`,转换器自动取 drawlib item、缩放贴框、重生成 id。11 库 ~402 件速查 + 关键序号见 `references/drawlib-catalog.md`;**序号会变,用前先 `node scripts/drawlib-sheet.mjs <库名>` 渲接触表核对**。
      - **要真实数值的图** → `<div data-chart="pie|donut|bar|line" data-values="A:40,B:30">`(确定性生成,反映数据)。
      - **两者都没有** 才用基础元素手拼(守 `anti-slop.md`)。
      - 🔒 **代码约束(硬)**:`data-lib` 引用无效(库不存在 / 序号越界)→ `html-to-excalidraw.mjs` **默认 strict 退出码 2,构建直接失败**,逼你回查接触表;`--loose` 才降级为 warn。末尾会打印「复用 N data-lib + M data-chart」统计。
@@ -162,7 +162,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 | 颜色 | 彩虹色框、每框一色 | 语义编码,全图 ≤ 3-4 色,主体黑灰 |
 | 手绘度 | 全 roughness 2 抖到飞 | 默认 1,正式架构图 0 |
 | 连线 | 箭头交叉成网、手估坐标 | 交给 arch-connect 路由(正交/面向边/不交叉) |
-| 图标 | 每个框配 emoji | 只给需区分类型的节点配(dev_ops 库) |
+| 图标 | 每个框配 emoji | 只给需区分类型的节点配(excali-tech 库) |
 | 对齐 | 居中乱摆 | 吸附 20px 网格,同层 y 对齐 |
 | 组件 | 手绘已有控件 | 复用 drawlib(原则 #2) |
 | 填充 | 把所有组件都画上 | 删到只剩 earn-its-place 的 |
@@ -173,7 +173,7 @@ Excalidraw 也有自己的 AI slop——它不是紫渐变,是**另一组「视�
 |---|---|
 | 开工前问问题、定方向 | `references/workflow.md` |
 | Excalidraw 元素格式(schema/调色板/binding) | `references/element-format.md`(离线版 read_me) |
-| 复用 drawlib 组件库(19 库 ~402 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md`(清单)+ `references/drawlib-index.md`(分类/检索)+ `scripts/drawlib-find.mjs`(关键词→序号)+ `scripts/drawlib-sheet.mjs`(渲接触表核对) |
+| 复用 drawlib 组件库(11 库 ~402 件 + `data-lib` 用法 + 关键序号) | `references/drawlib-catalog.md`(清单)+ `references/drawlib-index.md`(分类/检索)+ `scripts/drawlib-find.mjs`(关键词→序号)+ `scripts/drawlib-sheet.mjs`(渲接触表核对) |
 | 社区资产精选(libraries.excalidraw.com + vendor 流程) | `references/community-libraries.md` |
 | 资产需求分类(需求→种类→确定分类 + 缺口/挑选流程) | `references/asset-taxonomy.md` |
 | **画产品原型 / 线框图** | `references/prototype-workflow.md` |

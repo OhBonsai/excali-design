@@ -1,11 +1,58 @@
-{ "target":"excali-person","license":"MIT","note":"角色/气泡。bubbles(ocapraro 对话/思考气泡)+ robots(kaligule)。actor 见现有 stick-figures。",
- "items":[
-  {"src":"bubbles.excalidrawlib","index":0,"name":"Speech Bubble (left)","source":"ocapraro/bubbles"},
-  {"src":"bubbles.excalidrawlib","index":1,"name":"Speech Bubble (right)","source":"ocapraro/bubbles"},
-  {"src":"bubbles.excalidrawlib","index":2,"name":"Thought Bubble (left)","source":"ocapraro/bubbles"},
-  {"src":"bubbles.excalidrawlib","index":3,"name":"Thought Bubble (right)","source":"ocapraro/bubbles"},
-  {"src":"robots.excalidrawlib","index":0,"name":"Robot","source":"kaligule/robots"},
-  {"src":"robots.excalidrawlib","index":1,"name":"Robot (active)","source":"kaligule/robots"},
-  {"src":"robots.excalidrawlib","index":5,"name":"Robot (angry)","source":"kaligule/robots"},
-  {"src":"robots.excalidrawlib","index":6,"name":"Robot (error)","source":"kaligule/robots"}
- ]}
+{
+ "target": "excali-person",
+ "license": "MIT",
+ "note": "角色/气泡。bubbles(ocapraro 对话/思考气泡)+ robots(kaligule)。actor 见现有 stick-figures。",
+ "items": [
+  {
+   "src": "bubbles.excalidrawlib",
+   "index": 0,
+   "name": "Speech Bubble (left)",
+   "source": "ocapraro/bubbles"
+  },
+  {
+   "src": "bubbles.excalidrawlib",
+   "index": 1,
+   "name": "Speech Bubble (right)",
+   "source": "ocapraro/bubbles"
+  },
+  {
+   "src": "bubbles.excalidrawlib",
+   "index": 2,
+   "name": "Thought Bubble (left)",
+   "source": "ocapraro/bubbles"
+  },
+  {
+   "src": "bubbles.excalidrawlib",
+   "index": 3,
+   "name": "Thought Bubble (right)",
+   "source": "ocapraro/bubbles"
+  },
+  {
+   "src": "robots.excalidrawlib",
+   "index": 0,
+   "name": "Robot",
+   "source": "kaligule/robots"
+  },
+  {
+   "src": "robots.excalidrawlib",
+   "index": 1,
+   "name": "Robot (active)",
+   "source": "kaligule/robots"
+  },
+  {
+   "src": "robots.excalidrawlib",
+   "index": 5,
+   "name": "Robot (angry)",
+   "source": "kaligule/robots"
+  },
+  {
+   "src": "robots.excalidrawlib",
+   "index": 6,
+   "name": "Robot (error)",
+   "source": "kaligule/robots"
+  }
+ ],
+ "include": [
+  "stick-figures"
+ ]
+}

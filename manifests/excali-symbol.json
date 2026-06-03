@@ -1,0 +1,8 @@
+{
+ "target": "excali-symbol",
+ "license": "MIT",
+ "note": "数学/逻辑符号(mathematical-symbols 改名)。",
+ "include": [
+  "mathematical-symbols"
+ ]
+}

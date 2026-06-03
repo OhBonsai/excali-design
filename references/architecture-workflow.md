@@ -37,10 +37,10 @@
 
 ## 4. 节点与图标
 
-- 节点 = rectangle(服务)/ cylinder 形(DB,用 ellipse+line 或 dev_ops 库)/ diamond(决策/路由)
-- 需要区分**类型**的节点配 `dev_ops` 库图标(库5);纯逻辑框不配(anti-slop)
+- 节点 = rectangle(服务)/ cylinder 形(DB,用 ellipse+line 或 excali-tech 库)/ diamond(决策/路由)
+- 需要区分**类型**的节点配 `excali-tech` 库图标(库5);纯逻辑框不配(anti-slop)
 - 每个节点:类型图标(可选)+ 名称 + 一行技术栈标注(如「Auth Service · Go」)
-- actor/用户用 `stick-figures`(库7)
+- actor/用户用 `excali-person`
 
 ## 5. 连线语义
 
@@ -57,7 +57,7 @@
 ## 7. 时序图 / 流程图特例
 
 - **时序图**:actor/服务横排顶部,各拉一条垂直 lifeline(line),消息用横向 arrow 按时间从上往下排,标消息名。
-- **流程图/决策流**:用 `information-architecture` 库(库4)的 decision point / conditional branch;判定用 diamond,分支标 yes/no。
+- **流程图/决策流**:用 `excali-shape`的 decision point / conditional branch;判定用 diamond,分支标 yes/no。
 - **状态机**:状态用圆角 rectangle,转移用 arrow 标触发事件。
 
 ## 8. Junior pass → Full pass

@@ -8,7 +8,7 @@
  *   node scripts/drawlib-find.mjs pie              # 名/标签/库名/分类里搜 "pie"
  *   node scripts/drawlib-find.mjs checkbox button  # 多词(任一命中)
  *   node scripts/drawlib-find.mjs --cat chart      # 按分类列全部
- *   node scripts/drawlib-find.mjs --lib forms      # 按库列全部
+ *   node scripts/drawlib-find.mjs --lib excali-ui      # 按库列全部
  *   node scripts/drawlib-find.mjs --cats           # 列所有分类 + 计数
  * 若 drawlib-index.json 不存在或过期:node scripts/build-drawlib-index.mjs
  * 纯 Node,零依赖。

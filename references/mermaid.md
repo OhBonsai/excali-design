@@ -23,7 +23,7 @@ node scripts/mermaid-to-excalidraw.mjs --text "flowchart TD; A-->B{ok?}; B-->|ye
 | **erDiagram** | Tier 2:同上 | ✅(getData 驱动) |
 | **C4 / mindmap** | Tier 2:尝试 getData → arch-layout,失败兜底图片 | ✅/兜底 |
 | **gantt** | `getTasks()` → 任务行 + 时间条 + 日期轴 | ✅ 原生手绘(section 配色、时间缩放) |
-| **pie** | node 正则解析(无需浏览器)→ 扇形闭合折线 + 图例 | ✅ 原生手绘(借 drawlib data-viz 的扇形技法) |
+| **pie** | node 正则解析(无需浏览器)→ 扇形闭合折线 + 图例 | ✅ 原生手绘(借 drawlib excali-chart 的扇形技法) |
 | 其它(timeline/gitGraph/xychart/...) | 官方库退化为 **SVG 图片**嵌入 | ❌ 非手绘原生 |
 
 ## 两条转换路径
@@ -37,7 +37,7 @@ node scripts/mermaid-to-excalidraw.mjs --text "flowchart TD; A-->B{ok?}; B-->|ye
 ## 局限(诚实说明)
 
 - **图表类(timeline/gitGraph/xychart 等)不是图论结构**,getData→arch-layout 不适用,每种要**专属渲染器**:从该类型抽数据 → 自定义画(行/条/扇区)。这是逐类型的渐进开发,**不是缺素材**。
-- **drawlib data-viz 的价值**:它的图表 item(Pie/Donut/Bar...)是**静态固定**的,不吃数据 → 不能直接拿来填;但它**示范了构造技法**(如扇形 = 闭合 `line` 多边形逼近弧 + 填色),照着按数据程序化生成即可。pie 就是这么做的。
+- **drawlib excali-chart 的价值**:它的图表 item(Pie/Donut/Bar...)是**静态固定**的,不吃数据 → 不能直接拿来填;但它**示范了构造技法**(如扇形 = 闭合 `line` 多边形逼近弧 + 填色),照着按数据程序化生成即可。pie 就是这么做的。
 - 还没建专属渲染器的图表类型,暂时官方库退化为 SVG 图片(能用、不可编辑、非手绘)。
 - 图片兜底的 `.excalidraw` 含 `image` 元素 + `files`(dataURL);导出 PNG/SVG 用 `excalidraw-to-image.mjs`(已支持传 files)。
 - Tier 2 的连线由 elkjs/arch-layout 正交路由;平行边(如状态机 A⇄B)的标签可能略挤,人工微调即可。

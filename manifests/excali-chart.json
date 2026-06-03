@@ -1,0 +1,8 @@
+{
+ "target": "excali-chart",
+ "license": "MIT",
+ "note": "图表占位(data-viz 改名)。配 data-chart 数据驱动。",
+ "include": [
+  "data-viz"
+ ]
+}
