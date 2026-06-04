@@ -1,82 +1,82 @@
-# 架构图布局:生成 + lint(各管一段,都 ≠ 好看)
+# Architecture Diagram Layout: Generation + Lint (each handles one stage, neither equals "good-looking")
 
-> 两个工具,两件不同的事,**都不等于「美学」**:
-> - **生成**(`arch-layout.mjs`):**拓扑密集图**用布局引擎算坐标,省去人手摆几十个节点。
-> - **lint**(`arch-lint.mjs`):**最后一步的辅助提示**,只抓肉眼容易漏的「明显重叠 / 脱节」这类机械错误。
+> Two tools, two different jobs, and neither one equals "aesthetics":
+> - **Generation** (`arch-layout.mjs`): for **dense-topology** diagrams, use a layout engine to compute coordinates, saving you from manually placing dozens of nodes.
+> - **Lint** (`arch-lint.mjs`): a **last-step assistive hint** that only catches mechanical errors the eye easily misses, like "obvious overlap / detachment".
 >
-> ⚠️ **lint 不是质量标准,也不是优化目标。** 它测「地板」(有没有看不见的重叠/越界),**测不了「天花板」(表达力)**。
-> 一张 lint 全绿的图可能很平很难看;一张 lint 报警的图(信息密集的好海报)可能很好。
-> **把图往「lint 全绿」上优化 = Goodhart**——会牺牲真正重要的信息密度 / 视觉层级 / 语义分区。
-> lint 全绿只代表「没有机械错误」,不代表「这是张好图」。好不好,仍是人的判断(huashu-design 的「品味」)。
+> Warning: **Lint is not a quality standard, nor an optimization target.** It measures the "floor" (whether there is invisible overlap / out-of-bounds), but cannot measure the "ceiling" (expressiveness).
+> A diagram that passes lint all green may be flat and ugly; a diagram that triggers lint warnings (an information-dense good poster) may be very good.
+> **Optimizing a diagram toward "lint all green" = Goodhart** -- it sacrifices the truly important information density / visual hierarchy / semantic zoning.
+> Lint all green only means "no mechanical errors", not "this is a good diagram". Whether it is good is still a human judgment (the "taste" of huashu-design).
 
-## 两个手工易错点已程序化(别手做)
+## Two manually error-prone steps have been programmatized (do not do them by hand)
 
-画架构图有两件事手做必出错,都已变成确定性工具——**agent 不要手做这两件事**:
+Drawing architecture diagrams has two things that are bound to go wrong when done by hand, and both have become deterministic tools -- **the agent should not do these two things by hand**:
 
-| 手工易错点 | 症状 | 程序化工具 |
+| Manual error-prone step | Symptom | Programmatized tool |
 |---|---|---|
-| **手摆节点坐标** | 重叠、错位 | `arch-layout.mjs`(拓扑密集图,连节点都自动摆)|
-| **手估连线 `points` 坐标** | 斜线、绕背面(流向反)、交叉、端口挤一起 | `arch-connect.mjs`(**任何图**:你摆好框,它把线连对)|
+| **Manually placing node coordinates** | overlap, misalignment | `arch-layout.mjs` (dense-topology diagrams, even places the nodes automatically) |
+| **Manually estimating edge `points` coordinates** | diagonal lines, routing around the back (flow reversed), crossings, ports crammed together | `arch-connect.mjs` (**any diagram**: you place the boxes, it connects the lines correctly) |
 
-**`arch-connect` 是关键**:把"连线路由"从肉眼估坐标变成计算——给框 + 声明逻辑连接(A→B),它算出**正交 + 面向边出入 + 端口均匀分布 + 按对端顺序排(自动消交叉)+ binding** 的线。这把前面 lint 抓的那一整类边 bug(`diagonal` / `wrong-attach-side` / `crossings` / `port-*`)**从源头消掉**——海报型图也适用(节点你手摆,边交给它)。
+**`arch-connect` is the key**: it turns "edge routing" from eyeballed coordinates into computation -- given boxes plus declared logical connections (A to B), it computes lines that are **orthogonal + face-side entry/exit + evenly distributed ports + ordered by the far end (auto-eliminating crossings) + binding**. This eliminates that entire class of edge bugs that lint catches (`diagonal` / `wrong-attach-side` / `crossings` / `port-*`) **at the source** -- it also applies to poster-type diagrams (you place the nodes by hand, hand the edges to it).
 
 ```bash
 node scripts/arch-connect.mjs boxes.excalidraw edges.json --out final.excalidraw
 # edges.json: [{"from":"mcp","to":"out","label":"...","dashed":false}]
 ```
 
-> **铁律:agent 画架构图绝不手写边的 `points` 数组。** 节点摆放(需品味,人/arch-layout)与连线路由(纯几何,arch-connect)解耦——这是消灭边 bug 的结构性办法,不靠自觉。
+> **Rule: the agent never hand-writes the `points` array of an edge when drawing an architecture diagram.** Node placement (requires taste; human / arch-layout) and edge routing (pure geometry; arch-connect) are decoupled -- this is the structural way to eliminate edge bugs, not relying on self-discipline.
 
-**⚠️ arch-connect 的边界(诚实说明)**:它做"两框之间正交连 + 面向边 + 端口分布 + 互不交叉",但**不做避障**——源与目标之间隔着别的大框时,肘形线会穿过去。规避靠**布局**:让有连线的源/目标尽量相邻(短直连,不跨内容块)。真要复杂绕障 → 走 `arch-layout` 全自动(elkjs 带 routing)。
+**Warning: arch-connect's boundary (an honest disclaimer)**: it does "orthogonal connection between two boxes + face-side + port distribution + non-crossing", but it **does not do obstacle avoidance** -- when another large box sits between source and target, the elbow line will pass through it. Avoidance relies on **layout**: keep connected source/target as adjacent as possible (short straight connection, not crossing content blocks). If you really need complex obstacle routing, go with `arch-layout` fully automatic (elkjs with routing).
 
-### 关键纠偏:问题是「箭头脏」,不是「箭头多」
+### Key correction: the problem is "dirty arrows", not "too many arrows"
 
-> **短而直、连相邻框的结构箭头(embody / reads / reuses / uses)是好的,保留。** 别因为有几条线就删——删光关系就断了(实测教训:某版把箭头删光 = 垃圾)。
+> **Short, straight structural arrows connecting adjacent boxes (embody / reads / reuses / uses) are good; keep them.** Do not delete them just because there are a few lines -- deleting them all breaks the relationships (lesson from testing: one version deleted all arrows = garbage).
 
-箭头出问题永远是某条**具体**的脏,逐个修,不要一刀切删:
+An arrow problem is always some **specific** dirtiness; fix them one by one, do not delete across the board:
 
-| 脏法 | 修法(不删,改路由/布局)|
+| Dirtiness | Fix (do not delete; change routing/layout) |
 |---|---|
-| **绕到背面 / 交叉 / 端口挤一点**(典型:多条线从分散的源**汇聚到一个居中目标**,如 3 个依赖 → Output) | **fan-in 路由**:让 N 条线进入目标**同一条边**(都在上方就都进顶边),沿该边**均匀分布 + 按源的左右顺序排**(左源→左点、右源→右点)→ 不绕不交叉。arch-connect 自动这么做;需要时用 `toSide` 强制统一进同一边(见下) |
-| **跨半页 / 穿内容框** | 让源/目标相邻;或这条关系本就靠位置表达,可不画 |
+| **Routing around the back / crossings / ports crammed at one point** (typical: multiple lines from scattered sources **converging on a single centered target**, like 3 dependencies to Output) | **fan-in routing**: have the N lines enter the **same edge** of the target (if all above, all enter the top edge), **evenly distributed** along that edge **and ordered by the left-right order of the sources** (left source to left point, right source to right point) so they neither route around nor cross. arch-connect does this automatically; when needed, use `toSide` to force them all onto the same edge (see below) |
+| **Crossing half the page / passing through a content box** | make source/target adjacent; or this relationship is already expressed by position, so it can be left undrawn |
 
-**核心:箭头脏 → 用 arch-connect 路由(分布端口 + 排序)修那一条,别动其它正确的箭头。**
+**Core: dirty arrow -> use arch-connect routing (distribute ports + order) to fix that one line, do not touch the other correct arrows.**
 
-## 选工具:按图的性质,不是默认自动
+## Choosing a tool: by the nature of the diagram, not defaulting to automatic
 
-| 图的性质 | 怎么做 |
+| Nature of the diagram | What to do |
 |---|---|
-| **拓扑密集**(服务网格、几十节点的数据流、调用链)——人手摆必出错、必有交叉 | **arch-layout 自动生成**(它的主场:引擎保证不重叠 + 最小交叉)|
-| **海报型 / 注释重**(框少、字多、刻意分区、框内有清单/子项)——如本 skill 自身架构图 | **人工构图**(人来定视觉层级 / 语义分区 / 信息密度);arch-layout 装不下「框内多行内容」,自动布局会把海报压成光秃秃的树 |
+| **Dense topology** (service mesh, data flow with dozens of nodes, call chains) -- manual placement is bound to error and bound to cross | **arch-layout automatic generation** (its home turf: the engine guarantees no overlap + minimal crossings) |
+| **Poster-type / annotation-heavy** (few boxes, lots of text, deliberate zoning, lists/sub-items inside boxes) -- like this skill's own architecture diagram | **manual composition** (the human sets visual hierarchy / semantic zoning / information density); arch-layout cannot hold "multi-line content inside a box", and auto-layout would flatten a poster into a bare tree |
 
-**核心认知**:auto-layout 解决的是「节点多到摆不动」;它**不解决**「少数框 + 大量注释 + 刻意排版」的**表达**问题。后者是品味,是人的判断。**两种情况 lint 都只在最后兜底,兜不出好看。**
+**Core insight**: auto-layout solves "too many nodes to place"; it **does not solve** the **expression** problem of "a few boxes + lots of annotation + deliberate typesetting". The latter is taste, a human judgment. **In both cases lint only serves as a last-step fallback, and a fallback cannot produce good looks.**
 
-## 拓扑密集图的引擎选型(走自动生成时)
+## Engine selection for dense-topology diagrams (when going automatic)
 
-按图的"形状"选,不是按喜好:
+Choose by the "shape" of the diagram, not by preference:
 
-| 图的形状 | 用什么 | 为什么 |
+| Shape of the diagram | Use | Why |
 |---|---|---|
-| **分层架构 / 数据流 / 调用链(DAG)** | **Layered layout**(Sugiyama:分 rank → rank 内排序减交叉 → 带 min-gap 坐标分配)。等价 Graphviz `dot` / dagre / ELK | 同层对齐、层间等距、不重叠、最小交叉 |
-| **规则网格 / 表格 / 泳道** | **Grid / flex 模型** | CSS flex/grid 的坐标版 |
-| **无向拓扑 / 网络 / 关系图** | **力学(force-directed)+ 碰撞约束** | 适合无层级的"网";对分层架构会软且易叠,不如 layered |
+| **Layered architecture / data flow / call chain (DAG)** | **Layered layout** (Sugiyama: assign ranks -> order within rank to reduce crossings -> coordinate assignment with min-gap). Equivalent to Graphviz `dot` / dagre / ELK | same-layer aligned, equal spacing between layers, no overlap, minimal crossings |
+| **Regular grid / table / swimlane** | **Grid / flex model** | the coordinate version of CSS flex/grid |
+| **Undirected topology / network / relationship graph** | **force-directed + collision constraint** | suited to a level-less "web"; for layered architecture it is soft and prone to overlap, inferior to layered |
 
-分层架构默认 **layered**,不要用 force(force 是无向拓扑的解)。**但记住:引擎只给「正确的地板」,给不了「表达的天花板」。**
+For layered architecture, default to **layered**, do not use force (force is the solution for undirected topology). **But remember: the engine only gives the "correct floor", it cannot give the "ceiling of expression".**
 
-### 实现:`arch-layout.mjs`(复用 elkjs)
+### Implementation: `arch-layout.mjs` (reuses elkjs)
 
-已内置。声明组件树,ELK(纯 JS 的 Eclipse Layout Kernel)算 layered + 正交路由 + 复合嵌套,输出 `.excalidraw`:
+Built in. Declare a component tree, ELK (the pure-JS Eclipse Layout Kernel) computes layered + orthogonal routing + compound nesting, and outputs `.excalidraw`:
 
 ```bash
-node scripts/arch-layout.mjs spec.json --out 架构图.excalidraw --direction RIGHT
-node scripts/arch-lint.mjs 架构图.excalidraw          # 兜底,通常 0 error
+node scripts/arch-layout.mjs spec.json --out architecture.excalidraw --direction RIGHT
+node scripts/arch-lint.mjs architecture.excalidraw          # fallback, usually 0 error
 ```
 
 `spec.json`:
 ```json
 {
   "direction": "RIGHT",
-  "groups": [{"id":"data","label":"数据层"}],
+  "groups": [{"id":"data","label":"Data Layer"}],
   "nodes": [
     {"id":"client","label":"Client"},
     {"id":"pg","label":"Postgres","group":"data","color":"#2f9e44","bg":"#b2f2bb"}
@@ -85,93 +85,93 @@ node scripts/arch-lint.mjs 架构图.excalidraw          # 兜底,通常 0 error
 }
 ```
 
-ELK 负责:同层对齐 / 层间等距 / **零重叠** / 最小交叉 / 正交绕线;`group` → 分层背景容器(自动套子节点);边自动 binding 到节点。**实测**:上面的 7 节点示例生成后 `arch-lint` 0 error。
+ELK handles: same-layer alignment / equal spacing between layers / **zero overlap** / minimal crossings / orthogonal routing; `group` becomes a layered background container (automatically wrapping child nodes); edges automatically bind to nodes. **Tested**: after generating the 7-node example above, `arch-lint` reports 0 error.
 
-依赖:`npm install elkjs`(纯 JS,无 native)。仅自动布局时需要。
+Dependency: `npm install elkjs` (pure JS, no native). Needed only for auto-layout.
 
-> **架构图优先走这条**:声明 spec → 生成 → lint。手摆只在小图/微调时用,且必须 lint 兜底。
+> **Prefer this path for architecture diagrams**: declare spec -> generate -> lint. Hand placement is used only for small diagrams / fine-tuning, and must have lint as a fallback.
 
-## lint:最后一步的辅助提示(不是门槛)
+## Lint: a last-step assistive hint (not a gate)
 
-任何 `.excalidraw`,交付**前**跑一遍,**只为抓肉眼容易漏的机械错误**:
+For any `.excalidraw`, run it once **before** delivery, **only to catch mechanical errors the eye easily misses**:
 
 ```bash
 node scripts/arch-lint.mjs <file.excalidraw> [--grid 4] [--colors 4] [--width W --height H] [--json]
 ```
 
-它检测的是「看不见的明显问题」——两个框压了一点点、箭头浮空、差几像素的错位。
-**它检测不了、也不该用来判断**:这张图有没有把系统讲清楚、层级对不对、密度够不够、分区合不合理。那些是人看。
+It detects "invisible obvious problems" -- two boxes overlapping a tiny bit, an arrow floating in space, a misalignment off by a few pixels.
+**It cannot detect, and should not be used to judge**: whether this diagram explains the system clearly, whether the hierarchy is right, whether the density is sufficient, whether the zoning is reasonable. Those are for a human to see.
 
-### 规则集(两个 error = 语义错误,其余 warn = 提示)
+### Rule set (two errors = semantic errors, the rest are warns = hints)
 
-> **error vs warn 的分界 = 会不会改变图的含义**:
-> - **error(功能错误,改含义)**:`overlap` 框撞一起;`wrong-attach-side` 箭头绕到背面 → **流向画反**。读者会读错系统,必解。
-> - **warn(可读性,不改含义)**:`crossings` 交叉、`port-uneven` 挤一起、`diagonal` 斜线……连接本身是对的(binding 没错),只是难读。该改但不致命。
+> **The error vs warn boundary = whether it changes the meaning of the diagram**:
+> - **error (functional error, changes meaning)**: `overlap` boxes colliding; `wrong-attach-side` arrow routing around the back -> **flow drawn backwards**. The reader will misread the system, must be fixed.
+> - **warn (readability, does not change meaning)**: `crossings`, `port-uneven` crammed together, `diagonal` diagonal lines... the connection itself is correct (binding is not wrong), just hard to read. Should be fixed but not fatal.
 >
-> 判断一个箭头问题是不是必解 error:**问"它有没有把连接/方向画成另一个意思"**。画反/连错 = error;只是绕/挤/斜 = warn。
-> ⚠️ 注:可读性 warn 里,**"可消除的"**(如端口顺序反导致的 crossings)仍应修;真正"不可避免的"(密集图的少量交叉)可放过。
+> To judge whether an arrow problem is a must-fix error: **ask "does it draw the connection/direction as a different meaning?"** Drawn backwards / connected wrong = error; merely routing around / crammed / diagonal = warn.
+> Note: among readability warns, the **"eliminable"** ones (such as crossings caused by reversed port order) should still be fixed; the truly "unavoidable" ones (a few crossings in a dense diagram) can be let go.
 
-| 规则 | 级别 | 检测什么 | 物理判据 |
+| Rule | Level | Detects what | Physical criterion |
 |---|---|---|---|
-| **overlap** | error | 节点-节点**部分重叠**(互不包含却相交)= 摆放 bug | 两 bbox 相交面积 > 0 且 `!contains(A,B) && !contains(B,A)` |
-| **wrong-attach-side** | **error** | 连线接到「**背向对端**」的那条边 = 绕到节点背面,**把数据流方向画反**(正交化最容易引入,比斜线严重)| 实际接入边 = `opposite(面向对端的边)` |
-| **edge-overshoot** | warn | 连线路径越过目标框远侧再绕回(过冲)| 路径有点超过目标 bbox 远侧 > 8px |
-| **crossings** | warn | 两条连线交叉(可读性↓;多为"端口顺序反",可消除)| 线段对真相交 |
-| **arrow-thru** | warn | 箭头穿过它没绑定的节点(线压过框)| 线段 × 节点矩形相交(Liang–Barsky);排除容器 |
-| **arrow-unbound** | warn | 箭头端点未 binding(浮空,改布局会脱节)| `!startBinding && !endBinding` |
-| **offgrid** | warn | x/y 没吸附网格 | `x % grid || y % grid` |
-| **near-align** | warn | 两节点边/中线**几乎对齐但没对齐**(最丑的错位)| 边/中线值之差 ∈ (0.5, 6]px |
-| **uneven-gap** | warn | 同行/列相邻节点间距不均(规划中)| 间距方差 > 阈值 |
-| **diagonal** | warn | 连线含斜线段(架构图应横平竖直 + 直角拐弯,不用斜线)| 某段 `|dx|>2 && |dy|>2` |
-| **port-stacked** | warn | 同一条边上多条连线挤在同一点(质量不平衡)| 同侧端口间距 < 6px |
-| **port-uneven** | warn | 同侧多个连接点分布不均(应等距)| 端口间隙 max/min > 3.5 |
-| **port-offcenter** | warn | 某侧仅一条边却不接在中点 | 偏离中点 > max(18, 边长·20%) |
-| **port-corner** | warn | 连接点贴在框角(应留边距)| 距角 < 8px |
-| **container-padding** | warn | 容器内子模块**贴边**(缺内边距,常见"无底部 padding")| `容器边 − 子模块包围盒边 < minPad`(默认 12) |
-| **color-budget** | warn | 去重描边+填充色 > 阈值 | `distinctColors > N`(默认 4,反 slop) |
-| **oob** | warn | 元素超出画布 | bbox 越过 0..W / 0..H |
+| **overlap** | error | node-node **partial overlap** (neither contains the other yet they intersect) = placement bug | the two bboxes intersect with area > 0 and `!contains(A,B) && !contains(B,A)` |
+| **wrong-attach-side** | **error** | line attaches to the edge "**facing away from the far end**" = routing around the back of the node, **drawing the data flow direction backwards** (most easily introduced by orthogonalization, worse than a diagonal) | actual attach edge = `opposite(the edge facing the far end)` |
+| **edge-overshoot** | warn | the line path overshoots the far side of the target box and loops back (overshoot) | the path has a point exceeding the far side of the target bbox > 8px |
+| **crossings** | warn | two lines cross (readability down; mostly "reversed port order", eliminable) | line-segment pair truly intersects |
+| **arrow-thru** | warn | an arrow passes through a node it is not bound to (line cuts across the box) | line segment intersects node rectangle (Liang-Barsky); containers excluded |
+| **arrow-unbound** | warn | arrow endpoint not bound (floating, will detach when layout changes) | `!startBinding && !endBinding` |
+| **offgrid** | warn | x/y not snapped to the grid | `x % grid || y % grid` |
+| **near-align** | warn | two nodes' edges/centerlines are **almost aligned but not aligned** (the ugliest misalignment) | difference of edge/centerline values is in (0.5, 6]px |
+| **uneven-gap** | warn | uneven spacing between adjacent nodes in the same row/column (planned) | spacing variance > threshold |
+| **diagonal** | warn | the line contains a diagonal segment (architecture diagrams should be horizontal/vertical + right-angle turns, no diagonals) | some segment has `|dx|>2 && |dy|>2` |
+| **port-stacked** | warn | multiple lines on the same edge crammed at the same point (mass imbalance) | port spacing on the same side < 6px |
+| **port-uneven** | warn | multiple connection points on the same side unevenly distributed (should be equidistant) | port gap max/min > 3.5 |
+| **port-offcenter** | warn | a side has only one edge yet it does not attach at the midpoint | offset from midpoint > max(18, edge length times 20%) |
+| **port-corner** | warn | a connection point sticks to the box corner (should leave a margin) | distance to corner < 8px |
+| **container-padding** | warn | a child module inside a container **sticks to the edge** (missing inner padding, the common "no bottom padding") | `container edge - child module bounding-box edge < minPad` (default 12) |
+| **color-budget** | warn | deduplicated stroke + fill colors > threshold | `distinctColors > N` (default 4, anti-slop) |
+| **oob** | warn | element exceeds the canvas | bbox crosses 0..W / 0..H |
 
-### 连线 & 连接点的美学(物理判据)
+### Aesthetics of lines and connection points (physical criteria)
 
-这几条把"连线/接点该怎么接"的成熟惯例落成几何检查——**手工构图时最容易漏,正是 lint 的用武之地**(自动布局引擎 ELK 本就满足这些)。
+These rules turn the mature conventions of "how a line/connection point should attach" into geometric checks -- **most easily missed during manual composition, which is exactly where lint earns its keep** (the auto-layout engine ELK satisfies these inherently).
 
-- **连线正交**:技术图的连线走横平竖直 + 直角拐弯,不用斜线。斜线读起来"面条/随意",正交读起来"工程化"(和隐含网格对齐、平行段成组、交叉是干净 90°)。→ `diagonal`
-- **连接点的"质量分布"**(你可以理解成重力/平衡):
-  - **朝向(现为 error 级 `wrong-attach-side`)**:边从**面向对方的那条边**出入(上下:父出底、子入顶;左右:出右入左)。**接到正对面那条边 = 绕到背面、流向画反**——这是把斜线"修正交"时最容易引入的反效果:线绕过目标框、从背面扎进去。**它比斜线严重一个量级**(斜线只是丑,这个是错),所以判为 error。修法:让连线从"面向源"的那条边、正交直连进去,别绕过框。
-  - **居中**:某条边只接一条线 → 接在**中点**(对称不偏重)。→ `port-offcenter`
-  - **均匀分布**:同条边接多条线 → 沿边**等距铺开**,别挤中间、别堆一点、别贴角。均匀 = 质量平衡,框不"倾斜"。→ `port-stacked` / `port-uneven` / `port-corner`
-  - **质心(barycenter)**:父节点应水平居中于其所有子节点的中心(Sugiyama/Reingold-Tilford 的"父在子重心"规则)。这条目前靠布局引擎保证,lint 暂不强测。
-- 这些都是 **warn 级提示**:大多数情况该听,但海报型图偶有故意破例,人判断。
+- **Line orthogonality**: lines in technical diagrams go horizontal/vertical + right-angle turns, no diagonals. Diagonals read as "noodle/casual", orthogonal reads as "engineered" (aligned with the implicit grid, parallel segments grouped, crossings are clean 90 degrees). -> `diagonal`
+- **"Mass distribution" of connection points** (you can think of it as gravity/balance):
+  - **Orientation (now error-level `wrong-attach-side`)**: the line enters/exits from **the edge facing the other party** (top-bottom: parent exits the bottom, child enters the top; left-right: exit right, enter left). **Attaching to the directly opposite edge = routing around the back, flow drawn backwards** -- this is the counterproductive effect most easily introduced when "fixing a diagonal to orthogonal": the line routes around the target box and stabs in from the back. **It is an order of magnitude worse than a diagonal** (a diagonal is just ugly, this is wrong), so it is rated error. Fix: have the line connect orthogonally and directly from the edge "facing the source", do not route around the box.
+  - **Centered**: an edge with only one line attached -> attach at the **midpoint** (symmetric, not weighted). -> `port-offcenter`
+  - **Even distribution**: an edge with multiple lines attached -> spread **equidistantly** along the edge, do not cram in the middle, do not pile at one point, do not stick to the corner. Even = mass balance, the box does not "tilt". -> `port-stacked` / `port-uneven` / `port-corner`
+  - **Barycenter**: a parent node should be horizontally centered on the center of all its child nodes (the "parent at children's barycenter" rule of Sugiyama/Reingold-Tilford). This is currently guaranteed by the layout engine; lint does not strictly test it for now.
+- These are all **warn-level hints**: in most cases you should listen, but poster-type diagrams occasionally break the rule deliberately -- human judgment.
 
-### 间距:padding & margin 都是坐标差(可检测)
+### Spacing: padding and margin are both coordinate differences (detectable)
 
-**margin/padding 不是抽象审美,就是绝对坐标的减法**,所以 lint 能直接算:
+**margin/padding are not abstract aesthetics, they are subtraction of absolute coordinates**, so lint can compute them directly:
 
-- **内边距 padding = 容器边 − 子模块包围盒边**:`下padding = 容器.y2 − max(子.y2)`。子模块贴容器边(如常见的"有顶部留标题、却无底部 padding")→ `container-padding`。判据 `padding < minPad`。报错会列出**四边数值**(如 `上40/右20/下2/左20`),一眼看出头重脚轻。
-- **外边距 margin = 相邻兄弟框的间隙**:`gap = 右框.x − 左框.x2`。同组兄弟 gap 应一致(规划中的 `uneven-gap`)。
-- **经验值**:容器内边距 ≥ 12–16px(留标题的那条边可更大);同层兄弟 gap 取一个固定节奏值(如 40)。这些都是布局参数,生成时设好;手工图靠 lint 兜底。
+- **inner padding = container edge - child module bounding-box edge**: `bottom padding = container.y2 - max(child.y2)`. A child module sticking to the container edge (such as the common "leaves top room for a title but has no bottom padding") -> `container-padding`. Criterion `padding < minPad`. The error lists the **values for all four sides** (such as `top40/right20/bottom2/left20`), making top-heaviness obvious at a glance.
+- **outer margin = the gap between adjacent sibling boxes**: `gap = right box.x - left box.x2`. Siblings in the same group should have consistent gap (the planned `uneven-gap`).
+- **Rules of thumb**: container inner padding >= 12-16px (the side leaving room for a title can be larger); same-layer sibling gap takes a fixed rhythm value (such as 40). These are all layout parameters, set them at generation time; manual diagrams rely on lint as a fallback.
 
-### 关键设计
+### Key design
 
-- **容器识别**:完整包住 ≥1 个其它节点的框 = 容器(分层背景/泳道)。容器**不参与** overlap 误报(它本就包孩子)、不参与 arrow-thru(箭头穿过分层背景合法)。
-- **overlap 区分包含 vs 部分相交**:节点在容器内 = 合法;两个 peer 部分重叠 = bug。只报后者。
-- **near-align 是启发式**:对"居中排列、宽度不一"的图标行,左边缘会有 1-6px 差(它们中线齐而非边齐),属可接受噪音,人判断。
+- **Container recognition**: a box that fully encloses >= 1 other node = container (layered background / swimlane). A container **does not participate** in overlap false positives (it inherently contains children), and does not participate in arrow-thru (an arrow passing through a layered background is legal).
+- **overlap distinguishes containment vs partial intersection**: a node inside a container = legal; two peers partially overlapping = bug. Only the latter is reported.
+- **near-align is heuristic**: for diagrams of "centered, varying-width" icon rows, the left edges will differ by 1-6px (their centerlines align rather than edges), which is acceptable noise -- human judgment.
 
-## 怎么用(辅助提示,不是闭环优化)
+## How to use it (an assistive hint, not closed-loop optimization)
 
 ```
-交付前跑一遍:
-  node scripts/arch-lint.mjs 图.excalidraw
-  ├─ overlap error → 大概率是真重叠,去看一眼那个坐标,确认后修
-  └─ warn → 当提示参考,人判断要不要管(很多对海报型图是误报/无所谓)
+Run once before delivery:
+  node scripts/arch-lint.mjs diagram.excalidraw
+  |- overlap error -> most likely a real overlap; go look at that coordinate, confirm, then fix
+  |- warn -> treat as a reference hint, human judgment on whether to act (many are false positives / irrelevant for poster-type diagrams)
 ```
 
-**绝不要为了「lint 全绿」去改图**——尤其别为了消 warn 而牺牲信息密度/分区/层级。
-lint 报警 ≠ 图差;lint 全绿 ≠ 图好。它只是帮你别漏掉「看不见的明显重叠」。
+**Never change a diagram for the sake of "lint all green"** -- especially do not sacrifice information density / zoning / hierarchy just to clear warns.
+Lint warning does not mean the diagram is bad; lint all green does not mean the diagram is good. It only helps you not miss an "invisible obvious overlap".
 
-> 接在工作流第 7 步「验证」:lint 是**交付前最后一道辅助扫描**,和「自己肉眼再过一遍」并列,不替代后者,更不是质量门槛。
+> Attaches at step 7 "Verify" of the workflow: lint is the **last assistive scan before delivery**, on par with "review it once more with your own eyes", not a replacement for the latter, and certainly not a quality gate.
 
-## 实测:它擅长什么(也仅限于此)
+## Tested: what it is good at (and only that)
 
-`arch-lint` 在本 skill 手摆架构图上抓到 1 处真实 overlap(r02/r21 ~13%)、在 NBA bracket 抓到中心卡片与冠军 logo 的 14% 重叠——**这类「肉眼会漏的明显重叠」正是它的价值**。
-但同一张手摆图,人看下来「信息密集、分区清晰、是张好海报」;lint 却报一堆 warn。**这恰好说明 lint 测的不是好坏**——别把它当裁判。
+`arch-lint` caught 1 real overlap on this skill's hand-placed architecture diagram (r02/r21 ~13%), and caught a 14% overlap between the center card and the champion logo in an NBA bracket -- **this kind of "obvious overlap the eye would miss" is exactly its value**.
+But for the same hand-placed diagram, a human looking at it finds it "information-dense, clearly zoned, a good poster"; lint, however, reports a pile of warns. **This precisely shows that lint does not measure good versus bad** -- do not treat it as a referee.

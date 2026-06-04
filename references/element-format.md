@@ -1,11 +1,11 @@
-# Excalidraw 元素格式 · 离线参考
+# Excalidraw Element Format · Offline Reference
 
-> 这是 Excalidraw MCP `read_me` 的离线备份版,确保 MCP 不可用时也能按规格画。
-> 用 `create_view` 前若 MCP 可用,**优先实时调 `read_me`**(可能含最新调色板/示例)。
+> This is an offline backup of the Excalidraw MCP `read_me`, ensuring you can draw to spec even when the MCP is unavailable.
+> Before using `create_view`, if the MCP is available, prefer calling `read_me` live (it may contain the latest palette/examples).
 
-## 一个元素的通用字段
+## Common fields of an element
 
-每个 Excalidraw 元素是一个 JSON 对象。最小可用字段:
+Every Excalidraw element is a JSON object. The minimal usable fields:
 
 ```json
 {
@@ -22,28 +22,28 @@
 }
 ```
 
-完整字段(create_view 通常会补默认值,但显式写更可控):
+Full fields (create_view usually fills in defaults, but writing them explicitly gives more control):
 
-| 字段 | 说明 | 常用值 |
+| Field | Description | Common values |
 |---|---|---|
-| `type` | 元素类型 | `rectangle` `ellipse` `diamond` `arrow` `line` `text` `freedraw` `frame` `image` |
-| `x` `y` | 左上角坐标(画布像素) | 吸附到 20 的倍数(网格) |
-| `width` `height` | 尺寸 | — |
-| `angle` | 旋转弧度 | 默认 0 |
-| `strokeColor` | 描边色 | 见调色板 |
-| `backgroundColor` | 填充色 | `transparent` 或调色板 |
-| `fillStyle` | 填充样式 | `solid` `hachure`(斜线) `cross-hatch` |
-| `strokeWidth` | 线宽 | `1`(细) `2`(中) `4`(粗) |
-| `strokeStyle` | 线型 | `solid` `dashed` `dotted` |
-| `roughness` | 手绘抖动度 | `0`(近直) `1`(默认) `2`(很抖) |
-| `roundness` | 圆角 | `{"type":3}` 圆角 / `null` 直角 |
-| `opacity` | 不透明度 | 0–100 |
-| `strokeSharpness` | 旧版圆角字段 | `sharp` / `round`(老格式) |
-| `seed` | 手绘随机种子 | 任意整数,决定抖动形状(同 seed = 同形状;重画/复用时固定它形状才稳定) |
-| `groupIds` | 分组 id 数组 | 同组元素一起移动 |
-| `boundElements` | 绑定的子元素(如框上的文字、连到框的箭头) | `[{"type":"text","id":"..."},{"type":"arrow","id":"..."}]` |
+| `type` | Element type | `rectangle` `ellipse` `diamond` `arrow` `line` `text` `freedraw` `frame` `image` |
+| `x` `y` | Top-left coordinate (canvas pixels) | Snap to multiples of 20 (grid) |
+| `width` `height` | Size | — |
+| `angle` | Rotation in radians | Default 0 |
+| `strokeColor` | Stroke color | See palette |
+| `backgroundColor` | Fill color | `transparent` or palette |
+| `fillStyle` | Fill style | `solid` `hachure` (diagonal lines) `cross-hatch` |
+| `strokeWidth` | Line width | `1` (thin) `2` (medium) `4` (thick) |
+| `strokeStyle` | Line style | `solid` `dashed` `dotted` |
+| `roughness` | Hand-drawn jitter level | `0` (near straight) `1` (default) `2` (very jittery) |
+| `roundness` | Rounded corners | `{"type":3}` rounded / `null` square |
+| `opacity` | Opacity | 0-100 |
+| `strokeSharpness` | Legacy corner field | `sharp` / `round` (old format) |
+| `seed` | Hand-drawn random seed | Any integer, determines jitter shape (same seed = same shape; fix it when redrawing/reusing so the shape stays stable) |
+| `groupIds` | Array of group ids | Elements in the same group move together |
+| `boundElements` | Bound child elements (e.g. text on a box, an arrow connected to a box) | `[{"type":"text","id":"..."},{"type":"arrow","id":"..."}]` |
 
-## 文字元素(text)
+## Text element (text)
 
 ```json
 {
@@ -57,11 +57,11 @@
 }
 ```
 
-- `fontFamily`: `1` = Virgil(手绘体,默认) · `2` = Normal(Helvetica,正式) · `3` = Code(等宽,技术图)
-- `fontSize`: 16(S) / 20(M,默认) / 28(L) / 36(XL)
-- **容器内文字**:要让文字居中在框里,把 text 元素的 `containerId` 指向框 id,并在框的 `boundElements` 里登记该 text。
+- `fontFamily`: `1` = Virgil (hand-drawn font, default) · `2` = Normal (Helvetica, formal) · `3` = Code (monospace, technical diagrams)
+- `fontSize`: 16 (S) / 20 (M, default) / 28 (L) / 36 (XL)
+- Text inside a container: to center text within a box, point the text element's `containerId` at the box id, and register that text in the box's `boundElements`.
 
-## 箭头 / 连线(arrow / line)
+## Arrow / line (arrow / line)
 
 ```json
 {
@@ -76,46 +76,46 @@
 }
 ```
 
-- `points`: 相对 `x,y` 的折线点数组。直线两点,折线多点。
-- `startBinding`/`endBinding`: **绑定到框**——框移动时箭头自动跟随。`elementId` 指向框 id;被绑的框要在其 `boundElements` 里登记这条箭头。**架构图的连线一定要 binding**,否则改布局时线会脱节。
-- `endArrowhead`: `arrow` `triangle` `dot` `bar` `null`。
-- 数据流方向 = 箭头方向,**全图保持一致**(左→右 或 上→下)。
+- `points`: an array of polyline points relative to `x,y`. Two points for a straight line, multiple points for a polyline.
+- `startBinding`/`endBinding`: binding to a box -- the arrow follows automatically when the box moves. `elementId` points at the box id; the bound box must register this arrow in its `boundElements`. Connections in architecture diagrams must always use binding, otherwise the line detaches when you change the layout.
+- `endArrowhead`: `arrow` `triangle` `dot` `bar` `null`.
+- Data flow direction = arrow direction, kept consistent across the whole diagram (left to right or top to bottom).
 
-## 调色板(克制!全图 ≤ 4 色)
+## Palette (be restrained! whole diagram <= 4 colors)
 
-Excalidraw 官方手绘色板(描边用):
+Excalidraw's official hand-drawn palette (for stroke):
 
-| 语义 | 色值 | 用途 |
+| Semantics | Value | Use |
 |---|---|---|
-| Ink(主) | `#1e1e1e` | 默认描边、文字、主体框 |
-| Gray | `#868e96` | 次要/弱化元素、辅助说明 |
-| Red | `#e03131` | 错误流、告警、删除 |
-| Green | `#2f9e44` | 成功流、新增、健康 |
-| Blue | `#1971c2` | 主数据流、链接、强调一类 |
-| Orange | `#f08c00` | 强调二类、外部依赖 |
-| Violet | `#7048e8` | 强调三类(慎用) |
+| Ink (primary) | `#1e1e1e` | Default stroke, text, main bodies/boxes |
+| Gray | `#868e96` | Secondary/de-emphasized elements, supporting notes |
+| Red | `#e03131` | Error flows, alerts, deletion |
+| Green | `#2f9e44` | Success flows, additions, healthy |
+| Blue | `#1971c2` | Primary data flow, links, emphasis category one |
+| Orange | `#f08c00` | Emphasis category two, external dependencies |
+| Violet | `#7048e8` | Emphasis category three (use sparingly) |
 
-填充背景用浅色版(低饱和):`#ffec99`(黄)`#b2f2bb`(绿)`#a5d8ff`(蓝)`#ffc9c9`(红)`#eaddd7`(米)`transparent`。
+For fill backgrounds use light, low-saturation variants: `#ffec99` (yellow) `#b2f2bb` (green) `#a5d8ff` (blue) `#ffc9c9` (red) `#eaddd7` (beige) `transparent`.
 
-**纪律**:颜色**编码语义**(同类服务同色),不是装饰。一张图主体 `#1e1e1e`,最多再用 2-3 个色区分类别。详见 `color-system.md`。
+Rule: colors encode semantics (same category of service = same color), they are not decoration. A single diagram is mostly `#1e1e1e`, with at most 2-3 additional colors to distinguish categories. See `color-system.md` for details.
 
-## create_view 输入
+## create_view input
 
-`create_view` 的 `elements` 参数 = 上述元素对象数组的 **JSON 字符串**。要求:
-- 合法 JSON:无注释、无尾逗号、紧凑
-- 每个元素至少有 `type` `x` `y`(+ 形状的 `width`/`height`,文字的 `text`,箭头的 `points`)
-- id 自己生成(短字符串即可),binding 双向登记
+The `elements` parameter of `create_view` = a JSON string of the array of element objects above. Requirements:
+- Valid JSON: no comments, no trailing commas, compact
+- Each element has at least `type` `x` `y` (plus `width`/`height` for shapes, `text` for text, `points` for arrows)
+- Generate ids yourself (a short string is fine), register bindings in both directions
 
-## 直接产 .excalidraw 文件(MCP 不可用时)
+## Producing a .excalidraw file directly (when MCP is unavailable)
 
 ```json
 {
   "type": "excalidraw",
   "version": 2,
   "source": "excali-design",
-  "elements": [ /* 同上元素数组 */ ],
+  "elements": [ /* same element array as above */ ],
   "appState": { "viewBackgroundColor": "#ffffff", "gridSize": 20 }
 }
 ```
 
-写成 `xxx.excalidraw` 文件,用户拖进 excalidraw.com 即可打开。
+Write it as an `xxx.excalidraw` file; the user can drag it into excalidraw.com to open it.

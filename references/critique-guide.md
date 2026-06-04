@@ -1,24 +1,24 @@
-# 设计评审(可选)
+# Design review (optional)
 
-> 用户提「评审」「这图好不好」「review」「打分」,或你想主动质检时用。评图不评人。
+> Use when the user says "review," "is this diagram good," "review," "score," or when you want to proactively quality-check. Review the diagram, not the person.
 
-## 5 维度评分(各 0-10)
+## 5-dimension scoring (each 0-10)
 
-1. **结构清晰度**:边界/分层/分组是否一眼读懂?数据流是否单向无面条?
-2. **信息准确性**:对照 `system-facts.md`/参照,服务/依赖/流程是否正确无误导?
-3. **视觉层级**:主角是否突出?次要是否弱化?对齐/留白是否到位?
-4. **复用与一致**:是否复用 drawlib?手绘度/字体/配色是否全图一致?
-5. **克制度(反 slop)**:配色 ≤ 4 色?无彩虹/面条/装饰图标/假数据?
+1. **Structural clarity**: are the boundaries/layering/grouping read at a glance? Is the data flow unidirectional with no noodles?
+2. **Information accuracy**: cross-checked against `system-facts.md`/reference, are the services/dependencies/flows correct and not misleading?
+3. **Visual hierarchy**: is the protagonist prominent? Is the secondary de-emphasized? Is the alignment/whitespace in place?
+4. **Reuse and consistency**: is drawlib reused? Are the hand-drawn degree/font/palette consistent across the whole diagram?
+5. **Restraint (anti-slop)**: palette <= 4 colors? No rainbow/noodles/decorative icons/fake data?
 
-## 输出格式
+## Output format
 
-- **总评** + 每维度分数 + 一句理由
-- **Keep**:做得好的(具体)
-- **Fix**:按严重程度 ⚠️致命(误导/读不懂)/ ⚡重要(层级乱/不对齐)/ 💡优化(配色/手绘度)
-- **Quick Wins**:5 分钟能改的前 3 件
+- **Overall verdict** + score per dimension + a one-line rationale
+- **Keep**: what is done well (specific)
+- **Fix**: by severity, Critical (misleading/unreadable) / Important (messy hierarchy/misaligned) / Optimization (palette/hand-drawn degree)
+- **Quick Wins**: the top 3 things fixable in 5 minutes
 
-## 致命项(直接判不合格)
+## Critical items (immediate fail)
 
-- 架构图与真实结构矛盾(误导决策)
-- 数据流方向混乱看不出流向
-- 图比它要解释的系统还难懂
+- Architecture diagram contradicts the real structure (misleading decisions)
+- Data flow direction is chaotic and the flow cannot be discerned
+- The diagram is harder to understand than the system it is meant to explain

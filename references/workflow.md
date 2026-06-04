@@ -1,30 +1,30 @@
-# 开工前:问问题 / 定方向
+# Before starting: ask questions / set direction
 
-## 必问清单(一次性发,等批量答)
+## Must-ask checklist (send all at once, wait for batched answers)
 
-**通用**:
-1. 有现成参照吗?(原型:截图/Figma/design system;架构:代码库/现有架构图/技术栈)
-2. 要几个变体?在哪个维度变?
-3. 要不要导出 PNG/SVG(贴文档/PPT),还是只要 `.excalidraw` 源?
+**General**:
+1. Is there an existing reference? (prototype: screenshot/Figma/design system; architecture: codebase/existing architecture diagram/tech stack)
+2. How many variants? On which dimension do they vary?
+3. Do you need a PNG/SVG export (to paste into a doc/PPT), or just the `.excalidraw` source?
 
-**原型专属**:
-4. lo-fi 草图还是 mid-fi?
-5. 单屏还是多屏流程?多屏要 overview 平铺还是 flow 串联?
-6. 关心布局 / 文案 / 交互流程哪个?
+**Prototype-specific**:
+4. lo-fi sketch or mid-fi?
+5. Single screen or multi-screen flow? For multi-screen, overview tiling or flow chaining?
+6. Which do you care about: layout / copy / interaction flow?
 
-**架构专属**:
-4. 抽象层级:Context / Container / Component / 部署?
-5. 画真实系统(给我代码/文档)还是设计中的新系统?
-6. 阅读方向:数据流(左→右)还是分层(上→下)?
+**Architecture-specific**:
+4. Abstraction level: Context / Container / Component / deployment?
+5. Drawing a real system (give me code/docs) or a new system in design?
+6. Reading direction: data flow (left to right) or layered (top to bottom)?
 
-## 模糊需求 → 给方向二选一
+## Vague requirements -> give a direction to choose between
 
-不要一上来问 10 个问题。先列 2-3 个差异化方向让用户选:
-- 「你要的架构图是:① 容器级(服务+DB+队列)② 部署拓扑(云资源)③ 数据流(一个请求怎么走)?」
-- 「原型是:① 单屏布局探讨 ② 多屏流程演示 ③ Dashboard 数据页?」
+Do not open by asking 10 questions. First list 2-3 differentiated directions for the user to choose from:
+- "The architecture diagram you want is: (1) container level (services + DB + queue) (2) deployment topology (cloud resources) (3) data flow (how one request travels)?"
+- "The prototype is: (1) single-screen layout exploration (2) multi-screen flow demo (3) Dashboard data page?"
 
-选定后再进对应 workflow。
+Once chosen, enter the corresponding workflow.
 
-## 检查点
+## Checkpoint
 
-🛑 问题一次性发,等用户批量答完再动手。不要边问边画。
+Note: send the questions all at once, wait until the user has answered them in a batch, then start. Do not ask and draw at the same time.

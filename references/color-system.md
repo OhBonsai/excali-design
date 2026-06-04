@@ -1,29 +1,29 @@
-# 配色纪律
+# Color discipline
 
-> 一句话:**颜色编码语义,不做装饰。全图 ≤ 3-4 色,主体黑灰。**
+> In one sentence: **color encodes semantics, not decoration. The whole diagram <= 3-4 colors, body in black/gray.**
 
-## 基本盘
+## Baseline
 
-- 主体:描边 `#1e1e1e`(ink),背景 `transparent`/白
-- 弱化:`#868e96`(gray)给次要/禁用/辅助
-- 一个 accent 贯穿「主角」(主操作 / 主数据流 / 当前选中)
+- Body: stroke `#1e1e1e` (ink), background `transparent`/white
+- De-emphasis: `#868e96` (gray) for secondary/disabled/auxiliary
+- One accent running through the "protagonist" (primary action / main data flow / current selection)
 
-## 语义色板(只在表达语义时用)
+## Semantic palette (use only when expressing semantics)
 
-| 语义 | 描边 | 浅填充 |
+| Semantic | Stroke | Light fill |
 |---|---|---|
-| 主链路/强调 | `#1971c2` 蓝 | `#a5d8ff` |
-| 成功/新增/健康 | `#2f9e44` 绿 | `#b2f2bb` |
-| 错误/告警/降级 | `#e03131` 红 | `#ffc9c9` |
-| 外部依赖/次强调 | `#f08c00` 橙 | `#ffec99` |
+| Main path/emphasis | `#1971c2` blue | `#a5d8ff` |
+| Success/added/healthy | `#2f9e44` green | `#b2f2bb` |
+| Error/alert/degraded | `#e03131` red | `#ffc9c9` |
+| External dependency/secondary emphasis | `#f08c00` orange | `#ffec99` |
 
-## 编码规则
+## Encoding rules
 
-- **按类别分色**(架构:前端/后端/数据/外部 各一色),不是按好看
-- 一张图先确定「色 = 什么含义」,写进图角的小图例(legend),再上色
-- 背景分层用极浅填充(`#f1f3f5` 灰 / 浅米),不抢节点
-- 禁:每个元素一个色、渐变、霓虹、为了「丰富」而加色
+- **Color by category** (architecture: frontend/backend/data/external each one color), not by what looks nice
+- For a given diagram, first decide "color = what meaning," write it into a small legend in the corner of the diagram, then apply colors
+- Use very light fills for background layering (`#f1f3f5` gray / light beige), so it does not compete with the nodes
+- Avoid: one color per element, gradients, neon, adding color for the sake of "richness"
 
-## 自检
+## Self-check
 
-加一个颜色前问:**这个颜色编码了什么信息?** 答不上 → 不加,用黑灰。
+Before adding a color, ask: **what information does this color encode?** If you cannot answer -> do not add it, use black/gray.

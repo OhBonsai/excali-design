@@ -1,27 +1,27 @@
-# 交付前验证
+# Verification before delivery
 
-## 静态图自检清单
+## Static diagram self-check list
 
-- [ ] **🛑 眯眼测试(必做,不可跳)**:导出 PNG 后重度模糊/缩小再看——分层、焦点、分组在模糊下还认得出吗?读起来是手绘图不是 web 截图吗?有"条形码/面条"噪音区吗?汇报时必须说眯眼结果
-- [ ] **架构图:箭头做减法**——只剩入口主干 + 一条核心 hero,无叠加箭头;其余依赖靠分层+留白+注释(见 anti-slop.md)
-- [ ] 元素无意外重叠 / 遮挡
-- [ ] 所有元素吸附 20px 网格,同层对齐
-- [ ] 箭头都 `binding` 到节点(改布局不脱节)
-- [ ] 数据流方向一致(全图左→右 或 上→下)
-- [ ] 配色 ≤ 3-4 色,语义化(有 legend)
-- [ ] drawlib 组件平移后无变形、无撞 id
-- [ ] 复用组件 id 重新生成过
-- [ ] placeholder 都是诚实的(无编造数据)
-- [ ] 架构图:对照 `system-facts.md` 逐条核对(服务全/方向对/无漏边)
-- [ ] 抽象层级单一(没混下钻细节)
+- [ ] **Squint test (mandatory, do not skip)**: after exporting the PNG, heavily blur/shrink it and look again -- under blur, can you still recognize the layering, the focus, the grouping? Does it read as a hand-drawn diagram rather than a web screenshot? Is there a "barcode/noodle" noise zone? You must report the squint result when reporting.
+- [ ] **Architecture diagram: subtract arrows** -- keep only the entry trunk + one core hero, no stacked arrows; express the rest of the dependencies via layering + whitespace + notes (see anti-slop.md)
+- [ ] No accidental overlap / occlusion between elements
+- [ ] All elements snapped to the 20px grid, aligned within a layer
+- [ ] Arrows are all `binding`ed to nodes (do not detach when the layout changes)
+- [ ] Data flow direction is consistent (whole diagram left to right or top to bottom)
+- [ ] Palette <= 3-4 colors, semantic (has a legend)
+- [ ] drawlib components have no distortion and no id collision after translation
+- [ ] Reused component ids have been regenerated
+- [ ] Placeholders are all honest (no fabricated data)
+- [ ] Architecture diagram: cross-check item by item against `system-facts.md` (all services present / directions correct / no missing edges)
+- [ ] Single abstraction level (no mixing in drill-down details)
 
-## 怎么验证
+## How to verify
 
-- **MCP 可用**:create_view 渲染后肉眼过一遍,或截图
-- **MCP 不可用**:产出 `.excalidraw` 文件,导入 excalidraw.com 检查;或 `node scripts/excalidraw-to-image.mjs 图.excalidraw --png` 导出 PNG 肉眼过
-- **程序化·结构**:`scripts/verify.mjs` 对 `.excalidraw` 做结构检查(id 唯一、binding 双向)
-- **程序化·辅助扫描(非门槛)**:`node scripts/arch-lint.mjs <图.excalidraw>`——只抓肉眼易漏的「明显重叠/脱节」机械错误。**不是质量门槛、不是优化目标**:测不了图好不好、讲清楚没;别为 lint 全绿去改图(Goodhart)。报警 ≠ 图差,全绿 ≠ 图好。仍以肉眼为准。详见 `references/arch-lint.md`
+- **MCP available**: render with create_view and eyeball it once, or screenshot
+- **MCP unavailable**: produce the `.excalidraw` file, import into excalidraw.com to check; or `node scripts/excalidraw-to-image.mjs diagram.excalidraw --png` to export a PNG and eyeball it
+- **Programmatic - structure**: `scripts/verify.mjs` does a structural check on the `.excalidraw` (unique ids, bidirectional binding)
+- **Programmatic - assisting scan (not a gate)**: `node scripts/arch-lint.mjs <diagram.excalidraw>` -- catches only the mechanical "obvious overlap/detachment" errors that the eye easily misses. **It is not a quality gate and not an optimization target**: it cannot measure whether the diagram is good or clearly communicated; do not modify the diagram just to get lint all-green (Goodhart). An alert != a bad diagram, all-green != a good diagram. The eye remains the standard. See `references/arch-lint.md` for details.
 
-## 检查点
+## Checkpoint
 
-🛑 交付前自己过一遍。AI 生成的元素常有重叠/脱节/撞色,不过一遍必有 bug。
+Note: go through it yourself once before delivery. AI-generated elements often have overlap/detachment/color collisions; if you do not go through it once there will surely be bugs.

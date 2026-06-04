@@ -1,47 +1,47 @@
-# 反「手绘图 AI slop」
+# Anti "hand-drawn AI slop"
 
-> Excalidraw 也有自己的「视觉最大公约数」。反 slop 不是审美洁癖,是替用户保护**图的可读性**和**专业感**。
-> 逻辑同 huashu-design:AI 默认产出 = 训练语料平均 = 谁看都觉得「又一张随手画的图」。
+> Excalidraw has its own "visual lowest common denominator" too. Anti-slop is not aesthetic fussiness; it protects the **readability** and **professional feel** of the diagram on the user's behalf.
+> Same logic as huashu-design: an AI's default output = the average of its training corpus = something everyone perceives as "yet another diagram dashed off casually."
 
-## 黑名单(带「为什么」)
+## Blacklist (with the "why")
 
-| 元素 | 为什么是 slop | 什么情况可破例 |
+| Element | Why it is slop | When an exception is allowed |
 |---|---|---|
-| **彩虹色框**(每框一色) | 颜色没编码任何信息,纯噪音,读者要费力分辨「这些颜色什么意思」 | 颜色**编码语义**(一类一色)时合法 |
-| **全 `roughness: 2`** 抖到飞 | 过度手绘 = 廉价、不严肃,正式架构图灾难 | lo-fi 草图/亲和场景可 1;概念涂鸦可 2 |
-| **脏箭头**(绕到背面 / 交叉成网 / 跨半页穿内容框 / 一堆汇聚到一点乱缠) | 问题是"箭头脏",不是"箭头多"。短而直、连相邻框的结构箭头(embody/reads/uses)完全没问题 | **修法是路由,不是删**:用 arch-connect 路由(正交+分布端口+消交叉),或让源/目标相邻。**别因为有几条线就删箭头**——删光了关系就断了 |
-| **🛑 叠加箭头 / 全量依赖连线**(架构图把每条依赖都画成线 → 线叠线、挤成平行束) | **宁可没有箭头,也不要叠加的箭头**。一张分层架构的依赖网若全画出,眯眼下糊成"条形码"噪音区,反而读不出重点。**要学会省略和留白** | **仅限架构/拓扑类**:只画**入口主干 + 一条核心业务 hero**,其余依赖(服务→数据、服务→MQ、注册发现、可观测采集)靠**分层位置 + 留白 + 一句注释**表达。判据:这条线会和别的线叠加/挤吗?会 → 删,用位置和空白代替。⚠️ 不是删光(删光=关系断,见上一行),是减到只剩主干+hero。**时序图/流程图/状态机的箭头是图的本体,不适用本条** |
-| **为消斜线而强拐直角**(把本可斜线直连的跨层线全正交化) | 架构图斜线**不是 slop**:真正的敌人是"叠加/穿框",不是"斜"。强行全正交反而把跨层线压成平行束(条形码) | 架构图可**斜线直连**(中心到中心、裁到边框、按角度散开),只要不叠加、不穿无关框;`arch-lint` 的 `diagonal` warn 对架构图可忽略 |
-| **每节点配 emoji/图标** | iconography slop,图标变装饰 | 只给需区分类型的节点配 |
-| **🛑 Unicode 字符冒充图标**(✓ ✗ ★ ● ■ ▲ → ↑↓ ⚙ 🔍 📁 等当图标用) | **一定不要**。这些字形和手绘风气质打架、跨字体渲染不一(常变豆腐块),是最显眼的 slop。**模型图省事最爱犯——所以这条是代码硬门,不是建议** | **没有破例**。有图标集就用图标集 / `data-lib`;**没有时,用手绘风纯色小方块/小圆/小菱**(`data-icon`)替代,别够 unicode |
+| **Rainbow-colored boxes** (one color per box) | The colors encode no information, pure noise; the reader has to work to figure out "what do these colors mean" | Legitimate when color **encodes semantics** (one color per category) |
+| **All `roughness: 2`** jittered to bits | Excessive hand-drawn = cheap, not serious; a disaster for a formal architecture diagram | lo-fi sketch / approachable scenarios can use 1; conceptual doodles can use 2 |
+| **Dirty arrows** (routed around the back / crossing into a web / spanning half a page through content boxes / a pile converging tangled onto one point) | The problem is "dirty arrows," not "too many arrows." Short, straight structural arrows connecting adjacent boxes (embody/reads/uses) are completely fine | **The fix is routing, not deletion**: use arch-connect to route (orthogonal + distributed ports + crossing removal), or place source/target adjacent. **Do not delete arrows just because there are a few lines** -- delete them all and you sever the relationships |
+| **Stacked arrows / full dependency lines** (an architecture diagram drawing every dependency as a line -> lines on lines, crammed into parallel bundles) | **Better to have no arrows than stacked arrows.** If every dependency in a layered architecture is drawn out, under the squint test it blurs into a "barcode" noise zone, and the key points become unreadable. **Learn to omit and to use whitespace** | **Architecture/topology types only**: draw only the **entry trunk + one core business hero**, and express the rest of the dependencies (service to data, service to MQ, registry/discovery, observability collection) via **layered position + whitespace + a one-line note**. Criterion: will this line stack with / crowd other lines? If yes -> delete it, replace with position and whitespace. Warning: this is not "delete them all" (delete them all = relationships severed, see previous row); it is reducing down to just the trunk + hero. **The arrows in sequence diagrams / flowcharts / state machines are the body of the diagram itself; this rule does not apply** |
+| **For dodging diagonals, forcing right angles** (orthogonalizing every cross-layer line that could connect directly on a diagonal) | Diagonals in an architecture diagram **are not slop**: the real enemy is "stacking/passing through boxes," not "diagonal." Forcing everything orthogonal instead compresses cross-layer lines into parallel bundles (barcode) | Architecture diagrams may **connect directly on a diagonal** (center to center, clipped to the bounding box, fanned out by angle), as long as they do not stack and do not pass through unrelated boxes; the `diagonal` warn from `arch-lint` can be ignored for architecture diagrams |
+| **An emoji/icon per node** | iconography slop, icons become decoration | Only attach them to nodes that need their type distinguished |
+| **Unicode characters posing as icons** (using `✓ ✗ ★ ● ■ ▲ → ↑↓ ⚙ 🔍 📁` etc. as icons) | **Absolutely do not.** These glyphs clash with the hand-drawn aesthetic and render inconsistently across fonts (often turning into tofu boxes); they are the most conspicuous slop. **Model diagrams are the most prone to this shortcut -- which is why this rule is a hard code gate, not a suggestion** | **No exceptions.** If you have an icon set, use the icon set / `data-lib`; **when you do not, use a hand-drawn solid-color small square / small circle / small diamond** (`data-icon`) instead. Do not reach for unicode |
 
-> ⚙️ **这条有代码强制**(靠结构不靠自觉):`html-to-excalidraw.mjs` 检测到文字含图标字符 **默认 strict 构建失败(退出码 2)**;`arch-lint.mjs` 把它列为 **error**。即用 ✓/→/★/emoji 当图标,工具会直接拦下,逼你换 `data-lib` / `data-icon`。真要保留(极少数)才加 `--loose`。
-| **居中乱摆不对齐** | 业余感最大来源 | 无——永远对齐网格 |
-| **手绘字体配严肃架构** | 气质打架 | 概念图用 Virgil;严肃架构换 Normal/Code |
-| **把所有组件都画上** | box slop,信息过载 | 无——每个框 earn its place |
-| **假数据冒充真内容**(编 metric 数字、假用户名) | data slop,误导 | 无——用诚实 placeholder |
-| **默认实线连不确定关系** | 把推测画成确定,误导决策 | 不确定用虚线 + 「?」 |
-| **公式用 drawlib 块/手绘小框拼** | 手绘公式块一缩放就糊、上下标错位,数学符号渲染不一 | **一律 LaTeX 渲染成 SVG 内嵌**:`scripts/render-formula.mjs`(MathJax TeX→SVG,需 `npm i mathjax-full`)→ image 元素 + dataURL → playwright 导出。无破例 |
+> **This rule is code-enforced** (relying on structure, not self-discipline): when `html-to-excalidraw.mjs` detects that text contains icon characters, **the strict build fails by default (exit code 2)**; `arch-lint.mjs` lists it as an **error**. That is, if you use `✓/→/★/emoji` as icons, the tooling stops you outright, forcing you to switch to `data-lib` / `data-icon`. Only if you really must keep them (very rare cases) add `--loose`.
+| **Centered, scattered, unaligned** | The single biggest source of an amateur feel | None -- always align to the grid |
+| **Hand-drawn font with serious architecture** | The aesthetics clash | Use Virgil for concept diagrams; switch to Normal/Code for serious architecture |
+| **Drawing every component** | box slop, information overload | None -- every box must earn its place |
+| **Fake data posing as real content** (made-up metric numbers, fake usernames) | data slop, misleading | None -- use an honest placeholder |
+| **Solid lines by default for uncertain relationships** | Drawing speculation as certainty, misleading decisions | For uncertainty use a dashed line + "?" |
+| **Assembling formulas from drawlib blocks / hand-drawn small boxes** | Hand-drawn formula blocks blur on scaling, subscripts/superscripts misalign, math symbols render inconsistently | **Always render LaTeX to inline SVG**: `scripts/render-formula.mjs` (MathJax TeX to SVG, requires `npm i mathjax-full`) -> image element + dataURL -> playwright export. No exceptions |
 
-## 正向做什么
+## What to do positively
 
-- ✅ 颜色编码语义,全图 ≤ 3-4 色,主体黑灰
-- ✅ 默认 `roughness: 1`,严肃架构图降到 `0`
-- ✅ 数据流单向(左→右 / 上→下),减少交叉
-- ✅ 元素吸附 20px 网格,同层对齐
-- ✅ 复用 drawlib 而非手绘(原则 #2)
-- ✅ 一处「值得截图」的细节(清晰的分层、漂亮的对齐节奏),其余克制
-- ✅ 诚实 placeholder:`[数据待补]`、虚线 + `?`
-- ✅ **架构图:箭头做减法**——主干 + 一条核心 hero,其余依赖靠分层 + 留白 + 注释;宁可省略,不要叠加
-- ✅ **留白是设计**:层间留足空隙,让分层和焦点自己浮现,不靠多画线填满
+- Use: color encodes semantics, the whole diagram <= 3-4 colors, body in black/gray
+- Use: default `roughness: 1`, drop to `0` for serious architecture diagrams
+- Use: data flow is unidirectional (left to right / top to bottom), reducing crossings
+- Use: snap elements to the 20px grid, align within a layer
+- Use: reuse drawlib rather than hand-drawing (principle #2)
+- Use: one "screenshot-worthy" detail (clear layering, a pleasing alignment rhythm), the rest restrained
+- Use: honest placeholders: `[data pending]`, dashed line + `?`
+- Use: **architecture diagrams: subtract arrows** -- trunk + one core hero, express the rest of the dependencies via layering + whitespace + notes; better to omit than to stack
+- Use: **whitespace is design**: leave enough gap between layers, let the layering and focus surface on their own, instead of filling up by drawing more lines
 
-## 决策速查
+## Decision quick reference
 
-- 想给每个框换个颜色?→ 大概率不换,问「这个颜色编码了什么」
-- 想加个 emoji 图标?→ 只在区分节点类型时加
-- 想用 ✓/★/→/🔍 这类字符当图标?→ **绝不**。用图标集/`data-lib`,没有就用 `data-icon`(手绘小方块/圆/菱)
-- 想把这个组件也画上?→ 先问「删了图会变差吗」,不会就删
-- 想把这条依赖也连上?→(架构图)先问「它会和别的线叠加吗」,会就别连,靠分层位置表达
-- 想编个数字让卡片不空?→ 不编,留 placeholder
-- 觉得「再抖一点更手绘」?→ 那通常是 slop 征兆
-- 跨层线要不要强拐成直角?→(架构图)不必,斜线直连只要不叠加不穿框就行
+- Want to give each box a different color? -> Most likely do not; ask "what does this color encode"
+- Want to add an emoji icon? -> Only add it when distinguishing node types
+- Want to use characters like `✓/★/→/🔍` as icons? -> **Never.** Use an icon set / `data-lib`; if you have none, use `data-icon` (hand-drawn small square / circle / diamond)
+- Want to draw this component too? -> First ask "would the diagram get worse if I deleted it"; if not, delete it
+- Want to connect this dependency too? -> (architecture diagram) First ask "will it stack with other lines"; if yes, do not connect it, express it via layered position
+- Want to make up a number so the card is not empty? -> Do not make it up, leave a placeholder
+- Feel like "a bit more jitter would be more hand-drawn"? -> That is usually a sign of slop
+- Should the cross-layer line be forced into a right angle? -> (architecture diagram) No need; a direct diagonal is fine as long as it does not stack and does not pass through boxes

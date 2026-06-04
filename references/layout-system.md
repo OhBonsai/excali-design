@@ -1,43 +1,43 @@
-# 布局系统
+# Layout system
 
-> 对齐是「mid-fi」和「随手画」的最大分水岭。Excalidraw 不会自动布局,纪律全靠手动。
+> Alignment is the biggest watershed between "mid-fi" and "dashed off by hand." Excalidraw does not auto-layout; the discipline is entirely manual.
 
-## 网格
+## Grid
 
-- 所有 `x`/`y`/`width`/`height` 吸附到 **20px 网格**(`.excalidraw` 的 `appState.gridSize: 20`)
-- 间距用 20 的倍数:20 / 40 / 80 / 160
+- Snap all `x`/`y`/`width`/`height` to the **20px grid** (`appState.gridSize: 20` in `.excalidraw`)
+- Use multiples of 20 for spacing: 20 / 40 / 80 / 160
 
-## 对齐铁律
+## Alignment rules
 
-- 纵向 stack:左边缘对齐同一 `x`
-- 横向 row:顶边对齐同一 `y`,等距 gap
-- 同层节点(架构图):y 对齐、等宽、等距
-- 屏与屏(原型 overview):gap 一致
+- Vertical stack: align the left edges to the same `x`
+- Horizontal row: align the tops to the same `y`, with equal gaps
+- Same-layer nodes (architecture diagram): align y, equal width, equal spacing
+- Screen to screen (prototype overview): consistent gap
 
-## 布局骨架(按图类型)
+## Layout skeletons (by diagram type)
 
-| 图类型 | 骨架 |
+| Diagram type | Skeleton |
 |---|---|
-| 架构(分层) | 横向泳道/纵向分层,大浅色 `area` 框圈层,层内节点对齐 |
-| 架构(拓扑) | 中心系统 + 四周依赖,放射或左右分组 |
-| 数据流 | 严格左→右 或 上→下,单向 |
-| 时序 | actor 顶部横排 + 垂直 lifeline + 横向消息按时间下排 |
-| 原型多屏 | webpage-frame 横排,等 gap |
-| 流程/决策 | 纵向主干 + 决策点 diamond 横向分支 |
+| Architecture (layered) | Horizontal swimlanes / vertical layers, large light-colored `area` boxes enclosing layers, nodes aligned within a layer |
+| Architecture (topology) | Central system + surrounding dependencies, radial or left/right grouping |
+| Data flow | Strict left to right or top to bottom, unidirectional |
+| Sequence | actors in a horizontal row at the top + vertical lifelines + horizontal messages laid out downward by time |
+| Multi-screen prototype | webpage-frames in a horizontal row, equal gap |
+| Flow/decision | Vertical trunk + decision-point diamonds branching horizontally |
 
-## 泳道(swimlane)
+## Swimlanes
 
-- 用细 line 分隔,每道一个角色/系统/层
-- 道头放标签
-- 元素严格落在所属道内
+- Separate with thin lines, one role/system/layer per lane
+- Place the label at the head of the lane
+- Elements fall strictly within their own lane
 
-## 分组
+## Grouping
 
-- 同属一个逻辑单元的元素给同一 `groupIds`,一起移动
-- 复用 drawlib 组件时保持其内部 group
+- Give elements that belong to one logical unit the same `groupIds`, so they move together
+- When reusing a drawlib component, keep its internal group
 
-## 自检
+## Self-check
 
-- 拉一条假想的垂直/水平线,元素边缘应落在线上
-- 没有「差几个像素」的错位(吸附网格消除)
-- 留白均匀,不是一边挤一边空
+- Draw an imaginary vertical/horizontal line; element edges should land on the line
+- No "off by a few pixels" misalignment (snapping to the grid eliminates it)
+- Whitespace is even, not crammed on one side and empty on the other

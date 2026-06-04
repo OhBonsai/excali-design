@@ -1,130 +1,130 @@
-# 设计令牌 + HTML → Excalidraw 降级映射
+# Design Tokens + HTML to Excalidraw Downgrade Mapping
 
-> 风格化能明确的部分,**先借鉴 huashu-design 的纪律**,定成一套令牌(token),全图复用——一致性靠结构不靠自觉。
-> 但 Excalidraw 是**手绘风**:很多 CSS token(渐变/阴影/精确字体/字重)**不能直译**,转换时必须**降级/替换成手绘等价物**。
-> **铁律:HTML 只管「布局 + 语义结构」,不管最终观感;转 Excalidraw 时一律套手绘风。输出必须读起来是手绘图,不是一张扁平 web UI 截图。**
+> For the parts where styling can be made explicit, **first borrow the discipline of huashu-design**, fix them into a set of tokens, and reuse them across the whole diagram -- consistency comes from structure, not self-discipline.
+> But Excalidraw is **hand-drawn**: many CSS tokens (gradients/shadows/precise fonts/font weights) **cannot be translated literally**, and during conversion must be **downgraded/replaced with hand-drawn equivalents**.
+> **Rule: HTML only handles "layout + semantic structure", not the final look; when converting to Excalidraw, always apply the hand-drawn style. The output must read as a hand-drawn diagram, not a flat web-UI screenshot.**
 
-## 一、令牌(画图前定一次,全图复用)
+## 1. Tokens (fix once before drawing, reuse across the whole diagram)
 
-借 huashu-design 的克制 + Excalidraw 的离散调色板:
+Borrow the restraint of huashu-design + the discrete palette of Excalidraw:
 
-**间距 spacing**(全部 8 的倍数,最终吸附 20px 网格):`8 / 16 / 24 / 40 / 64`。容器内边距 ≥ 16;同层兄弟 gap 取一个固定值(如 40)。
+**spacing** (all multiples of 8, finally snapped to the 20px grid): `8 / 16 / 24 / 40 / 64`. Container inner padding >= 16; same-layer sibling gap takes a fixed value (such as 40).
 
-**字阶 type scale**(Excalidraw `fontSize`):
-| 角色 | px | 用途 |
+**type scale** (Excalidraw `fontSize`):
+| Role | px | Use |
 |---|---|---|
-| caption | 13 | 注释/图例/弱化 |
-| body | 15 | 正文/成员/标签 |
-| label | 16 | 节点名/字段名 |
-| subhead | 20 | 区块标题 |
-| title | 26 | 图标题 |
-| hero | 34+ | 主标题/焦点数字 |
-> 不靠字号无限叠——3-4 个层级足够。
+| caption | 13 | annotations/legends/de-emphasized |
+| body | 15 | body text/members/labels |
+| label | 16 | node names/field names |
+| subhead | 20 | block titles |
+| title | 26 | diagram title |
+| hero | 34+ | main title/focus number |
+> Do not pile on font sizes endlessly -- 3-4 levels are enough.
 
-**颜色角色 color roles**(全图 ≤ 4 色,见 `color-system.md`):`ink #1e1e1e` / `gray #868e96` / `bg #fafaf6 或 #fff` / 一个 accent 贯穿主角 + 语义色(蓝 `#1971c2` 主链路、绿 `#2f9e44` 成功、红 `#e03131` 告警、橙 `#f08c00` 外部),各配浅填充。**任意 hex 一律吸附到这套最近色。**
+**color roles** (<= 4 colors across the whole diagram, see `color-system.md`): `ink #1e1e1e` / `gray #868e96` / `bg #fafaf6 or #fff` / one accent running through the protagonist + semantic colors (blue `#1971c2` main path, green `#2f9e44` success, red `#e03131` alert, orange `#f08c00` external), each with a light fill. **Any hex is always snapped to the nearest color in this set.**
 
-**字体 font**(Excalidraw 只有 3 个):`Virgil`(fontFamily 1,手绘体——概念/原型默认)/ `Normal`(2,Helvetica 系——严肃架构)/ `Code`(3,等宽——数据/代码/类成员)。
+**font** (Excalidraw has only 3): `Virgil` (fontFamily 1, hand-drawn -- default for concepts/prototypes) / `Normal` (2, Helvetica family -- serious architecture) / `Code` (3, monospace -- data/code/class members).
 
-**描边 + 圆角 + 手绘度**:strokeWidth `2`(主)/`1`(分隔线);roundness `{type:3}`(卡片/节点)或 `null`(严肃/技术);**roughness `1`(手绘默认)**,正式架构图可 `0`。
+**stroke + corner radius + roughness**: strokeWidth `2` (main) / `1` (divider lines); roundness `{type:3}` (cards/nodes) or `null` (serious/technical); **roughness `1` (hand-drawn default)**, formal architecture diagrams may use `0`.
 
-## 二、为什么走 HTML 草图(布局引擎)
+## 2. Why go through an HTML sketch (layout engine)
 
-网格/卡片/流式类图(原型、看板、海报)**没有像 elkjs 那样的布局引擎**,手算坐标必翻车。HTML/CSS 本就是为这类内容做的成熟布局引擎:
+Grid/card/flow-type diagrams (prototypes, kanban, posters) **have no layout engine like elkjs**, and manually computing coordinates is bound to fail. HTML/CSS is itself a mature layout engine made for this kind of content:
 
 ```
-写语义 HTML(div/text/色块 + flex/grid/padding/gap,用上面的令牌)
-  → 浏览器算出每个元素的 getBoundingClientRect(精确位置/对齐/换行,免费)
-  → 逐元素翻译成 Excalidraw 元素 + 分组(套手绘风、降级 CSS)
-  → 边交给 arch-connect
+Write semantic HTML (div/text/color blocks + flex/grid/padding/gap, using the tokens above)
+  -> the browser computes each element's getBoundingClientRect (precise position/alignment/wrapping, for free)
+  -> translate element by element into Excalidraw elements + grouping (apply hand-drawn style, downgrade CSS)
+  -> hand the edges to arch-connect
 ```
 
-和 arch-layout 同一原则:**声明结构 / 引擎算位置 / 不手摆**。图论类用 elkjs,网格类用浏览器 CSS。
+Same principle as arch-layout: **declare structure / let the engine compute positions / do not place by hand**. Graph-theory types use elkjs, grid types use the browser CSS.
 
-**已实现**:`scripts/html-to-excalidraw.mjs`。
+**Implemented**: `scripts/html-to-excalidraw.mjs`.
 ```bash
-node scripts/html-to-excalidraw.mjs 图.html --out 图.excalidraw
+node scripts/html-to-excalidraw.mjs diagram.html --out diagram.excalidraw
 ```
-给要连线的框加 `data-id="xxx"`(保留为 Excalidraw 元素 id)→ 转完用 `arch-connect` + edges.json 连边。
-浏览器算布局 + 自动套手绘风(roughness)+ 降级 CSS(渐变/阴影丢、字体降 Virgil/Normal/Code、任意 hex 吸附调色板、border-radius:50% → 椭圆)。CSS 里直接用颜色角色的 hex,吸附即恒等。
+Add `data-id="xxx"` to boxes that need edges (preserved as the Excalidraw element id) -> after conversion, use `arch-connect` + edges.json to connect the edges.
+The browser computes the layout + automatically applies the hand-drawn style (roughness) + downgrades CSS (gradients/shadows dropped, fonts downgraded to Virgil/Normal/Code, any hex snapped to the palette, border-radius:50% to ellipse). Use the color-role hex directly in CSS; snapping is an identity.
 
-## 三、CSS token → Excalidraw 降级 / 替换映射(核心)
+## 3. CSS token to Excalidraw downgrade / replacement mapping (core)
 
-| CSS / HTML | → Excalidraw | 降级 / 手绘说明 |
+| CSS / HTML | to Excalidraw | downgrade / hand-drawn note |
 |---|---|---|
-| `display:flex/grid` + `gap/padding/margin` | 元素的 `x/y/width/height` = 浏览器算出的 rect | **照搬布局**——这是用 HTML 的全部意义 |
-| `<div>` 纯背景色 / 色块 | `rectangle`,`backgroundColor`=该色,`fillStyle:solid` | 直译 |
-| `<div>` border / border-radius | `strokeColor`=border 色;`roundness:{type:3}` 若 radius>0,否则 `null` | — |
-| `background: linear-gradient(...)` / mesh | **丢渐变 → 取主色 `solid`** | 渐变是反 slop;手绘没有渐变 |
-| `box-shadow` / `filter: blur` / glassmorphism | **丢弃** | 手绘不用阴影/玻璃;层级靠**位置 + 留白 + 字号** |
-| 文本节点 | `text` 元素,`fontSize`=映射字阶 | — |
-| `font-family`(Inter/SF/任意) | **降到 3 选 1**:严肃→Normal(2)、概念/原型→Virgil(1)、数据/代码→Code(3) | **强制手绘字体,不保留原字体** |
-| `font-weight: bold` | Excalidraw **无字重** → 用**更大字号 / Normal 字体 / ink 色**表达强调 | 不靠字重,靠字号+颜色的层级 |
-| `color` / 任意 hex | **吸附到颜色角色最近色**,守 ≤4 色 | 任意色 → 降到调色板 |
-| `opacity` | `opacity` 0–100 | 直译 |
-| `<img>` / `<svg>` | `image` 元素(+ `files` dataURL) | 真图直译;别用 CSS 画图形 |
-| `hover` / `transition` / `animation` / `:active` | **全丢**(静态图) | 本 skill 只做静态 |
-| 框 → 框的连线 | **不在 HTML 画**,交 `arch-connect` | 节点 HTML 摆,**边永远 arch-connect** |
-| `text-align` / `line-height` | 文字用 **Range 量实际渲染框**(含 padding / 垂直居中),不是元素框顶 | 否则带 padding 的输入框文字会贴顶,不居中 |
-| `<div data-chart="pie" data-values="A:40,B:30">` | **组件**:转成真扇形(闭合折线),不当普通框 | CSS 画不出真饼图(conic-gradient 不可译)→ 用确定性组件补 |
+| `display:flex/grid` + `gap/padding/margin` | the element's `x/y/width/height` = the rect the browser computed | **copy the layout directly** -- this is the entire point of using HTML |
+| `<div>` pure background color / color block | `rectangle`, `backgroundColor`=that color, `fillStyle:solid` | literal translation |
+| `<div>` border / border-radius | `strokeColor`=border color; `roundness:{type:3}` if radius>0, otherwise `null` | -- |
+| `background: linear-gradient(...)` / mesh | **drop the gradient, take the main color as `solid`** | gradients are anti-slop; hand-drawn has no gradients |
+| `box-shadow` / `filter: blur` / glassmorphism | **discard** | hand-drawn uses no shadows/glass; hierarchy relies on **position + whitespace + font size** |
+| text node | `text` element, `fontSize`=mapped type scale | -- |
+| `font-family` (Inter/SF/any) | **downgrade to 1 of 3**: serious to Normal(2), concept/prototype to Virgil(1), data/code to Code(3) | **force the hand-drawn font, do not keep the original font** |
+| `font-weight: bold` | Excalidraw has **no font weight** -> use **larger font size / Normal font / ink color** to express emphasis | not relying on font weight, on the hierarchy of font size + color |
+| `color` / any hex | **snap to the nearest color role**, hold to <= 4 colors | any color -> downgrade to the palette |
+| `opacity` | `opacity` 0-100 | literal translation |
+| `<img>` / `<svg>` | `image` element (+ `files` dataURL) | translate real images literally; do not draw shapes with CSS |
+| `hover` / `transition` / `animation` / `:active` | **drop all** (static diagram) | this skill only does static |
+| box to box line | **do not draw in HTML**, hand to `arch-connect` | place node HTML, **edges always go to arch-connect** |
+| `text-align` / `line-height` | for text use **Range to measure the actual rendered box** (including padding / vertical centering), not the top of the element box | otherwise text in a padded input box sticks to the top, not centered |
+| `<div data-chart="pie" data-values="A:40,B:30">` | **component**: convert to a real sector (closed polyline), not an ordinary box | CSS cannot draw a real pie chart (conic-gradient is untranslatable) -> use a deterministic component to fill in |
 
-## 四、确定性组件(component)——HTML 表达不了的,用组件补
+## 4. Deterministic Components -- what HTML cannot express, fill with a component
 
-CSS 能布局,但有些视觉**画不出来或译不准**(真饼图、徽章、迷你折线…)。这些不靠大模型手摆坐标,而是沉淀成**确定性组件**:HTML 里写一个声明式占位 `<div data-chart="...">`,转换器用固定算法生成手绘元素。**确定性 token + 确定性 component = 把质量下限抬高,模型只负责"放哪、放不放",不负责"画得准不准"。**
+CSS can do layout, but some visuals **cannot be drawn or cannot be translated accurately** (a real pie chart, badges, mini line charts...). These do not rely on the large model placing coordinates by hand, but are settled into **deterministic components**: write a declarative placeholder `<div data-chart="...">` in HTML, and the converter generates hand-drawn elements with a fixed algorithm. **Deterministic token + deterministic component = raise the quality floor; the model is only responsible for "where to put it, whether to put it", not for "whether it is drawn accurately".**
 
-**两条路,优先复用 drawlib(你的库有 ~402 个现成件,别从零画):**
+**Two paths; prefer reusing drawlib (your library has ~402 ready-made pieces, do not draw from scratch):**
 
-**A. `data-lib="库名:序号"` —— 直接实例化 drawlib 现成组件**(精致手绘成品,占位用)。任意库任意组件,转换器自动缩放贴框 + 居中 + 重生成 id:
+**A. `data-lib="library:index"` -- directly instantiate a ready-made drawlib component** (a refined hand-drawn finished piece, used as a placeholder). Any library, any component; the converter automatically scales it to fit the box + centers it + regenerates ids:
 ```html
-<div data-lib="excali-chart:0"></div>       <!-- Bar 图占位 -->
+<div data-lib="excali-chart:0"></div>       <!-- Bar chart placeholder -->
 <div data-lib="excali-chart:31"></div>      <!-- Radar -->
-<div data-lib="excali-ui:3"></div>  <!-- 任意 UI 控件 -->
+<div data-lib="excali-ui:3"></div>  <!-- any UI control -->
 ```
-序号见 `drawlib-catalog.md`(excali-chart:28=Pie、29=Donut、8=Line…)。**把 drawlib 当 HTML 组件标签用。**
+For indices see `drawlib-catalog.md` (excali-chart:28=Pie, 29=Donut, 8=Line...). **Use drawlib as an HTML component tag.**
 
-**B. `data-chart="..." data-values="..."` —— 数据驱动确定性生成**(要反映真实数值时用):
+**B. `data-chart="..." data-values="..."` -- data-driven deterministic generation** (use when it must reflect real numbers):
 
-| ctype | HTML 声明 | 生成 |
+| ctype | HTML declaration | generates |
 |---|---|---|
-| `pie` | `data-chart="pie" data-values="数码:40,服饰:30,食品:18"` | 真扇形(圆心采弧闭合折线) |
-| `donut` | `data-chart="donut" data-values="…"` | 带孔环形扇区(annulus) |
-| `bar` | `data-chart="bar" data-values="App:130,小程序:90,H5:60"` | 等比竖柱,height ∝ value |
-| `line` | `data-chart="line" data-values="1:30,2:45,…"` | 迷你折线(value→y) |
+| `pie` | `data-chart="pie" data-values="Digital:40,Apparel:30,Food:18"` | real sectors (arc closed to the center as a closed polyline) |
+| `donut` | `data-chart="donut" data-values="..."` | a holed ring sector (annulus) |
+| `bar` | `data-chart="bar" data-values="App:130,MiniApp:90,H5:60"` | proportional vertical bars, height proportional to value |
+| `line` | `data-chart="line" data-values="1:30,2:45,..."` | mini line chart (value to y) |
 
-都套颜色角色轮转 + 浅填充 + roughness 手绘。**有真实数值→ B;只要"这里有个图"→ A(更好看)。**
+All apply color-role rotation + light fill + roughness hand-drawn. **Real numbers -> B; just "there is a chart here" -> A (better-looking).**
 
-**C. `data-icon="square|circle|diamond"`(+ `data-color`)—— 图标占位,🛑 绝不用 Unicode 字符当图标**:
+**C. `data-icon="square|circle|diamond"` (+ `data-color`) -- icon placeholder. Rule: never use Unicode characters as icons**:
 
 ```html
 <div data-icon="circle" data-color="green" style="width:20px;height:20px"></div>
 ```
-转成**手绘风纯色小方块/圆/菱**(`data-color` 取 ink/gray/blue/green/red/orange/purple 或任意 hex,吸附调色板)。**铁律(见 `anti-slop.md`):一定不要用 ✓✗★●■▲→↑↓⚙🔍 这类 Unicode/emoji 冒充图标**——气质打架、跨字体渲染不一,是最显眼的 slop。有图标集/drawlib 用 `data-lib`;没有就用 `data-icon`。转换器检测到文字里含图标字符会**警告**。
+Converts to a **hand-drawn solid small square/circle/diamond** (`data-color` takes ink/gray/blue/green/red/orange/purple or any hex, snapped to the palette). **Rule (see `anti-slop.md`): never use marks like check, cross, star, filled-dot, filled-square, triangle, arrows, up/down, gear, magnifier as fake icons** -- the temperament clashes, cross-font rendering is inconsistent, and it is the most conspicuous slop. If you have an icon set / drawlib, use `data-lib`; if not, use `data-icon`. When the converter detects icon characters inside text it will **warn**.
 
-边永远不在 HTML 画 → `arch-connect`;图元/图标才用组件。同一原则:"声明结构,引擎出形"。
+Edges are never drawn in HTML -> `arch-connect`; only primitives/icons use components. Same principle: "declare structure, let the engine produce the shape".
 
-## 五、转换后必做:模型眯眼回归(LLM-in-the-loop,非可选)
+## 5. Required after conversion: model squint review (LLM-in-the-loop, not optional)
 
-**html→excalidraw 不是纯逻辑就够。** 转换器忠实翻译 HTML,但翻译不出"该不该是饼图""箭头是不是乱""焦点对不对"——这些只有**把渲染图给模型看**才知道。所以有了 `.excalidraw` 之后,**必须**:
+**html to excalidraw is not enough with pure logic alone.** The converter faithfully translates HTML, but cannot translate "whether it should be a pie chart", "whether the arrows are messy", "whether the focus is right" -- these are only known by **showing the rendered diagram to the model**. So once you have the `.excalidraw`, you **must**:
 
 ```
-1. node scripts/svg-export.mjs 图.excalidraw --png   # 默认眯眼渲染器:headless,无 chromium(没 resvg 就看 .svg)
-2. 模型读这张 PNG/SVG(眯眼看),逐条核:
-   - 焦点/分组/层级:模糊看,主角和分区仍认得出?
-   - 文字:有没有贴边/不居中/溢出?(→ Range 没量准 / 容器太小)
-   - 连线:正交干净不交叉?有没有侧边乱窜?(→ 改 fromSide/toSide 重连)
-   - 图元:饼图是饼图、条形是条形,不是"线方块"?(→ 该上组件)
-   - 手绘风:没渐变/阴影,字体只 Virgil/Normal/Code,≤4 色?
-3. 有问题 → 改 HTML / edges / 组件 → 重新生成 → 再看。迭代到过。
+1. node scripts/svg-export.mjs diagram.excalidraw --png   # default squint renderer: headless, no chromium (if no resvg, look at the .svg)
+2. The model reads this PNG/SVG (squint test), checking item by item:
+   - Focus/grouping/hierarchy: looking blurry, are the protagonist and zones still recognizable?
+   - Text: any sticking to the edge / not centered / overflowing? (-> Range not measured right / container too small)
+   - Lines: orthogonal, clean, non-crossing? Any darting around the sides? (-> change fromSide/toSide and reconnect)
+   - Primitives: pie chart is a pie chart, bar is a bar, not "line-blocks"? (-> should use a component)
+   - Hand-drawn style: no gradients/shadows, fonts only Virgil/Normal/Code, <= 4 colors?
+3. If there are problems -> change HTML / edges / component -> regenerate -> look again. Iterate until it passes.
 ```
 
-机械 lint(arch-lint)只查几何错误,**判不了好坏**;眯眼回归是大模型补的那一环,不能省。
+Mechanical lint (arch-lint) only checks geometric errors, **it cannot judge good versus bad**; the squint review is the round that the large model adds, and it cannot be skipped.
 
-## 六、转换后自检清单(眯眼时逐条过)
+## 6. Post-conversion self-check list (go through item by item while squinting)
 
-- [ ] 没有渐变 / 阴影 / 玻璃拟态(全降级掉了)
-- [ ] 字体只用了 Virgil/Normal/Code,没保留 Inter/SF
-- [ ] 全图 ≤ 4 色,都来自颜色角色
-- [ ] roughness 1(或正式图 0),元素吸附网格
-- [ ] 文字垂直/水平都在它该在的位置(Range 量的,不贴框顶)
-- [ ] 框间是 arch-connect 路由的正交线,不是手画/HTML 伪连线;无侧边乱窜
-- [ ] 图表是真图元(饼/条),不是色块凑
-- [ ] **眯眼测试**:模糊看,焦点和分组仍认得出;读起来是手绘图不是 web 截图
+- [ ] No gradients / shadows / glassmorphism (all downgraded away)
+- [ ] Fonts only Virgil/Normal/Code, no Inter/SF kept
+- [ ] <= 4 colors across the whole diagram, all from the color roles
+- [ ] roughness 1 (or 0 for formal diagrams), elements snapped to the grid
+- [ ] Text is both vertically/horizontally where it should be (Range-measured, not sticking to the box top)
+- [ ] Inter-box lines are arch-connect-routed orthogonal lines, not hand-drawn / HTML pseudo-connections; no side darting
+- [ ] Charts are real primitives (pie/bar), not assembled from color blocks
+- [ ] **Squint test**: looking blurry, focus and grouping are still recognizable; it reads as a hand-drawn diagram, not a web screenshot
