@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { parseClass } from './mermaid-class.mjs';
-// renderClass —— 类图专用：复用分层布局，三栏类框 + 手工 UML 标记（svg-export 不支持原生箭头头，故标记全手画）
+// renderClass —— 类图专用：复用分层布局，三栏类框 + 原生 UML 箭头头（svg-export 现已渲染全部 Arrowhead 枚举）
 // 用法：node render-class.mjs <input.mmd|ir.json> <out.excalidraw> [style]
 
 const INK='#1e1e1e', GRAY='#868e96';
@@ -55,18 +55,14 @@ let sid=1; const id=p=>`${p}${sid++}`; const els=[]; const rnd=()=>(sid*7919)%99
 const base=o=>({angle:0,strokeColor:o.stroke??INKC,backgroundColor:o.fill==='none'?'transparent':(o.fill??'transparent'),fillStyle:o.fs??S.fs,strokeWidth:o.sw??S.sw,strokeStyle:o.ss??'solid',roughness:o.rough??S.rough,opacity:100,seed:rnd(),groupIds:[]});
 const R=(x,y,w,h,o={})=>els.push({type:'rectangle',id:id('r'),x,y,width:w,height:h,roundness:null,...base(o)});
 const Ln=(pts,o={})=>{const x=pts[0][0],y=pts[0][1];els.push({type:'line',id:id('l'),x,y,width:Math.max(...pts.map(p=>p[0]))-Math.min(...pts.map(p=>p[0])),height:Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1])),points:pts.map(p=>[p[0]-x,p[1]-y]),roundness:null,...base(o)});};
+// 箭头(原生头型;svg-export 现已渲染全部 Arrowhead 枚举)
+const Ar=(pts,o={})=>{const x=pts[0][0],y=pts[0][1];els.push({type:'arrow',id:id('a'),x,y,width:Math.max(...pts.map(p=>p[0]))-Math.min(...pts.map(p=>p[0])),height:Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1])),points:pts.map(p=>[p[0]-x,p[1]-y]),roundness:null,startArrowhead:o.sa??null,endArrowhead:o.ea??null,...base(o)});};
 const T=(x,y,t,o={})=>els.push({type:'text',id:id('t'),x,y,width:o.w??t.length*(o.size??14)*0.6,height:(o.size??14)+6,angle:0,text:t,fontSize:o.size??14,fontFamily:o.ff??2,textAlign:o.align??'left',verticalAlign:'top',strokeColor:o.color??INKC,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
 els.push({type:'rectangle',id:id('bg'),x:0,y:0,width:maxx+M,height:maxy+M,angle:0,strokeColor:'transparent',backgroundColor:S.paper,fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,roundness:null,opacity:100,seed:rnd(),groupIds:[]});
 
-// ---------- 手工 UML 标记 ----------
-function marker(kind,P,nb){ if(!kind) return;
-  let ix=P[0]-nb[0], iy=P[1]-nb[1]; const L0=Math.hypot(ix,iy)||1; ix/=L0; iy/=L0;   // into-box 单位向量
-  const px=-iy, py=ix;  // 垂直
-  const at=(d,s)=>[P[0]-ix*d+px*s, P[1]-iy*d+py*s];
-  if(kind==='triangle'){ const L=16,W=9; Ln([P, at(L,W), at(L,-W), P], {fill:S.paper,fs:'solid',sw:S.sw}); }
-  else if(kind==='diamondF'||kind==='diamondO'){ const L=11,W=7.5; Ln([P, at(L,W), at(2*L,0), at(L,-W), P], {fill:kind==='diamondF'?INKC:S.paper,fs:'solid',sw:S.sw}); }
-  else if(kind==='arrow'){ const L=14,W=8; Ln([at(L,W),P],{fill:'none',sw:S.sw}); Ln([at(L,-W),P],{fill:'none',sw:S.sw}); }
-}
+// ---------- UML 标记 → 原生 Arrowhead 枚举 ----------
+// triangle(继承/实现,空心三角)/ diamondF(组合,实心菱)/ diamondO(聚合,空心菱)/ arrow(关联/依赖)
+const MK={ triangle:'triangle_outline', diamondF:'diamond', diamondO:'diamond_outline', arrow:'arrow' };
 
 // ---------- 路由（盒到盒，正交单肘） ----------
 const port=(n,s)=>({t:[n.cx,n.cy-n.h/2],b:[n.cx,n.cy+n.h/2],l:[n.cx-n.w/2,n.cy],r:[n.cx+n.w/2,n.cy]}[s]);
@@ -79,9 +75,7 @@ function route(e){ const a=nodes[e.a], b=nodes[e.b]; if(!a||!b) return;
     if(dx>=0){ pa=port(a,'r'); pb=port(b,'l'); } else { pa=port(a,'l'); pb=port(b,'r'); }
     const mx=(pa[0]+pb[0])/2; pts = Math.abs(pa[1]-pb[1])<3?[pa,pb]:[pa,[mx,pa[1]],[mx,pb[1]],pb];
   }
-  Ln(pts,{stroke:INKC,fill:'none',sw:S.sw,ss:e.line==='dashed'?'dashed':'solid'});
-  marker(e.markerA, pts[0], pts[1]);
-  marker(e.markerB, pts[pts.length-1], pts[pts.length-2]);
+  Ar(pts,{stroke:INKC,fill:'none',sw:S.sw,ss:e.line==='dashed'?'dashed':'solid', sa:MK[e.markerA]||null, ea:MK[e.markerB]||null});
   if(e.cardA) T(pts[0][0]+8, pts[0][1]+4, e.cardA, {size:12,color:GRAY,w:40});
   if(e.cardB) T(pts[pts.length-1][0]+8, pts[pts.length-1][1]-16, e.cardB, {size:12,color:GRAY,w:40});
   if(e.label){ const mid=pts[Math.floor(pts.length/2)]; T(mid[0]+6, mid[1]-8, e.label, {size:12,color:GRAY,align:'left',w:e.label.length*8}); }

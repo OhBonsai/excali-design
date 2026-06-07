@@ -4,7 +4,7 @@
 // 逐类型调用各自的 test-<type>.mjs。产物在 examples/<type>/out/。
 import path from 'node:path'; import { execFileSync } from 'node:child_process';
 const SCRIPTS=path.dirname(new URL(import.meta.url).pathname);
-const TYPES=['flowchart','sequence','state','class','er','gantt'];
+const TYPES=['flowchart','sequence','state','class','er','gantt','mindmap'];
 const style=process.argv[2]||'classic-tricolor';
 for(const t of TYPES){
   console.log(`\n== ${t} ==`);

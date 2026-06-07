@@ -15,7 +15,8 @@ hand-drawn Excalidraw. This page is the index; per-type detail is in the linked 
 | class | `render-class.mjs` | `mermaid-class.mjs` | `references/class.md` | ✅ template (reuses flow layout) |
 | ER | `render-er.mjs` | `mermaid-er.mjs` | `references/er.md` | ✅ template (reuses flow layout) |
 | gantt | `render-gantt.mjs` | `mermaid-gantt.mjs` | `references/gantt.md` | ✅ template (bar-on-time-axis, faithful) |
-| pie / mindmap | — | — | `references/mermaid.md` | ⬜ chart-like, still generic path |
+| mindmap | `render-mindmap.mjs` | `mermaid-mindmap.mjs` | `references/mindmap.md` | ✅ template (logical/radial 双布局 + taper 枝 + 图标 + boundary/summary/link/note) |
+| pie | — | — | `references/mermaid.md` | ⬜ chart-like, still generic path |
 
 Each type also ships: `scripts/build-<type>-components.mjs` (regenerates the component sheet
 into `assets/mermaid-components/<type>-components.png`), `prompts/<type>-styles.md` (gpt-image
@@ -31,12 +32,15 @@ node scripts/render-sequence.mjs  diagram.mmd out.excalidraw [style]
 node scripts/render-state.mjs     diagram.mmd out.excalidraw [style]
 node scripts/render-class.mjs     diagram.mmd out.excalidraw [style]
 node scripts/render-er.mjs        diagram.mmd out.excalidraw [style]
+node scripts/render-gantt.mjs     diagram.mmd out.excalidraw [style]
+node scripts/render-mindmap.mjs   diagram.mmd out.excalidraw [style] [logical|radial]
 ```
 
 Input auto-detects Mermaid vs IR JSON. Styles (all types): `classic-tricolor` ·
 `hachure-classic` · `pastel-journal` · `duotone-hachure`. All map onto Excalidraw-reproducible
-knobs (`fillStyle` / `roughness` / `strokeStyle` / `strokeWidth`); UML/crowfoot markers are
-hand-drawn as line shapes because svg-export does not render native Excalidraw arrowheads.
+knobs (`fillStyle` / `roughness` / `strokeStyle` / `strokeWidth`); UML/crowfoot markers use
+**native Excalidraw arrowheads** (`startArrowhead`/`endArrowhead` enum), which svg-export now
+renders in full — see `references/arrows.md`.
 
 ## Shared engine vs per-type
 
@@ -83,6 +87,5 @@ node eval/report.mjs method && open eval/report-method.html
 ```
 
 `report-method.html` shows v0.5.0 (old) and v0.6.0 (new) side by side per case — the before/after
-of moving these types onto the template path. (gantt/pie/mindmap are excluded: still the generic
-path.) `v0.5.0` columns for the FLOW cases already exist from earlier runs; re-running only
+of moving these types onto the template path. (pie excluded: still the generic path.) `v0.5.0` columns for the FLOW cases already exist from earlier runs; re-running only
 `--cols "v0.6.0"` regenerates just the new column if you want to save model calls.

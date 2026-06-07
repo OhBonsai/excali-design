@@ -3,9 +3,10 @@
 ER diagrams have their own renderer (`render-er.mjs`), built with the method in
 `references/render-method.md`. An ER diagram is a graph of entity boxes + relationships, so it
 reuses the **same layered layout** as flowchart; the node is an entity box (name + attribute
-rows) and the edges carry **crowfoot cardinality markers drawn by hand** (svg-export does not
-render native Excalidraw arrowheads). Use this for any ER diagram instead of the generic
-`mermaid-to-excalidraw.mjs`.
+rows) and the edges carry **crowfoot cardinality as native Excalidraw arrowheads** (svg-export
+renders the full enum): `{crow,circle,bars}` → `cardinality_many / one / one_or_many /
+zero_or_one / zero_or_many / exactly_one` (mapping in `cardEnum` in `render-er.mjs`). Use this
+for any ER diagram instead of the generic `mermaid-to-excalidraw.mjs`.
 
 ## One command
 ```

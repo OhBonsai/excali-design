@@ -99,12 +99,32 @@ function main() {
     return o;
   };
 
-  // 箭头头(在末段方向画一个 V)
-  const arrowHead = (p0, p1, color, sw) => {
-    const ang = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]); const L = 14 + sw * 2, spread = 0.45;
-    const a1 = [p1[0] - L * Math.cos(ang - spread), p1[1] - L * Math.sin(ang - spread)];
-    const a2 = [p1[0] - L * Math.cos(ang + spread), p1[1] - L * Math.sin(ang + spread)];
-    return `<path d="M${a1[0].toFixed(1)} ${a1[1].toFixed(1)} L${p1[0].toFixed(1)} ${p1[1].toFixed(1)} L${a2[0].toFixed(1)} ${a2[1].toFixed(1)}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // 箭头头(类型感知):支持 Excalidraw 全部 Arrowhead 枚举 + 旧名(dot/crowfoot_*)。
+  //   p0=末段倒数第二点(定方向)，p1=端点。type=null → 不画(纯线/无头那端)。
+  const arrowHead = (p0, p1, color, sw, type) => {
+    if (type === null || type === undefined) return '';   // 显式 null → 无头
+    const ang = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]); const L = 14 + sw * 2, spread = 0.42;
+    const back = (d, perp = 0) => [p1[0] - d * Math.cos(ang) + perp * -Math.sin(ang), p1[1] - d * Math.sin(ang) + perp * Math.cos(ang)];
+    const P = p => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+    const a1 = back(L, -L * Math.tan(spread)), a2 = back(L, L * Math.tan(spread));
+    const barAt = d => { const w = L * 0.6; return `<path d="M${P(back(d, w))} L${P(back(d, -w))}" stroke="${color}" stroke-width="${sw + 0.4}" stroke-linecap="round"/>`; };
+    const ring = d => { const r = L * 0.32, c = back(d); return `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" stroke="${color}" stroke-width="${sw}"/>`; };
+    const foot = () => { const w = L * 0.72, base = back(L); return [p1, back(0, w), back(0, -w)].map(t => `<path d="M${P(base)} L${P(t)}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linecap="round"/>`).join(''); };
+    switch (type) {
+      case 'triangle': return `<path d="M${P(a1)} L${P(p1)} L${P(a2)} Z" fill="${color}" stroke="${color}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      case 'triangle_outline': return `<path d="M${P(a1)} L${P(p1)} L${P(a2)} Z" fill="#ffffff" stroke="${color}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      case 'diamond': case 'diamond_outline': { const w = L * 0.48; return `<path d="M${P(p1)} L${P(back(L * 0.55, w))} L${P(back(L * 1.1))} L${P(back(L * 0.55, -w))} Z" fill="${type === 'diamond' ? color : '#ffffff'}" stroke="${color}" stroke-width="${sw}" stroke-linejoin="round"/>`; }
+      case 'circle': case 'dot': { const r = L * 0.42, c = back(r); return `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${r.toFixed(1)}" fill="${color}" stroke="${color}" stroke-width="${sw}"/>`; }
+      case 'circle_outline': { const r = L * 0.42, c = back(r); return `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" stroke="${color}" stroke-width="${sw}"/>`; }
+      case 'bar': return barAt(0);
+      case 'cardinality_one': case 'crowfoot_one': return barAt(L * 0.6);
+      case 'cardinality_exactly_one': return barAt(L * 0.45) + barAt(L * 0.85);
+      case 'cardinality_many': case 'crowfoot_many': return foot();
+      case 'cardinality_one_or_many': case 'crowfoot_one_or_many': return foot() + barAt(L * 1.05);
+      case 'cardinality_zero_or_one': return barAt(L * 0.55) + ring(L * 1.15);
+      case 'cardinality_zero_or_many': return foot() + ring(L * 1.3);
+      case 'arrow': default: return `<path d="M${P(a1)} L${P(p1)} L${P(a2)}" stroke="${color}" stroke-width="${sw}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
   };
 
   for (const e of els) {
@@ -122,15 +142,19 @@ function main() {
         const pts = (e.points || []).map(p => [e.x + p[0], e.y + p[1]]);
         if (pts.length < 2) continue;
         const closed = e.backgroundColor && e.backgroundColor !== 'transparent';
-        const d = closed ? gen.polygon(pts, roughOpts(e)) : gen.linearPath(pts, roughOpts(e));
+        // roundness 非空 + ≥3 点 → 曲线(穿过控制点);否则直段
+        const d = closed ? gen.polygon(pts, roughOpts(e))
+          : (e.roundness && pts.length > 2 ? gen.curve(pts, roughOpts(e)) : gen.linearPath(pts, roughOpts(e)));
         out.push(emitDrawable(d, e.opacity));
       } else if (e.type === 'arrow') {
         const pts = (e.points || []).map(p => [e.x + p[0], e.y + p[1]]);
         if (pts.length < 2) continue;
-        out.push(emitDrawable(gen.linearPath(pts, roughOpts(e)), e.opacity));
-        const col = (e.strokeColor && e.strokeColor !== 'transparent') ? e.strokeColor : '#1e1e1e';
-        if (e.endArrowhead !== null) out.push(arrowHead(pts[pts.length - 2], pts[pts.length - 1], col, e.strokeWidth || 2));
-        if (e.startArrowhead) out.push(arrowHead(pts[1], pts[0], col, e.strokeWidth || 2));
+        const curved = e.roundness && pts.length > 2;
+        out.push(emitDrawable(curved ? gen.curve(pts, roughOpts(e)) : gen.linearPath(pts, roughOpts(e)), e.opacity));
+        const col = (e.strokeColor && e.strokeColor !== 'transparent') ? e.strokeColor : '#1e1e1e', sw = e.strokeWidth || 2;
+        // endArrowhead 缺省(undefined)按默认 'arrow';显式 null 则无头。start 缺省无头。
+        out.push(arrowHead(pts[pts.length - 2], pts[pts.length - 1], col, sw, e.endArrowhead === undefined ? 'arrow' : e.endArrowhead));
+        if (e.startArrowhead) out.push(arrowHead(pts[1], pts[0], col, sw, e.startArrowhead));
       } else if (e.type === 'text') {
         const size = e.fontSize || 16, lh = size * 1.25, fam = FONT[e.fontFamily] || FONT[1];
         const anchor = ANCHOR[e.textAlign] || 'start';

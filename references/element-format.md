@@ -76,10 +76,13 @@ Full fields (create_view usually fills in defaults, but writing them explicitly 
 }
 ```
 
-- `points`: an array of polyline points relative to `x,y`. Two points for a straight line, multiple points for a polyline.
+- `points`: an array of polyline points relative to `x,y`. Two points for a straight line, multiple points for a polyline. **≥3 points + `"roundness":{"type":2}` → a smooth curve** through the points.
 - `startBinding`/`endBinding`: binding to a box -- the arrow follows automatically when the box moves. `elementId` points at the box id; the bound box must register this arrow in its `boundElements`. Connections in architecture diagrams must always use binding, otherwise the line detaches when you change the layout.
-- `endArrowhead`: `arrow` `triangle` `dot` `bar` `null`.
+- `startArrowhead` / `endArrowhead`: independent per end. `null` = no head (both null = a plain line). Full enum: `arrow` `triangle` `triangle_outline` `diamond` `diamond_outline` `circle`(legacy `dot`) `circle_outline` `bar` `cardinality_one|many|one_or_many|zero_or_one|zero_or_many|exactly_one` (legacy `crowfoot_*`).
+- **Mid-arrow text label**: a `text` child with `containerId` = the arrow id + `verticalAlign:"middle"`, and the arrow's `boundElements` lists `{"type":"text","id":...}`.
+- `elbowed:true` → orthogonal (right-angle) routing.
 - Data flow direction = arrow direction, kept consistent across the whole diagram (left to right or top to bottom).
+- **Arrows are powerful and underused — see `references/arrows.md`** for the full guide (heads / mid-labels / curves / elbow / binding) with copy-paste snippets. svg-export renders all of it.
 
 ## Palette (be restrained! whole diagram <= 4 colors)
 

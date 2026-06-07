@@ -350,5 +350,28 @@ A、B 是"丑 slop"，这套机器可靠干掉约 90%——真胜利。但刺眼
 - 已沉淀的纪律：`SKILL.md` + `references/anti-slop.md`（箭头减法/留白）、`references/verification.md`（眯眼必做）
 - 已验证的"修辞 macro + drawlib micro"手做案例：画廊 04 产品介绍、06 内部技术图、02 Transformer
 - 工具：`scripts/`（arch-layout/arch-connect/arch-lint/render-formula）+ 会话里攒的 `drawlib-icons.mjs`(icon/block/comp)、`direct-connect.mjs`、`build-*.mjs`
-- Mermaid 模板渲染系统（已落地 flow/seq/state/class/er 五类）：方法论 `references/render-method.md`、索引 `references/mermaid-render.md`、各类型 `render-<type>.mjs` + `mermaid-<type>.mjs` + `references/<type>.md` + `prompts/<type>-styles.md`；组件表 `assets/mermaid-components/`
-- 下一步优化思路（mindmap / chart 类）：见 §9
+- Mermaid 模板渲染系统（已落地 flow/seq/state/class/er/gantt/mindmap 七类）：方法论 `references/render-method.md`、索引 `references/mermaid-render.md`、各类型 `render-<type>.mjs` + `mermaid-<type>.mjs` + `references/<type>.md` + `prompts/<type>-styles.md`；组件表 `assets/mermaid-components/`
+- 箭头能力专章：`references/arrows.md`（端点头型 / 中间文字 / 曲线 / elbow / 绑定）
+- 下一步优化思路（mindmap / chart 类）：见 §9；本次会话变更见 §10
+
+## 10. 会话变更日志（v0.6 续，未单独打 tag）
+
+本轮把 §9.1 的 mindmap 思路全部落地，并由「补齐 Excalidraw 箭头能力」反推简化了 class/ER。
+
+**Mindmap 渲染器**（`render-mindmap.mjs` + `mermaid-mindmap.mjs`，§9.1 全部兑现）
+- 双布局：`logical` 横树 / `radial` 360° 放射（叶子均分角度、内节点取子均值、环半径保证径向+切向不重叠，零依赖近 d3.cluster）。
+- 三块「GPT mindmap 美感」程序化:① 大小=按 depth 分形（云根 / 描边框 / 无框下划线叶 + 字号梯度）；② 图标=自绘 12 种手绘线稿 tint 枝色（drawlib 的 Star graph 是节点连线图、bulb 太小，自绘更稳更一致、反 slop 合规）；③ 手绘线条=**taper 锥形带**（贝塞尔中心线 + 法向偏移宽度根粗梢细 → 闭合填充多边形 → roughjs polygon 拿真 taper + 手绘边）。这是和等宽线差距最大、提升最明显的一项。
+- 结构指令（XMind 概念，mermaid 原生无 → 自定）：`::boundary` 子树虚线框 / `::summary(label)` 花括号归并 / `::link(A,B,label)` 跨枝弯曲虚线 / `::note(text)` 便签；节点 id（`ui[Label]`）供 link 引用。
+
+**箭头能力补全 → 反推简化**（关键认知：能力补进 svg-export 后，多个渲染器都能简化）
+- 查官方 `types.ts` 拿到 `Arrowhead` 完整枚举（triangle(_outline)/diamond(_outline)/circle(_outline)/bar/cardinality_* + 旧名 dot/crowfoot_*）。
+- `svg-export.mjs` 升级：类型感知渲染全部头型 + 多点曲线（roughjs `gen.curve`，`roundness:2`）。原来一律开口三角、不画曲线 → 这些能力以前预览看不出来。
+- 用此能力**反推简化** class/ER：UML marker（`MK` 映射 triangle_outline/diamond/diamond_outline/arrow）、ER crowfoot（`cardEnum` → cardinality_*）从「手绘 line 拼」改为原生 `start/endArrowhead`，各删一个 marker 函数；和 flow/seq/state 的清爽头型统一。
+- 专章 `references/arrows.md`：端点头型 / 中间文字（绑定 text）/ 曲线 / elbow / 绑定，全部可粘贴 JSON。
+
+**eval / 文档**
+- variants.json v0.6.0 `adds` 扩成七类模板 + 原生头型 + svg-export 升级的完整描述。
+- 新增 case：`MODEL04-uml-full`（六种 UML 关系）、`MODEL05-er-crowfoot`（多基数）、`IA08-mindmap-radial`（放射+图标+boundary/summary）。
+- A/B 命令（需 opencode+模型 API+chromium，本机跑不了）：
+  `node eval/run.mjs method --cols "v0.5.0 v0.6.0" --only "FLOW01..09 MODEL01/02 CHART05-gantt"`。
+- 仍待做：mindmap 组件参考表 + `prompts/mindmap-styles.md`；chart 类（§9.2）；note callout 与 drawlib person 图标接入（可选）。

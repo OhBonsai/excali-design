@@ -3,9 +3,10 @@
 Class diagrams have their own renderer (`render-class.mjs`), built with the method in
 `references/render-method.md`. A class diagram is a graph of class boxes + relationships, so
 it reuses the **same layered layout** as flowchart; the node is a 3-compartment class box and
-the edges carry **UML relationship markers drawn by hand** (svg-export does not render native
-Excalidraw arrowheads, so triangles / diamonds / arrows are drawn as line shapes — fully
-reproducible). Use this for any class diagram instead of the generic `mermaid-to-excalidraw.mjs`.
+the edges carry **UML relationship markers as native Excalidraw arrowheads** (svg-export renders
+the full `Arrowhead` enum): inheritance/realization → `triangle_outline`, composition →
+`diamond`, aggregation → `diamond_outline`, association/dependency → `arrow`; mapping in
+`MK` in `render-class.mjs`. Use this for any class diagram instead of the generic `mermaid-to-excalidraw.mjs`.
 
 ## One command
 ```

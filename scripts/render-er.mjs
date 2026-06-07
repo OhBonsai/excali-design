@@ -56,16 +56,16 @@ const Ln=(pts,o={})=>{const x=pts[0][0],y=pts[0][1];els.push({type:'line',id:id(
 const T=(x,y,t,o={})=>els.push({type:'text',id:id('t'),x,y,width:o.w??t.length*(o.size??14)*0.6,height:(o.size??14)+6,angle:0,text:t,fontSize:o.size??14,fontFamily:o.ff??2,textAlign:o.align??'left',verticalAlign:'top',strokeColor:o.color??INKC,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
 els.push({type:'rectangle',id:id('bg'),x:0,y:0,width:maxx+M,height:maxy+M,angle:0,strokeColor:'transparent',backgroundColor:S.paper,fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,roundness:null,opacity:100,seed:rnd(),groupIds:[]});
 
-// ---------- 鱼爪基数标记 ----------
-function crowfoot(P,nb,d){ if(!d) return; let ix=P[0]-nb[0],iy=P[1]-nb[1];const L=Math.hypot(ix,iy)||1;ix/=L;iy/=L;const px=-iy,py=ix;
-  const at=(dist,s)=>[P[0]-ix*dist+px*s, P[1]-iy*dist+py*s];
-  let cursor=0;
-  if(d.crow){ const A=at(16,0); Ln([A,[P[0]+px*11,P[1]+py*11]],{sw:S.sw}); Ln([A,P],{sw:S.sw}); Ln([A,[P[0]-px*11,P[1]-py*11]],{sw:S.sw}); cursor=18; }
-  const barAt=dist=>Ln([at(dist,8),at(dist,-8)],{sw:S.sw});
-  if(d.bars>=1) barAt(cursor+10);
-  if(d.bars>=2) barAt(cursor+17);
-  if(d.circle){ const c=at(cursor+(d.bars?22:12),0); El(c[0]-5,c[1]-5,10,10,{fill:S.paper,fs:'solid',sw:S.sw}); }
+// ---------- 鱼爪基数 {crow,circle,bars} → 原生 cardinality_* 头型 ----------
+function cardEnum(d){ if(!d) return null;
+  if(d.crow){ if(d.circle) return 'cardinality_zero_or_many'; if(d.bars>=1) return 'cardinality_one_or_many'; return 'cardinality_many'; }
+  if(d.circle) return 'cardinality_zero_or_one';
+  if(d.bars>=2) return 'cardinality_exactly_one';
+  if(d.bars>=1) return 'cardinality_one';
+  return null;
 }
+// 箭头(原生头型)
+const Ar=(pts,o={})=>{const x=pts[0][0],y=pts[0][1];els.push({type:'arrow',id:id('a'),x,y,width:Math.max(...pts.map(p=>p[0]))-Math.min(...pts.map(p=>p[0])),height:Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1])),points:pts.map(p=>[p[0]-x,p[1]-y]),roundness:null,startArrowhead:o.sa??null,endArrowhead:o.ea??null,...base(o)});};
 
 // ---------- 路由（盒到盒正交） ----------
 const port=(n,s)=>({t:[n.cx,n.cy-n.h/2],b:[n.cx,n.cy+n.h/2],l:[n.cx-n.w/2,n.cy],r:[n.cx+n.w/2,n.cy]}[s]);
@@ -73,9 +73,7 @@ function route(e){ const a=nodes[e.a],b=nodes[e.b]; if(!a||!b) return;
   const dx=b.cx-a.cx,dy=b.cy-a.cy; let pa,pb,pts;
   if(Math.abs(dy)>=Math.abs(dx)){ if(dy>=0){pa=port(a,'b');pb=port(b,'t');}else{pa=port(a,'t');pb=port(b,'b');} const my=(pa[1]+pb[1])/2; pts=Math.abs(pa[0]-pb[0])<3?[pa,pb]:[pa,[pa[0],my],[pb[0],my],pb]; }
   else { if(dx>=0){pa=port(a,'r');pb=port(b,'l');}else{pa=port(a,'l');pb=port(b,'r');} const mx=(pa[0]+pb[0])/2; pts=Math.abs(pa[1]-pb[1])<3?[pa,pb]:[pa,[mx,pa[1]],[mx,pb[1]],pb]; }
-  Ln(pts,{stroke:INKC,fill:'none',sw:S.sw,ss:e.line==='dashed'?'dashed':'solid'});
-  crowfoot(pts[0],pts[1],e.cardA);
-  crowfoot(pts[pts.length-1],pts[pts.length-2],e.cardB);
+  Ar(pts,{stroke:INKC,fill:'none',sw:S.sw,ss:e.line==='dashed'?'dashed':'solid', sa:cardEnum(e.cardA), ea:cardEnum(e.cardB)});
   if(e.label){ const mid=pts[Math.floor(pts.length/2)]; T(mid[0]+6,mid[1]-8,e.label,{size:12,color:GRAY,align:'left',w:e.label.length*8}); }
 }
 

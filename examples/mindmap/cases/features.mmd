@@ -1,0 +1,25 @@
+mindmap
+  root((Release v2))
+    Frontend
+    ::icon(bulb)
+    ::boundary
+      ui[Redesign UI]
+      Dark mode
+      Accessibility
+    Backend
+    ::icon(gear)
+    ::summary(Core APIs)
+      auth[Auth service]
+      Payments
+      Search
+    Data
+    ::icon(target)
+    ::note(Migrate to Postgres 16 before GA)
+      db[Database]
+      Analytics
+    Docs
+    ::icon(book)
+      Guides
+      API reference
+  ::link(Redesign UI, Auth service, calls)
+  ::link(Payments, Database, writes)

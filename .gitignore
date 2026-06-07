@@ -44,6 +44,7 @@ examples/*/out/
 # 一次性脚本产物 / 临时
 /out/
 tmp-*.mmd
+/tmp/
 
 # 组件参考表 PNG 需入库(被 prompts/*.md 引用)，覆盖上面 *.png 的全局忽略
 !assets/mermaid-components/
