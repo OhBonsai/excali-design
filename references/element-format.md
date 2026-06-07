@@ -1,7 +1,6 @@
 # Excalidraw Element Format · Offline Reference
 
-> This is an offline backup of the Excalidraw MCP `read_me`, ensuring you can draw to spec even when the MCP is unavailable.
-> Before using `create_view`, if the MCP is available, prefer calling `read_me` live (it may contain the latest palette/examples).
+> This is an offline backup of the Excalidraw MCP `read_me` + a quick-start. **For the full native-capability map** (every element type, every property, exact enum values/defaults from the official TypeScript types, and a "want X → set Y" reverse index), see **`references/excalidraw-schema.md`**. Use the skill's full native config — heads/labels/curves/frames/images/opacity/fill styles — before reaching for assets.
 
 ## Common fields of an element
 
@@ -32,7 +31,7 @@ Full fields (create_view usually fills in defaults, but writing them explicitly 
 | `angle` | Rotation in radians | Default 0 |
 | `strokeColor` | Stroke color | See palette |
 | `backgroundColor` | Fill color | `transparent` or palette |
-| `fillStyle` | Fill style | `solid` `hachure` (diagonal lines) `cross-hatch` |
+| `fillStyle` | Fill style | `hachure` (diagonal lines, default) `cross-hatch` `solid` `zigzag` |
 | `strokeWidth` | Line width | `1` (thin) `2` (medium) `4` (thick) |
 | `strokeStyle` | Line style | `solid` `dashed` `dotted` |
 | `roughness` | Hand-drawn jitter level | `0` (near straight) `1` (default) `2` (very jittery) |

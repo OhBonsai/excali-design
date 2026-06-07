@@ -179,8 +179,10 @@ Principle: on an exception, first tell the user what happened in one sentence, t
 | Task | Read |
 |---|---|
 | Ask questions, set direction before starting | `references/workflow.md` |
-| Excalidraw element format (schema/palette/binding) | `references/element-format.md` |
+| Excalidraw element format — quick-start + palette | `references/element-format.md` |
+| **Excalidraw native-capability map** — every element type & property, exact enum values/defaults (from official TS types), and a "want X → set Y" reverse index. Master the built-in config (heads/labels/curves/frames/images/opacity/fill styles/binding) — it's more leverage than assets | `references/excalidraw-schema.md` |
 | Arrows & lines — heads (incl. UML/ER/crowfoot), mid-arrow text labels, multi-point curves, elbow, binding; the most underused capability — reach for it on edges/connectors/relations | `references/arrows.md` (svg-export renders all of it) |
+| Encoding — which visual variable encodes which data type, mapped onto Excalidraw's actual knobs (Bertin/Cleveland-McGill/Mackinlay × the .d.ts). Pick honest encodings; Excalidraw's strong channels are connection (arrows) + containment (frames) → it's a relational/diagram tool, not a stats-chart tool | `references/encoding.md` |
 | Reuse the drawlib component libraries (11 libs ~402 items + `data-lib` usage + key indexes) | `references/drawlib-catalog.md` (catalog) + `references/drawlib-index.md` (categories/search) + `scripts/drawlib-find.mjs` (keyword to index) + `scripts/drawlib-sheet.mjs` (render a contact sheet to verify) |
 | Curated community assets (libraries.excalidraw.com + vendor flow) | `references/community-libraries.md` |
 | Asset-need taxonomy (need to type to category + gap/pick flow) | `references/asset-taxonomy.md` |
@@ -205,6 +207,8 @@ Principle: on an exception, first tell the user what happened in one sentence, t
 | Math formulas to embedded SVG | `scripts/render-formula.mjs` (MathJax TeX to SVG; needs `mathjax-full`) |
 | Export a single diagram to PNG/SVG | Lightweight, no chromium: `scripts/svg-export.mjs` (headless Rough.js to hand-drawn SVG, optional resvg to PNG); highest fidelity: `scripts/excalidraw-to-image.mjs` (Playwright, official engine) |
 | Verify output | `references/verification.md` + `scripts/verify.mjs` |
+| Floor checks (catch failures by structure, not a score) | geometry: `scripts/arch-lint.mjs` (overlap / arrow-thru / off-grid / **text-overflow / tiny-text** / color-budget / oob); perception: `scripts/floor-check.mjs` (ink-density grid, zero-render — squint-collapse / color-budget / balance, `--type hero` adds no-hero). Both emit specific violations + a per-rule `fix` hint + `--json`; use in eval for regression diffs, not as a quality score |
+| Auto-fix mechanical violations | `scripts/fix.mjs <in> [--out]` — applies the deterministic subset (text-overflow→widen container, tiny-text→bump font, overlap→push apart, off-grid→snap) and writes a `.fixed.excalidraw`; re-run arch-lint to confirm. Perception issues (hero/balance/squint) are left for human/model judgment |
 | Design review / scoring (optional) | `references/critique-guide.md` |
 
 ## Environment notes
@@ -226,11 +230,12 @@ Principle: on an exception, first tell the user what happened in one sentence, t
 
 - Verify facts before assuming: for a real system, read code or search docs; do not guess the architecture.
 - Reuse over hand-drawing: never hand-draw what drawlib has (Principle 2).
+- Master Excalidraw's native config before reaching for assets: a single element carries far more than position+color — arrowheads (both ends, UML/ER/dot/bar), mid-arrow labels, multi-point curves, elbow routing, frames, embedded images, opacity, fill styles (hachure/cross-hatch/solid/zigzag), dashed/dotted, binding. Most "I need an asset for this" is actually a property you haven't set. Full map: `references/excalidraw-schema.md`.
 - Junior pass first: show the skeleton, then build. Excalidraw is fast to change; use it.
 - Avoid hand-drawn slop: rainbow colors, over-sketchiness, noodle arrows. For each, ask "is this necessary?".
 - Architecture arrow subtraction: prefer no arrow over stacked arrows; learn to omit and use whitespace. Draw only the entry backbone plus one hero flow; convey the rest with layered position, whitespace, and notes. Diagonal direct connections are acceptable. (Architecture/topology only; sequence/flow/state arrows are the content and are not subtracted.)
 - Never estimate edge coordinates by hand: after placing boxes, hand edges to `arch-connect` (orthogonal) or a geometric direct connector (diagonal).
-- The squint test is mandatory: after exporting a PNG, blur it and look again (are layers/focus/grouping still recognizable? does it read as a hand-drawn diagram, not a web screenshot? any "barcode" noise?). Report the result. See `references/verification.md`.
+- The squint test is mandatory: after exporting a PNG, blur it and look again (are layers/focus/grouping still recognizable? does it read as a hand-drawn diagram, not a web screenshot? any "barcode" noise?). Report the result. See `references/verification.md`. For an automated companion, `scripts/floor-check.mjs` quantifies the squint test from the scene graph (zero-render) — `squint-collapse` flags barcode/no-structure; pass `--type hero` for hero/poster diagrams to also check there's a visual hero.
 - Formulas always go to LaTeX rendered as embedded SVG, never assembled from drawlib blocks: render math with `scripts/render-formula.mjs` (MathJax TeX to SVG), embed it as an image element with a dataURL in the `.excalidraw` (self-contained), and export via `excalidraw-to-image.mjs`. drawlib formula blocks are assembled from small hand-drawn boxes and blur when scaled.
 - Lint is only an auxiliary scan: it catches mechanical errors, not quality; do not sacrifice expressiveness for an all-green lint.
 

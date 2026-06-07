@@ -14,6 +14,8 @@
  *   E1 overlap         节点-节点部分重叠(互不包含却相交)= 摆放 bug
  *   E2 arrow-thru      箭头穿过它没绑定的节点(线压过框)
  *   E3 icon-glyph      文字里用 Unicode/emoji 冒充图标(✓✗★●■▲→↑↓⚙🔍)= 反 slop 硬禁
+ *   E4 text-overflow   绑定在框里的文字超出容器宽(放不下)
+ *   W0 tiny-text       字号 <11(眯眼必糊,不可读)
  *   W1 offgrid         x/y 未吸附到网格(默认 4)
  *   W2 near-align      两节点边/中线「几乎对齐但没对齐」(最丑的错位)
  *   W3 uneven-gap      同一行/列相邻节点间距不均
@@ -28,6 +30,22 @@ import path from 'node:path';
 import { scanIconText, FIX_HINT } from './_antislop.mjs';
 
 const NODE_TYPES = new Set(['rectangle', 'ellipse', 'diamond', 'image', 'frame']);
+
+// 每条规则的「处方」(把诊断升级成可执行的下一步)。机械项(★)可由 scripts/fix.mjs 自动改。
+const FIXES = {
+  overlap: '挪开其一或重跑 arch-layout;微调可用 scripts/fix.mjs ★',
+  'text-overflow': '加宽容器到文字宽 / 缩小字号 / 换行;scripts/fix.mjs 自动加宽容器 ★',
+  'tiny-text': '字号提到 ≥12;scripts/fix.mjs 自动 bump ★',
+  offgrid: '坐标吸附到网格;scripts/fix.mjs 自动 snap ★',
+  'near-align': '把几乎相等的边/中线吸到同值;scripts/fix.mjs 自动 snap ★',
+  'color-budget': '把多余色并到 ≤阈值的调色板(留 1 主色 + 中性)',
+  'container-padding': '扩容器或内移子模块,四边留 ≥12px',
+  'arrow-unbound': '把箭头端点 binding 到节点(改布局才不脱节)',
+  'arrow-thru': '改走正交绕行 / 重排,别压过无关框',
+  diagonal: '架构连线改横平竖直 + 直角拐弯',
+  oob: '移回画布内或扩画布',
+  'icon-glyph': '换 data-icon 手绘形状或 drawlib 图元,禁 Unicode/emoji',
+};
 
 function parseArgs(argv) {
   const a = { grid: 4, colors: 4, _: [] };
@@ -101,6 +119,19 @@ function lint(els, opt) {
   // E: 反 slop —— 文字里用 Unicode/emoji 冒充图标(模型最爱犯;这里当 error 拦,不靠肉眼)
   for (const h of scanIconText(els.filter(e => e.type === 'text'))) {
     add('error', 'icon-glyph', `文字 ${JSON.stringify(h.text.slice(0, 24))} 含 Unicode 图标字符 ${h.chars.join(' ')} —— ${FIX_HINT}`);
+  }
+
+  // W/E: 文字检查 —— tiny-text(字号太小眯眼必糊) + text-overflow(绑定文字超出容器宽)
+  const byId = new Map(els.map(e => [e.id, e]));
+  const lineW = (s, fs) => [...String(s)].reduce((w, c) => w + (c.charCodeAt(0) > 255 ? 1.0 : 0.55) * fs, 0);
+  for (const t of els.filter(e => e.type === 'text')) {
+    const fs = t.fontSize || 16;
+    if (fs < 11) add('warn', 'tiny-text', `文字 ${idOf(t)} ${JSON.stringify(String(t.text).slice(0, 16))} 字号 ${fs}<11,眯眼会糊`);
+    const c = t.containerId && byId.get(t.containerId);
+    if (c && NODE_TYPES.has(c.type) && c.width) {
+      const maxW = Math.max(...String(t.text).split('\n').map(ln => lineW(ln, fs)));
+      if (maxW > c.width * 1.05) add('error', 'text-overflow', `文字 ${JSON.stringify(String(t.text).slice(0, 20))} 超出容器 ${idOf(c)} 宽(~${maxW | 0}>${c.width | 0})`);
+    }
   }
 
   // W: container-padding(容器内子模块的内边距;贴边 = 缺 padding)
@@ -295,7 +326,8 @@ function main() {
   const issues = lint(els, opt);
   const errs = issues.filter(i => i.sev === 'error'), warns = issues.filter(i => i.sev === 'warn');
 
-  if (opt.json) { console.log(JSON.stringify({ file, errors: errs, warnings: warns }, null, 2)); }
+  const withFix = i => ({ ...i, fix: FIXES[i.rule] || null });
+  if (opt.json) { console.log(JSON.stringify({ file, errors: errs.map(withFix), warnings: warns.map(withFix) }, null, 2)); }
   else {
     console.log(`arch-lint ${path.basename(file)} · ${els.length} 元素`);
     if (!issues.length) { console.log('✓ 全部通过'); }
@@ -306,6 +338,7 @@ function main() {
         const list = byRule[rule]; const sev = list[0].sev === 'error' ? '✗ ERROR' : '⚠ warn';
         console.log(`\n${sev} · ${rule}(${list.length})`);
         for (const i of list) console.log('   ', i.msg);
+        if (FIXES[rule]) console.log(`   → 改:${FIXES[rule]}`);
       }
       console.log(`\n合计:${errs.length} error · ${warns.length} warn`);
     }
