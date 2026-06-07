@@ -1,0 +1,32 @@
+{
+  "direction": "LR",
+  "nodes": [
+    {"id":"start","label":"Start","type":"start"},
+    {"id":"input","label":"Input\nRequest","type":"io"},
+    {"id":"review","label":"Review","type":"process"},
+    {"id":"clear","label":"Clear?","type":"decision"},
+    {"id":"gather","label":"Gather Info\n(Research)","type":"io"},
+    {"id":"plan","label":"Plan","type":"process"},
+    {"id":"work","label":"Do Work","type":"manual"},
+    {"id":"data","label":"Data","type":"data"},
+    {"id":"check","label":"Check","type":"process"},
+    {"id":"ok","label":"Ok?","type":"decision"},
+    {"id":"result","label":"Result","type":"document"},
+    {"id":"end","label":"End","type":"end"}
+  ],
+  "edges": [
+    {"from":"start","to":"input"},
+    {"from":"input","to":"review"},
+    {"from":"review","to":"clear"},
+    {"from":"clear","to":"plan","label":"Yes"},
+    {"from":"clear","to":"gather","label":"No"},
+    {"from":"gather","to":"review"},
+    {"from":"plan","to":"work"},
+    {"from":"work","to":"data"},
+    {"from":"data","to":"check"},
+    {"from":"check","to":"ok"},
+    {"from":"ok","to":"work","label":"No"},
+    {"from":"ok","to":"result","label":"Yes"},
+    {"from":"result","to":"end"}
+  ]
+}

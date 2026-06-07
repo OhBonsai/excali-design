@@ -1,0 +1,14 @@
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Paid : pay
+  Pending --> Cancelled : cancel
+  Pending --> Closed : timeout
+  Paid --> Shipped : ship
+  Shipped --> Received : deliver
+  Received --> Done : confirm
+  Paid --> Refunding : refund
+  Refunding --> Refunded : approved
+  Refunded --> [*]
+  Cancelled --> [*]
+  Closed --> [*]
+  Done --> [*]

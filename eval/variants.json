@@ -1,0 +1,14 @@
+{
+  "_doc": "方法迭代矩阵的列。每个变体 = 一个 git ref（分支/tag/commit）或 WORKTREE(当前工作树)。每列比上一列多开一个 thinking.md 的方法 —— 这就是'小步迭代'：每个方法一个 commit/一列，矩阵里列与列对比就看出该方法的边际增益。模型固定(默认 qwen3.7-max)。",
+  "fixed_model": "aliyuntokenplan/qwen3.7-max",
+  "_how": "矩阵列 = 技能快照(git tag)。当前基线 = v0.5.0。把 thinking.md 方案落进技能后打 v0.6.0 并加为新列，重跑只需新列，report 两列并排即'引入方案前后的区别'。未建对应 tag 时自动回落当前工作树。",
+  "variants": [
+    {"name": "v0.5.0", "ref": "v0.5.0", "adds": "基线：当前全部规则(arch-layout/connect/lint/drawlib/箭头减法/LaTeX/眯眼)。flowchart 走老 mermaid-to-excalidraw 路径"},
+    {"name": "v0.6.0", "ref": "WORKTREE", "adds": "新增 flowchart 模板路径：render-flowchart(分层布局+正交路由+role→shape→color+STYLE预设) + mermaid-to-case 解析 + subgraph→泳道。SKILL.md 改为优先走此路"}
+  ],
+  "_model_matrix": {
+    "_doc": "次级矩阵：变体固定在 v5-current，列换成 5 个模型，看哪个模型最会执行。",
+    "fixed_variant": "WORKTREE",
+    "models": ["aliyuntokenplan/qwen3.7-max","aliyuntokenplan/qwen3.7-plus","aliyuntokenplan/qwen3.6-plus","aliyuntokenplan/deepseek-v4-pro","aliyuntokenplan/deepseek-v4-flash"]
+  }
+}

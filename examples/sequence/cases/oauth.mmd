@@ -1,0 +1,15 @@
+sequenceDiagram
+  actor U as User
+  participant A as App
+  participant Auth as Auth Server
+  participant R as Resource
+  U->>A: click login
+  A->>Auth: redirect authorize
+  Auth->>U: login page
+  U->>Auth: credentials
+  Auth-->>A: authorization code
+  A->>+Auth: exchange code
+  Auth-->>-A: access token
+  A->>+R: GET /data (token)
+  R-->>-A: protected data
+  A-->>U: show data

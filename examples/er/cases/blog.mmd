@@ -1,0 +1,22 @@
+erDiagram
+  USER ||--o{ POST : writes
+  POST ||--o{ COMMENT : has
+  USER ||--o{ COMMENT : makes
+  POST }o--o{ TAG : "tagged with"
+  USER {
+    int id PK
+    string handle
+  }
+  POST {
+    int id PK
+    string title
+    int author FK
+  }
+  COMMENT {
+    int id PK
+    string body
+  }
+  TAG {
+    int id PK
+    string name
+  }

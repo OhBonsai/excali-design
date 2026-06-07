@@ -1,0 +1,23 @@
+classDiagram
+  class Shape {
+    <<interface>>
+    +area() double
+    +perimeter() double
+  }
+  class Circle {
+    -double radius
+    +area() double
+  }
+  class Rectangle {
+    -double w
+    -double h
+    +area() double
+  }
+  class Canvas {
+    -List shapes
+    +add(Shape s) void
+    +render() void
+  }
+  Shape <|.. Circle
+  Shape <|.. Rectangle
+  Canvas o-- Shape : holds

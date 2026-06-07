@@ -1,0 +1,17 @@
+flowchart TD
+  s([Start]) --> auth{Authenticated?}
+  auth -->|No| login[/Login/]
+  login --> auth
+  auth -->|Yes| role{Role?}
+  role -->|Admin| adm[Admin Panel]
+  role -->|User| usr[User Home]
+  adm --> act[Pick Action]
+  usr --> act
+  act --> val{Valid Action?}
+  val -->|No| err>Error]
+  err --> act
+  val -->|Yes| run[Run Task]
+  run --> store[(Persist)]
+  store --> notify[Notify]
+  notify --> audit[[Audit Log]]
+  audit --> e([End])

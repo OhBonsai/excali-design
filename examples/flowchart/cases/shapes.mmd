@@ -1,0 +1,12 @@
+flowchart TD
+  a([Terminator]) --> b[Process]
+  b --> c[/Input Output/]
+  c --> d{Decision}
+  d -->|yes| e[(Database)]
+  d -->|no| f>Document]
+  e --> g{{Preparation}}
+  f --> h[\Manual Op/]
+  g --> i[[Subroutine]]
+  h --> j((Conn))
+  i --> k([End])
+  j --> k

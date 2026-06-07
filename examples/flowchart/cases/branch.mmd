@@ -1,0 +1,8 @@
+flowchart TD
+  s([Start]) --> input[/Read Order/]
+  input --> check{In Stock?}
+  check -->|Yes| ship[Ship Order]
+  check -->|No| back[(Backorder)]
+  ship --> notify>Send Receipt]
+  back --> notify
+  notify --> e([End])

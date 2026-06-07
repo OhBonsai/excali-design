@@ -1,0 +1,16 @@
+gantt
+  title Sprint 14 (2 weeks)
+  dateFormat YYYY-MM-DD
+  section Planning
+    Sprint planning   :done, p1, 2024-03-04, 1d
+    Refine backlog    :done, p2, after p1, 1d
+  section Dev
+    Auth refactor     :active, d1, after p2, 4d
+    Payments API      :crit, d2, after p2, 5d
+    Settings page     :d3, after d1, 3d
+  section QA
+    Test & review     :d4, after d2, 3d
+    Bugfix            :d5, after d4, 2d
+  section Done
+    Demo              :milestone, m1, after d5, 0d
+    Retro             :milestone, m2, after m1, 0d

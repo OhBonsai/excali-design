@@ -1,0 +1,14 @@
+flowchart LR
+  start([Start]) --> input[/Input Request/]
+  input --> review[Review]
+  review --> clear{Clear?}
+  clear -->|Yes| plan[Plan]
+  clear -->|No| gather[/Gather Info/]
+  gather --> review
+  plan --> work[/Do Work\]
+  work --> data[(Data)]
+  data --> check[Check]
+  check --> ok{Ok?}
+  ok -->|No| work
+  ok -->|Yes| result>Result]
+  result --> e([End])

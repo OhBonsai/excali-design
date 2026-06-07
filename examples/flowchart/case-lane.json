@@ -1,0 +1,36 @@
+{
+  "direction": "TD",
+  "style": "pastel-journal",
+  "legend": true,
+  "lanes": ["INPUT","PROCESS","OUTPUT"],
+  "nodes": [
+    {"id":"start","label":"Start","type":"start","lane":"INPUT"},
+    {"id":"recv","label":"Data\nReceived","type":"io","lane":"INPUT"},
+    {"id":"valid","label":"Valid?","type":"decision","lane":"PROCESS"},
+    {"id":"reject","label":"Reject\n& Log","type":"process","lane":"OUTPUT"},
+    {"id":"errlog","label":"Error\nLog","type":"document","lane":"OUTPUT"},
+    {"id":"end1","label":"End","type":"end","lane":"OUTPUT"},
+    {"id":"review","label":"Review\n& Enrich","type":"manual","lane":"PROCESS"},
+    {"id":"rawlog","label":"Raw\nLog","type":"document","lane":"INPUT"},
+    {"id":"store","label":"Store","type":"data","lane":"PROCESS"},
+    {"id":"prep","label":"Prepare\nSummary","type":"preparation","lane":"PROCESS"},
+    {"id":"deliver","label":"Deliver\nResults","type":"manual","lane":"OUTPUT"},
+    {"id":"report","label":"Report","type":"document","lane":"OUTPUT"},
+    {"id":"end2","label":"End","type":"end","lane":"OUTPUT"}
+  ],
+  "edges": [
+    {"from":"start","to":"recv"},
+    {"from":"recv","to":"valid"},
+    {"from":"valid","to":"reject","label":"No"},
+    {"from":"valid","to":"review","label":"Yes"},
+    {"from":"reject","to":"errlog"},
+    {"from":"reject","to":"end1"},
+    {"from":"review","to":"rawlog"},
+    {"from":"review","to":"store"},
+    {"from":"store","to":"deliver"},
+    {"from":"store","to":"prep"},
+    {"from":"prep","to":"deliver"},
+    {"from":"deliver","to":"report"},
+    {"from":"deliver","to":"end2"}
+  ]
+}

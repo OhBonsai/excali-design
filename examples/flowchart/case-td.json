@@ -1,0 +1,33 @@
+{
+  "direction": "TD",
+  "nodes": [
+    {"id":"start","label":"Start","type":"start"},
+    {"id":"input","label":"Input\nRequest","type":"io"},
+    {"id":"validate","label":"Validate\nRequest","type":"process"},
+    {"id":"valid","label":"Valid?","type":"decision"},
+    {"id":"log","label":"Log\nIssue","type":"document"},
+    {"id":"end1","label":"End","type":"end"},
+    {"id":"review","label":"Review\nManually","type":"manual"},
+    {"id":"approve","label":"Approve?","type":"decision"},
+    {"id":"changes","label":"Request\nChanges","type":"process"},
+    {"id":"save","label":"Save to\nDatabase","type":"data"},
+    {"id":"gen","label":"Generate\nDocument","type":"document"},
+    {"id":"prep","label":"Prepare\nOutput","type":"preparation"},
+    {"id":"done","label":"Done","type":"end"}
+  ],
+  "edges": [
+    {"from":"start","to":"input"},
+    {"from":"input","to":"validate"},
+    {"from":"validate","to":"valid"},
+    {"from":"valid","to":"log","label":"No"},
+    {"from":"valid","to":"review","label":"Yes"},
+    {"from":"log","to":"end1"},
+    {"from":"review","to":"approve"},
+    {"from":"approve","to":"changes","label":"No"},
+    {"from":"approve","to":"save","label":"Yes"},
+    {"from":"changes","to":"review"},
+    {"from":"save","to":"gen"},
+    {"from":"gen","to":"prep"},
+    {"from":"prep","to":"done"}
+  ]
+}

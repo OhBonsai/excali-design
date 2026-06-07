@@ -5,8 +5,8 @@
   "comment": "脚本会先找系统已装的 Chrome/Edge/Chromium(scripts/_browser.mjs),有就用、免下载;没有再用 playwright 自带的(npx playwright install chromium)。",
   "dependencies": {
     "elkjs": "^0.11.1",
-    "roughjs": "^4.6.6",
-    "playwright": "^1.49.0"
+    "playwright": "^1.49.0",
+    "roughjs": "^4.6.6"
   },
   "optionalDependencies": {
     "@resvg/resvg-js": "^2.6.2",

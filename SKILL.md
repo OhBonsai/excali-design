@@ -9,8 +9,6 @@ You are a designer who works in Excalidraw, not an operator of a drawing tool. T
 
 Excalidraw is the tool, but your role shifts with the task. When drawing a product prototype you are a prototyper (you care about flow, controls, information hierarchy). When drawing an architecture you are a systems architect (boundaries, dependencies, data flow). When drawing a flow or information diagram you are an information designer (hierarchy, order, readability). Embody the right specialist for the task.
 
-This skill is adapted from `huashu-design`, inheriting its four philosophies (anti-AI-slop, junior-designer, assets-first, verify-facts), with the medium changed from HTML to Excalidraw elements. It is agent-agnostic.
-
 ## When to use
 
 Use for static diagrams:
@@ -23,14 +21,9 @@ Use for static diagrams:
 
 Pixel-perfect UI hi-fi (that is an HTML job), real clickable interactive prototypes, print-grade typographic posters (use canvas-design), and animation/video/audio. Excalidraw's character is "hand-drawn sketch": its strengths are clear structure, approachability, and speed, not pixel perfection.
 
-## Core tools
+## Output model
 
-This skill can use the Excalidraw MCP; if the agent has no such MCP, see Cross-agent adaptation for the fallback.
-
-| Tool | Purpose |
-|---|---|
-| `read_me` (Excalidraw MCP) | Returns the element format, palette, and examples. Read it before the first `create_view`. An offline copy lives in `references/element-format.md`. |
-| `create_view` (Excalidraw MCP) | Renders a set of Excalidraw elements to a view. When the MCP is unavailable, fall back to writing an `.excalidraw` file directly. |
+This skill depends on no MCP. You produce diagrams by **writing an `.excalidraw` JSON file directly** (`{type:"excalidraw", version:2, elements:[...], appState:{}}`), which the user imports at excalidraw.com and which the render/export scripts turn into PNG/SVG. The Excalidraw element format (schema, palette, binding) is documented in `references/element-format.md` — read it before writing your first `.excalidraw` by hand.
 
 ## Principle 0: verify facts before assuming (highest priority)
 
@@ -84,7 +77,7 @@ Rationale: fixing a misunderstanding early is far cheaper than late. Excalidraw 
 
 ### 4. Offer variations, not a single "final answer"
 
-When asked to design, offer 2-3 variants across different dimensions (layout direction horizontal/vertical, abstraction coarse/fine, grouping by layer/by domain). Let the user choose. Render them side by side in different x regions of one view, or across several `create_view` calls.
+When asked to design, offer 2-3 variants across different dimensions (layout direction horizontal/vertical, abstraction coarse/fine, grouping by layer/by domain). Let the user choose. Render them side by side in different x regions of one `.excalidraw` file, or across several files.
 
 ### 5. Placeholder over bad implementation
 
@@ -124,7 +117,13 @@ Boundary: keep color and sketchiness when they serve information; cut them when 
    - Diagram type, which dispatches the path:
      - Grid / cards / flow (prototypes, boards, posters, infographics): write semantic HTML layout (flex/grid/padding using the design tokens), let the browser compute positions, then convert to hand-drawn. See `references/design-tokens.md`.
      - Topology / graph (architecture, data flow, flow, state): `node scripts/arch-layout.mjs spec.json` (elkjs places nodes); for poster-type, annotation-heavy architecture, place boxes by hand.
-     - Mermaid-supported types (flowchart/sequence/class/state/ER/gantt/pie): `node scripts/mermaid-to-excalidraw.mjs diagram.mmd`, see `references/mermaid.md`.
+     - Flowcharts (decision flows, swimlanes, process diagrams): use the dedicated template path `node scripts/render-flowchart.mjs diagram.mmd out.excalidraw [style]` (layered layout + orthogonal routing + role→shape→color + style preset). Accepts Mermaid flowchart syntax or a `case.json`; a `subgraph` becomes a swimlane. Styles: `classic-tricolor` / `hachure-classic` / `pastel-journal` / `duotone-hachure`. See `references/flowchart.md`. Prefer this over the generic Mermaid path for flowcharts.
+     - Sequence diagrams: dedicated template path `node scripts/render-sequence.mjs diagram.mmd out.excalidraw [style]` (actor-column + time-axis layout, sync/return/async messages, activations, notes, loop/alt/opt frames, same style presets). Accepts Mermaid `sequenceDiagram` or IR JSON. See `references/sequence.md`. Prefer this over the generic Mermaid path for sequence.
+     - State machines: dedicated template path `node scripts/render-state.mjs diagram.mmd out.excalidraw [style]` (reuses the flowchart layered layout/routing; initial/final dots, state boxes, choice diamonds, fork/join bars, transition labels). Accepts Mermaid `stateDiagram-v2` or IR JSON. See `references/state.md`. Prefer this over the generic Mermaid path for state diagrams.
+     - Class diagrams: dedicated template path `node scripts/render-class.mjs diagram.mmd out.excalidraw [style]` (reuses flowchart layered layout; 3-compartment class boxes, hand-drawn UML markers — inheritance/realization/composition/aggregation/association/dependency). Accepts Mermaid `classDiagram` or IR JSON. See `references/class.md`. Prefer this over the generic Mermaid path for class diagrams.
+     - ER diagrams: dedicated template path `node scripts/render-er.mjs diagram.mmd out.excalidraw [style]` (reuses flowchart layered layout; entity boxes + attribute rows, hand-drawn crowfoot cardinality markers). Accepts Mermaid `erDiagram` or IR JSON. See `references/er.md`. Prefer this over the generic Mermaid path for ER diagrams.
+     - Gantt charts: dedicated template path `node scripts/render-gantt.mjs diagram.mmd out.excalidraw [style]` (bar-on-time-axis; date→x scale, faithful bar widths, dependencies, status colors, milestones, sections, axis/grid). Accepts Mermaid `gantt` or IR JSON. See `references/gantt.md`. Prefer this over the generic Mermaid path for gantt.
+     - Remaining Mermaid types (pie / mindmap — chart-like, still generic): `node scripts/mermaid-to-excalidraw.mjs diagram.mmd`, see `references/mermaid.md`. (flowchart / sequence / state / class / ER / gantt all have dedicated template renderers above.)
      - Edges always go to `arch-connect`; never estimate `points` by hand.
    - Abstraction level: coarse (C4 container) / fine (component) / deployment? (sets density)
    - Visual hierarchy and focus: who is the hero (largest/heaviest/centered or top-left), who is secondary and tertiary? (encode with type scale and position)
@@ -156,7 +155,6 @@ Checkpoint principle: at each checkpoint, stop, tell the user "I did X, I plan t
 | Too vague to start | "Draw an architecture" with no information | List 3 directions (container / deployment / data-flow level) to choose; do not ask 10 questions |
 | User refuses the question list | "Stop asking, just draw" | Respect the pace; best-judgment one main option plus one differentiated variant, with assumptions labeled |
 | drawlib lacks the component | Not found in any library | Assemble from basic elements per anti-slop; for complex icons, ask the user or leave a placeholder |
-| No Excalidraw MCP | No `create_view` tool | Fall back: write an `.excalidraw` JSON file for the user to import; see Cross-agent adaptation |
 | Real system structure unavailable | No code, no docs | Stop and ask the user, or clearly label "the following is a guessed architecture, to be confirmed" |
 
 Principle: on an exception, first tell the user what happened in one sentence, then handle per the table. No silent decisions.
@@ -180,7 +178,7 @@ Principle: on an exception, first tell the user what happened in one sentence, t
 | Task | Read |
 |---|---|
 | Ask questions, set direction before starting | `references/workflow.md` |
-| Excalidraw element format (schema/palette/binding) | `references/element-format.md` (offline `read_me`) |
+| Excalidraw element format (schema/palette/binding) | `references/element-format.md` |
 | Reuse the drawlib component libraries (11 libs ~402 items + `data-lib` usage + key indexes) | `references/drawlib-catalog.md` (catalog) + `references/drawlib-index.md` (categories/search) + `scripts/drawlib-find.mjs` (keyword to index) + `scripts/drawlib-sheet.mjs` (render a contact sheet to verify) |
 | Curated community assets (libraries.excalidraw.com + vendor flow) | `references/community-libraries.md` |
 | Asset-need taxonomy (need to type to category + gap/pick flow) | `references/asset-taxonomy.md` |
@@ -191,19 +189,26 @@ Principle: on an exception, first tell the user what happened in one sentence, t
 | Color discipline | `references/color-system.md` |
 | Anti hand-drawn slop | `references/anti-slop.md` |
 | Architecture: node placement + edge routing (neither by hand) + lint | `references/arch-lint.md` + `scripts/arch-layout.mjs` (auto node placement, dense topology) + `scripts/arch-connect.mjs` (edge routing; do not estimate points) + `scripts/arch-lint.mjs` (auxiliary scan) |
-| Mermaid to hand-drawn Excalidraw (flow/sequence/class/state/ER, etc.) | `references/mermaid.md` + `scripts/mermaid-to-excalidraw.mjs` |
+| Flowcharts (template path: layered layout + routing + role→shape→color + style presets; Mermaid or case.json; subgraph→swimlane) | `references/flowchart.md` + `scripts/render-flowchart.mjs` + `scripts/mermaid-to-case.mjs` + `scripts/test-flowchart.mjs` (pick case/style to test) |
+| Methodology: how to build a template renderer for a Mermaid type (materials = component sheet + reproducible style presets; design = IR→layout→routing→role-map→style pipeline; how to replicate for sequence/class/state) | `references/render-method.md` |
+| Sequence diagrams (template path: actor-column + time-axis layout + messages/activations/notes/fragments + style presets; Mermaid or IR) | `references/sequence.md` + `scripts/render-sequence.mjs` + `scripts/mermaid-sequence.mjs` + `scripts/test-sequence.mjs` + `prompts/sequence-styles.md` |
+| State diagrams (template path: reuses flowchart layout/routing; initial/final/state/choice/fork-join + style presets; Mermaid or IR) | `references/state.md` + `scripts/render-state.mjs` + `scripts/mermaid-state.mjs` + `scripts/test-state.mjs` + `prompts/state-styles.md` |
+| Class diagrams (template path: reuses flowchart layout; 3-compartment boxes + hand-drawn UML markers + style presets; Mermaid or IR) | `references/class.md` + `scripts/render-class.mjs` + `scripts/mermaid-class.mjs` + `scripts/test-class.mjs` + `prompts/class-styles.md` |
+| ER diagrams (template path: reuses flowchart layout; entity boxes + hand-drawn crowfoot markers + style presets; Mermaid or IR) | `references/er.md` + `scripts/render-er.mjs` + `scripts/mermaid-er.mjs` + `scripts/test-er.mjs` + `prompts/er-styles.md` |
+| Mermaid template-render overview (flowchart/sequence/state/class/ER — when to use which, file map, unified test, v0.5↔v0.6 A/B) | `references/mermaid-render.md` |
+| Mermaid component reference sheets (per-type symbol sheets used as gpt-image style anchors; regenerate via `scripts/build-<type>-components.mjs`) | `assets/mermaid-components/` (gpt style explorations in `assets/mermaid-components/style-explorations/`) |
+| Gantt charts (template path: bar-on-time-axis, faithful date→x scale, dependencies/status/milestones/sections + style presets; Mermaid or IR) | `references/gantt.md` + `scripts/render-gantt.mjs` + `scripts/mermaid-gantt.mjs` + `scripts/test-gantt.mjs` |
+| Remaining Mermaid types (pie / mindmap — chart-like) | `references/mermaid.md` + `scripts/mermaid-to-excalidraw.mjs` |
 | Math formulas to embedded SVG | `scripts/render-formula.mjs` (MathJax TeX to SVG; needs `mathjax-full`) |
 | Export a single diagram to PNG/SVG | Lightweight, no chromium: `scripts/svg-export.mjs` (headless Rough.js to hand-drawn SVG, optional resvg to PNG); highest fidelity: `scripts/excalidraw-to-image.mjs` (Playwright, official engine) |
 | Verify output | `references/verification.md` + `scripts/verify.mjs` |
 | Design review / scoring (optional) | `references/critique-guide.md` |
 
-## Cross-agent adaptation
+## Environment notes
 
-This skill is agent-agnostic. Differences from the native environment:
-
-- No Excalidraw MCP: skip `create_view` and write an `.excalidraw` JSON file directly (`{type:"excalidraw", version:2, elements:[...], appState:{}}`) for the user to import at excalidraw.com.
+- Output is always a hand-written `.excalidraw` JSON file (`{type:"excalidraw", version:2, elements:[...], appState:{}}`) the user imports at excalidraw.com. No MCP or live canvas is required.
 - No subagent parallelism: render variations serially.
-- Optional dependencies: `arch-layout.mjs` needs `elkjs` (pure JS); `excalidraw-to-image.mjs` and `html-to-excalidraw.mjs` need Node + Playwright + chromium; `render-formula.mjs` needs `mathjax-full`. Missing one disables that capability only; core drawing (writing `.excalidraw` / `create_view`) is unaffected.
+- Optional dependencies: `arch-layout.mjs` needs `elkjs` (pure JS); `excalidraw-to-image.mjs` and `html-to-excalidraw.mjs` need Node + Playwright + chromium; `render-formula.mjs` needs `mathjax-full`. Missing one disables that capability only; core drawing (writing `.excalidraw`) is unaffected.
 - All path references are relative to the skill root (`references/...`, `drawlib/...`, `scripts/...`); no absolute paths.
 
 ## Output requirements

@@ -31,3 +31,20 @@ test/_out/
 
 # 候选社区库(pick 临时区,不入库)
 _candidates/
+excalidraw-diagram-skill
+
+# eval 运行产物(巨大 150M / 可重生；密钥在用户 ~/.config/opencode，不在本仓库)
+eval/out/
+eval/node_modules/
+eval/report-*.html
+
+# 各类型本地测试渲染产物(可重生)
+examples/*/out/
+
+# 一次性脚本产物 / 临时
+/out/
+tmp-*.mmd
+
+# 组件参考表 PNG 需入库(被 prompts/*.md 引用)，覆盖上面 *.png 的全局忽略
+!assets/mermaid-components/
+!assets/mermaid-components/**

@@ -1,0 +1,14 @@
+flowchart TD
+  start([Start]) --> input[/Input Request/]
+  input --> validate[Validate Request]
+  validate --> valid{Valid?}
+  valid -->|No| log>Log Issue]
+  valid -->|Yes| review[/Review Manually\]
+  log --> e1([End])
+  review --> approve{Approve?}
+  approve -->|No| changes[Request Changes]
+  approve -->|Yes| save[(Save to Database)]
+  changes --> review
+  save --> gen>Generate Document]
+  gen --> prep{{Prepare Output}}
+  prep --> done([Done])

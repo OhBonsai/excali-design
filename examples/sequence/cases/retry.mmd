@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant C as Caller
+  participant S as Service
+  participant D as DB
+  Note over C,S: timeout = 2s
+  loop up to 3 times
+    C->>S: request
+    S->>D: query
+    D-->>S: rows
+    S-->>C: 200 OK
+  end
+  opt on failure
+    C->>C: backoff
+    Note right of C: exponential
+  end

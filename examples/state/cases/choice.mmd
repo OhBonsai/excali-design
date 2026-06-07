@@ -1,0 +1,8 @@
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Check : event
+  state Check <<choice>>
+  Check --> Active : ok
+  Check --> Idle : retry
+  Active --> Done : finish
+  Done --> [*]

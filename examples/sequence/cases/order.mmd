@@ -1,0 +1,19 @@
+sequenceDiagram
+  participant C as Client
+  participant G as Gateway
+  participant O as Order
+  participant S as Stock
+  participant P as Pay
+  C->>G: Place Order
+  G->>O: createOrder()
+  O->>S: reserve stock
+  alt in stock
+    S-->>O: reserved
+    O->>P: charge
+    P-->>O: paid
+    O-->>G: 201 Created
+  else out of stock
+    S-->>O: rejected
+    O-->>G: 409 Conflict
+  end
+  G-->>C: response

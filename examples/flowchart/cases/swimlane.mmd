@@ -1,0 +1,31 @@
+flowchart TD
+  subgraph INPUT
+    start([Start]) --> recv[/Data Received/]
+    rawlog>Raw Log]
+  end
+  subgraph PROCESS
+    valid{Valid?}
+    review[/Review & Enrich\]
+    store[(Store)]
+    prep{{Prepare Summary}}
+  end
+  subgraph OUTPUT
+    reject[Reject & Log]
+    errlog>Error Log]
+    e1([End])
+    deliver[/Deliver Results\]
+    report>Report]
+    e2([End])
+  end
+  recv --> valid
+  valid -->|No| reject
+  valid -->|Yes| review
+  reject --> errlog
+  reject --> e1
+  review --> rawlog
+  review --> store
+  store --> deliver
+  store --> prep
+  prep --> deliver
+  deliver --> report
+  deliver --> e2

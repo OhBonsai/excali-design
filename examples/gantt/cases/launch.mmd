@@ -1,0 +1,17 @@
+gantt
+  title Product Launch Plan
+  dateFormat YYYY-MM-DD
+  section Research
+    User interviews      :done, a1, 2024-01-01, 10d
+    Market analysis      :done, a2, after a1, 7d
+  section Design
+    Wireframes           :active, b1, after a2, 12d
+    Visual design        :b2, after b1, 10d
+    Design review        :milestone, m1, after b2, 0d
+  section Build
+    Frontend             :crit, c1, after b2, 21d
+    Backend              :c2, after b2, 18d
+    Integration          :c3, after c1, 8d
+  section Release
+    QA & fixes           :d1, after c3, 10d
+    Launch               :milestone, m2, after d1, 0d

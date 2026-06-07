@@ -1,0 +1,9 @@
+{
+  "name": "excali-design-eval",
+  "private": true,
+  "type": "module",
+  "description": "评测套件：用 @opencode-ai/sdk 并发跑场景矩阵",
+  "dependencies": {
+    "@opencode-ai/sdk": "^1.15.10"
+  }
+}
