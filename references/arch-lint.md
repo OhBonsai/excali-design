@@ -106,7 +106,7 @@ It detects "invisible obvious problems" -- two boxes overlapping a tiny bit, an 
 
 > **The error vs warn boundary = whether it changes the meaning of the diagram**:
 > - **error (functional error, changes meaning)**: `overlap` boxes colliding; `wrong-attach-side` arrow routing around the back -> **flow drawn backwards**. The reader will misread the system, must be fixed.
-> - **warn (readability, does not change meaning)**: `crossings`, `port-uneven` crammed together, `diagonal` diagonal lines... the connection itself is correct (binding is not wrong), just hard to read. Should be fixed but not fatal.
+> - **warn (readability, does not change meaning)**: `crossings`, `port-uneven` crammed together, `diagonal` diagonal lines... 连接本身正确, just hard to read. Should be fixed but not fatal.
 >
 > To judge whether an arrow problem is a must-fix error: **ask "does it draw the connection/direction as a different meaning?"** Drawn backwards / connected wrong = error; merely routing around / crammed / diagonal = warn.
 > Note: among readability warns, the **"eliminable"** ones (such as crossings caused by reversed port order) should still be fixed; the truly "unavoidable" ones (a few crossings in a dense diagram) can be let go.
@@ -122,7 +122,7 @@ It detects "invisible obvious problems" -- two boxes overlapping a tiny bit, an 
 | **offgrid** | warn | x/y not snapped to the grid | `x % grid || y % grid` |
 | **near-align** | warn | two nodes' edges/centerlines are **almost aligned but not aligned** (the ugliest misalignment) | difference of edge/centerline values is in (0.5, 6]px |
 | **uneven-gap** | warn | uneven spacing between adjacent nodes in the same row/column (planned) | spacing variance > threshold |
-| **diagonal** | warn | the line contains a diagonal segment (architecture diagrams should be horizontal/vertical + right-angle turns, no diagonals) | some segment has `|dx|>2 && |dy|>2` |
+| ~~**diagonal**~~ | **已移除** | 曾警告斜线段;现已删除——正交/斜线/曲线都是合法选择,按可读性挑,**不为正交而正交**(见 `iterate/layout.md`)。真正的问题(穿框/绕背/交叉)由 arrow-thru / wrong-attach-side / crossings 管 | — |
 | **port-stacked** | warn | multiple lines on the same edge crammed at the same point (mass imbalance) | port spacing on the same side < 6px |
 | **port-uneven** | warn | multiple connection points on the same side unevenly distributed (should be equidistant) | port gap max/min > 3.5 |
 | **port-offcenter** | warn | a side has only one edge yet it does not attach at the midpoint | offset from midpoint > max(18, edge length times 20%) |

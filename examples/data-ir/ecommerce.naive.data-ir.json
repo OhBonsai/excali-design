@@ -1,0 +1,58 @@
+{
+  "message": "新入职工程师:我们整个研发体系长什么样(运行时 + 发布 + 可观测)",
+  "dataset_type": "network",
+  "items": [
+    { "id": "gw",    "label": "API 网关" },
+    { "id": "user",  "label": "用户服务" },
+    { "id": "order", "label": "订单服务" },
+    { "id": "pay",   "label": "支付服务" },
+    { "id": "inv",   "label": "库存服务" },
+    { "id": "mysql", "label": "MySQL 主从" },
+    { "id": "redis", "label": "Redis" },
+    { "id": "kafka", "label": "Kafka" },
+    { "id": "git",   "label": "Git 仓库" },
+    { "id": "ci",    "label": "CI 构建" },
+    { "id": "reg",   "label": "镜像仓库" },
+    { "id": "argo",  "label": "ArgoCD" },
+    { "id": "k8s",   "label": "K8s 集群" },
+    { "id": "prom",  "label": "Prometheus" },
+    { "id": "graf",  "label": "Grafana" },
+    { "id": "alert", "label": "Alertmanager" }
+  ],
+  "attributes": [
+    { "of": "gw", "name": "layer", "level": "nominal" }
+  ],
+  "relations": [
+    { "from": "gw", "to": "user", "kind": "flow" },
+    { "from": "gw", "to": "order", "kind": "flow" },
+    { "from": "order", "to": "pay", "kind": "dependency" },
+    { "from": "order", "to": "inv", "kind": "dependency" },
+    { "from": "order", "to": "kafka", "kind": "flow" },
+    { "from": "user", "to": "mysql", "kind": "dependency" },
+    { "from": "order", "to": "mysql", "kind": "dependency" },
+    { "from": "order", "to": "redis", "kind": "dependency" },
+
+    { "from": "git", "to": "ci", "kind": "flow" },
+    { "from": "ci", "to": "reg", "kind": "flow" },
+    { "from": "reg", "to": "argo", "kind": "flow" },
+    { "from": "argo", "to": "k8s", "kind": "flow" },
+
+    { "from": "prom", "to": "graf", "kind": "flow" },
+    { "from": "prom", "to": "alert", "kind": "flow" }
+  ],
+  "salience": {
+    "hero": "gw",
+    "secondary": ["order"],
+    "groups": [
+      { "name": "运行时拓扑", "members": ["gw", "user", "order", "pay", "inv", "mysql", "redis", "kafka"] },
+      { "name": "发布流水线", "members": ["git", "ci", "reg", "argo", "k8s"] },
+      { "name": "可观测",     "members": ["prom", "graf", "alert"] }
+    ]
+  },
+  "scope": {
+    "boundary": { "in": ["gw","user","order","pay","inv","mysql","redis","kafka","git","ci","reg","argo","k8s","prom","graf","alert"], "out": [] },
+    "granularity": "container",
+    "diagrams": [ { "id": "all-in-one", "message": "整个研发体系", "level": "container", "covers": ["gw","user","order","pay","inv","mysql","redis","kafka","git","ci","reg","argo","k8s","prom","graf","alert"] } ]
+  },
+  "budget": { "included": ["..."], "aggregated": [], "deferred": [], "cut": [] }
+}

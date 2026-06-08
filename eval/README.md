@@ -1,10 +1,10 @@
 # excali-design 评测：场景矩阵 + 方法迭代
 
-目的：用 opencode + aliyuntokenplan 模型，自动加载技能、跑一大批手绘图场景、出效果图，**并排成矩阵**，从而看出"改 thinking.md 里哪条方法、哪些场景变好了"。
+目的：用 opencode + aliyuntokenplan 模型，自动加载技能、跑一大批手绘图场景、出效果图，**并排成矩阵**，从而看出"改 iterate/thinking.md 里哪条方法、哪些场景变好了"。
 
 ## 两个矩阵（轴要分清）
 
-- **方法迭代矩阵（主）**：行 = case，列 = 技能变体 `v0 -> v5`（每列多开一个 thinking.md 的方法），**模型固定** `qwen3.7-max`。列与列对比 = 该方法的边际增益。
+- **方法迭代矩阵（主）**：行 = case，列 = 技能变体 `v0 -> v5`（每列多开一个 iterate/thinking.md 的方法），**模型固定** `qwen3.7-max`。列与列对比 = 该方法的边际增益。
 - **模型矩阵（次）**：行 = case，列 = 5 个模型，技能固定在 `WORKTREE`（当前）。看哪个模型最会执行。
 
 变体定义在 `variants.json`（每个变体 = 一个 git ref；建议每条方法一个 commit/分支，这就是"小步迭代"）。
@@ -23,7 +23,7 @@
 | 信息架构 | IA | 7 | 站点地图/思维导图/旅程图/商业画布/看板/路线图/组织架构 |
 | 对抗边界 | ADV | 6 | 模糊巨大/真实证据/长文抽骨干/矛盾需求/纯列表/读真仓库 |
 
-每个 case 带 `cat`、`complexity`(S/M/L/overflow)、`path`(应触发的 dispatch 路径)、`witnesses`(它见证的 thinking.md 方法)、`focus`(评判焦点)。**改某条方法，看它 witnesses 命中的 case 有没有变好。**
+每个 case 带 `cat`、`complexity`(S/M/L/overflow)、`path`(应触发的 dispatch 路径)、`witnesses`(它见证的 iterate/thinking.md 方法)、`focus`(评判焦点)。**改某条方法，看它 witnesses 命中的 case 有没有变好。**
 
 ## 跑法（全 Node + @opencode-ai/sdk 并发）
 

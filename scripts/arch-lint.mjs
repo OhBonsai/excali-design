@@ -41,8 +41,7 @@ const FIXES = {
   'color-budget': '把多余色并到 ≤阈值的调色板(留 1 主色 + 中性)',
   'container-padding': '扩容器或内移子模块,四边留 ≥12px',
   'arrow-unbound': '把箭头端点 binding 到节点(改布局才不脱节)',
-  'arrow-thru': '改走正交绕行 / 重排,别压过无关框',
-  diagonal: '架构连线改横平竖直 + 直角拐弯',
+  'arrow-thru': '重排让源/目标相邻,或改走绕行(正交或曲线均可),别压过无关框',
   oob: '移回画布内或扩画布',
   'icon-glyph': '换 data-icon 手绘形状或 drawlib 图元,禁 Unicode/emoji',
 };
@@ -173,18 +172,9 @@ function lint(els, opt) {
       }
   }
 
-  // W7 diagonal:架构图连线应正交(横平竖直 + 直角拐弯),不用斜线
-  const orthoTol = 2;
-  const connectors = els.filter(e => e.type === 'arrow' || e.type === 'line');
-  for (const c of connectors) {
-    const pts = (c.points || []).map(p => [c.x + p[0], c.y + p[1]]);
-    let diag = false;
-    for (let s = 0; s + 1 < pts.length; s++) {
-      const dx = Math.abs(pts[s + 1][0] - pts[s][0]), dy = Math.abs(pts[s + 1][1] - pts[s][1]);
-      if (dx > orthoTol && dy > orthoTol) diag = true;
-    }
-    if (diag) add('warn', 'diagonal', `连线 ${idOf(c)} 含斜线段(架构图应横平竖直 + 直角拐弯,不用斜线)`);
-  }
+  // (已移除 diagonal 规则)正交 / 斜线 / 曲线都是合法的连线选择,按可读性挑,不为正交而正交。
+  //   真正的连线问题(穿框、绕到背面、交叉、端口拥挤)由 arrow-thru / wrong-attach-side / crossings / port-* 管。
+  //   路由风格绝不反向影响 node 布局。详见 iterate/layout.md。
 
   // W8/W9/W10 端口分布(连接点的"质量分布":朝向/居中/均匀/不贴角)
   const nodeById = id => nodes.find(n => n.id === id);

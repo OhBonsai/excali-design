@@ -30,7 +30,7 @@ bar fill palette; status colors (crit/done/active) are fixed by semantics.
 `title`, `dateFormat YYYY-MM-DD` (others ignored), `section <name>`, and task lines
 `Name : [done|active|crit|milestone,] [id,] (date | after id), (duration<d|w|h> | end-date)`.
 
-## Faithfulness lint (chart discipline, see thinking.md §9.2)
+## Faithfulness lint (chart discipline, see iterate/thinking.md §9.2)
 Bars must be proportional to durations; the axis is continuous time; milestones are points.
 Do not hand-tune bar widths — fix the dates in the source and re-render.
 

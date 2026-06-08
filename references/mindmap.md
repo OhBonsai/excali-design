@@ -42,7 +42,7 @@ node scripts/render-mindmap.mjs <input.mmd|ir.json> <out.excalidraw> [style] [la
 3. **图标/备注走 drawlib(assets-first)**:优先级/旗子/星/note 直接复用 `drawlib`(`excali-symbol` 等)
    的图元组嵌入,既手绘风一致又可复刻;drawlib 没有的用基础图元画小标记。**不用 gpt、不用 html。**
 4. **复刻约束**:枝条**粗细连续渐变(taper)Excalidraw 无旋钮** → 按 depth 分级近似;彩铅/纸张纹理不可复刻
-   (见 thinking.md §9.1)。
+   (见 iterate/thinking.md §9.1)。
 
 ## 三块美感的程序化处理(已落地 ✅ —— 复刻 GPT mindmap 观感的核心)
 

@@ -1,6 +1,6 @@
 # 在 Excalidraw 能力框架内完成编码(理论 ↔ d.ts)
 
-> 把编码理论(Bertin 视觉变量 / Cleveland-McGill 精度 / Mackinlay APT,见 `thinking.md` §6 B)
+> 把编码理论(Bertin 视觉变量 / Cleveland-McGill 精度 / Mackinlay APT,见 `iterate/thinking.md` §6 B)
 > 逐条落到 Excalidraw 真实的元素属性(`references/excalidraw-schema.md`)。
 > 一句话:**理论说「该用什么编码」,d.ts 说「这工具有什么编码」,交集 = 在 Excalidraw 里能忠实编码的可行集。**
 
