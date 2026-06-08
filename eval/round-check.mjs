@@ -89,6 +89,22 @@ console.log('[6] floor-check / arch-lint 对干净产物不误报');
   check('arch-lint 无 text-overflow/tiny-text', () => { const out = JSON.parse(run('arch-lint.mjs', [f, '--json'])); const all = [...out.errors, ...out.warnings].map(i => i.rule); const bad = all.filter(r => r === 'text-overflow' || r === 'tiny-text'); return [bad.length === 0, bad.length ? bad.join(',') : '无文字误报']; });
 }
 
+// 7) data.ir checker(校验 + 自动拆分建议)
+console.log('[7] data.ir checker(容量 / 连通分量 / schema)');
+{
+  const runJson = (script, args) => { try { return JSON.parse(execFileSync('node', [S(script), ...args], { encoding: 'utf8' })); } catch (e) { return JSON.parse(e.stdout || '{}'); } };
+  const naive = runJson('data-ir-check.mjs', [C(ROOT, 'examples/data-ir/ecommerce.naive.data-ir.json'), '--json']);
+  check('naive: 检出 over-capacity', () => [(naive.findings || []).some(f => f.rule === 'over-capacity'), '超容量被抓']);
+  check('naive: 多分量 → 自动提拆 3 张', () => [Array.isArray(naive.proposed_split) && naive.proposed_split.length === 3, naive.proposed_split ? `提议拆 ${naive.proposed_split.length} 张` : '无']);
+  const fixed = runJson('data-ir-check.mjs', [C(ROOT, 'examples/data-ir/ecommerce.data-ir.json'), '--json']);
+  check('fixed(已拆 3 张): 0 warn', () => { const w = (fixed.findings || []).filter(f => f.sev === 'warn').length; return [w === 0, `${w} warn`]; });
+  // schema 抓错:坏 dataset_type + hero 不在 items
+  const bad = { message: '', dataset_type: 'blah', items: [{ id: 'a', label: 'A' }], salience: { hero: 'zzz' } };
+  const bf = ex('bad.data-ir.json'); fs.writeFileSync(bf, JSON.stringify(bad));
+  const badOut = runJson('data-ir-check.mjs', [bf, '--json']);
+  check('schema: 坏 data.ir 报 error', () => { const errs = (badOut.findings || []).filter(f => f.sev === 'error'); return [errs.length >= 2, `${errs.length} 个 error(message空/dataset_type/hero)`]; });
+}
+
 console.log(`\n${fail === 0 ? '✅ 全部通过' : '❌ 有失败'}:${pass} pass / ${fail} fail`);
 try { fs.rmSync(TMP, { recursive: true, force: true }); } catch {}
 process.exit(fail ? 1 : 0);

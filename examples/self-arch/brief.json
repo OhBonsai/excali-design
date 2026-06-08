@@ -1,0 +1,10 @@
+{
+  "audience": "想了解 excali-design 怎么运作的开发者(中等专业度)",
+  "purpose": "onboarding —— 一眼建立『从需求到产物』的全局认知,知道有哪些部件、怎么协作",
+  "question": "excali-design 由哪些部分组成,一张图怎么从用户需求走到最终产物",
+  "scope_hints": {
+    "must_include": ["上游(clarify/data.ir/编码)", "渲染器分发", "drawlib 资产", "导出", "质量门", "eval"],
+    "out": ["每个脚本的内部实现", "原型/固定 mermaid 的确定性数据路径(本图只画自由信息可视化主干)"]
+  },
+  "constraints": "白板手绘风、单色为主、一张总览图、容器(container)级颗粒度"
+}

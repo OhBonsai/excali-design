@@ -1,0 +1,15 @@
+{
+  "_template": "data.ir 产物。画图前必填,并必须通过 node scripts/data-ir-check.mjs <file>。见 references/data-ir.md",
+  "message": "一句话:这张图要回答的问题 / 核心结论(BLUF)",
+  "dataset_type": "table | tree | network | temporal | spatial | set",
+  "items": [ { "id": "x", "label": "..." } ],
+  "attributes": [ { "of": "x", "name": "...", "level": "nominal|ordinal|quantitative|relational" } ],
+  "relations": [ { "from": "a", "to": "b", "kind": "hierarchy|flow|dependency|containment|similarity" } ],
+  "salience": { "hero": "x", "secondary": [], "groups": [ { "name": "...", "members": ["x"] } ] },
+  "scope": {
+    "boundary": { "in": ["分区或item"], "out": [ { "item": "...", "why": "低相关/越界" } ] },
+    "granularity": "context|container|component|code | coarse|medium|fine",
+    "diagrams": [ { "id": "overview", "message": "...", "level": "container", "covers": ["x"] } ]
+  },
+  "budget": { "included": [], "aggregated": [], "deferred": [], "cut": [] }
+}

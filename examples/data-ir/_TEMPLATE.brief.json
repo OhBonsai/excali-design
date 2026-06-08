@@ -1,0 +1,8 @@
+{
+  "_template": "clarify 产物。画图前必填。复制成 <name>.brief.json,把占位换成真实内容。见 references/clarify.md",
+  "audience": "谁看 + 专业度(决定颗粒度)",
+  "purpose": "看完做什么决策/动作(决定边界 & 谁是 hero)",
+  "question": "这张图回答的唯一问题(成为 data.ir.message 的种子)",
+  "scope_hints": { "must_include": ["用户明示要有的"], "out": ["用户明示不要的"] },
+  "constraints": "尺寸/介质/风格/颗粒度/已有 context 与资产"
+}

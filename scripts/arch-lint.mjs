@@ -111,6 +111,8 @@ function lint(els, opt) {
       const ia = interArea(A, B);
       if (ia <= 1) continue;
       if (contains(A, B) || contains(B, A)) continue;        // 容器/子节点 = 合法
+      const gi = nodes[i].groupIds || [], gj = nodes[j].groupIds || [];
+      if (gi.length && gj.some(g => gi.includes(g))) continue; // 同组 = 复合图形(如圆柱),合法
       const frac = (ia / Math.min(area(A), area(B)) * 100).toFixed(0);
       add('error', 'overlap', `节点 ${idOf(nodes[i])}(${nodes[i].type}) 与 ${idOf(nodes[j])}(${nodes[j].type}) 部分重叠 ~${frac}% @(${A.x|0},${A.y|0})`);
     }

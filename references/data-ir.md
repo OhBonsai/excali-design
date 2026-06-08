@@ -4,6 +4,8 @@
 > **何时跳过**:原型(prototype)和固定 mermaid —— 数据已确定,直接走各自渲染路径,不需要 data.ir。
 > **为什么**:信息有层级、有结构、有重点,且一张图装不下全部。先把信息抽成结构化、定好类型/重点/取舍的
 > `data.ir`,再选 pattern、选编码、布局。它是下游的前提与契约。建设背景见`iterate/data-ir-design.md`。
+>
+> **强制(自由信息可视化)**:画 `.excalidraw` 之前**必须**先落两个文件 `<name>.brief.json`(见 `references/clarify.md`)+ `<name>.data-ir.json`,并通过 `node scripts/data-ir-check.mjs <name>.data-ir.json`(0 error)。不许「脑子里走一遍直接画」——文件即契约,也是 cut/split 的记录。模板:`examples/data-ir/_TEMPLATE.*`;填好的样例:`examples/self-arch/`。
 
 ## data.ir 对象(画之前先产出它)
 

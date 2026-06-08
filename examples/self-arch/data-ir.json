@@ -1,0 +1,78 @@
+{
+  "message": "excali-design 是一条『需求 → 信息 → 编码 → 渲染 → 产物』的流水线,核心是按图类型分发的渲染器",
+  "dataset_type": "network",
+  "items": [
+    { "id": "in",    "label": "输入(需求+context)" },
+    { "id": "clar",  "label": "clarify → brief" },
+    { "id": "dir",   "label": "data.ir(scope/预算)" },
+    { "id": "enc",   "label": "编码决策(encoding·schema)" },
+    { "id": "mer",   "label": "Mermaid 模板渲染器" },
+    { "id": "arch",  "label": "架构/拓扑(arch-layout+connect)" },
+    { "id": "prot",  "label": "原型/海报(html→excalidraw)" },
+    { "id": "form",  "label": "公式(render-formula)" },
+    { "id": "chart", "label": "图表(faithfulness)" },
+    { "id": "lib",   "label": "drawlib 资产(11库·402件)" },
+    { "id": "exc",   "label": ".excalidraw 产物" },
+    { "id": "exp",   "label": "导出(svg-export/playwright)" },
+    { "id": "art",   "label": "PNG/SVG" },
+    { "id": "lint",  "label": "arch-lint" },
+    { "id": "floor", "label": "floor-check" },
+    { "id": "fix",   "label": "fix" },
+    { "id": "rc",    "label": "round-check" },
+    { "id": "ab",    "label": "run.mjs A/B" }
+  ],
+  "attributes": [
+    { "of": "mer", "name": "role", "level": "nominal" }
+  ],
+  "relations": [
+    { "from": "in",  "to": "clar", "kind": "flow" },
+    { "from": "clar","to": "dir",  "kind": "flow" },
+    { "from": "dir", "to": "enc",  "kind": "flow" },
+    { "from": "enc", "to": "mer",  "kind": "flow" },
+    { "from": "lib", "to": "mer",  "kind": "dependency" },
+    { "from": "mer", "to": "exc",  "kind": "flow" },
+    { "from": "arch","to": "exc",  "kind": "flow" },
+    { "from": "prot","to": "exc",  "kind": "flow" },
+    { "from": "form","to": "exc",  "kind": "flow" },
+    { "from": "chart","to": "exc", "kind": "flow" },
+    { "from": "exc", "to": "exp",  "kind": "flow" },
+    { "from": "exp", "to": "art",  "kind": "flow" },
+    { "from": "exc", "to": "floor","kind": "dependency" },
+    { "from": "exc", "to": "lint", "kind": "dependency" },
+    { "from": "fix", "to": "exc",  "kind": "flow" },
+    { "from": "rc",  "to": "mer",  "kind": "dependency" },
+    { "from": "ab",  "to": "mer",  "kind": "dependency" }
+  ],
+  "salience": {
+    "hero": "mer",
+    "secondary": ["dir", "exc"],
+    "groups": [
+      { "name": "上游(信息)", "members": ["in", "clar", "dir", "enc"] },
+      { "name": "渲染器(hero)", "members": ["mer", "arch", "prot", "form", "chart"] },
+      { "name": "资产", "members": ["lib"] },
+      { "name": "产物·导出", "members": ["exc", "exp", "art"] },
+      { "name": "质量门", "members": ["lint", "floor", "fix"] },
+      { "name": "eval", "members": ["rc", "ab"] }
+    ]
+  },
+  "scope": {
+    "boundary": {
+      "in": ["上游(信息)", "渲染器(hero)", "资产", "产物·导出", "质量门", "eval"],
+      "out": [
+        { "item": "各脚本内部实现", "why": "container 级总览,细节下钻另说" },
+        { "item": "prototype/固定 mermaid 的确定性数据路径", "why": "本图只画自由信息可视化主干" }
+      ]
+    },
+    "granularity": "container",
+    "diagrams": [
+      { "id": "overview", "message": "需求→信息→编码→渲染→产物 的总览", "level": "container",
+        "covers": ["in","clar","dir","enc","mer","arch","prot","form","chart","lib","exc","exp","art","lint","floor","fix","rc","ab"] }
+    ]
+  },
+  "budget": {
+    "included": ["上游(信息)", "渲染器(hero)", "资产", "产物·导出", "质量门", "eval"],
+    "aggregated": ["18 个组件按 6 个 containment 分区折叠 → 感知约 6 块"],
+    "deferred": ["渲染器内部各类型的细节图(可各自下钻)"],
+    "cut": ["逐脚本实现细节"]
+  }
+}

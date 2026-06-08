@@ -4,6 +4,8 @@
 > **何时用**:自由信息可视化(架构/解释/信息图/关系)。原型/固定 mermaid 仍需基本澄清,但不进 data.ir。
 > **目标**:用**最少的打扰**,定下决定下游一切的几个判据——别问 20 个问题。
 > clarify 定「为谁、答什么问题、什么算重要」;data.ir 拿这判据去切真实信息。
+>
+> **强制**:clarify 必须产出 `<name>.brief.json`(模板 `examples/data-ir/_TEMPLATE.brief.json`),作为 data.ir 的输入;它和 `<name>.data-ir.json` 是画图前的硬门(见 `references/data-ir.md`)。
 
 ## 产出:brief(喂给 data.ir)
 
