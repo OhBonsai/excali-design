@@ -13,9 +13,13 @@
  *
  * 用法:node scripts/data-ir-check.mjs <data-ir.json> [--budget 9] [--json] [--strict]
  * 退出码:有 error → 1;仅 warn → 0(--strict 则 warn 也 1)。
+ *
+ * 约束源 = references/data-ir.d.ts(TypeScript 类型)。TS 类型在运行时被擦除,所以本文件是它的
+ * **运行时镜像**:下面的枚举集合必须和 d.ts 的字面量联合保持一致(改了 d.ts 记得同步这里)。
  */
 import fs from 'node:fs';
 
+// ↓↓ 镜像 references/data-ir.d.ts 的字面量联合(DatasetType / DataLevel / RelationKind)
 const DATASET = new Set(['table', 'tree', 'network', 'temporal', 'spatial', 'set']);
 const LEVELS = new Set(['nominal', 'ordinal', 'quantitative', 'relational']);
 const KINDS = new Set(['hierarchy', 'flow', 'dependency', 'containment', 'similarity']);
@@ -23,8 +27,48 @@ const KINDS = new Set(['hierarchy', 'flow', 'dependency', 'containment', 'simila
 function args(argv) {
   const a = { budget: 9, _: [] }; const it = argv.slice(2);
   for (let i = 0; i < it.length; i++) { let t = it[i], v = null; const e = t.indexOf('='); if (t.startsWith('--') && e >= 0) { v = t.slice(e + 1); t = t.slice(0, e); } const nx = () => v !== null ? v : it[++i];
-    if (t === '--budget') a.budget = parseInt(nx()); else if (t === '--json') a.json = true; else if (t === '--strict') a.strict = true; else if (!t.startsWith('--')) a._.push(t); }
+    if (t === '--budget') a.budget = parseInt(nx()); else if (t === '--json') a.json = true; else if (t === '--strict') a.strict = true;
+    else if (t === '--view') a.view = true; else if (t === '--from') a.from = nx(); else if (!t.startsWith('--')) a._.push(t); }
   return a;
+}
+
+const DENSITY = new Set(['airy', 'balanced', 'dense']);
+
+// 校验 view.ir(镜像 references/view-ir.d.ts)。--from <data-ir.json> 时额外查 items ⊆ 来源 covers。
+function runView(file, a) {
+  const d = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const F = []; const add = (sev, rule, msg, fix) => F.push({ sev, rule, msg, fix });
+  if (!d.message || !String(d.message).trim()) add('error', 'schema', 'message 缺失/为空');
+  if (!DATASET.has(d.dataset_type)) add('error', 'schema', `dataset_type "${d.dataset_type}" 非法`);
+  const items = Array.isArray(d.items) ? d.items : [];
+  if (!items.length) add('error', 'schema', 'items 为空');
+  const ids = new Set(items.map(i => i.id));
+  if (!DENSITY.has(d.density)) add('error', 'schema', `density "${d.density}" 非法`, `取值: ${[...DENSITY].join('/')}`);
+  if (!d.hero) add('error', 'schema', 'hero 缺失(view 必须有唯一主角)');
+  else if (!ids.has(d.hero)) add('error', 'hero', `hero "${d.hero}" 不在 items 里`);
+  for (const r of (d.relations || [])) { if (r.kind && !KINDS.has(r.kind)) add('warn', 'schema', `relation kind "${r.kind}" 非法`); if (!ids.has(r.from) || !ids.has(r.to)) add('error', 'relation', `relation ${r.from}→${r.to} 端点不在 items`); }
+  // tiers 并集 == items(不重不漏)
+  const tiers = d.tiers || [];
+  if (!tiers.length) add('error', 'tiers', 'tiers 缺失(需有序优先级分档)');
+  else {
+    const seen = new Map();
+    for (let ti = 0; ti < tiers.length; ti++) for (const m of tiers[ti]) { if (seen.has(m)) add('error', 'tiers', `item "${m}" 出现在多个 tier`); else seen.set(m, ti); if (!ids.has(m)) add('error', 'tiers', `tier 里的 "${m}" 不在 items`); }
+    const miss = [...ids].filter(id => !seen.has(id)); if (miss.length) add('error', 'tiers', `${miss.length} 个 item 未排进 tiers: ${miss.slice(0, 6).join(', ')}`);
+    if (tiers[0] && !tiers[0].includes(d.hero)) add('warn', 'tiers', 'tiers[0] 不含 hero(顶档应是主角)');
+  }
+  // items ⊆ 来源 covers(给了 --from)
+  if (a.from) {
+    try { const src = JSON.parse(fs.readFileSync(a.from, 'utf8')); const dia = (src.scope?.diagrams || []).find(x => x.id === d.from);
+      if (!dia) add('warn', 'from', `--from 里找不到 diagram id="${d.from}"`);
+      else { const cov = new Set(dia.covers || []); const extra = [...ids].filter(id => !cov.has(id)); if (extra.length) add('error', 'subset', `新造了来源 covers 没有的 item: ${extra.join(', ')}(view 不许造数据)`); }
+    } catch (e) { add('warn', 'from', `读 --from 失败: ${e.message}`); }
+  }
+  const errs = F.filter(f => f.sev === 'error').length, warns = F.length - errs;
+  if (a.json) console.log(JSON.stringify({ file, kind: 'view.ir', findings: F, errs, warns }, null, 2));
+  else { console.log(`\nview-ir-check ${file}`); console.log(`  hero=${d.hero} items=${items.length} tiers=${(d.tiers||[]).length} density=${d.density}`);
+    if (!F.length) console.log('  ✓ 无问题'); for (const f of F) { console.log(`  ${f.sev === 'error' ? '✗' : '⚠'} [${f.rule}] ${f.msg}`); if (f.fix) console.log(`     → ${f.fix}`); }
+    console.log(`  → ${errs} error / ${warns} warn`); }
+  return errs > 0 || (a.strict && warns > 0) ? 1 : 0;
 }
 
 // 连通分量(无向,按 relations 的 from/to;孤立 item 各成一团)
@@ -98,6 +142,6 @@ function finish(file, a, F, metrics, proposed, items) {
 }
 
 const a = args(process.argv);
-if (!a._.length) { console.error('用法: node scripts/data-ir-check.mjs <data-ir.json> [--budget 9] [--json] [--strict]'); process.exit(2); }
-let code = 0; for (const f of a._) { try { code = run(f, a) || code; } catch (e) { console.error(`✗ ${f}: ${e.message}`); code = 2; } }
+if (!a._.length) { console.error('用法: node scripts/data-ir-check.mjs <data-ir.json> [--budget 9] [--json] [--strict]\n      node scripts/data-ir-check.mjs <view.ir.json> --view [--from <data-ir.json>]'); process.exit(2); }
+let code = 0; for (const f of a._) { try { code = (a.view ? runView(f, a) : run(f, a)) || code; } catch (e) { console.error(`✗ ${f}: ${e.message}`); code = 2; } }
 process.exit(code);

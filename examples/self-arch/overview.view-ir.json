@@ -1,0 +1,59 @@
+{
+  "from": "overview",
+  "message": "excali-design 是一条『需求 → 信息 → 编码 → 渲染 → 产物』的流水线,核心是按图类型分发的渲染器",
+  "dataset_type": "network",
+  "items": [
+    { "id": "in",    "label": "输入(需求+context)" },
+    { "id": "clar",  "label": "clarify → brief" },
+    { "id": "dir",   "label": "data.ir(scope/预算)" },
+    { "id": "enc",   "label": "编码决策" },
+    { "id": "mer",   "label": "渲染器(按图类型分发)" },
+    { "id": "arch",  "label": "架构/拓扑" },
+    { "id": "prot",  "label": "原型/海报" },
+    { "id": "form",  "label": "公式" },
+    { "id": "lib",   "label": "drawlib 资产" },
+    { "id": "exc",   "label": ".excalidraw 产物" },
+    { "id": "exp",   "label": "导出" },
+    { "id": "art",   "label": "PNG/SVG" },
+    { "id": "lint",  "label": "arch-lint" },
+    { "id": "floor", "label": "floor-check" },
+    { "id": "fix",   "label": "fix" },
+    { "id": "rc",    "label": "round-check" }
+  ],
+  "relations": [
+    { "from": "in",  "to": "clar", "kind": "flow" },
+    { "from": "clar","to": "dir",  "kind": "flow" },
+    { "from": "dir", "to": "enc",  "kind": "flow" },
+    { "from": "enc", "to": "mer",  "kind": "flow" },
+    { "from": "lib", "to": "mer",  "kind": "dependency" },
+    { "from": "mer", "to": "exc",  "kind": "flow" },
+    { "from": "arch","to": "exc",  "kind": "flow" },
+    { "from": "prot","to": "exc",  "kind": "flow" },
+    { "from": "form","to": "exc",  "kind": "flow" },
+    { "from": "exc", "to": "exp",  "kind": "flow" },
+    { "from": "exp", "to": "art",  "kind": "flow" },
+    { "from": "exc", "to": "floor","kind": "dependency" },
+    { "from": "exc", "to": "lint", "kind": "dependency" },
+    { "from": "fix", "to": "exc",  "kind": "flow" },
+    { "from": "rc",  "to": "mer",  "kind": "dependency" }
+  ],
+  "hero": "mer",
+  "tiers": [
+    ["mer"],
+    ["dir", "exc"],
+    ["in", "clar", "enc", "arch", "prot", "form", "lib", "exp", "art"],
+    ["lint", "floor", "fix", "rc"]
+  ],
+  "groups": [
+    { "name": "上游(信息)", "members": ["in", "clar", "dir", "enc"] },
+    { "name": "渲染器", "members": ["mer", "arch", "prot", "form"] },
+    { "name": "产物·导出", "members": ["exc", "exp", "art"] },
+    { "name": "质量门", "members": ["lint", "floor", "fix", "rc"] }
+  ],
+  "density": "balanced",
+  "cut": [
+    { "item": "chart", "why": "图表渲染与本图『流水线』主线弱相关,稀释焦点" },
+    { "item": "ab", "why": "run.mjs A/B 是离线模型评测,非运行链路,移出总览(可下钻另图)" }
+  ],
+  "notes": ["hero=渲染器;eval 仅留 round-check 作辅档"]
+}

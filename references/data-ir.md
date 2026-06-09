@@ -5,24 +5,32 @@
 > **为什么**:信息有层级、有结构、有重点,且一张图装不下全部。先把信息抽成结构化、定好类型/重点/取舍的
 > `data.ir`,再选 pattern、选编码、布局。它是下游的前提与契约。建设背景见`iterate/data-ir-design.md`。
 >
-> **强制(自由信息可视化)**:画 `.excalidraw` 之前**必须**先落两个文件 `<name>.brief.json`(见 `references/clarify.md`)+ `<name>.data-ir.json`,并通过 `node scripts/data-ir-check.mjs <name>.data-ir.json`(0 error)。不许「脑子里走一遍直接画」——文件即契约,也是 cut/split 的记录。模板:`examples/data-ir/_TEMPLATE.*`;填好的样例:`examples/self-arch/`。
+> **强制(自由信息可视化)**:画 `.excalidraw` 之前**必须**依次落地并通过校验:
+> `<name>.brief.json`(见 `references/clarify.md`)→ `<name>.data-ir.json`(过 `data-ir-check`)→ 每张图一份
+> `<name>.view-ir.json`(由 `prompts/view-ir.md` 大模型产出,做减法+选角;过 `data-ir-check --view --from`)。
+> **`.excalidraw` 从 view.ir 渲染,不是从 data.ir。** 不许「脑子里走一遍直接画」——文件即契约 + cut/split 记录。
+> 模板 `examples/data-ir/_TEMPLATE.*`;样例 `examples/self-arch/`;view.ir 见 `references/view-ir.d.ts`。
 
 ## data.ir 对象(画之前先产出它)
 
+**schema 的单一事实源 = `references/data-ir.d.ts`**(TypeScript 类型,枚举/必填/可选以它为准)。
+编辑期想要类型约束:写成 `<name>.data-ir.ts` 并 `satisfies DataIR`(模板 `examples/data-ir/_TEMPLATE.data-ir.ts`)。
+运行时硬门:`node scripts/data-ir-check.mjs <name>.data-ir.json`(它是 d.ts 的运行时镜像)。
+
+形状速览(权威定义见 d.ts):
+
 ```jsonc
 {
-  "message":   "一句话:这张图要回答的问题 / 要传的核心结论(BLUF)",
-  "dataset_type": "table | tree | network | temporal | spatial | set",   // 决定 pattern
-  "items":     [ { "id":"...", "label":"..." } ],
-  "attributes":[ { "of":"itemId", "name":"...", "level":"nominal|ordinal|quantitative|relational" } ], // 喂 encoding.md
-  "relations": [ { "from":"a", "to":"b", "kind":"hierarchy|flow|dependency|containment|similarity" } ],
-  "salience":  { "hero":"itemId", "secondary":[...], "groups":[ {"name":"...","members":[...]} ] },
-  "scope": {                                            // 范围建议:边界 / 颗粒度 / 拆几张
-    "boundary":   { "in":[...], "out":[ {"item":"id","why":"低相关/越界"} ] },
-    "granularity":"context|container|component|code | coarse|medium|fine",  // + 理由(受众×message×容量)
-    "diagrams":   [ { "id":"overview", "message":"...", "level":"context", "covers":[...] } ]  // 长度=1 → 一张;>1 → 建议拆分
-  },
-  "budget":    { "included":[...], "aggregated":[...], "deferred":[...], "cut":[...] }  // 每张图内的密度取舍
+  "message":   "一句话 BLUF",                                  // 必填
+  "dataset_type": "table|tree|network|temporal|spatial|set",   // 必填
+  "items":     [ { "id":"...", "label":"..." } ],              // 必填
+  "attributes":[ { "of":"itemId", "name":"...", "level":"nominal|ordinal|quantitative|relational" } ], // 可选 → encoding
+  "relations": [ { "from":"a", "to":"b", "kind":"hierarchy|flow|dependency|containment|similarity" } ], // 可选(语义非画法)
+  "salience":  { "hero":"itemId", "secondary":[...], "groups":[ {"name":"...","members":[...]} ] },      // 可选
+  "scope":     { "boundary":{ "in":[...], "out":[{"item":"id","why":"..."}] },
+                 "granularity":"context|container|component|code|coarse|medium|fine",
+                 "diagrams":[ {"id":"overview","message":"...","level":"container","covers":[...]} ] },  // 可选;diagrams>1=建议拆
+  "budget":    { "included":[...], "aggregated":[...], "deferred":[...], "cut":[...] }                   // 可选
 }
 ```
 

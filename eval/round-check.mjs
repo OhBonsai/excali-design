@@ -105,6 +105,20 @@ console.log('[7] data.ir checker(容量 / 连通分量 / schema)');
   check('schema: 坏 data.ir 报 error', () => { const errs = (badOut.findings || []).filter(f => f.sev === 'error'); return [errs.length >= 2, `${errs.length} 个 error(message空/dataset_type/hero)`]; });
 }
 
+// 8) view.ir(单图剪枝+选角 + 子集约束)
+console.log('[8] view.ir checker(hero/tiers/subset)');
+{
+  const runJson = (script, args) => { try { return JSON.parse(execFileSync('node', [S(script), ...args], { encoding: 'utf8' })); } catch (e) { return JSON.parse(e.stdout || '{}'); } };
+  const v = runJson('data-ir-check.mjs', [C(ROOT, 'examples/self-arch/overview.view-ir.json'), '--view', '--from', C(ROOT, 'examples/self-arch/data-ir.json'), '--json']);
+  check('self-arch view.ir: 0 error', () => { const e = (v.findings || []).filter(f => f.sev === 'error').length; return [e === 0, `${e} error`]; });
+  // 越界 item 必被 subset 拦
+  const src = JSON.parse(fs.readFileSync(C(ROOT, 'examples/self-arch/overview.view-ir.json'), 'utf8'));
+  src.items.push({ id: 'ZZZ', label: 'x' }); src.tiers[src.tiers.length - 1].push('ZZZ');
+  const bf = ex('bad.view-ir.json'); fs.writeFileSync(bf, JSON.stringify(src));
+  const bad = runJson('data-ir-check.mjs', [bf, '--view', '--from', C(ROOT, 'examples/self-arch/data-ir.json'), '--json']);
+  check('view.ir: 造数据被 subset 拦', () => [(bad.findings || []).some(f => f.rule === 'subset'), '不许造 item']);
+}
+
 console.log(`\n${fail === 0 ? '✅ 全部通过' : '❌ 有失败'}:${pass} pass / ${fail} fail`);
 try { fs.rmSync(TMP, { recursive: true, force: true }); } catch {}
 process.exit(fail ? 1 : 0);
