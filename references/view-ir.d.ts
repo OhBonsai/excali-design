@@ -11,7 +11,10 @@
  */
 import type { DatasetType, Item, Relation, Group } from "./data-ir.d.ts";
 
-/** 留白意图(ma):airy=多留白/少元素,dense=信息密。 */
+/**
+ * 留白意图(ma):airy=多留白/少元素,dense=信息密。
+ * 软上限(校验器 warn,按「感知负载」= 分组数,无分组则 item 数):airy≤6 / balanced≤12 / dense≤20。
+ */
 export type Density = "airy" | "balanced" | "dense";
 
 /** 一条被删减项的记录(编辑性减法的留痕)。 */

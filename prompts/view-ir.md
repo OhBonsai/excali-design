@@ -38,11 +38,13 @@
    把删掉的记进 cut(item + why)。留白是主动的,不是没填满。
 
 3) 选角 casting:
-     - 选**唯一** hero(items 里最重要的一个);
-     - 把所有保留 item 排成有序 tiers(从最重要到最次,每档一组 id);tiers 的并集 = items,tiers[0] 含 hero;
-     - 可选:用 groups 表达 containment 分组。
+     - 选**唯一** hero(items 里最重要的一个);**tiers[0] 只放 hero 这一个**;
+     - 把所有保留 item 排成有序 tiers(从最重要到最次,每档一组 id);tiers 的并集 = items;**档数 ≤5**;
+     - 可选:用 groups 表达 containment 分组(分组能折叠感知负载)。
 
-4) density(留白意图):元素少/想突出主角 → "airy";信息确实密 → "dense";一般 → "balanced"。
+4) density(留白意图)+ 软上限:元素少/想突出主角 → "airy";信息确实密 → "dense";一般 → "balanced"。
+   软上限按**感知负载**(分了 groups 按组数,否则按 item 数):airy≤6 / balanced≤12 / dense≤20。
+   超了就**再减 / 拆图 / 降一档**(校验器 warn)。
 
 5) relations:只保留**两端都在 items 里**的关系。message / dataset_type / from 照填(from = {{DIAGRAM_ID}})。
 

@@ -55,7 +55,14 @@ function runView(file, a) {
     for (let ti = 0; ti < tiers.length; ti++) for (const m of tiers[ti]) { if (seen.has(m)) add('error', 'tiers', `item "${m}" 出现在多个 tier`); else seen.set(m, ti); if (!ids.has(m)) add('error', 'tiers', `tier 里的 "${m}" 不在 items`); }
     const miss = [...ids].filter(id => !seen.has(id)); if (miss.length) add('error', 'tiers', `${miss.length} 个 item 未排进 tiers: ${miss.slice(0, 6).join(', ')}`);
     if (tiers[0] && !tiers[0].includes(d.hero)) add('warn', 'tiers', 'tiers[0] 不含 hero(顶档应是主角)');
+    if (tiers[0] && tiers[0].length > 1) add('warn', 'hero-unique', `tiers[0] 有 ${tiers[0].length} 个(主角应唯一,顶档只放 1 个)`, 'hero 单独占顶档,其余降档');
+    if (tiers.length > 5) add('warn', 'tiers-depth', `tiers ${tiers.length} 档(>5,层级太碎)`, '合并相近档到 ≤5');
   }
+  // density 软上限(按感知负载:分了组按组数,否则按 item 数;containment 折叠负载)
+  const BUDGET = { airy: 6, balanced: 12, dense: 20 };
+  const load = (d.groups && d.groups.length) ? d.groups.length : items.length;
+  const cap = BUDGET[d.density];
+  if (cap && load > cap) add('warn', 'density-budget', `density=${d.density} 感知负载 ${load}(${d.groups && d.groups.length ? '按组' : '按 item'})> 软上限 ${cap}`, '再减 / 拆图 / 降一档 density');
   // items ⊆ 来源 covers(给了 --from)
   if (a.from) {
     try { const src = JSON.parse(fs.readFileSync(a.from, 'utf8')); const dia = (src.scope?.diagrams || []).find(x => x.id === d.from);
