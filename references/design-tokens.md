@@ -110,7 +110,7 @@ Edges are never drawn in HTML -> `arch-connect`; only primitives/icons use compo
 2. The model reads this PNG/SVG (squint test), checking item by item:
    - Focus/grouping/hierarchy: looking blurry, are the protagonist and zones still recognizable?
    - Text: any sticking to the edge / not centered / overflowing? (-> Range not measured right / container too small)
-   - Lines: orthogonal, clean, non-crossing? Any darting around the sides? (-> change fromSide/toSide and reconnect)
+   - Lines: clean and non-crossing, entering from the facing side (orthogonal / diagonal / curved are all fine — no orthogonality requirement)? Any darting around the back? (-> change fromSide/toSide and reconnect)
    - Primitives: pie chart is a pie chart, bar is a bar, not "line-blocks"? (-> should use a component)
    - Hand-drawn style: no gradients/shadows, fonts only Virgil/Normal/Code, <= 4 colors?
 3. If there are problems -> change HTML / edges / component -> regenerate -> look again. Iterate until it passes.
@@ -125,6 +125,6 @@ Mechanical lint (arch-lint) only checks geometric errors, **it cannot judge good
 - [ ] <= 4 colors across the whole diagram, all from the color roles
 - [ ] roughness 1 (or 0 for formal diagrams), elements snapped to the grid
 - [ ] Text is both vertically/horizontally where it should be (Range-measured, not sticking to the box top)
-- [ ] Inter-box lines are arch-connect-routed orthogonal lines, not hand-drawn / HTML pseudo-connections; no side darting
+- [ ] Inter-box lines are programmatically routed (arch-connect or a geometric connector), not hand-estimated / HTML pseudo-connections; style is free (orthogonal / diagonal / curved); no back-routing or through-box darting
 - [ ] Charts are real primitives (pie/bar), not assembled from color blocks
 - [ ] **Squint test**: looking blurry, focus and grouping are still recognizable; it reads as a hand-drawn diagram, not a web screenshot

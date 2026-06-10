@@ -1,72 +1,83 @@
-# 在 Excalidraw 能力框架内完成编码(理论 ↔ d.ts)
+# Prompt:view.ir.json → encode.ir.json(半自动:程序填机械通道,LLM 只标语义)
 
-> 把编码理论(Bertin 视觉变量 / Cleveland-McGill 精度 / Mackinlay APT,见 `iterate/thinking.md` §6 B)
-> 逐条落到 Excalidraw 真实的元素属性(`references/excalidraw-schema.md`)。
-> 一句话:**理论说「该用什么编码」,d.ts 说「这工具有什么编码」,交集 = 在 Excalidraw 里能忠实编码的可行集。**
+encode.ir(给每个 item/relation/group 绑视觉通道、**无坐标**)里大半是**机械的**,可从 view.ir 确定性算出 ——
+这部分交程序(`scripts/encode-derive.mjs`),**大模型不写**。LLM 只产一份很小的**语义 overrides**:
+机器判断不了的那几项(每个角色用什么形状/图标、特殊箭头头型、名义类别色)。
 
-## 0. 核心结论
+两步:
+```
+1) LLM:照本提示词产 <name>.encode-overrides.json(只有语义覆盖,能省则省)
+2) 程序:node scripts/encode-derive.mjs <view.ir.json> --overrides <overrides.json> --out <encode.ir.json>
+   再校验:node scripts/encode-check.mjs <encode.ir.json> --from <view.ir.json>   # 须 0 error
+```
+schema:产物 = `references/encode-ir.d.ts`;理论依据 = `iterate/encoding-design.md`。
 
-Mackinlay 的编码通道里有 **connection(连接)** 和 **containment(包含)** 两个**关系通道**,而它们正是 Excalidraw
-最强的原生能力(`arrow` + binding / `frame` + 嵌套)。所以理论 × d.ts 的交集得出一个定位判断:
+---
 
-> **Excalidraw 是关系图工具,不是统计图工具。** 它的忠实编码偏向「关系」(连接/包含);
-> 定量数据只有 position / length 少数几条忠实路径(bar 高、时间轴),其余(面积/角度/色相表数量)都看不准 → 该交给 chart 渲染器并被 faithfulness lint 管住。
+## 程序会自动填的(机械通道 —— 你**不要**在 overrides 里重复)
 
-## 1. Bertin 视觉变量 → Excalidraw 旋钮(实现矩阵)
+- **hero**(view.ir.hero)→ `size:hero` + `hue:accent` + `weight:bold` + `fill:solid`(强调唯一)。
+- **tiers 梯度**(有序):顶档→hero;次档→large/emph;中间→normal/normal;末档→small/light + `value:0.9` + `hue:muted`;其余 `hue:ink`。
+- **relation.kind**:flow→`stroke:solid`+`hue:ink`;dependency→`stroke:dashed`+`hue:muted`;`endArrowhead:arrow`;每条 relation 都落一条 connection。
+- **group**→ 每个一个 `containment`(dashed + muted)。
+- 默认 `mark:box`,`palette` = accent#1971c2 / ink#1e1e1e / muted#868e96。
 
-| 视觉变量 | Excalidraw 旋钮(d.ts) | 适合数据类型 | svg-export 保真 | 备注 |
-|---|---|---|---|---|
-| 位置 position | `x,y` / `points` | 定/序/名/关系 全 | ✓ | 最强,唯一天然定量 |
-| 长度 length(1D) | 单轴 `width` 或 `height`(bar)/ 线段长 | 定量 | ✓ | 次强,精确量首选 |
-| 大小/面积 size(2D) | `width`×`height` 缩放、`fontSize` | 定量(弱) | ✓ | 面积看不准,慎用 |
-| 明度 value | `opacity`(0–100)/ 填充·描边明度 | 有序 | ✓ | opacity 是干净的有序通道 |
-| 饱和 saturation | 颜色饱和度 | 有序 | ✓ | |
-| 色相 hue | `strokeColor` / `backgroundColor` | **名义** | ✓ | 类别最佳;预算 ≤4 |
-| 方向 orientation | `angle`(弧度) | 名义(弱) | 渲染但手绘抖 | 不适合编码数据,少用 |
-| 形状 shape | 元素类型(rect/ellipse/diamond)+ **drawlib 图标** | 名义 | ✓ | **这就是「资产」的位置:shape 编码 = 图标库** |
-| 纹理 texture | `fillStyle`(hachure/cross-hatch/solid/zigzag)+ `strokeStyle`(solid/dashed/dotted) | 名义/选择 | 部分(zigzag 不渲) | Excalidraw 真有 texture 通道 |
-| **连接 connection** | **`arrow` + binding**(头型区分关系种类) | **关系(有向)** | ✓ | **Excalidraw 主场** |
-| **包含 containment** | **`frame` / 嵌套 rect / 虚线 boundary** | **关系(集合归属)** | ✓ | **Excalidraw 主场** |
+## 你要产的(语义 overrides —— 只在偏离默认时写)
 
-**缺口**(理论要、Excalidraw 没有的通道):连续渐变填充(用 hachure 密度 / opacity 近似)、真 3D/体积(本就不该用)、可靠的 orientation 编码。标明 = 不硬上。
+```
+你是感知编码器。只输出一个 overrides JSON(纯 JSON,无解释、无围栏)。机械通道程序会填,
+你只覆盖机器判断不了的语义项,且**能省则省**(默认对就别写)。
 
-## 2. 按数据类型选编码(在 Excalidraw 里具体怎么落)
+可覆盖的项:
+  marks["<id>"]:
+    - mark   : 角色对应的形状 —— box(默认,省略)/ ellipse(起止/事件)/ cylinder(存储/库/DB)
+               / document(文件/产物)/ diamond(判断/选择)/ hexagon / icon
+    - icon   : drawlib 图标 id(mark=icon 时给;= shape 通道的名义编码)
+    - hue    : 仅当该 item 属于一个**名义类别**时给 "cat:<类别名>"(同类同色);否则别写(让程序按 tier 给 ink/muted)
+    - fill   : 需要纹理时(hachure/cross-hatch/...)
+  links["<from>-><to>"]:
+    - endArrowhead/startArrowhead:仅当关系有**特定语义**时 —— 继承/实现 "triangle_outline";组合/聚合 "diamond"/"diamond_outline";ER 基数 "crowfoot_one/many/one_or_many"。普通箭头别写(默认 arrow)。
+    - label:中段标签(关系上要写字时)
+  regions["<组名>"]:一般不用写(默认 dashed+muted 够了)
 
-| 数据类型 | 在 Excalidraw 里用 | 禁/慎 |
+判据:
+  - 形状要**诚实表意**(圆柱=存储、文档形=文件、菱形=判断),不是为不同而不同;拿不准就用 box。
+  - hue 只编码**名义**:没有真类别就别造 cat:(凭空多色 = 彩虹 slop)。有序的重要度交给程序的 tier 梯度,不用 hue。
+  - 关系语义清楚才换头型(UML/ER);否则留默认。
+
+【view.ir】
+{{VIEW_IR_JSON}}
+```
+
+## 输出示例(见 examples/self-arch/overview.encode-overrides.json)
+
+```jsonc
+{
+  "marks": {
+    "in":  { "mark": "ellipse" },   // 起点
+    "art": { "mark": "ellipse" },   // 终点产物
+    "lib": { "mark": "cylinder" },  // 存储/库
+    "exc": { "mark": "document" }   // 文件/产物
+  }
+}
+```
+
+四行覆盖 + 程序推导 = 完整 encode.ir(17 marks / 13 links / 5 regions),且按构造过 `encode-check`。
+
+## 通道速查(挑形状/类别时照这张表)
+
+| 数据类型 | 用什么通道 | 谁来定 |
 |---|---|---|
-| 定量 quantitative | position(gantt 时间轴 / 散点)、length(bar 高) | ✗ hue / 面积 / 角度 表精确量 → 走 chart 渲染器 |
-| 有序 ordinal(优先级/严重度) | `opacity` 或 size 梯度 | ✗ hue(无序) |
-| 名义 nominal(类别) | hue(≤4)/ shape(drawlib 图标)/ texture(fillStyle、dashed)/ containment(frame 分组) | ✗ 排到位置/长度轴 |
-| **关系 relational(架构/流程/时序 —— 本技能主体)** | **connection(`arrow`,头型表关系种类:UML/ER/普通)+ containment(`frame`/嵌套/boundary)** | ✗ 只靠「空间邻近」暗示关系(歧义) |
+| 名义(类别/角色) | shape(mark 形状 + drawlib icon)/ hue(`cat:`,≤4)/ texture(fill、stroke) | **LLM**(overrides) |
+| 有序(优先级/层级) | value / size / weight 梯度 | **程序**(tier 梯度) |
+| 关系种类(继承/聚合/基数) | connection 的箭头头型 | **LLM**(特殊时) |
+| 关系流向/依赖 | stroke solid/dashed + connection | **程序**(按 kind) |
+| 分组归属 | containment | **程序**(按 group) |
+| 定量(精确数量) | position/length —— 交给 chart 渲染器,不在本层硬编 | — |
 
-例:mindmap 一级分支配色 = 名义用 hue(正解);架构服务类型 = shape 用 drawlib 图标;类图关系 = connection 用箭头头型;泳道/边界 = containment 用 frame/虚线框。
+**Excalidraw 是关系图工具**:connection + containment 是它最忠实的两条通道,优先用它们承载结构;这两条已被程序自动落上。
 
-## 3. expressiveness / effectiveness → Excalidraw 专属 lint
+## 备注
 
-**expressiveness(恰好编码全部且仅有事实):**
-- 名义数据排上位置/长度轴(凭空造顺序)→ **error**
-- 截断轴(bar 不从 0)→ **error**(graphical integrity)
-- **彩虹色 = 色相在变却不编码任何类别 → 凭空编码了不存在的「类别事实」→ expressiveness 违反**
-  (这把 `color-budget` / 反 slop 接到了诚实性理论上,不只是「丑」)
-- 关系画了却不 binding(连线浮空)→ 关系没被真正编码(改布局即丢)→ **warn**
-
-**effectiveness(有更准的没用):**
-- 数量用了 area/hue,而 length/position 可用 → **warn**(退档)
-- 关系只用「靠近」(空间邻近),没用 connection/containment 显式通道 → 歧义(gestalt 邻近 ≠ 声明关系)→ **warn**
-
-落点:前两条进 chart faithfulness lint(§9.2);彩虹/预算进 `arch-lint` color-budget + `floor-check`;浮空连线已在 `arch-lint` arrow-unbound。
-
-## 4. 接 dispatch / compute / lint(把它变成回路)
-
-```
-①content IR 给每个字段标数据类型(定/序/名/关系)
-  → dispatch 查「类型 → Excalidraw 通道」表(本页 §1+§2)
-  → compute 选 mark + 属性(忠实集内的最优,= Mackinlay effectiveness)
-  → render(.excalidraw)
-  → arch-lint / floor-check 查 expressiveness/effectiveness 残差(§3)
-```
-这正是 Mackinlay APT「express → effective → render」回路在 Excalidraw 能力框架内的实例化。
-
-## 5. 一句话收口
-
-**理论给「该用什么编码」,d.ts 给「有什么编码」,交集才是可行的忠实编码集;交集之外要么近似(渐变→hachure 密度)、要么明确放弃(3D/orientation)。Excalidraw 的交集偏向关系编码(connection/containment)——这从编码理论层面解释了它为什么是图解工具而非统计图工具。**
+- **为什么这么拆**:机械通道(tier 梯度、flow/dep 线型、group 框)是 view.ir 的确定性函数,程序算更稳、还省 token;只有"这个角色长什么样、这条关系是不是继承、有没有真类别"是语义判断,留给 LLM。`encode-check` 兜可计算的诚实性残差。
+- **position-free**:本层只定通道,不定坐标;`size:"hero"` 是档位不是像素,layout 再解析成 w/h/x/y。

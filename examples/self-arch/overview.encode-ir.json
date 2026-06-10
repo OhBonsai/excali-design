@@ -1,0 +1,311 @@
+{
+  "from": "overview",
+  "message": "excali-design 技术架构:需求->brief->data.ir->view.ir->渲染->产物 的 IR 流水线,渲染器为核心",
+  "dataset_type": "network",
+  "marks": [
+    {
+      "id": "in",
+      "mark": "ellipse",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "clar",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "dir",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "large",
+        "weight": "emph"
+      }
+    },
+    {
+      "id": "view",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "large",
+        "weight": "emph"
+      }
+    },
+    {
+      "id": "enc",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "mer",
+      "mark": "box",
+      "channels": {
+        "hue": "accent",
+        "value": 1,
+        "size": "hero",
+        "weight": "bold",
+        "fill": "solid"
+      }
+    },
+    {
+      "id": "arch",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "prot",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "form",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "lib",
+      "mark": "cylinder",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "exc",
+      "mark": "document",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "large",
+        "weight": "emph"
+      }
+    },
+    {
+      "id": "exp",
+      "mark": "box",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "art",
+      "mark": "ellipse",
+      "channels": {
+        "hue": "ink",
+        "value": 1,
+        "size": "normal",
+        "weight": "normal"
+      }
+    },
+    {
+      "id": "lint",
+      "mark": "box",
+      "channels": {
+        "hue": "muted",
+        "value": 0.9,
+        "size": "small",
+        "weight": "light"
+      }
+    },
+    {
+      "id": "floor",
+      "mark": "box",
+      "channels": {
+        "hue": "muted",
+        "value": 0.9,
+        "size": "small",
+        "weight": "light"
+      }
+    },
+    {
+      "id": "fix",
+      "mark": "box",
+      "channels": {
+        "hue": "muted",
+        "value": 0.9,
+        "size": "small",
+        "weight": "light"
+      }
+    },
+    {
+      "id": "rc",
+      "mark": "box",
+      "channels": {
+        "hue": "muted",
+        "value": 0.9,
+        "size": "small",
+        "weight": "light"
+      }
+    }
+  ],
+  "links": [
+    {
+      "rel": "in->clar",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "clar->dir",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "dir->view",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "view->enc",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "enc->mer",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "lib->mer",
+      "channel": "connection",
+      "stroke": "dashed",
+      "hue": "muted",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "mer->exc",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "exc->exp",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "exp->art",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "exc->floor",
+      "channel": "connection",
+      "stroke": "dashed",
+      "hue": "muted",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "exc->lint",
+      "channel": "connection",
+      "stroke": "dashed",
+      "hue": "muted",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "fix->exc",
+      "channel": "connection",
+      "stroke": "solid",
+      "hue": "ink",
+      "endArrowhead": "arrow"
+    },
+    {
+      "rel": "rc->mer",
+      "channel": "connection",
+      "stroke": "dashed",
+      "hue": "muted",
+      "endArrowhead": "arrow"
+    }
+  ],
+  "regions": [
+    {
+      "group": "IR 信息链",
+      "channel": "containment",
+      "stroke": "dashed",
+      "hue": "muted"
+    },
+    {
+      "group": "渲染器",
+      "channel": "containment",
+      "stroke": "dashed",
+      "hue": "muted"
+    },
+    {
+      "group": "资产",
+      "channel": "containment",
+      "stroke": "dashed",
+      "hue": "muted"
+    },
+    {
+      "group": "产物·导出",
+      "channel": "containment",
+      "stroke": "dashed",
+      "hue": "muted"
+    },
+    {
+      "group": "质量门",
+      "channel": "containment",
+      "stroke": "dashed",
+      "hue": "muted"
+    }
+  ],
+  "palette": {
+    "accent": "#1971c2",
+    "ink": "#1e1e1e",
+    "muted": "#868e96"
+  },
+  "notes": [
+    "机械通道由 encode-derive 程序推导;只有 mark 形状/图标/特殊头型/类别来自 LLM overrides"
+  ]
+}

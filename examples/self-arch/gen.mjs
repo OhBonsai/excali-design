@@ -1,92 +1,107 @@
 import fs from 'fs';
-// excali-design 自身架构图(海报型手工布局)。编码:containment(分区) + connection(箭头);
-// hue 3 色编角色:墨=主干流水线 / 蓝=核心渲染器(hero) / 灰=辅助·校验·eval。
-const INK='#1e1e1e', BLUE='#1971c2', GRAY='#868e96';
-const PAPER='#ffffff', LBLUE='#e7f1fb', LGRAY='#f1f3f5', ZBLUE='#f4f9fe', ZGRAY='#f6f7f8';
+// 从 view.ir.json 自由渲染(复刻版):五分区网格 + 正交布线 + 反馈线走边缘。
+// 数据源 = view.ir(hero/tiers/groups/relations);布局/路由是本图的手摆编排。
+const V = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const OUT = process.argv[3];
+const INK='#1e1e1e', BLUE='#1971c2', GRAY='#868e96', PAPER='#ffffff', LBLUE='#cfe3fa';
 const els=[]; let sid=1; const id=p=>`${p}${sid++}`; const rnd=()=>(sid*7919)%999983;
-const reg={}; // id->box for binding
-function bg(w,h){els.push({type:'rectangle',id:'bg',x:0,y:0,width:w,height:h,angle:0,strokeColor:'transparent',backgroundColor:PAPER,fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,roundness:null,opacity:100,seed:rnd(),groupIds:[]});}
-function zone(x,y,w,h,label,stroke,fill,dashed){
-  els.push({type:'rectangle',id:id('z'),x,y,width:w,height:h,angle:0,strokeColor:stroke,backgroundColor:fill,fillStyle:'solid',strokeWidth:1.5,strokeStyle:dashed?'dashed':'solid',roughness:1,roundness:{type:3},opacity:100,seed:rnd(),groupIds:[]});
-  els.push({type:'text',id:id('zt'),x:x+14,y:y+10,width:w-28,height:20,angle:0,text:label,fontSize:15,fontFamily:2,textAlign:'left',verticalAlign:'top',strokeColor:stroke,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
+const base=o=>({angle:0,strokeColor:o.s??INK,backgroundColor:o.f??'transparent',fillStyle:'solid',strokeWidth:o.sw??2,strokeStyle:o.ss??'solid',roughness:o.r??1,opacity:o.op??100,seed:rnd(),groupIds:o.g?[o.g]:[]});
+
+// 手摆位置 + 形状。 [x,y,w,h,shape]  shape: rect|ell|cyl|doc
+const POS = {
+  in:[70,104,150,54,'rect'], clar:[58,196,176,52,'rect'], dir:[70,288,150,52,'rect'], view:[70,380,150,52,'rect'], enc:[70,472,150,52,'rect'],
+  mer:[346,326,372,184,'rect'],
+  arch:[346,544,116,50,'rect'], prot:[474,544,128,50,'rect'], form:[614,544,104,50,'rect'],
+  lib:[58,648,156,98,'cyl'],
+  exc:[800,232,172,124,'doc'], exp:[818,432,154,56,'rect'], art:[812,548,166,72,'ell'],
+  lint:[108,884,150,52,'rect'], floor:[298,884,164,52,'rect'], fix:[502,884,110,52,'rect'], rc:[652,884,162,52,'rect'],
+};
+// 显示用短标签(数据 id 不变);多行用数组
+const LABEL = {
+  in:['输入'], clar:['clarify -> brief'], dir:['data.ir'], view:['view.ir'], enc:['编码'],
+  mer:['渲染器','(按图类型分发)'], arch:['架构/拓扑'], prot:['原型/海报'], form:['公式'],
+  lib:['drawlib 资产'], exc:['.excalidraw','产物'], exp:['导出'], art:['PNG/SVG'],
+  lint:['arch-lint'], floor:['floor-check'], fix:['fix'], rc:['round-check'],
+};
+const reg={};
+const tierOf = id => V.tiers.findIndex(t => t.includes(id));
+function nodeStyle(id){
+  if(id===V.hero) return {s:BLUE,f:LBLUE,sw:3.0,fs:22,op:100};
+  const t=tierOf(id);
+  if(t===1) return {s:INK,f:PAPER,sw:2.4,fs:15,op:100};
+  if(t>=3)  return {s:GRAY,f:PAPER,sw:1.5,fs:13,op:90};
+  return {s:INK,f:PAPER,sw:2,fs:15,op:100};
 }
-function box(key,x,y,w,h,label,{stroke=INK,fill=PAPER,fs=14,sub=null}={}){
-  const bid=id('b');
-  els.push({type:'rectangle',id:bid,x,y,width:w,height:h,angle:0,strokeColor:stroke,backgroundColor:fill,fillStyle:'solid',strokeWidth:2,strokeStyle:'solid',roughness:1,roundness:{type:3},opacity:100,seed:rnd(),groupIds:[],boundElements:[]});
-  // 文本(主 + 可选副)
-  const lines=sub?[label,sub]:[label];
-  const th=lines.length*(fs+5);
-  els.push({type:'text',id:id('t'),x:x+6,y:y+h/2-th/2,width:w-12,height:th,angle:0,text:label,fontSize:fs,fontFamily:2,textAlign:'center',verticalAlign:'middle',strokeColor:stroke,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
-  if(sub) els.push({type:'text',id:id('t'),x:x+6,y:y+h/2-th/2+fs+5,width:w-12,height:fs,angle:0,text:sub,fontSize:11,fontFamily:2,textAlign:'center',verticalAlign:'middle',strokeColor:GRAY,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
-  reg[key]={id:bid,x,y,w,h};
-  return bid;
+function Tlines(cx,cy,lines,{size=15,color=INK}={}){
+  const lh=size+6, total=lines.length*lh, y0=cy-total/2;
+  lines.forEach((ln,i)=>{ const w=ln.length*size*0.62;
+    els.push({type:'text',id:id('t'),x:cx-w/2,y:y0+i*lh,width:w,height:size+4,angle:0,text:ln,fontSize:size,fontFamily:2,textAlign:'center',verticalAlign:'top',strokeColor:color,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
+  });
 }
-function edge(a,b,{color=INK,dashed=false,label=null,head='arrow'}={}){
-  const A=reg[a],B=reg[b]; if(!A||!B) throw new Error('edge '+a+'->'+b);
-  const ac=[A.x+A.w/2,A.y+A.h/2], bc=[B.x+B.w/2,B.y+B.h/2];
-  const dx=bc[0]-ac[0], dy=bc[1]-ac[1];
-  let p0,p1;
-  if(Math.abs(dx)>=Math.abs(dy)){ // 水平为主:右/左缘
-    if(dx>=0){p0=[A.x+A.w,ac[1]];p1=[B.x,bc[1]];} else {p0=[A.x,ac[1]];p1=[B.x+B.w,bc[1]];}
-  } else { // 垂直为主:下/上缘
-    if(dy>=0){p0=[ac[0],A.y+A.h];p1=[bc[0],B.y];} else {p0=[ac[0],A.y];p1=[bc[0],B.y+B.h];}
-  }
+function drawNode(it){
+  const p=POS[it.id]; if(!p){console.error('no pos',it.id);return;}
+  const [x,y,w,h,shape]=p; const st=nodeStyle(it.id); let main;
+  if(shape==='ell'){ main={type:'ellipse',id:id('n'),x,y,width:w,height:h,roundness:null,...base({s:st.s,f:st.f,sw:st.sw,op:st.op})}; els.push(main); }
+  else if(shape==='cyl'){ const g='cyl_'+it.id,eh=h*0.22,G=o=>({...base({...o,g})});
+    main={type:'rectangle',id:id('n'),x,y:y+eh/2,width:w,height:h-eh,roundness:null,...G({s:'transparent',op:st.op})}; els.push(main);
+    els.push({type:'ellipse',id:id('n'),x,y,width:w,height:eh,roundness:null,...G({s:st.s,op:st.op})});
+    els.push({type:'line',id:id('n'),x,y:y+eh/2,width:0,height:h-eh,points:[[0,0],[0,h-eh]],roundness:null,...G({s:st.s,op:st.op})});
+    els.push({type:'line',id:id('n'),x:x+w,y:y+eh/2,width:0,height:h-eh,points:[[0,0],[0,h-eh]],roundness:null,...G({s:st.s,op:st.op})});
+    els.push({type:'ellipse',id:id('n'),x,y:y+h-eh,width:w,height:eh,roundness:null,...G({s:st.s,op:st.op})}); }
+  else if(shape==='doc'){ const pts=[[0,0],[w,0],[w,h-12],[w*0.66,h],[w*0.33,h-12],[0,h]]; main={type:'line',id:id('n'),x,y,width:w,height:h,points:[...pts,[0,0]],roundness:null,...base({s:st.s,f:st.f,sw:st.sw,op:st.op})}; els.push(main); }
+  else { main={type:'rectangle',id:id('n'),x,y,width:w,height:h,roundness:{type:3},...base({s:st.s,f:st.f,sw:st.sw,op:st.op})}; els.push(main); }
+  main.boundElements=[];
+  Tlines(x+w/2, y+h/2, LABEL[it.id]||[it.label], {size:st.fs,color:st.s});
+  reg[it.id]={x,y,w,h,eid:main.id};
+}
+// 锚点:节点某条边上 t 处
+function anchor(rid,side,t=0.5){const b=reg[rid];
+  if(side==='top')return[b.x+b.w*t,b.y]; if(side==='bottom')return[b.x+b.w*t,b.y+b.h];
+  if(side==='left')return[b.x,b.y+b.h*t]; return[b.x+b.w,b.y+b.h*t];}
+// 正交连线(via = 绝对路点)
+function edge(from,to,{fs='right',ts='left',t0=0.5,t1=0.5,via=[],dashed=false,color=INK,sw=2}={}){
+  const A=reg[from],B=reg[to]; if(!A||!B)return;
+  const s=anchor(from,fs,t0), e=anchor(to,ts,t1);
+  const abs=[s,...via,e]; const pts=abs.map(p=>[p[0]-s[0],p[1]-s[1]]);
+  const xs=abs.map(p=>p[0]),ys=abs.map(p=>p[1]);
   const aid=id('a');
-  els.push({type:'arrow',id:aid,x:p0[0],y:p0[1],width:p1[0]-p0[0],height:p1[1]-p0[1],points:[[0,0],[p1[0]-p0[0],p1[1]-p0[1]]],angle:0,strokeColor:color,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:2,strokeStyle:dashed?'dashed':'solid',roughness:1,opacity:100,seed:rnd(),groupIds:[],roundness:null,startArrowhead:null,endArrowhead:head,elbowed:false,startBinding:{elementId:A.id,focus:0,gap:4},endBinding:{elementId:B.id,focus:0,gap:4},boundElements:[]});
-  // 双向登记
-  const ael=els.find(e=>e.id===A.id), bel=els.find(e=>e.id===B.id);
-  ael.boundElements.push({type:'arrow',id:aid}); bel.boundElements.push({type:'arrow',id:aid});
-  if(label){ const mx=(p0[0]+p1[0])/2, my=(p0[1]+p1[1])/2; els.push({type:'text',id:id('t'),x:mx-label.length*3.2,y:my-16,width:label.length*7,height:14,angle:0,text:label,fontSize:11,fontFamily:2,textAlign:'center',verticalAlign:'middle',strokeColor:GRAY,backgroundColor:PAPER,fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]}); }
+  els.push({type:'arrow',id:aid,x:s[0],y:s[1],width:Math.max(...xs)-Math.min(...xs),height:Math.max(...ys)-Math.min(...ys),points:pts,angle:0,strokeColor:color,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:sw,strokeStyle:dashed?'dashed':'solid',roughness:1,opacity:dashed?70:100,seed:rnd(),groupIds:[],roundness:null,startArrowhead:null,endArrowhead:'arrow',elbowed:false,startBinding:{elementId:A.eid,focus:0,gap:4},endBinding:{elementId:B.eid,focus:0,gap:4},boundElements:[]});
+  const ae=els.find(x=>x.id===A.eid),be=els.find(x=>x.id===B.eid);
+  if(ae){ae.boundElements=ae.boundElements||[];ae.boundElements.push({type:'arrow',id:aid});}
+  if(be){be.boundElements=be.boundElements||[];be.boundElements.push({type:'arrow',id:aid});}
+}
+function zone(g){
+  const ms=g.members.map(m=>reg[m]).filter(Boolean); if(!ms.length)return;
+  const x0=Math.min(...ms.map(b=>b.x))-18, y0=Math.min(...ms.map(b=>b.y))-34, x1=Math.max(...ms.map(b=>b.x+b.w))+18, y1=Math.max(...ms.map(b=>b.y+b.h))+16;
+  els.splice(1,0,{type:'rectangle',id:id('z'),x:x0,y:y0,width:x1-x0,height:y1-y0,roundness:{type:3},...base({s:GRAY,ss:'dashed',sw:1.4,op:60})}); // 背景(idx0)之后、节点之前
+  els.push({type:'text',id:id('t'),x:x0+16,y:y0+8,width:200,height:22,angle:0,text:g.name,fontSize:17,fontFamily:2,textAlign:'left',verticalAlign:'top',strokeColor:INK,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
 }
 
-const W=1520,H=1060; bg(W,H);
-// 标题
-els.push({type:'text',id:id('t'),x:48,y:28,width:900,height:30,angle:0,text:'excali-design 架构:一条「需求 -> 信息 -> 编码 -> 渲染 -> 产物」的流水线',fontSize:22,fontFamily:2,textAlign:'left',verticalAlign:'top',strokeColor:INK,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
-els.push({type:'text',id:id('t'),x:48,y:62,width:900,height:20,angle:0,text:'自由信息可视化路径(原型/固定 mermaid 数据已确定,走各自渲染);蓝=核心渲染器,灰=辅助·校验·评测',fontSize:12,fontFamily:2,textAlign:'left',verticalAlign:'top',strokeColor:GRAY,backgroundColor:'transparent',fillStyle:'solid',strokeWidth:1,strokeStyle:'solid',roughness:0,opacity:100,seed:rnd(),groupIds:[]});
+const W=1040,H=1012;
+els.push({type:'rectangle',id:'bg',x:0,y:0,width:W,height:H,roundness:null,...base({s:'transparent',f:PAPER,sw:1,r:0})});
 
-// ── 上游流水线(墨,L→R)──
-const Y1=110, BH=64;
-box('in',   48, Y1, 150, BH, '输入', {sub:'需求 + context'});
-box('clar', 250,Y1, 150, BH, 'clarify', {sub:'-> brief'});
-box('dir',  452,Y1, 168, BH, 'data.ir', {sub:'scope/预算 · check'});
-box('enc',  672,Y1, 178, BH, '编码决策', {sub:'encoding · schema'});
+V.items.forEach(drawNode);
+(V.groups||[]).forEach(zone);
 
-// ── 核心渲染器 hero 区(蓝 frame)──
-zone(252, 250, 660, 300, 'dispatch · 渲染器(按图类型路由)', BLUE, ZBLUE, false);
-box('mer', 276, 300, 612, 70, 'Mermaid 模板渲染器', {stroke:BLUE,fill:LBLUE,sub:'flowchart / sequence / state / class / ER / gantt / mindmap'});
-box('arch',276, 392, 295, 64, '架构 / 拓扑', {stroke:BLUE,fill:LBLUE,sub:'arch-layout(elkjs) + arch-connect'});
-box('prot',592, 392, 296, 64, '原型 / 海报', {stroke:BLUE,fill:LBLUE,sub:'html -> excalidraw'});
-box('form',276, 470, 295, 60, '公式', {stroke:BLUE,fill:LBLUE,sub:'render-formula (LaTeX->SVG)'});
-box('chart',592,470, 296, 60, '图表', {stroke:BLUE,fill:LBLUE,sub:'忠实编码 + faithfulness'});
-
-// ── 资产(墨,喂渲染器)──
-box('lib', 40, 360, 170, 96, 'drawlib 资产', {sub:'11 库 · ~402 件'});
-
-// ── 产物 + 导出(墨,右)──
-box('exc', 980, 300, 175, 70, '.excalidraw', {sub:'产物(源文件)'});
-box('exp', 980, 408, 175, 70, '导出', {sub:'svg-export / playwright'});
-box('art', 980, 516, 175, 60, 'PNG / SVG', {});
-
-// ── 质量门(灰 frame,作用于产物)──
-zone(252, 600, 660, 110, '质量门(查脏不查斜;改布局不被路由污染)', GRAY, ZGRAY, false);
-box('lint',276, 642, 200, 52, 'arch-lint', {stroke:GRAY,sub:'重叠/穿框/绕背/溢出'});
-box('floor',492,642, 200, 52, 'floor-check', {stroke:GRAY,sub:'眯眼/容量/配色'});
-box('fix', 708,642, 180, 52, 'fix', {stroke:GRAY,sub:'机械自动修'});
-
-// ── eval(灰虚线 frame,meta)──
-zone(980, 600, 460, 110, 'eval(评测)', GRAY, ZGRAY, true);
-box('rc',  1004,642, 200, 52, 'round-check', {stroke:GRAY,sub:'确定性回归(本机)'});
-box('ab',  1220,642, 196, 52, 'run.mjs A/B', {stroke:GRAY,sub:'v0.5 vs v0.6 模型评测'});
-
-// ── 连接(数据流)──
-edge('in','clar'); edge('clar','dir'); edge('dir','enc');
-edge('enc','mer',{label:'按类型路由'});          // 进入 hero
-edge('lib','arch',{label:'资产复用'});            // drawlib 喂渲染器
-edge('mer','exc',{label:'产出'});
-edge('exc','exp'); edge('exp','art');
-edge('exc','floor',{color:GRAY,dashed:true,label:'自检'});  // 产物 → 质量门
-edge('fix','exc',{color:GRAY,dashed:true,label:'回写'});    // 修复回写
+// 显式正交路由表(键 = from>to)
+const R = {
+  'in>clar':{fs:'bottom',ts:'top'}, 'clar>dir':{fs:'bottom',ts:'top'}, 'dir>view':{fs:'bottom',ts:'top'}, 'view>enc':{fs:'bottom',ts:'top'},
+  'enc>mer':{fs:'right',ts:'left',via:[[300,498],[300,418]]},
+  'mer>exc':{fs:'right',t0:0.4,ts:'left',via:[[760,400],[760,294]]},
+  'exc>exp':{fs:'bottom',ts:'top',via:[[885,394],[895,394]]},
+  'exp>art':{fs:'bottom',ts:'top'},
+  // 依赖/反馈(虚线,走边缘)
+  'lib>mer':{fs:'right',ts:'bottom',t1:0.2,via:[[420,697]],dashed:true,color:GRAY,sw:1.7},
+  'rc>mer': {fs:'top',ts:'bottom',t1:0.62,via:[[733,696],[569,696]],dashed:true,color:GRAY,sw:1.7},
+  'exc>floor':{fs:'bottom',t0:0.4,ts:'top',via:[[861,838],[380,838]],dashed:true,color:GRAY,sw:1.7},
+  'exc>lint': {fs:'bottom',t0:0.62,ts:'top',via:[[903,846],[183,846]],dashed:true,color:GRAY,sw:1.7},
+  'fix>exc':  {fs:'top',t1:0.78,ts:'bottom',via:[[557,854],[920,854]],dashed:true,color:GRAY,sw:1.7},
+};
+for(const r of (V.relations||[])){
+  const k=`${r.from}>${r.to}`; const o=R[k]||{};
+  edge(r.from,r.to,{dashed:r.kind==='dependency',color:r.kind==='dependency'?GRAY:INK, ...o});
+}
 
 const doc={type:'excalidraw',version:2,source:'excali-design',elements:els,appState:{viewBackgroundColor:PAPER,gridSize:20}};
-fs.writeFileSync(process.argv[2],JSON.stringify(doc,null,2));
-console.log(`arch: ${els.length} els → ${process.argv[2]}`);
+fs.writeFileSync(OUT,JSON.stringify(doc,null,2));
+console.log(`replica: ${els.length} els, hero=${V.hero}, items=${V.items.length} → ${OUT}`);

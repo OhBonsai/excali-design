@@ -1,0 +1,9 @@
+{
+  "_note": "LLM 只需给语义覆盖:每个角色用什么形状(in/art=起止→椭圆,lib=存储→圆柱,exc=文件→文档形)。机械通道(tier 梯度/hero/flow-dep/containment)全由 encode-derive 程序填。",
+  "marks": {
+    "in":  { "mark": "ellipse" },
+    "art": { "mark": "ellipse" },
+    "lib": { "mark": "cylinder" },
+    "exc": { "mark": "document" }
+  }
+}
